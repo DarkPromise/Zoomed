@@ -89,28 +89,6 @@ private:
 	Light lights[1];
 	bool LightsEnabled;
 
-	//**************************************\\    Tilemap(s)
-	CMap * m_TileMap;
-	void RenderTileMap(CMap * mapToRender);
-	int tileOffset_x, tileOffset_y;
-
-	CMap* m_cRearMap;
-	void RenderRearTileMap();
-	int rearWallOffset_x, rearWallOffset_y;
-	int rearWallTileOffset_x, rearWallTileOffset_y;
-	int rearWallFineOffset_x, rearWallFineOffset_y;
-
-	CMap* m_currMapLayer1;
-	CMap* m_currMapLayer2;
-
-	CMap* m_currRearMap;
-
-	//Should be in Map Loader Class
-	std::vector<CMap*> m_MapList;
-	std::vector<GameObject*> m_tileList;
-
-	//***************************************\\
-
 	const static int m_window_deadzone = 100;
 	const static int m_window_width = 1024;
 	const static int m_window_height = 800;

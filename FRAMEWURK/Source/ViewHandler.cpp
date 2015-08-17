@@ -14,8 +14,6 @@ ViewHandler::ViewHandler(ModelHandler * theModel)
 	}
 
 	TimeToExit = 0.0;
-	tileOffset_x = 0;
-	tileOffset_y = 0;
 
 	std::cout << "View Handler Initialized" << std::endl;
 }
@@ -468,26 +466,6 @@ void ViewHandler::RenderScene()
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
-}
-
-void ViewHandler::RenderTileMap(CMap * mapToRender)
-{
-	int m = 0;
-	for(int i = 0; i < mapToRender->GetNumOfTiles_Height(); i++)
-	{
-		for(int k = 0; k < mapToRender->GetNumOfTiles_Width()+1; k++)
-		{
-			m = tileOffset_x + k;
-			if((tileOffset_x+k) >= mapToRender->getNumOfTiles_MapWidth())
-			{
-				break;
-			}
-			if(mapToRender->theScreenMap[i][m] != -1)
-			{
-				RenderTileOnScreen(m_meshList[GEO_BG_SPRITESHEET],false, mapToRender->theScreenMap[i][m], 32.f, (float)k*mapToRender->GetTileSize()-this->theModel->getPlayer()->GetMapFineOffset_x() , (float)575-i*mapToRender->GetTileSize());
-			}
-		}
-	}
 }
 
 bool ViewHandler::isQuitGame()
