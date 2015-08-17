@@ -21,6 +21,7 @@
 #include "shader.hpp"
 #include "Map.h"
 #include "Mouse.h"
+#include "Keyboard.h"
 
 enum VIEW_TYPE
 {
@@ -74,6 +75,7 @@ public:
 	MS modelStack;
 
 	Mouse MouseInfo;
+	Keyboard KeyboardInfo;
 private:
 	GLFWwindow* m_window;
 	ModelHandler * theModel;

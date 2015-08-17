@@ -97,12 +97,19 @@ void ControlHandler::MouseUpdate()
 
 void ControlHandler::KeyboardUpdate()
 {
-	if(theView->IsKeyPressed('5'))
+	static bool toggleFullScreen = false;
+
+	if(theView->IsKeyPressed('5') && !toggleFullScreen)
 	{
-		this->theView->toggleFullScreen();
+		toggleFullScreen = true;
+		theView->toggleFullScreen();
+	}
+	else if(!theView->IsKeyPressed('5') && toggleFullScreen)
+	{
+		toggleFullScreen = false;
 	}
 
-	if(theView->IsKeyPressed('W') || theView->IsKeyPressed(VK_SPACE))
+	if(theView->IsKeyPressed('W') || theView->IsKeyPressed(GLFW_KEY_SPACE))
 	{
 		if(theModel->m_status == STATE_GAMESTART)
 		{

@@ -240,19 +240,19 @@ BOOL ViewHandler::CreateGLWindow(char * title, int m_width, int m_height, int bi
 
 void ViewHandler::toggleFullScreen()
 {
-	if(m_bFullScreen)
+	if(!m_bFullScreen)
 	{
+		m_bFullScreen = true;
 		glfwDestroyWindow(m_window);
 		std::cout << "Destroyed Window" << std::endl;
 		CreateGLWindow("Full Screen",m_window_width,m_window_height,16);
-		m_bFullScreen = false;
 	}
 	else
 	{
+		m_bFullScreen = false;
 		glfwDestroyWindow(m_window);
 		std::cout << "Destroyed Window" << std::endl;
 		CreateGLWindow("Windowed Size",m_window_width,m_window_height,16);
-		m_bFullScreen = true;
 	}
 }
 
