@@ -72,7 +72,7 @@ void ControlHandler::MouseUpdate()
 		if(theModel->m_status == STATE_MENU)
 		{
 			//Check is mouse click is within any GUI bounding box(click options for GUIBUTTON::TYPE type)
-			for(int i = 0; i < theModel->m_buttonList.size(); ++i)
+			for(unsigned int i = 0; i < theModel->m_buttonList.size(); ++i)
 			{
 				if((theModel->m_buttonList[i]->getBoundingBox().Min.x <= theView->MouseInfo.x)  && (theView->MouseInfo.x <= theModel->m_buttonList[i]->getBoundingBox().Max.x) &&
 					(theModel->m_buttonList[i]->getBoundingBox().Min.y >= theView->MouseInfo.y)  && (theView->MouseInfo.y >= theModel->m_buttonList[i]->getBoundingBox().Max.y))

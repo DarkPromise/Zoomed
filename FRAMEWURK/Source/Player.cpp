@@ -66,70 +66,7 @@ void Player::accelerateVertical(Vector3 target_speed, float max_speed)
 
 void Player::move(double dt,Game theEnvironment)
 {
-	Vector3 speedH = Vector3(0,0,1);
-	Vector3 speedV = Vector3(0,0,1);
-
-	if(controls.right)
-	{
-		m_playerDirection.Set(1,0,0);
-		speedH += m_playerDirection;
-	}
-	if(controls.left)
-	{
-		m_playerDirection.Set(-1,0,0);
-		speedH += m_playerDirection;
-	}
-	if(controls.up)
-	{
-		m_playerDirection.Set(0,1,0);
-		speedV += m_playerDirection * 2;
-	}
-	if(controls.down)
-	{
-		m_playerDirection.Set(0,-1,0);
-		speedV += m_playerDirection * 2;
-	}
-
-	if(controls.jump)
-	{
-		if(on_ground)
-		{
-			on_ground = false;
-
-			Vector3 jumpSpeed = getSpeed();
-			if(jumpSpeed.y >= -0.5 * 10.0)
-			{
-				jumpSpeed.y = PLAYER_JUMP_HEIGHT;
-				setSpeed(jumpSpeed);
-			}
-		}
-		else if(in_liquid)
-		{
-			//Do Stuff
-		}
-		else if(is_climbing)
-		{
-			//Do Stuff2
-		}
-	}
-
-	speedH = speedH.Normalize() * PLAYER_WALK_SPEED;
 	
-	float accH = 0;
-	float accV = 0;
-
-	if((!on_ground && !is_climbing && !in_liquid))
-	{
-		accH = 2 * 10 * 10 * dt; //2x PlayerSpeed
-		accV = 0;
-	}
-	else
-	{
-		accH = accV = 3 * 10 * 10 * dt; //3x playerSpeed
-	}
-
-	accelerateHorizontal(speedH, accH * 1);
-	accelerateVertical(speedV, accV * 1);
 }
 
 
@@ -159,31 +96,5 @@ int Player::GetMapFineOffset_y(void)
 
 void Player::ConstraintPlayer(const int left, const int right, const int top, const int bottom, float time)
 {
-	if (this->m_playerPos.x < left)
-	{
-		this->m_playerPos.x = left;
-		mapOffset_x =  mapOffset_x - (int)(4.f * time);
-		if (mapOffset_x < 0)
-		{
-			mapOffset_x = 0;
-		}
-	}
-	else if (this->m_playerPos.x > right)
-	{
-		this->m_playerPos.x = right;
-		mapOffset_x =  mapOffset_x + (int) (4.f * time);
-		if (mapOffset_x > 1024)
-		{
-			mapOffset_x = 1024;
-		}
-	}
-
-	if (this->m_playerPos.y < top)
-	{
-		this->m_playerPos.y = top;
-	}
-	else if (this->m_playerPos.y > bottom)
-	{
-		this->m_playerPos.y = bottom;
-	}
+	
 }
