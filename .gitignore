@@ -1,5 +1,7 @@
+#Folders
 Debug/
 Release/
+ipch/
 
 # Compiled Object files
 *.slo
@@ -27,3 +29,15 @@ Release/
 *.exe
 *.out
 *.app
+
+#Filters
+*.filters
+*.vcxproj
+
+#Stuff
+*.ilk
+*pdb
+*.opensdf
+*.sdf
+*.suo
+*.user
