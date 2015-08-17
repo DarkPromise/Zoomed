@@ -1,4 +1,4 @@
-#Folders
+# Folders
 Debug/
 Release/
 ipch/
@@ -30,11 +30,11 @@ ipch/
 *.out
 *.app
 
-#Filters
+# Filters
 *.filters
 *.vcxproj
 
-#Stuff
+# Stuff
 *.ilk
 *.pdb
 *.opensdf
