@@ -15,6 +15,8 @@ ViewHandler::ViewHandler(ModelHandler * theModel)
 
 	m_bFullScreen = false;
 	TimeToExit = 0.0;
+	tileOffset_x = 0;
+	tileOffset_y = 0;
 
 	std::cout << "View Handler Initialized" << std::endl;
 }
@@ -175,6 +177,9 @@ BOOL ViewHandler::InitLightsInfo()
 BOOL ViewHandler::InitObjects() //Object textures, etc...
 {
 	m_meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000);
+
+	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",40,54);
+	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Test32x32TileSheet.tga");
 
 	LightsEnabled = false;
 	return true;
@@ -463,6 +468,26 @@ void ViewHandler::RenderGameTextOnScreen(Mesh* mesh, std::string text, Color col
 	glEnable(GL_DEPTH_TEST);
 }
 
+void ViewHandler::RenderTileMap(CMap * mapToRender)
+{
+	int m = 0;
+	for(int i = 0; i < mapToRender->GetNumOfTiles_Height(); i++)
+	{
+		for(int k = 0; k < mapToRender->GetNumOfTiles_Width()+1; k++)
+		{
+			m = tileOffset_x + k;
+			if((tileOffset_x+k) >= mapToRender->getNumOfTiles_MapWidth())
+			{
+				break;
+			}
+			if(mapToRender->backgroundData[i][m] != -1)
+			{
+				RenderTileOnScreen(m_meshList[GEO_MAINMENU_TILEMAP],false, mapToRender->backgroundData[i][m], 32.f, (float)k*mapToRender->GetTileSize()-this->theModel->getPlayer()->GetMapFineOffset_x() , (float)575-i*mapToRender->GetTileSize());
+			}
+		}
+	}
+}
+
 void ViewHandler::RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -489,6 +514,8 @@ void ViewHandler::RenderScene()
 		);
 
 	RenderMesh(m_meshList[GEO_AXES],false,false);
+
+	RenderTileMap(theModel->m_mapList[0]);
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

@@ -21,7 +21,6 @@
 #include "shader.hpp"
 #include "Map.h"
 #include "Mouse.h"
-#include "Keyboard.h"
 
 enum VIEW_TYPE
 {
@@ -55,6 +54,7 @@ public:
 	void RenderTile(Mesh* mesh, int TileID);
 	void RenderTileOnScreen(Mesh * mesh, bool enableLight, int TileID, float size, float x, float y);
 	void RenderLevel(int levelID);
+	void RenderTileMap(CMap * mapToRender);
 
 	void Update(double dt);
 	void Exit();
@@ -75,12 +75,13 @@ public:
 	MS modelStack;
 
 	Mouse MouseInfo;
-	Keyboard KeyboardInfo;
 private:
 	GLFWwindow* m_window;
 	ModelHandler * theModel;
 
 	std::vector<unsigned char> m_heightMap;
+
+	int tileOffset_x, tileOffset_y;
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;

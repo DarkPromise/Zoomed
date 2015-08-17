@@ -1,12 +1,13 @@
 #ifndef MODEL_HANDLER_H
 #define MODEL_HANDLER_H
 
+#include <iostream>
+
 #include "Camera.h"
 #include "Game.h"
 #include "Player.h"
 #include "MeshBuilder.h"
-
-#include <iostream>
+#include "Map.h"
 
 /************************************************
 
@@ -44,6 +45,7 @@ public:
 
 	vector<GameObject*> m_buttonList; //GUI Class <- Create
 	vector<Mesh*> m_boundingBoxList; //Keep track of bounding boxes in model
+	vector<CMap*> m_mapList;
 private:
 	Player  *player;
 	Camera camera;
