@@ -56,7 +56,7 @@ void resize_callback(GLFWwindow* window, int w, int h)
 
 bool ViewHandler::IsKeyPressed(unsigned short key)
 {
-   return ((GetAsyncKeyState(key) & 0x8001) != 0);
+	return ((GetAsyncKeyState(key) & 0x8001) != 0);
 }
 
 bool ViewHandler::IsButtonPressed(unsigned int button)
@@ -238,24 +238,8 @@ BOOL ViewHandler::CreateGLWindow(char * title, int m_width, int m_height, int bi
 	return TRUE;
 }
 
-void ViewHandler::setFullScreen(bool fs)
+void ViewHandler::toggleFullScreen()
 {
-	this->m_bFullScreen = fs;
-}
-
-void ViewHandler::Update(double dt)
-{
-	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
-
-	if(ViewHandler::IsKeyPressed('1'))
-		glEnable(GL_CULL_FACE);
-	if(ViewHandler::IsKeyPressed('2'))
-		glDisable(GL_CULL_FACE);
-	if(ViewHandler::IsKeyPressed('3'))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	if(ViewHandler::IsKeyPressed('4'))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
 	if(m_bFullScreen)
 	{
 		glfwDestroyWindow(m_window);
@@ -270,6 +254,20 @@ void ViewHandler::Update(double dt)
 		CreateGLWindow("Windowed Size",m_window_width,m_window_height,16);
 		m_bFullScreen = true;
 	}
+}
+
+void ViewHandler::Update(double dt)
+{
+	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
+
+	if(ViewHandler::IsKeyPressed('1'))
+		glEnable(GL_CULL_FACE);
+	if(ViewHandler::IsKeyPressed('2'))
+		glDisable(GL_CULL_FACE);
+	if(ViewHandler::IsKeyPressed('3'))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	if(ViewHandler::IsKeyPressed('4'))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	this->theModel->Update(dt);
 }

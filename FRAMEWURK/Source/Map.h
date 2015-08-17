@@ -7,57 +7,86 @@
 #include <string>
 #include <sstream>
 
-enum MAP_ID
+enum MAP_ID // ID for levels
 {
-	MAP_LEVEL1_LAYER1 = 0,
-	MAP_LEVEL1_LAYER2,
-	MAP_LEVEL2_LAYER1,
-	MAP_LEVEL2_LAYER2,
+	MAP_MAIN_MENU = 0,
 
-	MAP_INSTRUCTIONS = 31,
+	MAP_INSTRUCTIONS,
+
+	MAP_TOTAL = MAP_INSTRUCTIONS
+};
+
+enum TILESET_ID // ID for tileset to render
+{
+	TILESET_MAIN_MENU = 0,
+
+	TILESET_NIGHT_ONE,
+	TILESET_NIGHT_TWO,
+	TILESET_NIGHT_THREE,
+	TILESET_NIGHT_FOUR,
+
+	TILESET_TOTAL = TILESET_NIGHT_FOUR
 };
 
 class CMap
 {
 public:
-	CMap(void);
-	~CMap(void);
+	CMap(void);		// Default constructor
+	~CMap(void);	// Destructor
 
-	void Init(const int theScreen_Height, const int theScreen_Width, const int theNumOfTiles_Height, const int theNumOfTiles_Width, const int theMap_Height, const int theMap_Width, const int theTileSize= 32);
-	bool LoadMap(const std::string mapName);
-	int GetNumOfTiles_Height(void);
-	int GetNumOfTiles_Width(void);
-	int GetTileSize(void);
+	void Init
+		( const int theScreen_Height		// Height of the screen
+		, const int theScreen_Width			// Width of the screen
+		, const int theNumOfTiles_Height	// Number of rows ( height of screen / tilesize )
+		, const int theNumOfTiles_Width		// Number of columns ( width of screen / tilesize )
+		, const int theMap_Height			// Height of the map
+		, const int theMap_Width			// Height of the with
+		, const int theTileSize				// Tilesize
+		, const TILESET_ID tileset			// What tileset is the map using
+		);
 
-	int getNumOfTiles_MapHeight(void);
-	int getNumOfTiles_MapWidth(void);
+	bool LoadMap
+		( const std::string foregroundName	// Foreground Layer -> Things in front of the player
+		, const std::string sceneryName		// Scenery Layer -> Things with transparency on top of background, behind player
+		, const std::string backgroundName	// Background Layer -> The base. Does not have transparency
+		, const std::string collisionName	// Collision Layer -> Layer used when updating enemies/player. Stores ID for interactions 
+		);
 
-	std::vector<std::vector<int> > theScreenMap;
+	int GetNumOfTiles_Height(void);	// Get number of tiles for height of the screen
+	int GetNumOfTiles_Width(void);	// Get number of tiles for width of the screen
 
-	void setMapID(MAP_ID mapid)
-	{
-		this->m_iMapID = mapid;
-	}
+	int getNumOfTiles_MapHeight(void);	// Get number of tiles for height of the map
+	int getNumOfTiles_MapWidth(void);	// Get number of tiles for height of the map
 
-	int getMapID()
-	{
-		return this->m_iMapID;
-	}
+	int GetTileSize(void);	// Get tilesize of the map
+
+	void setMapID(MAP_ID mapID);	// Set Map ID
+	int getMapID();					// Get Map ID
+
+	std::vector<std::vector<int> > foregroundData;	// 2D vector to store foreground values
+	std::vector<std::vector<int> > collisionData;	// 2D vector to store collision values
+	std::vector<std::vector<int> > sceneryData;		// 2D vector to store scenery values
+	std::vector<std::vector<int> > backgroundData;	// 2D vector to store background values
+
 private:
-	int theScreen_Height;
-	int theScreen_Width;
-	int theNumOfTiles_Height;
-	int theNumOfTiles_Width;
-	int theTileSize;
+	int theScreen_Height;		// Stores height of the screen [px]
+	int theScreen_Width;		// Stores width of the screen [px]
+	int theNumOfTiles_Height;	// Stores number of columns in the screen
+	int theNumOfTiles_Width;	// Stores number of rows in the screen
+	int theTileSize;			// Stores tile size
+	TILESET_ID theTileset;			// Stores ID of tileset
 
-	int theMap_Height;
-	int theMap_Width;
-	int theNumOfTiles_MapHeight;
-	int theNumOfTiles_MapWidth;
+	int theMap_Height;				// Stores height of the map [px]
+	int theMap_Width;				// Stores width of the map [px]
+	int theNumOfTiles_MapHeight;	// Stores number of columns in the map
+	int theNumOfTiles_MapWidth;		// Stores number of rows in the map
 
-	int m_iMapID;
+	MAP_ID MapID;	// Stores ID of current map
 
-	bool LoadFile(const std::string mapName);
+	bool LoadCollisionMap(const std::string fileName);	// Loads values from collision csv into vector
+	bool LoadBackgroundMap(const std::string fileName);	// Loads values from background csv into vector
+	bool LoadSceneryMap(const std::string fileName);	// Loads values from scenery csv into vector
+	bool LoadForegroundMap(const std::string fileName);	// Loads values from foreground csv into vector
 };
 
 #endif

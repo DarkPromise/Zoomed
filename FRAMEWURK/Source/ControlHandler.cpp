@@ -97,9 +97,9 @@ void ControlHandler::MouseUpdate()
 
 void ControlHandler::KeyboardUpdate()
 {
-	if(theView->IsKeyPressed('5')
+	if(theView->IsKeyPressed('5'))
 	{
-		this->theView->setFullScreen(true);
+		this->theView->toggleFullScreen();
 	}
 
 	if(theView->IsKeyPressed('W') || theView->IsKeyPressed(VK_SPACE))

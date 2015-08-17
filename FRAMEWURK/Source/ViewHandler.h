@@ -40,7 +40,7 @@ public:
 	BOOL InitLightsInfo();
 	BOOL InitObjects();
 
-	void setFullScreen(bool fs);
+	void toggleFullScreen();
 
 	static bool keys[255];
 	static bool IsKeyPressed(unsigned short key);
