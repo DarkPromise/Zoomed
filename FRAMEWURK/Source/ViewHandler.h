@@ -40,6 +40,8 @@ public:
 	BOOL InitLightsInfo();
 	BOOL InitObjects();
 
+	void setFullScreen(bool fs);
+
 	static bool keys[255];
 	static bool IsKeyPressed(unsigned short key);
 	static bool IsButtonPressed(unsigned int);
@@ -48,12 +50,9 @@ public:
 	virtual void RenderScene();
 	void RenderMesh(Mesh *mesh, bool enableLight, bool enableFog);
 	void Render2DMesh(Mesh *mesh, bool enableLight, bool enableFog, float sizeX, float sizeY, float transX, float transY); //on screen
-
 	void RenderGameTextOnScreen(Mesh * mesh, std::string text, Color color, float size, float x, float y);
-
 	void RenderTile(Mesh* mesh, int TileID);
 	void RenderTileOnScreen(Mesh * mesh, bool enableLight, int TileID, float size, float x, float y);
-
 	void RenderLevel(int levelID);
 
 	void Update(double dt);
@@ -96,6 +95,8 @@ private:
 	int m_width;
 	int m_height;
 	
+	bool m_bFullScreen;
+
 	float FPS;
 	double TimeToExit;
 

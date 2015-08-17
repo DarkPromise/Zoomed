@@ -13,6 +13,7 @@ ViewHandler::ViewHandler(ModelHandler * theModel)
 		keys[i] = false;
 	}
 
+	m_bFullScreen = false;
 	TimeToExit = 0.0;
 
 	std::cout << "View Handler Initialized" << std::endl;
@@ -193,7 +194,14 @@ BOOL ViewHandler::CreateGLWindow(char * title, int m_width, int m_height, int bi
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //Request a specific OpenGL version
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
-	m_window = glfwCreateWindow(m_width, m_height, title , NULL, NULL);
+	if(m_bFullScreen)
+	{
+		m_window = glfwCreateWindow(m_width, m_height, title , glfwGetPrimaryMonitor(), NULL);
+	}
+	else
+	{
+		m_window = glfwCreateWindow(m_width, m_height, title , NULL, NULL);
+	}
 
 	if(!m_window)
 	{
@@ -230,6 +238,11 @@ BOOL ViewHandler::CreateGLWindow(char * title, int m_width, int m_height, int bi
 	return TRUE;
 }
 
+void ViewHandler::setFullScreen(bool fs)
+{
+	this->m_bFullScreen = fs;
+}
+
 void ViewHandler::Update(double dt)
 {
 	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
@@ -242,6 +255,21 @@ void ViewHandler::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	if(ViewHandler::IsKeyPressed('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	if(m_bFullScreen)
+	{
+		glfwDestroyWindow(m_window);
+		std::cout << "Destroyed Window" << std::endl;
+		CreateGLWindow("Full Screen",m_window_width,m_window_height,16);
+		m_bFullScreen = false;
+	}
+	else
+	{
+		glfwDestroyWindow(m_window);
+		std::cout << "Destroyed Window" << std::endl;
+		CreateGLWindow("Windowed Size",m_window_width,m_window_height,16);
+		m_bFullScreen = true;
+	}
 
 	this->theModel->Update(dt);
 }

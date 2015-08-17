@@ -97,6 +97,26 @@ void ControlHandler::MouseUpdate()
 
 void ControlHandler::KeyboardUpdate()
 {
+	if(ViewHandler::IsKeyPressed('5') && !ViewHandler::IsKeyPressed('5'))
+	{
+		if(m_bFullScreen)
+		{
+			glfwDestroyWindow(m_window);
+			std::cout << "Destroyed Window" << std::endl;
+			CreateGLWindow("Full Screen",m_window_width,m_window_height,16);
+			m_bFullScreen = false;
+			toggle = 0.0;
+		}
+		else
+		{
+			glfwDestroyWindow(m_window);
+			std::cout << "Destroyed Window" << std::endl;
+			CreateGLWindow("Windowed Size",m_window_width,m_window_height,16);
+			m_bFullScreen = true;
+			toggle = 0.0;
+		}
+	}
+
 	if(theView->IsKeyPressed('W') || theView->IsKeyPressed(VK_SPACE))
 	{
 		if(theModel->m_status == STATE_GAMESTART)
