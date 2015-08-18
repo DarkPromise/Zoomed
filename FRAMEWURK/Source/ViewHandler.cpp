@@ -178,8 +178,8 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 {
 	m_meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000);
 
-	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",40,54);
-	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Test32x32TileSheet.tga");
+	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
+	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
 	LightsEnabled = false;
 	return true;
@@ -482,7 +482,8 @@ void ViewHandler::RenderTileMap(CMap * mapToRender)
 			}
 			if(mapToRender->backgroundData[i][m] != -1)
 			{
-				RenderTileOnScreen(m_meshList[GEO_MAINMENU_TILEMAP],false, mapToRender->backgroundData[i][m], 32.f, (float)k*mapToRender->GetTileSize()-this->theModel->getPlayer()->GetMapFineOffset_x() , (float)575-i*mapToRender->GetTileSize());
+				std::cout << mapToRender->backgroundData[i][m] << std::endl;
+				RenderTileOnScreen(m_meshList[GEO_MAINMENU_TILEMAP],false, mapToRender->backgroundData[i][m], 32.f, (float)k*mapToRender->GetTileSize()-this->theModel->getPlayer()->GetMapFineOffset_x() , (float)607-i*mapToRender->GetTileSize());
 			}
 		}
 	}

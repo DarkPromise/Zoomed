@@ -24,7 +24,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	m_status = STATE_MENU;
 
 	CMap * newMap = new CMap();
-	newMap->Init( 800, 1024, 25, 32, 800, 1024,32,TILESET_MAIN_MENU);
+	newMap->Init( 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU);
 	newMap->setMapID(MAP_MAIN_MENU);
 	newMap->LoadMap("MapData//MainMenu.csv","MapData//MainMenu.csv","MapData//MainMenu.csv","MapData//MainMenu.csv");
 	m_mapList.push_back(newMap);
