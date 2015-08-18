@@ -1076,11 +1076,16 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 			}
 			else
 			{
-				u1 = numRow * texWidth;
-				u2 = (numRow + 1) * texWidth;
+				float meow = 0;
+				
+				meow = (2.f*32.f + 1.f)/(2.f*1024.f);
+				std::cout << meow << std::endl;
 
-				v1 = 1 - (numCol) * texHeight;
-				v2 = 1 - (numCol + 1) * texHeight;
+				u1 = (numRow * texWidth) + meow;
+				u2 = ((numRow + 1) * texWidth) - meow;
+
+				v1 = (1 - (numCol) * texHeight) - meow;
+				v2 = (1 - (numCol + 1) * texHeight) + meow;
 			}
 
 			//32 is tilesize
