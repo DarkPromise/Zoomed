@@ -755,6 +755,7 @@ Mesh* MeshBuilder::GenerateSpriteSheet(const std::string &meshName, unsigned num
 		{
 			float u1 = (float)j * width;
 			float v1 = 1.f - height - (float)i * height;
+
 			v.pos.Set(-0.5f, -0.5f, 0);
 			v.texCoord.Set(u1, v1);
 			vertex_buffer_data.push_back(v);
@@ -1039,6 +1040,81 @@ Mesh* MeshBuilder::GenerateBoundingBox(const std::string &meshName, Vector3 Max,
 
 	mesh->indexSize = index_buffer_data.size();
 	mesh->mode = Mesh::DRAW_LINES;
+
+	return mesh;
+}
+
+Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std::vector<std::vector<int> > map, unsigned row, unsigned col)
+{
+	Vertex v;
+	std::vector<Vertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+	
+	float width = 1.f / col;
+	float height = 1.f / row;
+
+	float u1, u2;
+	int offset = 0;
+
+	float tilesHeight = 32;
+	float tilesWidth = 32;
+
+	for (unsigned i = 0; i < map.size(); i++)
+	{
+		for(unsigned k = 0; k < map[i].size(); k++)
+		{
+			int index1 = map[i][k];
+
+			u1 = (float)index1 * width;
+			u2 = (float)(index1 + 1) * height;
+
+			std::cout << "u1u2 : (" << u1 << "," << u2 << ")" << std::endl;
+
+			// Vertex #1
+			v.pos.Set(static_cast<float>(k*32), 800 - (static_cast<float>(i*32) - 32), 0);
+			v.color = color;
+			v.normal.Set(0, 0, 1);
+			v.texCoord.Set(u1, u2);
+			vertex_buffer_data.push_back(v);
+			// Vertex #2
+			v.pos.Set( static_cast<float>((k*32) +32), 800 - (static_cast<float>(i*32) - 32), 0);
+			v.color = color;
+			v.normal.Set(0, 0, 1);
+			v.texCoord.Set(u1 + width, u2);
+			vertex_buffer_data.push_back(v);
+			// Vertex #3
+			v.pos.Set(static_cast<float>((k*32) +32), 800 - static_cast<float>((i*32) ), 0);
+			v.color = color;
+			v.normal.Set(0, 0, 1);
+			v.texCoord.Set(u1 + width, u2 + height);
+			vertex_buffer_data.push_back(v);
+			// Vertex #4
+			v.pos.Set(static_cast<float>((k*32)), 800 -  static_cast<float>((i*32)), 0);
+			v.color = color;
+			v.normal.Set(0, 0, 1);
+			v.texCoord.Set(u1, u2 + height);
+			vertex_buffer_data.push_back(v);
+
+			index_buffer_data.push_back(offset + 3);
+			index_buffer_data.push_back(offset + 0);
+			index_buffer_data.push_back(offset + 2);
+			index_buffer_data.push_back(offset + 1);
+			index_buffer_data.push_back(offset + 2);
+			index_buffer_data.push_back(offset + 0);
+
+			offset += 4;
+		}
+	}
+
+	Mesh *mesh = new Mesh(meshName);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	mesh->indexSize = index_buffer_data.size();
+	mesh->mode = Mesh::DRAW_TRIANGLES;
 
 	return mesh;
 }

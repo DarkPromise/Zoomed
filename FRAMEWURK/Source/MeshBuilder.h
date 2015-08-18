@@ -32,6 +32,7 @@ public:
 	static Mesh* GenerateSkyPlane(const std::string &meshName, Color color, int slices,float PlanetRadius, float AtmosphereRadius, float hTile, float vTile);
 	static Mesh* GenerateTerrain(const std::string &meshName, std::vector<unsigned char> m_heightMap);
 	static Mesh* GenerateBoundingBox(const std::string &meshName, Vector3 max, Vector3 min, Color color);
+	static Mesh* GenerateTileMap(const std::string &meshName, Color color,std:: vector<std::vector<int> > map, unsigned row, unsigned col);
 };
 
 #endif

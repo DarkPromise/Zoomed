@@ -181,6 +181,9 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
 	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
+	m_meshList[GEO_TESTMAP] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->backgroundData,32,32);
+	m_meshList[GEO_TESTMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
+
 	LightsEnabled = false;
 	return true;
 }
@@ -275,6 +278,8 @@ void ViewHandler::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	this->theModel->Update(dt);
+
+	FPS = 1 / dt;
 }
 
 void ViewHandler::RenderMesh(Mesh *mesh, bool enableLight, bool enableFog)
@@ -482,7 +487,6 @@ void ViewHandler::RenderTileMap(CMap * mapToRender)
 			}
 			if(mapToRender->backgroundData[i][m] != -1)
 			{
-				std::cout << mapToRender->backgroundData[i][m] << std::endl;
 				RenderTileOnScreen(m_meshList[GEO_MAINMENU_TILEMAP],false, mapToRender->backgroundData[i][m], 32.f, (float)k*mapToRender->GetTileSize()-this->theModel->getPlayer()->GetMapFineOffset_x() , (float)607-i*mapToRender->GetTileSize());
 			}
 		}
@@ -516,7 +520,9 @@ void ViewHandler::RenderScene()
 
 	RenderMesh(m_meshList[GEO_AXES],false,false);
 
-	RenderTileMap(theModel->m_mapList[0]);
+	RenderMesh(m_meshList[GEO_TESTMAP],false,false);
+
+	std::cout << this->FPS << std::endl;
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
