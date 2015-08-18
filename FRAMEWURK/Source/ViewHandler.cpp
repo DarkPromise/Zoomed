@@ -195,13 +195,13 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 
 	m_meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("FUCK",Color(0,0,1.f),10.f);
 
-	m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 4, 48.f, 48.f);
-	m_meshList[GEO_PLAYER]->textureArray[0] = LoadTGA("Images//Tileset_1.tga");
+	m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
+	m_meshList[GEO_PLAYER]->textureArray[0] = LoadTGA("Images//playerTest.tga");
 	SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
 	if (sa19)
 	{
 		sa19->m_anim = new Animation();
-		sa19->m_anim->Set(0, 3, 0, .4f);
+		sa19->m_anim->Set(0, 2, 0, .1f);
 	}
 
 	LightsEnabled = false;
@@ -562,13 +562,13 @@ void ViewHandler::RenderScene()
 	RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false);
 	modelStack.PopMatrix();
 	
-	/*RenderMesh(m_meshList[GEO_PLAYER],false,false);
+	RenderMesh(m_meshList[GEO_PLAYER],false,false);
 
-	Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
+	//Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
-	Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
+	//Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
 
-	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);*/
+	//Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
 	std::cout << this->FPS << std::endl;
 	 
