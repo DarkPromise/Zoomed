@@ -181,6 +181,14 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
 	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
+	for (unsigned i = 0; i < theModel->m_mapList[0]->backgroundData.size(); i++)
+	{
+		for(unsigned k = 0; k < theModel->m_mapList[0]->backgroundData[i].size(); k++)
+		{
+			std::cout << theModel->m_mapList[0]->backgroundData[i][k] << std::endl;
+		}
+	}
+	system("pause");
 	m_meshList[GEO_TESTMAP] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->backgroundData,32,32);
 	m_meshList[GEO_TESTMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
@@ -333,40 +341,39 @@ void ViewHandler::Render2DMesh(Mesh *mesh, bool enableLight, bool enableFog, flo
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, 1024, 0, 800, -10, 10);
 	projectionStack.PushMatrix();
-	projectionStack.LoadMatrix(ortho);
-	viewStack.PushMatrix();
-	viewStack.LoadIdentity();
-	modelStack.PushMatrix();
-	modelStack.LoadIdentity();
-	modelStack.Translate(transX, transY, 0);
-	modelStack.Scale(sizeX, sizeY, 1);
+		projectionStack.LoadMatrix(ortho);
+		viewStack.PushMatrix();
+			viewStack.LoadIdentity();
+			modelStack.PushMatrix();
+				modelStack.LoadIdentity();
+				modelStack.Translate(transX, transY, 0);
+				modelStack.Scale(sizeX, sizeY, 1);
 
-	Mtx44 MVP, modelView, modelView_inverse_transpose;
+				Mtx44 MVP, modelView, modelView_inverse_transpose;
 
-	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-	if(mesh->textureID > 0)
-	{
-		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	}
-	else
-	{
-		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
-	}
-
-	mesh->Render();
-
-	if(mesh->textureID > 0)
-	{
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-
-	modelStack.PopMatrix();
-	viewStack.PopMatrix();
+				MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+				glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+				if(mesh->textureID > 0)
+				{
+					glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
+					glActiveTexture(GL_TEXTURE0);
+					glBindTexture(GL_TEXTURE_2D, mesh->textureID);
+					glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+				}
+				else
+				{
+					glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
+				}
+				mesh->Render();
+				if(mesh->textureID > 0)
+				{
+					glBindTexture(GL_TEXTURE_2D, 0);
+				}
+       
+			modelStack.PopMatrix();
+		viewStack.PopMatrix();
 	projectionStack.PopMatrix();
+
 }
 
 void ViewHandler::RenderTile(Mesh* mesh, int TileID)
@@ -520,7 +527,7 @@ void ViewHandler::RenderScene()
 
 	RenderMesh(m_meshList[GEO_AXES],false,false);
 
-	RenderMesh(m_meshList[GEO_TESTMAP],false,false);
+	Render2DMesh(m_meshList[GEO_TESTMAP],false,false, 1.f, 1.f, 0.f, 0.f);
 
 	std::cout << this->FPS << std::endl;
 

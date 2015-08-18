@@ -66,20 +66,23 @@ bool CMap::LoadMap(const std::string mapName, const std::string sceneryName, con
 		std::cout << mapName << " has been loaded. " << std::endl;
 		if (LoadCollisionMap(collisionName))
 		{
-			std::cout << mapName << " has been loaded. " << std::endl;
+			std::cout << collisionName << " has been loaded. " << std::endl;
 			if (LoadSceneryMap(sceneryName))
 			{
-				std::cout << mapName << " has been loaded. " << std::endl;
+				std::cout << sceneryName << " has been loaded. " << std::endl;
 				if (LoadBackgroundMap(backgroundName))
 				{
-					std::cout << mapName << " has been loaded. " << std::endl << std::endl;
+					std::cout << backgroundName << " has been loaded. " << std::endl << std::endl;
 					return true;
 				}
 				std::cout << "Failed to load background" << std::endl;
+				return false;
 			}
 			std::cout << "Failed to load scenery" << std::endl;
+			return false;
 		}
 		std::cout << "Failed to load collision" << std::endl;
+		return false;
 	}
 	std::cout << "Failed to load foreground" << std::endl;
 	return false;

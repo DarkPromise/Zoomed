@@ -702,19 +702,19 @@ Mesh* MeshBuilder::Generate2DMesh(const std::string &meshName, Color color, int 
 	v.texCoord.Set(0, 0);
 	vertex_buffer_data.push_back(v);
 	// Vertex #2
-	v.pos.Set((float)width, 0, 0);
+	v.pos.Set(width, 0, 0);
 	v.color = color;
 	v.normal.Set(0, 0, 1);
 	v.texCoord.Set(1.0f, 0);
 	vertex_buffer_data.push_back(v);
 	// Vertex #3
-	v.pos.Set((float)width,(float)height, 0);
+	v.pos.Set(width, height, 0);
 	v.color = color;
 	v.normal.Set(0, 0, 1);
 	v.texCoord.Set(1.0f, 1.0f);
 	vertex_buffer_data.push_back(v);
 	// Vertex #4
-	v.pos.Set(0, (float)height, 0);
+	v.pos.Set(0, height, 0);
 	v.color = color;
 	v.normal.Set(0, 0, 1);
 	v.texCoord.Set(0, 1.0f);
@@ -1044,16 +1044,13 @@ Mesh* MeshBuilder::GenerateBoundingBox(const std::string &meshName, Vector3 Max,
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std::vector<std::vector<int> > map, unsigned row, unsigned col)
+Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std::vector<std::vector<int>> map, unsigned row, unsigned col)
 {
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
-	
-	float width = 1.f / col;
-	float height = 1.f / row;
 
-	float u1, u2;
+	float u1, u2, v1, v2;
 	int offset = 0;
 
 	float tilesHeight = 32;
@@ -1063,36 +1060,42 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 	{
 		for(unsigned k = 0; k < map[i].size(); k++)
 		{
-			int index1 = map[i][k];
+			float texWidth = 1.f/static_cast<float>(row);
+			float texHeight = 1.f/static_cast<float>(col);
 
-			u1 = (float)index1 * width;
-			u2 = (float)(index1 + 1) * height;
+			int index = map[i][k];
 
-			std::cout << "u1u2 : (" << u1 << "," << u2 << ")" << std::endl;
+			std::cout << index << std::endl;
+
+			u1 = texWidth * static_cast<float>(index);
+			u2 = texWidth * static_cast<float>(index + 1);
+
+			v1 = 1.f - texHeight * static_cast<float>(index);
+			v2 = 1.f - texHeight * static_cast<float>(index + 1);
 
 			// Vertex #1
 			v.pos.Set(static_cast<float>(k*32), 800 - (static_cast<float>(i*32) - 32), 0);
 			v.color = color;
 			v.normal.Set(0, 0, 1);
-			v.texCoord.Set(u1, u2);
+			v.texCoord.Set(u1, v2);
 			vertex_buffer_data.push_back(v);
 			// Vertex #2
 			v.pos.Set( static_cast<float>((k*32) +32), 800 - (static_cast<float>(i*32) - 32), 0);
 			v.color = color;
 			v.normal.Set(0, 0, 1);
-			v.texCoord.Set(u1 + width, u2);
+			v.texCoord.Set(u2, v2);
 			vertex_buffer_data.push_back(v);
 			// Vertex #3
 			v.pos.Set(static_cast<float>((k*32) +32), 800 - static_cast<float>((i*32) ), 0);
 			v.color = color;
 			v.normal.Set(0, 0, 1);
-			v.texCoord.Set(u1 + width, u2 + height);
+			v.texCoord.Set(u2, v1);
 			vertex_buffer_data.push_back(v);
 			// Vertex #4
 			v.pos.Set(static_cast<float>((k*32)), 800 -  static_cast<float>((i*32)), 0);
 			v.color = color;
 			v.normal.Set(0, 0, 1);
-			v.texCoord.Set(u1, u2 + height);
+			v.texCoord.Set(u1, v1);
 			vertex_buffer_data.push_back(v);
 
 			index_buffer_data.push_back(offset + 3);
@@ -1107,7 +1110,7 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 	}
 
 	Mesh *mesh = new Mesh(meshName);
-
+	
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);

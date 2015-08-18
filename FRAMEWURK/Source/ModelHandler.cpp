@@ -27,7 +27,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	CMap * newMap = new CMap();
 	newMap->Init( 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU);
 	newMap->setMapID(MAP_MAIN_MENU);
-	newMap->LoadMap("MapData//MainMenu.csv","MapData//MainMenu.csv","MapData//MainMenu.csv","MapData//MainMenu.csv");
+	newMap->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//MapData//Main_Menu//MainMenu_Background.csv");
 	m_mapList.push_back(newMap);
 }
 
