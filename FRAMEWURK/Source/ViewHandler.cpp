@@ -181,14 +181,6 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
 	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
-	for (unsigned i = 0; i < theModel->m_mapList[0]->backgroundData.size(); i++)
-	{
-		for(unsigned k = 0; k < theModel->m_mapList[0]->backgroundData[i].size(); k++)
-		{
-			std::cout << theModel->m_mapList[0]->backgroundData[i][k] << std::endl;
-		}
-	}
-	system("pause");
 	m_meshList[GEO_TESTMAP] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->backgroundData,32,32);
 	m_meshList[GEO_TESTMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 

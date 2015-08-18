@@ -1044,7 +1044,7 @@ Mesh* MeshBuilder::GenerateBoundingBox(const std::string &meshName, Vector3 Max,
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std::vector<std::vector<int>> map, unsigned row, unsigned col)
+Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std::vector<std::vector<int> > map, unsigned row, unsigned col)
 {
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
@@ -1067,11 +1067,11 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 
 			std::cout << index << std::endl;
 
-			u1 = texWidth * static_cast<float>(index);
-			u2 = texWidth * static_cast<float>(index + 1);
+			u1 = 0 + texWidth; //texWidth * static_cast<float>(index);
+			u2 = 0 + texWidth * 2;//texWidth * static_cast<float>(index + 1);
 
-			v1 = 1.f - texHeight * static_cast<float>(index);
-			v2 = 1.f - texHeight * static_cast<float>(index + 1);
+			v1 = 1 - texHeight; //texHeight * static_cast<float>(index);
+			v2 = 1; //texHeight * static_cast<float>(index + 1);
 
 			// Vertex #1
 			v.pos.Set(static_cast<float>(k*32), 800 - (static_cast<float>(i*32) - 32), 0);
