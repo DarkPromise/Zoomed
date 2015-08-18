@@ -4,6 +4,7 @@
 #include "Vertex.h"
 #include "MyMath.h"
 #include "LoadOBJ.h"
+
 /******************************************************************************/
 /*!
 \brief
@@ -1131,4 +1132,68 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 
 	return mesh;
+}
+
+SpriteAnimation* MeshBuilder::GenerateSpriteAnimation(const std::string &meshName, unsigned numRow, unsigned numCol, float width, float height)
+{
+	Vertex v;
+	std::vector<Vertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+
+	float width1 = 1.f / numCol;
+	float height1 = 1.f / numRow;
+
+	int offset = 0;
+	for (unsigned i = 0; i < numRow; ++i)
+	{
+		for (unsigned j = 0; j < numCol; ++j)
+		{
+			float u1 = 1.f/numCol * j; // x1
+			float v1 = 1.f/numRow * i; // y1
+
+			// Vertex #1
+			v.pos.Set(0, 0, 0);
+			v.normal.Set(0, 0, 1);
+			v.texCoord.Set(u1, v1);
+			vertex_buffer_data.push_back(v);
+			// Vertex #2
+			v.pos.Set(width, 0, 0);
+			v.normal.Set(0, 0, 1);																																																						
+			v.texCoord.Set(u1 + width1, v1);
+			vertex_buffer_data.push_back(v);
+			// Vertex #3
+			v.pos.Set(width, height, 0);
+			v.normal.Set(0, 0, 1);
+			v.texCoord.Set(u1 + width1, v1 + height1);
+			vertex_buffer_data.push_back(v);
+			// Vertex #4
+			v.pos.Set(0, height, 0);
+			v.normal.Set(0, 0, 1);
+			v.texCoord.Set(u1, v1 + height1);
+			vertex_buffer_data.push_back(v);
+	
+			index_buffer_data.push_back(offset + 3);
+			index_buffer_data.push_back(offset + 0);
+			index_buffer_data.push_back(offset + 2);
+			index_buffer_data.push_back(offset + 1);
+			index_buffer_data.push_back(offset + 2);
+			index_buffer_data.push_back(offset + 0);
+
+			offset += 4;
+		}
+	}
+
+	SpriteAnimation *spriteAnimation = new SpriteAnimation(meshName, numRow, numCol);
+
+	glBindBuffer(GL_ARRAY_BUFFER, spriteAnimation->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, spriteAnimation->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	spriteAnimation->indexSize = index_buffer_data.size();
+	spriteAnimation->mode = Mesh::DRAW_TRIANGLES;
+
+	return spriteAnimation;
+	// Get new tex coord for each frame.
+
 }

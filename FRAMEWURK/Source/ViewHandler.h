@@ -57,6 +57,8 @@ public:
 	void RenderTileMap(CMap * mapToRender);
 
 	void Update(double dt);
+	void UpdateSA(double dt);
+
 	void Exit();
 
 	ViewHandler* getInstance(){ return this; }

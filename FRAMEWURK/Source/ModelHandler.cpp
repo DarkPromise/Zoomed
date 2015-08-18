@@ -29,6 +29,8 @@ void ModelHandler::Init() //Anything that moves in the game
 	newMap->setMapID(MAP_MAIN_MENU);
 	newMap->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//MapData//Main_Menu//MainMenu_Background.csv");
 	m_mapList.push_back(newMap);
+
+
 }
 
 void ModelHandler::Update(const double dt)

@@ -3,6 +3,7 @@
 
 #include "Mesh.h"
 #include "Vertex.h"
+#include "SpriteAnimation.h"
 #include <vector>
 
 /******************************************************************************/
@@ -34,7 +35,7 @@ public:
 	static Mesh* GenerateBoundingBox(const std::string &meshName, Vector3 max, Vector3 min, Color color);
 	static Mesh* GenerateTileMap(const std::string &meshName, Color color,std:: vector<std::vector<int> > map, unsigned row, unsigned col);
 
-//	static SpriteAnimation* GenerateSpriteAnimation(const std::string &meshName, unsigned numRow, unsigned numCol, float width = 800.f, float height = 1024.f);
+	static SpriteAnimation* GenerateSpriteAnimation(const std::string &meshName, unsigned numRow, unsigned numCol, float width = 800.f, float height = 1024.f);
 };
 
 #endif
