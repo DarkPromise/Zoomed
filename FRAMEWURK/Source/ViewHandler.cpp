@@ -285,7 +285,7 @@ void ViewHandler::Update(double dt)
 
 	this->theModel->Update(dt);
 
-	FPS = 1 / dt;
+	FPS = 1 / (float)dt;
 }
 
 void ViewHandler::RenderMesh(Mesh *mesh, bool enableLight, bool enableFog)
