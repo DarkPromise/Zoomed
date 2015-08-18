@@ -532,7 +532,7 @@ void ViewHandler::RenderScene()
 	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
 	std::cout << this->FPS << std::endl;
-
+	 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 }

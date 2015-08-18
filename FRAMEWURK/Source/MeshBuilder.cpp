@@ -1078,30 +1078,32 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 				u1 = numRow * texWidth;
 				u2 = (numRow + 1) * texWidth;
 
-				v1 = 1 - (numCol + 1) * texHeight;
-				v2 = 1 - numCol * texHeight;
+				v1 = 1 - (numCol) * texHeight;
+				v2 = 1 - (numCol + 1) * texHeight;
 			}
 
+			//32 is tilesize
+
 			// Vertex #1
-			v.pos.Set(static_cast<float>(k*32), 800 - (static_cast<float>(i*32) - 32), 0);
+			v.pos.Set(static_cast<float>(k*32), 800 - (static_cast<float>(i*32)), 0);
 			v.color = color;
 			v.normal.Set(0, 0, 1);
 			v.texCoord.Set(u1, v2);
 			vertex_buffer_data.push_back(v);
 			// Vertex #2
-			v.pos.Set( static_cast<float>((k*32) +32), 800 - (static_cast<float>(i*32) - 32), 0);
+			v.pos.Set( static_cast<float>((k*32) +32), 800 - (static_cast<float>(i*32)), 0);
 			v.color = color;
 			v.normal.Set(0, 0, 1);
 			v.texCoord.Set(u2, v2);
 			vertex_buffer_data.push_back(v);
 			// Vertex #3
-			v.pos.Set(static_cast<float>((k*32) +32), 800 - static_cast<float>((i*32) ), 0);
+			v.pos.Set(static_cast<float>((k*32) +32), 800 - static_cast<float>((i*32) - 32), 0);
 			v.color = color;
 			v.normal.Set(0, 0, 1);
 			v.texCoord.Set(u2, v1);
 			vertex_buffer_data.push_back(v);
 			// Vertex #4
-			v.pos.Set(static_cast<float>((k*32)), 800 -  static_cast<float>((i*32)), 0);
+			v.pos.Set(static_cast<float>((k*32)), 800 -  static_cast<float>((i*32) - 32), 0);
 			v.color = color;
 			v.normal.Set(0, 0, 1);
 			v.texCoord.Set(u1, v1);
