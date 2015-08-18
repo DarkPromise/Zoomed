@@ -181,8 +181,14 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
 	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
-	m_meshList[GEO_TESTMAP] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->backgroundData,32,32);
-	m_meshList[GEO_TESTMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
+	m_meshList[GEO_TESTMAPBACKGROUND] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->backgroundData,32,32);
+	m_meshList[GEO_TESTMAPBACKGROUND]->textureID = LoadTGA("Images//Tileset_1.tga");
+
+	m_meshList[GEO_TESTMAPSCENERY] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->sceneryData,32,32);
+	m_meshList[GEO_TESTMAPSCENERY]->textureID = LoadTGA("Images//Tileset_1.tga");
+
+	m_meshList[GEO_TESTMAPFOREGROUND] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->foregroundData,32,32);
+	m_meshList[GEO_TESTMAPFOREGROUND]->textureID = LoadTGA("Images//Tileset_1.tga");
 
 	LightsEnabled = false;
 	return true;
@@ -519,7 +525,11 @@ void ViewHandler::RenderScene()
 
 	RenderMesh(m_meshList[GEO_AXES],false,false);
 
-	Render2DMesh(m_meshList[GEO_TESTMAP],false,false, 1.f, 1.f, 0.f, 0.f);
+	Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
+
+	Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
+
+	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
 	std::cout << this->FPS << std::endl;
 

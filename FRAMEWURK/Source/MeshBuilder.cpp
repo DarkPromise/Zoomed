@@ -1052,10 +1052,7 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 
 	float u1, u2, v1, v2;
 	int offset = 0;
-
-	float tilesHeight = 32;
-	float tilesWidth = 32;
-
+	int index;
 	for (unsigned i = 0; i < map.size(); i++)
 	{
 		for(unsigned k = 0; k < map[i].size(); k++)
@@ -1063,15 +1060,27 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 			float texWidth = 1.f/static_cast<float>(row);
 			float texHeight = 1.f/static_cast<float>(col);
 
-			int index = map[i][k];
+			int numRow = 0, numCol = 0;
+			index = map[i][k];
+			while (index > 31)
+			{
+				numCol += 1;
+				index -= 32;
+			}
+			numRow = index;
 
-			std::cout << index << std::endl;
+			if (index == -1)
+			{
+				continue;
+			}
+			else
+			{
+				u1 = numRow * texWidth;
+				u2 = (numRow + 1) * texWidth;
 
-			u1 = 0 + texWidth; //texWidth * static_cast<float>(index);
-			u2 = 0 + texWidth * 2;//texWidth * static_cast<float>(index + 1);
-
-			v1 = 1 - texHeight; //texHeight * static_cast<float>(index);
-			v2 = 1; //texHeight * static_cast<float>(index + 1);
+				v1 = 1 - (numCol + 1) * texHeight;
+				v2 = 1 - numCol * texHeight;
+			}
 
 			// Vertex #1
 			v.pos.Set(static_cast<float>(k*32), 800 - (static_cast<float>(i*32) - 32), 0);
@@ -1098,12 +1107,12 @@ Mesh* MeshBuilder::GenerateTileMap(const std::string &meshName, Color color, std
 			v.texCoord.Set(u1, v1);
 			vertex_buffer_data.push_back(v);
 
-			index_buffer_data.push_back(offset + 3);
 			index_buffer_data.push_back(offset + 0);
-			index_buffer_data.push_back(offset + 2);
 			index_buffer_data.push_back(offset + 1);
 			index_buffer_data.push_back(offset + 2);
 			index_buffer_data.push_back(offset + 0);
+			index_buffer_data.push_back(offset + 2);
+			index_buffer_data.push_back(offset + 3);
 
 			offset += 4;
 		}
