@@ -37,15 +37,23 @@ void Camera::Update(const double dt)
 {
 	if(ViewHandler::IsKeyPressed('W'))
 	{
-		Vector3 view = (target - position).Normalized();
-		position += view * CAMERA_SPEED * (float)dt;
-		target += view * CAMERA_SPEED * (float)dt;
+		float yaw = (float)(-CAMERA_SPEED * dt);
+		view = (target - position).Normalized();
+		Vector3 right = view.Cross(up);
+		right.y = 0;
+		right.Normalize();
+		position += (view.Cross(right) * yaw);
+		target += (view.Cross(right) * yaw);
 	}
 	if(ViewHandler::IsKeyPressed('S'))
 	{
-		Vector3 view = (target - position).Normalized();
-		position -= view * CAMERA_SPEED  * (float)dt;
-		target -= view * CAMERA_SPEED * (float)dt;
+		float yaw = (float)(-CAMERA_SPEED * dt);
+		view = (target - position).Normalized();
+		Vector3 right = view.Cross(up);
+		right.y = 0;
+		right.Normalize();
+		position -= (view.Cross(right) * yaw);
+		target -= (view.Cross(right) * yaw);
 	}
 	if(ViewHandler::IsKeyPressed('A'))
 	{
@@ -64,6 +72,18 @@ void Camera::Update(const double dt)
 		right.Normalize();
 		position += right * CAMERA_SPEED * (float)dt;
 		target += right * CAMERA_SPEED * (float)dt;
+	}
+	if(ViewHandler::IsKeyPressed('Z'))
+	{
+		Vector3 view = (target - position).Normalized();
+		position += view * CAMERA_SPEED  * (float)dt;
+		target += view * CAMERA_SPEED * (float)dt;
+	}
+	if(ViewHandler::IsKeyPressed('X'))
+	{
+		Vector3 view = (target - position).Normalized();
+		position -= view * CAMERA_SPEED  * (float)dt;
+		target -= view * CAMERA_SPEED * (float)dt;
 	}
 }
 
