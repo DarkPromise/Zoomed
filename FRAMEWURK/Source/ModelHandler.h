@@ -43,6 +43,8 @@ public:
 
 	GAME_STATE m_status;
 
+	MAP_ID currentMap;
+
 	vector<GameObject*> m_buttonList; //GUI Class <- Create
 	vector<Mesh*> m_boundingBoxList; //Keep track of bounding boxes in model
 	vector<CMap*> m_mapList;

@@ -60,8 +60,8 @@ public:
 	Player(std::string name);
 	~Player();
 	
-	virtual void move(double dt, Game Environment);
-	virtual void update(double dt);
+	virtual void move(double dt, std::vector<std::vector<int>> collisionMap);
+	virtual void update(double dt, CMap * currentMap);
 
 	Vector3 &getSpeed()
 	{
@@ -72,9 +72,6 @@ public:
 	{
 		m_playerSpeed = speed;
 	}
-
-	void accelerateHorizontal(Vector3 target_speed, float max_speed);
-	void accelerateVertical(Vector3 target_speed, float max_speed);
 
 	Vector3 &getPosition()
 	{

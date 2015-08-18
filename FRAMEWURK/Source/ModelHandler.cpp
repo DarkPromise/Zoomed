@@ -22,6 +22,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	camera.Init(Vector3(0,0,10),Vector3(0,0,0),Vector3(0,1,0));
 
 	m_status = STATE_MENU;
+	currentMap = MAP_MAIN_MENU;
 
 	CMap * newMap = new CMap();
 	newMap->Init( 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU);
@@ -33,7 +34,7 @@ void ModelHandler::Init() //Anything that moves in the game
 void ModelHandler::Update(const double dt)
 {
 	camera.Update(dt);
-	player->update(dt);
+	player->update(dt,m_mapList[currentMap]);
 }
 
 Camera ModelHandler::getCamera()

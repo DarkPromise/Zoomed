@@ -23,56 +23,26 @@ Player::Player(std::string name)
 
 Player::~Player() {}
 
-void Player::accelerateHorizontal(Vector3 target_speed, float max_speed)
+void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 {
-	if(max_speed == 0)
+	if(controls.up)
 	{
-		return;
 	}
-
-	Vector3 wanted = target_speed - m_playerSpeed;
-	wanted.y = 0;
-	float d1 = wanted.Length();
-	if(d1 > max_speed)
+	if(controls.down)
 	{
-		d1 = max_speed;
 	}
-
-	Vector3 d2 = wanted.Normalize() * d1;
-
-	m_playerSpeed.x += d2.x;
+	if(controls.left)
+	{
+	}
+	if(controls.right)
+	{
+	}
 }
 
-void Player::accelerateVertical(Vector3 target_speed, float max_speed)
-{
-	if(max_speed == 0)
-	{
-		return;
-	}
-		
-	float wanted = target_speed.y - m_playerSpeed.y;
-
-	if(wanted > max_speed)
-	{
-		wanted = max_speed;
-	}
-	else if(wanted < -max_speed)
-	{
-		wanted = -max_speed;
-	}
-
-	m_playerSpeed.y += wanted;
-}
-
-void Player::move(double dt,Game theEnvironment)
-{
-	
-}
-
-
-void Player::update(double dt)
+void Player::update(double dt, CMap * currentMap)
 {
 	m_playerPos += m_playerSpeed;
+	move(dt,currentMap->collisionData);
 }
 
 int Player::GetMapOffset_x(void)
