@@ -545,6 +545,7 @@ void ViewHandler::RenderScene()
 
 	Mtx44 Projection;
 	Projection.SetToPerspective(90, (double)m_window_width/m_window_height,0.1,1000000);
+	//Projection.SetToOrtho(0, 1024, 0, 800, -10, 1000000);
 	projectionStack.LoadMatrix(Projection);
 
 	viewStack.LoadIdentity();
@@ -561,13 +562,13 @@ void ViewHandler::RenderScene()
 	RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false);
 	modelStack.PopMatrix();
 	
-	RenderMesh(m_meshList[GEO_PLAYER],false,false);
+	/*RenderMesh(m_meshList[GEO_PLAYER],false,false);
 
-	//Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
+	Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
-	//Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
+	Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
 
-	//Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
+	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);*/
 
 	std::cout << this->FPS << std::endl;
 	 

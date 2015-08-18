@@ -19,7 +19,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	player = new Player("Josh");
 	player->setPosition(Vector3(0,0,0));
 
-	camera.Init(Vector3(0,0,10),Vector3(0,0,0),Vector3(0,1,0));
+	camera.Init(Vector3(0,0,416),Vector3(0,0,0),Vector3(0,1,0));
 
 	m_status = STATE_MENU;
 	currentMap = MAP_MAIN_MENU;
