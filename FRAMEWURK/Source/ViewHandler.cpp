@@ -51,9 +51,9 @@ static void mouse_callback(GLFWwindow* window, int button, int action, int mods)
 	}
 }
 
-void resize_callback(GLFWwindow* window, int w, int h)
+static void resize_callback(GLFWwindow* window, int width, int height)
 {
-	glViewport(0, 0, w, h);
+	//glViewport(0,0,width,height);
 }
 
 bool ViewHandler::IsKeyPressed(unsigned short key)
@@ -341,7 +341,7 @@ void ViewHandler::RenderMesh(Mesh *mesh, bool enableLight, bool enableFog)
 void ViewHandler::Render2DMesh(Mesh *mesh, bool enableLight, bool enableFog, float sizeX, float sizeY, float transX, float transY)
 {
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 1024, 0, 800, -10, 10);
+	ortho.SetToOrtho(0, m_width, 0, m_height, -10, 10);
 	projectionStack.PushMatrix();
 		projectionStack.LoadMatrix(ortho);
 		viewStack.PushMatrix();
@@ -410,7 +410,7 @@ void ViewHandler::RenderTile(Mesh* mesh, int TileID)
 void ViewHandler::RenderTileOnScreen(Mesh*mesh, bool enableLight, int TileID, float size, float x, float y)
 {
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 1024, 0, 800, -10, 100000);
+	ortho.SetToOrtho(0, m_width, 0, m_height, -10, 100000);
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -451,7 +451,7 @@ void ViewHandler::RenderGameTextOnScreen(Mesh* mesh, std::string text, Color col
 
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 1024, 0, 800, -10, 10);
+	ortho.SetToOrtho(0, m_width, 0, m_height, -10, 10);
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -518,8 +518,12 @@ void ViewHandler::RenderScene()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION],1,&LightDirection_cameraspace.x);
 	}
 
+	glfwGetWindowSize(m_window,&m_width,&m_height);
+	glViewport(0,0,m_width,m_height);
+
 	Mtx44 Projection;
-	Projection.SetToOrtho(0, 1024, 0, 800, -10, 1000);
+	Projection.SetToOrtho(0, m_width, 0, m_height, -10, 1000);
+	projectionStack.LoadIdentity();
 	projectionStack.LoadMatrix(Projection);
 
 	viewStack.LoadIdentity();
@@ -565,8 +569,6 @@ void ViewHandler::RenderScene()
 	Render2DMesh(m_meshList[GEO_PLAYER],false,false,1.f,1.f,0.f,0.f);
 
 	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);*/
-
-	std::cout << this->FPS << std::endl;
 	 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
