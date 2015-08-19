@@ -53,6 +53,11 @@ public:
 		m_objectMesh.push_back(mesh);
 	}
 
+	void setMesh(Mesh* mesh, int index)
+	{
+		m_objectMesh[index] = mesh;
+	}
+
 	Mesh* getMesh(int i = 0);
 	int getMeshSize();
 

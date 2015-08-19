@@ -37,8 +37,8 @@ struct Room_Object
 		ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_LEFT,
 		ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_RIGHT,
 		ROOM_OBJECT_TESTPUZZLE_WHITE_TABLECLOTH_TABLE,
-		ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT,
-		ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT,
+		ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM,
+		ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM,
 		ROOM_OBJECT_TESTPUZZLE_BIG_WINDOW,
 		ROOM_OBJECT_TESTPUZZLE_SMALL_WINDOW,
 		ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET,
@@ -69,6 +69,7 @@ public:
 
 	void generateRoom(); // Add objects and collision based on roomType
 	bool addObject(ROOM_TYPE type, Room_Object object, int originX, int originY); // Add specific object to room based on position and type (origin top left)
+	void addExit(EXIT_DIRECTION exit); // Adds exit to room
 
 private:
 	int worldPositionX, worldPositionY; // Position of the room in world (bottom left)

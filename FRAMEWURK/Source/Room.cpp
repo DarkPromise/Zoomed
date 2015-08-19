@@ -67,13 +67,13 @@ Room_Object::Room_Object(ROOM_OBJECT_TYPE objectType)
 				this->height = 1;
 			}
 			break;
-		case ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT:
+		case ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM:
 			{
 				this->width = 3;
 				this->height = 1;
 			}
 			break;
-		case ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT:
+		case ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM:
 			{
 				this->width = 3;
 				this->height = 2;
@@ -137,6 +137,11 @@ void Room::generateRoom()
 	{
 	case ROOM_TESTPUZZLE:
 		{
+			// Generate random exits
+			this->numExit.clear();
+			this->addExit(EXIT_DOWN);
+
+			//generate objects
 			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_WHITE_TABLECLOTH_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
 			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_MEDIUM_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
 			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_SMALL_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
@@ -147,9 +152,17 @@ void Room::generateRoom()
 
 			// do not add bronze stuff or open book unless there is a white tablecloth table
 			addObject(roomType, Room_Object(static_cast<Room_Object::ROOM_OBJECT_TYPE>(Room_Object::ROOM_OBJECT_TESTPUZZLE_BRONZE_GLOBE+Math::RandIntMinMax(0, 3))), -1, -1);
+
+
+			//add exits
+			for (unsigned i = 0; i < numExit.size(); i++)
+			{
+				while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM), -1, -1));
+			}
 		}
 		break;
 	}
+	
 }
 
 bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int originY)
@@ -281,12 +294,18 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 				}
 			}
 			break;
-		case Room_Object::ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT:
+		case Room_Object::ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM:
 			{
-				sceneryData[originY][originX] = 266; sceneryData[originY][originX+1] = 267; sceneryData[originY][originX+2] = 268;
+				originX = Math::RandFloatMinMax(3, sceneryData[0].size()-4);
+				while (!((originX != -1) && (sceneryData[sceneryData.size()-3][originX] == -1)))
+				{
+					originX = Math::RandFloatMinMax(3, sceneryData[0].size()-4);
+				}
+
+				sceneryData[sceneryData.size()-2][originX] = 266; sceneryData[sceneryData.size()-2][originX+1] = 267; sceneryData[sceneryData.size()-2][originX+2] = 268;
 			}
 			break;
-		case Room_Object::ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT:
+		case Room_Object::ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM:
 			{
 				sceneryData[originY][originX] = 330; sceneryData[originY][originX+1] = 331; sceneryData[originY][originX+2] = 332;
 				sceneryData[originY+1][originX] = 362; sceneryData[originY+1][originX+1] = 363; sceneryData[originY+1][originX+2] = 364;
@@ -321,4 +340,9 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 	}
 
 	return true;
+}
+
+void Room::addExit(EXIT_DIRECTION exit)
+{
+	this->numExit.push_back(exit);
 }

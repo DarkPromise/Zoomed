@@ -102,6 +102,7 @@ void ControlHandler::MouseUpdate()
 void ControlHandler::KeyboardUpdate()
 {
 	static bool toggleFullScreen = false;
+	static bool generateRoom = false;
 
 	if(theView->IsKeyPressed('5') && !toggleFullScreen)
 	{
@@ -147,6 +148,20 @@ void ControlHandler::KeyboardUpdate()
 	else
 	{
 		theModel->getPlayer()->controls.right = false;
+	}
+
+	if(theView->IsKeyPressed('R') && !generateRoom)
+	{
+		generateRoom = true;
+		theModel->m_worldList[1]->m_roomList[0]->generateRoom();
+		theModel->m_objectList[3]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->m_roomList[0]->sceneryData,32,32), 1);
+		theModel->m_objectList[3]->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+		theModel->m_objectList[3]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->m_roomList[0]->foregroundData,32,32), 2);
+		theModel->m_objectList[3]->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+	}
+	else if(!theView->IsKeyPressed('R') && generateRoom)
+	{
+		generateRoom = false;
 	}
 }
 
