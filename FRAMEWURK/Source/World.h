@@ -8,6 +8,7 @@
 enum WORLD_ID // ID for levels
 {
 	WORLD_MAINMENU,
+	WORLD_TEST,
 };
 
 class World
