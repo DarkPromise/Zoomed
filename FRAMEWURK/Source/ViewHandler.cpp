@@ -561,7 +561,7 @@ void ViewHandler::RenderScene()
 	{
 		if(theModel->m_objectList[i]->getMeshSize() > 1)
 		{
-			for(unsigned j = 0; j < theModel->m_objectList[i]->getMeshSize(); ++j)
+			for(int j = 0; j < theModel->m_objectList[i]->getMeshSize(); ++j)
 			{
 				RenderMesh(theModel->m_objectList[i]->getMesh(j),false,false);
 			}

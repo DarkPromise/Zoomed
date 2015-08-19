@@ -22,7 +22,7 @@ public:
 		LIGHT_STENCIL,
 	};
 
-	GameObject(std::string m_objectName);
+	GameObject(std::string m_objectName, OBJECT_TYPE objectType = OBJECT);
 	~GameObject();
 
 	float mass;
