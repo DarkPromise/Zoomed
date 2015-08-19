@@ -185,7 +185,7 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
 	m_meshList[GEO_TESTMAPBACKGROUND] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->backgroundData,32,32);
-	m_meshList[GEO_TESTMAPBACKGROUND]->textureArray[0] = LoadTGA("Images//Tileset_1.tga");
+	m_meshList[GEO_TESTMAPBACKGROUND]->textureID = LoadTGA("Images//Tileset_1.tga");
 
 	m_meshList[GEO_TESTMAPSCENERY] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->sceneryData,32,32);
 	m_meshList[GEO_TESTMAPSCENERY]->textureID = LoadTGA("Images//Tileset_1.tga");
@@ -194,7 +194,7 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	m_meshList[GEO_TESTMAPFOREGROUND]->textureID = LoadTGA("Images//Tileset_1.tga");
 
 	m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
-	m_meshList[GEO_PLAYER]->textureArray[0] = LoadTGA("Images//playerTest.tga");
+	m_meshList[GEO_PLAYER]->textureID = LoadTGA("Images//playerTest.tga");
 	SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
 	if (sa19)
 	{
@@ -370,7 +370,7 @@ void ViewHandler::Render2DMesh(Mesh *mesh, bool enableLight, bool enableFog, flo
 	projectionStack.PushMatrix();
 		projectionStack.LoadMatrix(ortho);
 		viewStack.PushMatrix();
-			viewStack.LoadIdentity();
+		viewStack.LoadIdentity();
 			modelStack.PushMatrix();
 				modelStack.LoadIdentity();
 				modelStack.Translate(transX, transY, 0);
@@ -542,8 +542,8 @@ void ViewHandler::RenderScene()
 	}
 
 	Mtx44 Projection;
-	Projection.SetToPerspective(90, (double)m_window_width/m_window_height,0.1,1000000);
-	//Projection.SetToOrtho(0, 1024, 0, 800, -10, 1000000);
+	//Projection.SetToPerspective(90, (double)m_window_width/m_window_height,0.1,1000);
+	Projection.SetToOrtho(0, 1024, 0, 800, -10, 1000);
 	projectionStack.LoadMatrix(Projection);
 
 	viewStack.LoadIdentity();
@@ -560,21 +560,13 @@ void ViewHandler::RenderScene()
 		RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 	}
 
-	//RenderMesh(theModel->m_objectList[GEO_QUAD]->getMesh(),false,false);
-
-	//RenderMesh(m_meshList[GEO_QUAD],false,false);
-
-	modelStack.PushMatrix();
-	RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false);
-	modelStack.PopMatrix();
-	
-	RenderMesh(m_meshList[GEO_PLAYER],false,false);
-
-	/*Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
+	Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
 	Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
 
-	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);*/
+	Render2DMesh(m_meshList[GEO_PLAYER],false,false,1.f,1.f,0.f,0.f);
+
+	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
 	std::cout << this->FPS << std::endl;
 	 
