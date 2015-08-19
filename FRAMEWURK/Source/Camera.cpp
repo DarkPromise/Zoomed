@@ -42,8 +42,14 @@ void Camera::Update(const double dt)
 		Vector3 right = view.Cross(up);
 		right.y = 0;
 		right.Normalize();
-		position += (view.Cross(right) * yaw);
-		target += (view.Cross(right) * yaw);
+		
+		Vector3 toInt = (view.Cross(right) * yaw);
+		toInt.x = (int)toInt.x;
+		toInt.y = (int)toInt.y;
+		toInt.z = (int)toInt.z;
+
+		position += toInt;
+		target += toInt;
 	}
 	if(ViewHandler::IsKeyPressed('S'))
 	{
@@ -52,8 +58,14 @@ void Camera::Update(const double dt)
 		Vector3 right = view.Cross(up);
 		right.y = 0;
 		right.Normalize();
-		position -= (view.Cross(right) * yaw);
-		target -= (view.Cross(right) * yaw);
+
+		Vector3 toInt = (view.Cross(right) * yaw);
+		toInt.x = (int)toInt.x;
+		toInt.y = (int)toInt.y;
+		toInt.z = (int)toInt.z;
+
+		position -= toInt;
+		target -= toInt;
 	}
 	if(ViewHandler::IsKeyPressed('A'))
 	{
@@ -61,8 +73,14 @@ void Camera::Update(const double dt)
 		Vector3 right = view.Cross(up);
 		right.y = 0;
 		right.Normalize();
-		position -= right * CAMERA_SPEED * (float)dt;
-		target -= right * CAMERA_SPEED * (float)dt;
+
+		Vector3 toInt = (right) * CAMERA_SPEED * (float) dt;
+		toInt.x = (int)toInt.x;
+		toInt.y = (int)toInt.y;
+		toInt.z = (int)toInt.z;
+
+		position -= toInt;
+		target -= toInt;
 	}
 	if(ViewHandler::IsKeyPressed('D'))
 	{
@@ -70,8 +88,14 @@ void Camera::Update(const double dt)
 		Vector3 right = view.Cross(up);
 		right.y = 0;
 		right.Normalize();
-		position += right * CAMERA_SPEED * (float)dt;
-		target += right * CAMERA_SPEED * (float)dt;
+
+		Vector3 toInt = (right) * CAMERA_SPEED * (float) dt;
+		toInt.x = (int)toInt.x;
+		toInt.y = (int)toInt.y;
+		toInt.z = (int)toInt.z;
+
+		position += toInt;
+		target += toInt;
 	}
 	if(ViewHandler::IsKeyPressed('Z'))
 	{
