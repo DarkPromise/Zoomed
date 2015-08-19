@@ -39,7 +39,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	{
 		m_playerPos.x += 4;
 	}
-	std::cout << m_playerPos.x<< ", " << m_playerPos.y << std::endl;
+	//std::cout << m_playerPos.x<< ", " << m_playerPos.y << std::endl;
 }
 
 void Player::update(double dt, World* currentWorld, int currentRoom)

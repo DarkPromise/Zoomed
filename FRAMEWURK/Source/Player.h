@@ -64,7 +64,7 @@ public:
 	virtual void move(double dt, std::vector<std::vector<int>> collisionMap);
 	virtual void update(double dt, World* currentWorld, int currentRoom);
 
-	Vector3 &getSpeed()
+	Vector3 getSpeed()
 	{
 		return m_playerSpeed;
 	}
@@ -74,7 +74,7 @@ public:
 		m_playerSpeed = speed;
 	}
 
-	Vector3 &getPosition()
+	Vector3 getPosition()
 	{
 		return m_playerPos;
 	}

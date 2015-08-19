@@ -521,6 +521,8 @@ void ViewHandler::RenderScene()
 	glfwGetWindowSize(m_window,&m_width,&m_height);
 	glViewport(0,0,m_width,m_height);
 
+	std::cout << m_width << "," << m_height << std::endl;
+
 	Mtx44 Projection;
 	Projection.SetToOrtho(0, m_width, 0, m_height, -10, 1000);
 	projectionStack.LoadIdentity();
@@ -528,10 +530,13 @@ void ViewHandler::RenderScene()
 
 	viewStack.LoadIdentity();
 	viewStack.LookAt(
-		theModel->getCamera().position.x,theModel->getCamera().position.y,theModel->getCamera().position.z,
-		theModel->getCamera().target.x,theModel->getCamera().target.y,theModel->getCamera().target.z,
+		theModel->getPlayer()->getPosition().x - 512,theModel->getPlayer()->getPosition().y - 400,theModel->getCamera().position.z,
+		theModel->getPlayer()->getPosition().x - 512,theModel->getPlayer()->getPosition().y - 400,theModel->getCamera().target.z,
 		theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 		);
+
+	std::cout << "Position : " << theModel->getCamera().position << std::endl;
+	std::cout << "Target : " << theModel->getCamera().target << std::endl;
 
 	//RenderMesh(m_meshList[GEO_AXES],false,false);
 
@@ -562,16 +567,6 @@ void ViewHandler::RenderScene()
 			RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 		}
 	}
-
-	//RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false);
-
-	/*RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
-
-	Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
-
-	Render2DMesh(m_meshList[GEO_PLAYER],false,false,1.f,1.f,0.f,0.f);
-
-	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);*/
 	 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

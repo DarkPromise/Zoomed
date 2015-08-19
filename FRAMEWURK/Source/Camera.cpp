@@ -35,7 +35,7 @@ void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 
 void Camera::Update(const double dt)
 {
-	/*if(ViewHandler::IsKeyPressed('W'))
+	if(ViewHandler::IsKeyPressed('W'))
 	{
 		float yaw = (float)(-CAMERA_SPEED * dt);
 		view = (target - position).Normalized();
@@ -108,7 +108,7 @@ void Camera::Update(const double dt)
 		Vector3 view = (target - position).Normalized();
 		position -= view * CAMERA_SPEED  * (float)dt;
 		target -= view * CAMERA_SPEED * (float)dt;
-	}*/
+	}
 }
 
 void Camera::TurnLeft(const double dt)
