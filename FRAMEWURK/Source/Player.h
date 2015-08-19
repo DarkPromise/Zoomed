@@ -4,7 +4,7 @@
 #include "AxisAlignedBoundingBox.h"
 #include "Game.h" //Environment
 #include <string>
-#include "Map.h"
+#include "World.h"
 
 #define PLAYERNAME_SIZE 20;
 #define PLAYER_JUMP_HEIGHT 7.f;
@@ -61,7 +61,7 @@ public:
 	~Player();
 	
 	virtual void move(double dt, std::vector<std::vector<int>> collisionMap);
-	virtual void update(double dt, CMap * currentMap);
+	virtual void update(double dt, World* currentWorld, int currentRoom);
 
 	Vector3 &getSpeed()
 	{

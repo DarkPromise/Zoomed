@@ -39,10 +39,10 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	}
 }
 
-void Player::update(double dt, CMap * currentMap)
+void Player::update(double dt, World* currentWorld, int currentRoom)
 {
 	m_playerPos += m_playerSpeed;
-	move(dt,currentMap->collisionData);
+	move(dt,currentWorld->m_roomList[currentRoom]->collisionData);
 }
 
 int Player::GetMapOffset_x(void)

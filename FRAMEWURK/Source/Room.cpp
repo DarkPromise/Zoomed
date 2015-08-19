@@ -1,8 +1,9 @@
 #include "Room.h"
 
 
-Room::Room(void)
+Room::Room(ROOM_TYPE roomType)
 {
+	this->roomType = roomType;
 }
 
 

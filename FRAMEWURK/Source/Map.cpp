@@ -10,7 +10,6 @@ CMap::CMap(void)
 , theNumOfTiles_MapHeight(0)
 , theNumOfTiles_MapWidth(0)
 , theTileSize(0)
-, MapID(MAP_MAIN_MENU)
 , theTileset(TILESET_MAIN_MENU)
 {
 	foregroundData.clear();
@@ -316,14 +315,4 @@ int CMap::getNumOfTiles_MapWidth(void)
 int CMap::GetTileSize(void)
 {
 	return theTileSize;
-}
-
-void CMap::setMapID(MAP_ID mapID)
-{
-	this->MapID = mapID;
-}
-
-int CMap::getMapID()
-{
-	return MapID;
 }

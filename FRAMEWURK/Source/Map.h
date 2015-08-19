@@ -7,15 +7,6 @@
 #include <string>
 #include <sstream>
 
-enum MAP_ID // ID for levels
-{
-	MAP_MAIN_MENU = 0,
-
-	MAP_INSTRUCTIONS,
-
-	MAP_TOTAL = MAP_INSTRUCTIONS
-};
-
 enum TILESET_ID // ID for tileset to render
 {
 	TILESET_MAIN_MENU = 0,
@@ -60,9 +51,6 @@ public:
 
 	int GetTileSize(void);	// Get tilesize of the map
 
-	void setMapID(MAP_ID mapID);	// Set Map ID
-	int getMapID();					// Get Map ID
-
 	std::vector<std::vector<int> > foregroundData;	// 2D vector to store foreground values
 	std::vector<std::vector<int> > collisionData;	// 2D vector to store collision values
 	std::vector<std::vector<int> > sceneryData;		// 2D vector to store scenery values
@@ -80,8 +68,6 @@ private:
 	int theMap_Width;				// Stores width of the map [px]
 	int theNumOfTiles_MapHeight;	// Stores number of columns in the map
 	int theNumOfTiles_MapWidth;		// Stores number of rows in the map
-
-	MAP_ID MapID;	// Stores ID of current map
 
 	bool LoadCollisionMap(const std::string fileName);	// Loads values from collision csv into vector
 	bool LoadBackgroundMap(const std::string fileName);	// Loads values from background csv into vector

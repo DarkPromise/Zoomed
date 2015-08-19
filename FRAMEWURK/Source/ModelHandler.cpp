@@ -7,11 +7,12 @@ ModelHandler::ModelHandler()
 
 ModelHandler::~ModelHandler(void)
 {
-	for(unsigned int i = 0; i < m_mapList.size(); ++i)
+	for(unsigned int i = 0; i < m_worldList.size(); ++i)
 	{
-		delete m_mapList[i];
+		delete m_worldList[i];
 	}
-	m_mapList.clear();
+	m_worldList.clear();
+
 	for(unsigned int i = 0; i < m_objectList.size(); ++i)
 	{
 		delete m_objectList[i];
@@ -32,13 +33,15 @@ void ModelHandler::Init() //Anything that moves in the game
 	camera.Init(Vector3(0,0,416),Vector3(0,0,0),Vector3(0,1,0));
 
 	m_status = STATE_MENU;
-	currentMap = MAP_MAIN_MENU;
+	currentWorld = WORLD_MAINMENU;
 
-	CMap * newMap = new CMap();
-	newMap->Init( 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU);
-	newMap->setMapID(MAP_MAIN_MENU);
-	newMap->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//MapData//Main_Menu//MainMenu_Background.csv");
-	m_mapList.push_back(newMap);
+	World* newWorld = new World(WORLD_MAINMENU);
+	m_worldList.push_back(newWorld);
+
+	Room* newRoom = new Room(ROOM_MAINMENU);
+	newRoom->Init(800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU);
+	newRoom->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//MapData//Main_Menu//MainMenu_Background.csv");
+	m_worldList[0]->m_roomList.push_back(newRoom);	
 }
 
 bool ModelHandler::InitObjects()
@@ -54,11 +57,11 @@ bool ModelHandler::InitObjects()
 	m_objectList.push_back(object);
 
 	object = new GameObject("Main Menu", GameObject::MAP);
-	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Background",Color(0.f,0.f,0.f),m_mapList[0]->backgroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Background",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MainMenu.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Scenery",Color(0.f,0.f,0.f),m_mapList[0]->sceneryData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Scenery",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MainMenu.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Foreground",Color(0.f,0.f,0.f),m_mapList[0]->foregroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Foreground",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MainMenu.tga");
 	m_objectList.push_back(object);
 
@@ -77,7 +80,7 @@ bool ModelHandler::InitObjects()
 void ModelHandler::Update(const double dt)
 {
 	camera.Update(dt);
-	player->update(dt,m_mapList[currentMap]);
+	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y));
 }
 
 Camera ModelHandler::getCamera()

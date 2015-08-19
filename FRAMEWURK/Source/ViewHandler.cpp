@@ -176,32 +176,6 @@ BOOL ViewHandler::InitLightsInfo()
 
 BOOL ViewHandler::InitObjects() //Object textures, etc...
 {
-	/*m_meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000);
-
-	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
-	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
-
-	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
-	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
-
-	m_meshList[GEO_TESTMAPBACKGROUND] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->backgroundData,32,32);
-	m_meshList[GEO_TESTMAPBACKGROUND]->textureArray[0] = LoadTGA("Images//Tileset_1.tga");
-
-	m_meshList[GEO_TESTMAPSCENERY] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->sceneryData,32,32);
-	m_meshList[GEO_TESTMAPSCENERY]->textureID = LoadTGA("Images//Tileset_1.tga");
-
-	m_meshList[GEO_TESTMAPFOREGROUND] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->foregroundData,32,32);
-	m_meshList[GEO_TESTMAPFOREGROUND]->textureID = LoadTGA("Images//Tileset_1.tga");
-
-	m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
-	m_meshList[GEO_PLAYER]->textureID = LoadTGA("Images//playerTest.tga");
-	SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
-	if (sa19)
-	{
-		sa19->m_anim = new Animation();
-		sa19->m_anim->Set(0, 2, 0, 0.25f);
-	}*/
-
 	LightsEnabled = false;
 	return true;
 }

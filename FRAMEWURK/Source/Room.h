@@ -8,7 +8,9 @@
 
 enum ROOM_TYPE
 {
-	ROOM_DUCKS = 0,
+	ROOM_MAINMENU,
+
+	ROOM_DUCKS,
 	ROOM_MIRROR,
 	ROOM_OMGPLEASEADDTYPES,
 
@@ -26,13 +28,14 @@ enum EXIT_DIRECTION
 class Room : public CMap
 {
 public:
-	Room(void);
+	Room(ROOM_TYPE roomType);
 	~Room(void);
 
 	void generateRoom(); // Add objects and collision based on roomType
 
 private:
 
+	int worldPositionX, worldPositionY; // Position of the room in world (bottom left)
 	ROOM_TYPE roomType; // Stores room type
 	std::vector<EXIT_DIRECTION> numExit; // Stores direction of each exit, and number of exits [ .size() ]
 };

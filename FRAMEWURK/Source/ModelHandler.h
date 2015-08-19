@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "MeshBuilder.h"
-#include "Map.h"
+#include "World.h"
 #include "Geometry.h"
 #include "LoadTGA.h"
 
@@ -42,18 +42,19 @@ public:
 	void Update(const double dt);
 
 	Game getEnvironment();
-	Player  *getPlayer();
+	Player *getPlayer();
 
 	GAME_STATE m_status;
 
-	MAP_ID currentMap;
+	WORLD_ID currentWorld;
 
 	//vector<GameObject*> m_buttonList; //GUI Class <- Create
 
 	vector<GameObject*> m_objectList;
 	Mesh* m_meshList[NUM_GEOMETRY];
 
-	vector<CMap*> m_mapList;
+	//vector<CMap*> m_mapList;
+	vector<World*> m_worldList;
 private:
 	Player  *player;
 	Camera camera;
