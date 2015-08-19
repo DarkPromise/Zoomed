@@ -2,13 +2,11 @@
 
 Player::Player(std::string name)
 	: on_ground(true),
-	in_liquid(false),
-	is_climbing(false),
 	is_running(false),
 	keyPressed(0),
 // Protected Info
-	m_maxMp(100),
-	m_currMp(m_maxMp),
+	m_maxFear(100),
+	m_currFear(m_maxFear),
 	m_playerSpeed(0,0,0),
 	m_playerPos(0,0,0),
 	m_playerDirection(1,0,0),

@@ -103,19 +103,17 @@ public:
 		return this->m_playerDirection;
 	}
 
-	float &getCurrMp()
+	float &getCurrFear()
 	{
-		return this->m_currMp;
+		return this->m_currFear;
 	}
 
-	float &getMaxMp()
+	float &getMaxFear()
 	{
-		return this->m_maxMp;
+		return this->m_maxFear;
 	}
 
 	bool on_ground;
-	bool in_liquid;
-	bool is_climbing;
 	bool is_running;
 
 	//Inventory inventory;
@@ -141,8 +139,8 @@ protected:
 	Vector3 m_playerDirection;
 	BoundingBox m_boundingbox;
 
-	float m_currMp;
-	float m_maxMp;
+	float m_currFear;
+	float m_maxFear;
 
 	//Scrolling
 	int mapOffset_x, mapOffset_y;
