@@ -37,7 +37,7 @@ public:
 	Camera getCamera();
 
 	void Init();
-	void InitObjects();
+	bool InitObjects();
 	void Update(const double dt);
 
 	Game getEnvironment();

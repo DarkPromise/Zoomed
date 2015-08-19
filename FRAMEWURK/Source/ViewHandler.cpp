@@ -178,7 +178,7 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 {
 	m_meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000);
 
-	/*m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
+	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
 	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
 	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
@@ -199,8 +199,8 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	if (sa19)
 	{
 		sa19->m_anim = new Animation();
-		sa19->m_anim->Set(0, 2, 0, 0.5f);
-	}*/
+		sa19->m_anim->Set(0, 2, 0, 0.25f);
+	}
 
 	LightsEnabled = false;
 	return true;
@@ -295,7 +295,7 @@ void ViewHandler::Update(double dt)
 {
 	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
 
-	//UpdateSA(dt);
+	UpdateSA(dt);
 
 	if(ViewHandler::IsKeyPressed('1'))
 		glEnable(GL_CULL_FACE);
@@ -560,19 +560,21 @@ void ViewHandler::RenderScene()
 		RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 	}
 
+	//RenderMesh(theModel->m_objectList[GEO_QUAD]->getMesh(),false,false);
+
 	//RenderMesh(m_meshList[GEO_QUAD],false,false);
 
-	/*modelStack.PushMatrix();
+	modelStack.PushMatrix();
 	RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false);
 	modelStack.PopMatrix();
 	
-	RenderMesh(m_meshList[GEO_PLAYER],false,false);*/
+	RenderMesh(m_meshList[GEO_PLAYER],false,false);
 
-	//Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
+	/*Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
-	//Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
+	Render2DMesh(m_meshList[GEO_TESTMAPSCENERY],false,false, 1.f, 1.f, 0.f, 0.f);
 
-	//Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
+	Render2DMesh(m_meshList[GEO_TESTMAPFOREGROUND],false,false, 1.f, 1.f, 0.f, 0.f);*/
 
 	std::cout << this->FPS << std::endl;
 	 

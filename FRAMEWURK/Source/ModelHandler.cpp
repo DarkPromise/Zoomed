@@ -41,13 +41,14 @@ void ModelHandler::Init() //Anything that moves in the game
 	m_mapList.push_back(newMap);
 }
 
-void ModelHandler::InitObjects()
+bool ModelHandler::InitObjects()
 {
 	GameObject * object = new GameObject("Test Object");
 	object->addMesh(MeshBuilder::GenerateQuad("Test Object",Color(0.f,0.f,1.f),10.f));
 	//object->getMesh(<you can put in index>)->textureArray = LoadTGA....
 	object->setPosition(Vector3(0.f,0.f,0.f));
 	m_objectList.push_back(object);
+	return true;
 }
 
 void ModelHandler::Update(const double dt)
