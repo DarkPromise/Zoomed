@@ -557,7 +557,7 @@ void ViewHandler::RenderScene()
 
 	RenderMesh(m_meshList[GEO_AXES],false,false);
 
-	for(int i = 0; i < theModel->m_objectList.size(); ++i)
+	for(unsigned i = 0; i < theModel->m_objectList.size(); ++i)
 	{
 		RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 	}
