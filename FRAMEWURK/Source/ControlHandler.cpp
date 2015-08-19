@@ -112,24 +112,14 @@ void ControlHandler::KeyboardUpdate()
 	{
 		toggleFullScreen = false;
 	}
-	//std :: cout << theModel->m_objectList[GEO_PLAYER]->getPosition().x << "," << theModel->m_objectList[GEO_PLAYER]->getPosition().y << std::endl;
+
 	if(theView->IsKeyPressed('W') || theView->IsKeyPressed(GLFW_KEY_SPACE))
 	{
-		if(theModel->m_status == STATE_GAMESTART)
-		{
-			if(theView->getViewType() == VIEW_SIDESCROLLER)
-			{
-				theModel->getPlayer()->controls.jump = true;
-			}
-			else
-			{
-				theModel->getPlayer()->controls.up = true;
-			}
-		}
+		theModel->getPlayer()->controls.up = true;
 	}
 	else
 	{
-		theModel->getPlayer()->controls.jump = false;
+		//theModel->getPlayer()->controls.jump = false;
 		theModel->getPlayer()->controls.up = false;
 	}
 

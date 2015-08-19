@@ -28,7 +28,7 @@ ModelHandler::~ModelHandler(void)
 void ModelHandler::Init() //Anything that moves in the game
 {
 	player = new Player("Josh");
-	player->setPosition(Vector3(700, 300, 0));
+	player->setPosition(Vector3(256, 256, 0));
 
 	camera.Init(Vector3(0,0,416),Vector3(0,0,0),Vector3(0,1,0));
 	
@@ -47,8 +47,7 @@ void ModelHandler::Init() //Anything that moves in the game
 bool ModelHandler::InitObjects()
 {
 	GameObject * object = new GameObject("Test Object");
-	object->addMesh(MeshBuilder::GenerateQuad("Test Object",Color(0.f,0.f,1.f),10.f));
-	//object->getMesh(<you can put in index>)->textureArray = LoadTGA....
+	object->addMesh(MeshBuilder::GenerateQuad("Test Object",Color(0.f,0.f,1.f),32.f));
 	object->setPosition(Vector3(0.f,0.f,0.f));
 	m_objectList.push_back(object);
 
@@ -65,14 +64,14 @@ bool ModelHandler::InitObjects()
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MainMenu.tga");
 	m_objectList.push_back(object);
 
-	m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
+	/*m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
 	m_meshList[GEO_PLAYER]->textureID = LoadTGA("Images//playerTest.tga");
 	SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
 	if (sa19)
 	{
 		sa19->m_anim = new Animation();
 		sa19->m_anim->Set(0, 2, 0, 0.25f);
-	}
+	}*/
 
 	return true;
 }

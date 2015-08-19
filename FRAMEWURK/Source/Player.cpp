@@ -25,26 +25,25 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 {
 	if(controls.up)
 	{
-		m_playerPos.x += 16 * dt;
-		std::cout << m_playerPos.x<< ", " << m_playerPos.y << std::endl;
+		m_playerPos.y += 4;
 	}
 	if(controls.down)
 	{
-		m_playerPos.x -= 16 * dt;
+		m_playerPos.y -= 4;
 	}
 	if(controls.left)
 	{
-		m_playerPos.y -= 16 * dt;
+		m_playerPos.x -= 4;
 	}
 	if(controls.right)
 	{
-		m_playerPos.y += 16 * dt;
+		m_playerPos.x += 4;
 	}
+	std::cout << m_playerPos.x<< ", " << m_playerPos.y << std::endl;
 }
 
 void Player::update(double dt, World* currentWorld, int currentRoom)
 {
-	//m_playerPos += m_playerSpeed;
 	move(dt,currentWorld->m_roomList[currentRoom]->collisionData);
 }
 
