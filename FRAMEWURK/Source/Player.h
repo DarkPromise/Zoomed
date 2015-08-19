@@ -5,6 +5,7 @@
 #include "Game.h" //Environment
 #include <string>
 #include "World.h"
+#include "Vector3.h"
 
 #define PLAYERNAME_SIZE 20;
 #define PLAYER_JUMP_HEIGHT 7.f;

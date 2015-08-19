@@ -543,7 +543,10 @@ void ViewHandler::RenderScene()
 			{
 				RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
 				RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
-				//RenderMesh(theModel->m_objectList[PLAYER]->getMesh(CURRENT_STATE),false,false);
+				modelStack.PushMatrix();
+				modelStack.Translate(theModel->m_objectList[GEO_PLAYER]->getPosition().x, theModel->m_objectList[GEO_PLAYER]->getPosition().y, 0);
+				RenderMesh(theModel->m_objectList[GEO_PLAYER]->getMesh(0), false, false);
+				modelStack.PopMatrix();
 				RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
 			}
 			else
