@@ -1,3 +1,6 @@
+#ifndef SPRITE_ANIMATION_H
+#define SPRITE_ANIMATION_H
+
 #include "Mesh.h"
 #include "Vector3.h"
 
@@ -43,3 +46,5 @@ public:
 	int m_playCount;
 	Animation *m_anim;
 }; 
+
+#endif
