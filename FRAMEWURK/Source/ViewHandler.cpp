@@ -535,9 +535,19 @@ void ViewHandler::RenderScene()
 	{
 		if(theModel->m_objectList[i]->getMeshSize() > 1)
 		{
-			for(int j = 0; j < theModel->m_objectList[i]->getMeshSize(); ++j)
+			if(theModel->m_objectList[i]->getObjectType() == TYPE_MAP)
 			{
-				RenderMesh(theModel->m_objectList[i]->getMesh(j),false,false);
+				RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
+				RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
+				//RenderMesh(theModel->m_objectList[PLAYER]->getMesh(CURRENT_STATE),false,false);
+				RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
+			}
+			else
+			{
+				for(int j = 0; j < theModel->m_objectList[i]->getMeshSize(); ++j)
+				{
+					RenderMesh(theModel->m_objectList[i]->getMesh(j),false,false);
+				}
 			}
 		}
 		else

@@ -30,7 +30,6 @@ ipch/
 
 # Filters
 *.filters
-*.vcxproj
 
 # Stuff
 *.ilk

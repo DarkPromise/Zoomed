@@ -9,20 +9,19 @@
 
 using std::vector;
 
+enum OBJECT_TYPE
+{
+	TYPE_PLAYER = 0,
+	TYPE_ENEMY,
+	TYPE_MAP,
+	TYPE_OBJECT,
+	TYPE_LIGHT_STENCIL,
+};
+
 class GameObject : public Object
 {
 public:
-	
-	enum OBJECT_TYPE
-	{
-		PLAYER = 0,
-		ENEMY,
-		MAP,
-		OBJECT,
-		LIGHT_STENCIL,
-	};
-
-	GameObject(std::string m_objectName, OBJECT_TYPE objectType = OBJECT);
+	GameObject(std::string m_objectName, OBJECT_TYPE objectType = TYPE_OBJECT);
 	~GameObject();
 
 	float mass;

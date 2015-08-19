@@ -11,7 +11,7 @@ GameObject::GameObject(std::string m_objectName, OBJECT_TYPE objectType) : m_bSt
 	mass(0.0f),
 	m_objectPosition(0,0,0),
 	m_objectVelocity(0,0,0),
-	m_objectType(OBJECT)
+	m_objectType(objectType)
 {
 	this->setName(m_objectName);
 	this->setObjectType(objectType);
@@ -77,7 +77,7 @@ void GameObject::setObjectType(OBJECT_TYPE type)
 	this->m_objectType = type;
 }
 
-GameObject::OBJECT_TYPE GameObject::getObjectType()
+OBJECT_TYPE GameObject::getObjectType()
 {
 	return this->m_objectType;
 }

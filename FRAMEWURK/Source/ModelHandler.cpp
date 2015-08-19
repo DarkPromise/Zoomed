@@ -56,7 +56,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000));
 	m_objectList.push_back(object);
 
-	object = new GameObject("Main Menu", GameObject::MAP);
+	object = new GameObject("Main Menu", TYPE_MAP);
 	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Background",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MainMenu.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Scenery",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->sceneryData,32,32));
