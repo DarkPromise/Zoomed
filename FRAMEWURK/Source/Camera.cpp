@@ -44,9 +44,9 @@ void Camera::Update(const double dt)
 		right.Normalize();
 		
 		Vector3 toInt = (view.Cross(right) * yaw);
-		toInt.x = (int)toInt.x;
-		toInt.y = (int)toInt.y;
-		toInt.z = (int)toInt.z;
+		toInt.x = Math::Round(toInt.x);
+		toInt.y = Math::Round(toInt.y);
+		toInt.z = Math::Round(toInt.z);
 
 		position += toInt;
 		target += toInt;
@@ -60,9 +60,9 @@ void Camera::Update(const double dt)
 		right.Normalize();
 
 		Vector3 toInt = (view.Cross(right) * yaw);
-		toInt.x = (int)toInt.x;
-		toInt.y = (int)toInt.y;
-		toInt.z = (int)toInt.z;
+		toInt.x = Math::Round(toInt.x);
+		toInt.y = Math::Round(toInt.y);
+		toInt.z = Math::Round(toInt.z);
 
 		position -= toInt;
 		target -= toInt;
@@ -75,9 +75,9 @@ void Camera::Update(const double dt)
 		right.Normalize();
 
 		Vector3 toInt = (right) * CAMERA_SPEED * (float) dt;
-		toInt.x = (int)toInt.x;
-		toInt.y = (int)toInt.y;
-		toInt.z = (int)toInt.z;
+		toInt.x = Math::Round(toInt.x);
+		toInt.y = Math::Round(toInt.y);
+		toInt.z = Math::Round(toInt.z);
 
 		position -= toInt;
 		target -= toInt;
@@ -90,9 +90,9 @@ void Camera::Update(const double dt)
 		right.Normalize();
 
 		Vector3 toInt = (right) * CAMERA_SPEED * (float) dt;
-		toInt.x = (int)toInt.x;
-		toInt.y = (int)toInt.y;
-		toInt.z = (int)toInt.z;
+		toInt.x = Math::Round(toInt.x);
+		toInt.y = Math::Round(toInt.y);
+		toInt.z = Math::Round(toInt.z);
 
 		position += toInt;
 		target += toInt;

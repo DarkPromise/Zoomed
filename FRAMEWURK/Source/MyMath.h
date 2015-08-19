@@ -250,6 +250,11 @@ Return a random float between min and max
 		return (num + min);
 	}//end of RandFloatMinMax function
 
+
+	inline float Round(float number)
+	{
+		return (number > 0.0f) ? floor(number + 0.5f) : ceil(number - 0.5f);
+	}
 }//end namespace Math
 
 /******************************************************************************/
