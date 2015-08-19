@@ -317,6 +317,7 @@ void ViewHandler::RenderMesh(Mesh *mesh, bool enableLight, bool enableFog)
 
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+
 	modelView = viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
 
@@ -371,6 +372,7 @@ void ViewHandler::Render2DMesh(Mesh *mesh, bool enableLight, bool enableFog, flo
 		projectionStack.LoadMatrix(ortho);
 		viewStack.PushMatrix();
 		viewStack.LoadIdentity();
+
 			modelStack.PushMatrix();
 				modelStack.LoadIdentity();
 				modelStack.Translate(transX, transY, 0);
@@ -379,6 +381,7 @@ void ViewHandler::Render2DMesh(Mesh *mesh, bool enableLight, bool enableFog, flo
 				Mtx44 MVP, modelView, modelView_inverse_transpose;
 
 				MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+
 				glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 				if(mesh->textureID > 0)
 				{
@@ -542,7 +545,6 @@ void ViewHandler::RenderScene()
 	}
 
 	Mtx44 Projection;
-	//Projection.SetToPerspective(90, (double)m_window_width/m_window_height,0.1,1000);
 	Projection.SetToOrtho(0, 1024, 0, 800, -10, 1000);
 	projectionStack.LoadMatrix(Projection);
 
