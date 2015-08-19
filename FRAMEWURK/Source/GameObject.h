@@ -12,6 +12,16 @@ using std::vector;
 class GameObject : public Object
 {
 public:
+	
+	enum OBJECT_TYPE
+	{
+		PLAYER = 0,
+		ENEMY,
+		MAP,
+		OBJECT,
+		LIGHT_STENCIL,
+	};
+
 	GameObject(std::string m_objectName);
 	~GameObject();
 
@@ -44,10 +54,11 @@ public:
 		m_objectMesh.push_back(mesh);
 	}
 
-	Mesh* getMesh(int i = 0)
-	{
-		return this->m_objectMesh[i];
-	}
+	Mesh* getMesh(int i = 0);
+	int getMeshSize();
+
+	void setObjectType(OBJECT_TYPE type);
+	OBJECT_TYPE getObjectType();
 
 	void setStatic(bool status);
 protected:
@@ -56,6 +67,8 @@ protected:
 
 	BoundingBox m_boundingBox;
 	std::vector<Mesh*> m_objectMesh;
+
+	OBJECT_TYPE m_objectType;
 private:
 	bool m_bStatic;
 };

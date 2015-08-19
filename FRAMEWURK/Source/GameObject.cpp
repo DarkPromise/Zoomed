@@ -10,7 +10,8 @@ GameObject::GameObject(std::string m_objectName) : m_bStatic(false),
 	m_boundingBox(0.0f,0.0f,0.0f, 0.0f,0.0f,0.0f),
 	mass(0.0f),
 	m_objectPosition(0,0,0),
-	m_objectVelocity(0,0,0)
+	m_objectVelocity(0,0,0),
+	m_objectType(OBJECT)
 {
 	this->setName(m_objectName);
 
@@ -59,4 +60,24 @@ void GameObject::setVelocity(Vector3 vel)
 Vector3 GameObject::getVelocity()
 {
 	return this->m_objectVelocity;
+}
+
+Mesh* GameObject::getMesh(int i)
+{
+	return this->m_objectMesh[i];
+}
+
+int GameObject::getMeshSize()
+{
+	return this->m_objectMesh.size();
+}
+
+void GameObject::setObjectType(OBJECT_TYPE type)
+{
+	this->m_objectType = type;
+}
+
+GameObject::OBJECT_TYPE GameObject::getObjectType()
+{
+	return this->m_objectType;
 }

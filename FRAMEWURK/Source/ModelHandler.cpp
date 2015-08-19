@@ -48,6 +48,30 @@ bool ModelHandler::InitObjects()
 	//object->getMesh(<you can put in index>)->textureArray = LoadTGA....
 	object->setPosition(Vector3(0.f,0.f,0.f));
 	m_objectList.push_back(object);
+
+	object = new GameObject("Axes");
+	object->addMesh(MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000));
+	m_objectList.push_back(object);
+
+	object = new GameObject("Main Menu");
+	object->setObjectType(GameObject::MAP);
+	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Background",Color(0.f,0.f,0.f),m_mapList[0]->backgroundData,32,32));
+	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MainMenu.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Scenery",Color(0.f,0.f,0.f),m_mapList[0]->sceneryData,32,32));
+	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MainMenu.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Foreground",Color(0.f,0.f,0.f),m_mapList[0]->foregroundData,32,32));
+	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MainMenu.tga");
+	m_objectList.push_back(object);
+
+	//m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
+	//m_meshList[GEO_PLAYER]->textureID = LoadTGA("Images//playerTest.tga");
+	//SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
+	//if (sa19)
+	//{
+	//	sa19->m_anim = new Animation();
+	//	sa19->m_anim->Set(0, 2, 0, 0.25f);
+	//}*/
+
 	return true;
 }
 

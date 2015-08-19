@@ -9,6 +9,7 @@
 #include "MeshBuilder.h"
 #include "Map.h"
 #include "Geometry.h"
+#include "LoadTGA.h"
 
 /************************************************
 

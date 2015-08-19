@@ -176,7 +176,7 @@ BOOL ViewHandler::InitLightsInfo()
 
 BOOL ViewHandler::InitObjects() //Object textures, etc...
 {
-	m_meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000);
+	/*m_meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000);
 
 	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
 	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
@@ -200,7 +200,7 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	{
 		sa19->m_anim = new Animation();
 		sa19->m_anim->Set(0, 2, 0, 0.25f);
-	}
+	}*/
 
 	LightsEnabled = false;
 	return true;
@@ -295,7 +295,7 @@ void ViewHandler::Update(double dt)
 {
 	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
 
-	UpdateSA(dt);
+	//UpdateSA(dt);
 
 	if(ViewHandler::IsKeyPressed('1'))
 		glEnable(GL_CULL_FACE);
@@ -555,14 +555,24 @@ void ViewHandler::RenderScene()
 		theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 		);
 
-	RenderMesh(m_meshList[GEO_AXES],false,false);
+	//RenderMesh(m_meshList[GEO_AXES],false,false);
 
 	for(unsigned i = 0; i < theModel->m_objectList.size(); ++i)
 	{
-		RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+		if(theModel->m_objectList[i]->getMeshSize() > 1)
+		{
+			for(unsigned j = 0; j < theModel->m_objectList[i]->getMeshSize(); ++j)
+			{
+				RenderMesh(theModel->m_objectList[i]->getMesh(j),false,false);
+			}
+		}
+		else
+		{
+			RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+		}
 	}
 
-	RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false);
+	//RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false);
 
 	/*RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 
