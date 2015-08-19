@@ -178,7 +178,7 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 {
 	m_meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000);
 
-	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
+	/*m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
 	m_meshList[GEO_MAINMENU_TILEMAP]->textureID = LoadTGA("Images//Tileset_1.tga");
 
 	m_meshList[GEO_MAINMENU_TILEMAP] = MeshBuilder::GenerateSpriteSheet("MainMenuTileMap",32,32);
@@ -193,16 +193,14 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 	m_meshList[GEO_TESTMAPFOREGROUND] = MeshBuilder::GenerateTileMap("Test",Color(0.f,0.f,0.f),theModel->m_mapList[0]->foregroundData,32,32);
 	m_meshList[GEO_TESTMAPFOREGROUND]->textureID = LoadTGA("Images//Tileset_1.tga");
 
-	m_meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("FUCK",Color(0,0,1.f),10.f);
-
 	m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
 	m_meshList[GEO_PLAYER]->textureArray[0] = LoadTGA("Images//playerTest.tga");
 	SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
 	if (sa19)
 	{
 		sa19->m_anim = new Animation();
-		sa19->m_anim->Set(0, 2, 0, .1f);
-	}
+		sa19->m_anim->Set(0, 2, 0, 0.5f);
+	}*/
 
 	LightsEnabled = false;
 	return true;
@@ -297,7 +295,7 @@ void ViewHandler::Update(double dt)
 {
 	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
 
-	UpdateSA(dt);
+	//UpdateSA(dt);
 
 	if(ViewHandler::IsKeyPressed('1'))
 		glEnable(GL_CULL_FACE);
@@ -556,13 +554,19 @@ void ViewHandler::RenderScene()
 		);
 
 	RenderMesh(m_meshList[GEO_AXES],false,false);
-	RenderMesh(m_meshList[GEO_QUAD],false,false);
 
-	modelStack.PushMatrix();
+	for(int i = 0; i < theModel->m_objectList.size(); ++i)
+	{
+		RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+	}
+
+	//RenderMesh(m_meshList[GEO_QUAD],false,false);
+
+	/*modelStack.PushMatrix();
 	RenderMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false);
 	modelStack.PopMatrix();
 	
-	RenderMesh(m_meshList[GEO_PLAYER],false,false);
+	RenderMesh(m_meshList[GEO_PLAYER],false,false);*/
 
 	//Render2DMesh(m_meshList[GEO_TESTMAPBACKGROUND],false,false, 1.f, 1.f, 0.f, 0.f);
 

@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "MeshBuilder.h"
 #include "Map.h"
+#include "Geometry.h"
 
 /************************************************
 
@@ -36,6 +37,7 @@ public:
 	Camera getCamera();
 
 	void Init();
+	void InitObjects();
 	void Update(const double dt);
 
 	Game getEnvironment();
@@ -45,8 +47,11 @@ public:
 
 	MAP_ID currentMap;
 
-	vector<GameObject*> m_buttonList; //GUI Class <- Create
-	vector<Mesh*> m_boundingBoxList; //Keep track of bounding boxes in model
+	//vector<GameObject*> m_buttonList; //GUI Class <- Create
+
+	vector<GameObject*> m_objectList;
+	Mesh* m_meshList[NUM_GEOMETRY];
+
 	vector<CMap*> m_mapList;
 private:
 	Player  *player;

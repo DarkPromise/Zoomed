@@ -12,6 +12,16 @@ ModelHandler::~ModelHandler(void)
 		delete m_mapList[i];
 	}
 	m_mapList.clear();
+	for(unsigned int i = 0; i < m_objectList.size(); ++i)
+	{
+		delete m_objectList[i];
+	}
+	m_objectList.clear();
+
+	for(unsigned int i = 0; i < NUM_GEOMETRY; ++i)
+	{
+		delete m_meshList[i];
+	}
 }
 
 void ModelHandler::Init() //Anything that moves in the game
@@ -29,8 +39,15 @@ void ModelHandler::Init() //Anything that moves in the game
 	newMap->setMapID(MAP_MAIN_MENU);
 	newMap->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//MapData//Main_Menu//MainMenu_Background.csv");
 	m_mapList.push_back(newMap);
+}
 
-
+void ModelHandler::InitObjects()
+{
+	GameObject * object = new GameObject("Test Object");
+	object->addMesh(MeshBuilder::GenerateQuad("Test Object",Color(0.f,0.f,1.f),10.f));
+	//object->getMesh(<you can put in index>)->textureArray = LoadTGA....
+	object->setPosition(Vector3(0.f,0.f,0.f));
+	m_objectList.push_back(object);
 }
 
 void ModelHandler::Update(const double dt)

@@ -3,6 +3,7 @@
 
 #include "Object.h"
 #include "Geometry.h"
+#include "MeshBuilder.h"
 
 #include <vector>
 
@@ -38,12 +39,23 @@ public:
 	void setVelocity(Vector3 velocity);
 	Vector3 getVelocity();
 
+	void addMesh(Mesh* mesh)
+	{
+		m_objectMesh.push_back(mesh);
+	}
+
+	Mesh* getMesh(int i = 0)
+	{
+		return this->m_objectMesh[i];
+	}
+
 	void setStatic(bool status);
 protected:
 	Vector3 m_objectPosition;
 	Vector3 m_objectVelocity;
 
-	BoundingBox boundingbox;
+	BoundingBox m_boundingBox;
+	std::vector<Mesh*> m_objectMesh;
 private:
 	bool m_bStatic;
 };

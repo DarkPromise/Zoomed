@@ -7,7 +7,7 @@ GameObject::GameObject(std::string m_objectName) : m_bStatic(false),
 	isLightAffected(false),
 	isFogAffected(false),
 	makesNoise(false),
-	boundingbox(0.0f,0.0f,0.0f, 0.0f,0.0f,0.0f),
+	m_boundingBox(0.0f,0.0f,0.0f, 0.0f,0.0f,0.0f),
 	mass(0.0f),
 	m_objectPosition(0,0,0),
 	m_objectVelocity(0,0,0)
@@ -24,7 +24,7 @@ GameObject::~GameObject()
 
 BoundingBox & GameObject::getBoundingBox()
 {
-	return this->boundingbox;
+	return this->m_boundingBox;
 }
 
 void GameObject::setStatic(bool status)

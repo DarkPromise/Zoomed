@@ -22,7 +22,11 @@ void ControlHandler::RunGameLoop()
 {
 	bool LoopTheGame = true;
 
-	if(!theView->CreateGLWindow("Main Game",1024,800,16))
+	if(theView->CreateGLWindow("Main Game",1024,800,16))
+	{
+		theModel->InitObjects(); //Because OpenGL isnt created yet..
+	}
+	else
 	{
 		std::cout << "Failed To Create Framework" << std::endl;
 	}
@@ -72,14 +76,14 @@ void ControlHandler::MouseUpdate()
 		if(theModel->m_status == STATE_MENU)
 		{
 			//Check is mouse click is within any GUI bounding box(click options for GUIBUTTON::TYPE type)
-			for(unsigned int i = 0; i < theModel->m_buttonList.size(); ++i)
+		/*	for(unsigned int i = 0; i < theModel->m_buttonList.size(); ++i)
 			{
 				if((theModel->m_buttonList[i]->getBoundingBox().Min.x <= theView->MouseInfo.x)  && (theView->MouseInfo.x <= theModel->m_buttonList[i]->getBoundingBox().Max.x) &&
 					(theModel->m_buttonList[i]->getBoundingBox().Min.y >= theView->MouseInfo.y)  && (theView->MouseInfo.y >= theModel->m_buttonList[i]->getBoundingBox().Max.y))
 				{
 					
 				}
-			}
+			}*/
 			//Do the action(Parse into theView)
 		}
 		//exit
