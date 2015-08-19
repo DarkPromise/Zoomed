@@ -5,12 +5,13 @@ struct Animation
 {
 	Animation() {}
 
-	void Set(int startFrame, int endFrame, int repeat, float time)
+	void Set(int startFrame, int endFrame, int repeat, float time, bool active = true)
 	{
 		this->startFrame = startFrame; 
 		this->endFrame = endFrame;
 		this->repeatCount =	repeat; 
 		this->animTime = time;
+		this->playing = active;
 	}
 
 	int startFrame;
@@ -18,6 +19,7 @@ struct Animation
 	int repeatCount;
 	float animTime;
 	bool ended;
+	bool playing;
 }; 
 
 class SpriteAnimation : public Mesh
@@ -27,6 +29,11 @@ public:
 	~SpriteAnimation();
 	void Update(double dt);
 	virtual void Render();
+
+	void resetAnimation();
+
+	void pause();
+	void unpause();
 
 	int m_row;
 	int m_col;
