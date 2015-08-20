@@ -47,9 +47,13 @@ public:
 	int GetNumOfTiles_Height(void);	// Get number of tiles for height of the screen
 	int GetNumOfTiles_Width(void);	// Get number of tiles for width of the screen
 
+	void setNumOfTiles_MapHeight(int mapHeight);	// Set number of tiles for height of the map
+	void setNumOfTiles_MapWidth(int mapWidth);	// Set number of tiles for height of the map
+
 	int getNumOfTiles_MapHeight(void);	// Get number of tiles for height of the map
 	int getNumOfTiles_MapWidth(void);	// Get number of tiles for height of the map
 
+	void SetTileSize(int tilesize); // Set tilesize
 	int GetTileSize(void);	// Get tilesize of the map
 
 	std::vector<std::vector<int> > foregroundData;	// 2D vector to store foreground values

@@ -528,13 +528,10 @@ void ViewHandler::RenderScene()
 
 	viewStack.LoadIdentity();
 	viewStack.LookAt(
-		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5)),theModel->getCamera().position.z,
-		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5)),theModel->getCamera().target.z,
+		theModel->getPlayer()->getPosition().x - 512,theModel->getPlayer()->getPosition().y - 400,theModel->getCamera().position.z,
+		theModel->getPlayer()->getPosition().x - 512,theModel->getPlayer()->getPosition().y - 400,theModel->getCamera().target.z,
 		theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 		);
-
-	//std::cout << "Position : " << theModel->getCamera().position << std::endl;
-	//std::cout << "Target : " << theModel->getCamera().target << std::endl;
 	
 	//RenderMesh(m_meshList[GEO_AXES],false,false);
 
@@ -545,7 +542,7 @@ void ViewHandler::RenderScene()
 			if(theModel->m_objectList[i]->getObjectType() == TYPE_MAP)
 			{
 				modelStack.PushMatrix();
-					modelStack.Translate(theModel->m_objectList[i]->getPosition().x, theModel->m_objectList[i]->getPosition().y, theModel->m_objectList[i]->getPosition().z);
+					modelStack.Translate(theModel->m_objectList[i]->getPosition().x, -theModel->m_objectList[i]->getPosition().y, theModel->m_objectList[i]->getPosition().z);
 					RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
 					RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
 

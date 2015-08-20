@@ -145,10 +145,18 @@ Room::Room(ROOM_TYPE roomType,
 		const int theMap_Height, 
 		const int theMap_Width, 
 		const int theTileSize, 
-		const TILESET_ID tileset) : CMap(theScreen_Height, theScreen_Width, theNumOfTiles_Height, theNumOfTiles_Width, theMap_Height, theMap_Width, theTileSize, tileset)
+		const TILESET_ID tileset,
+		const int worldPositionX,
+		const int worldPositionY) : CMap(theScreen_Height, theScreen_Width, theNumOfTiles_Height, theNumOfTiles_Width, theMap_Height, theMap_Width, theTileSize, tileset)
 		, attemptCounter(0)
 {
+	numExit.clear();
+	roomObjectList.clear();
+
 	this->roomType = roomType;
+
+	this->worldPositionX = worldPositionX;
+	this->worldPositionY = worldPositionY;
 
 	switch (roomType)
 	{
@@ -185,6 +193,8 @@ Room::Room(ROOM_TYPE roomType,
 
 Room::~Room(void)
 {
+	numExit.clear();
+	roomObjectList.clear();
 }
 
 void Room::reset_mapData()
@@ -222,6 +232,7 @@ void Room::generateRoom()
 
 	while (!generatedRoom)
 	{
+		this->exitCounter = 0; // counters number of exits placed
 		attemptCounter = 0; // counts number of times object was tried to be placed
 		generatedRoom = true; // reset room flag
 		reset_mapData(); // reset map data
@@ -379,13 +390,18 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM:
 			{
-				originX = Math::RandIntMinMax(3, sceneryData[0].size()-4);
+				originX = Math::RandIntMinMax(3, sceneryData[0].size()-5);
 				while (!((originX != -1) && (sceneryData[sceneryData.size()-3][originX] == -1)))
 				{
-					originX = Math::RandIntMinMax(3, sceneryData[0].size()-4);
+					originX = Math::RandIntMinMax(3, sceneryData[0].size()-5);
 				}
 
 				sceneryData[sceneryData.size()-2][originX] = 266; sceneryData[sceneryData.size()-2][originX+1] = 267; sceneryData[sceneryData.size()-2][originX+2] = 268;
+
+				numExit[exitCounter]->exitPositionX = originX+1;
+				numExit[exitCounter]->exitPositionY = sceneryData.size()-2;
+
+				exitCounter++;
 			}
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM:
@@ -443,7 +459,8 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 
 void Room::addExit(EXIT_DIRECTION exit)
 {
-	this->numExit.push_back(exit);
+	Room_Exit* newExit = new Room_Exit(exit, this->getRoomType());
+	this->numExit.push_back(newExit);
 	
 	switch (roomType)
 	{
@@ -466,4 +483,29 @@ void Room::addExit(EXIT_DIRECTION exit)
 		}
 		break;
 	}
+}
+
+ROOM_TYPE Room::getRoomType()
+{
+	return this->roomType;
+}
+
+unsigned Room::getExitSize()
+{
+	return numExit.size();
+}
+
+Room_Exit* Room::getExit(int index)
+{
+	return numExit[index];
+}
+
+int Room::getWorldPositionX()
+{
+	return this->worldPositionX;
+}
+
+int Room::getWorldPositionY()
+{
+	return this->worldPositionY;
 }

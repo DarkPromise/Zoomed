@@ -8,6 +8,8 @@
 
 enum ROOM_TYPE
 {
+	ROOM_NULL,
+
 	ROOM_MAINMENU,
 
 	ROOM_TESTPUZZLE,
@@ -21,10 +23,41 @@ enum ROOM_TYPE
 
 enum EXIT_DIRECTION
 {
+	EXIT_NULL,
+
 	EXIT_LEFT,
 	EXIT_RIGHT,
 	EXIT_UP,
 	EXIT_DOWN,
+};
+
+struct Room_Exit
+{
+	Room_Exit(EXIT_DIRECTION exitDirection, ROOM_TYPE roomType = ROOM_NULL, int exitPositionX = 0, int exitPositionY = 0)
+	{
+		this->exitDirection = exitDirection;
+		this->exitPositionX = exitPositionX;
+		this->exitPositionY = exitPositionY;
+		this->roomType = roomType;
+	}
+
+	~Room_Exit()
+	{
+	}
+
+	ROOM_TYPE roomType;
+	EXIT_DIRECTION exitDirection;
+	int exitPositionX;
+	int exitPositionY;
+};
+
+struct RoomExitYLessThan
+{
+public:
+	bool operator()(const Room_Exit* a, const Room_Exit* b)
+	{
+		return (a->exitPositionY < b->exitPositionY);
+	}
 };
 
 struct Room_Object
@@ -77,10 +110,20 @@ public:
 		const int theMap_Height, 
 		const int theMap_Width, 
 		const int theTileSize, 
-		const TILESET_ID tileset);
+		const TILESET_ID tileset,
+		const int worldPositionX,
+		const int worldPositionY);
 	~Room(void);
 
 	void addOBJtoGenerate(Room_Object* object);
+
+	int getWorldPositionX();
+	int getWorldPositionY();
+
+	unsigned getExitSize();
+	Room_Exit* getExit(int index);
+
+	ROOM_TYPE getRoomType();
 
 	void generateRoom(); // Add objects and collision based on roomType
 	bool addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY); // Add specific object to room based on position and type (origin top left)
@@ -92,9 +135,10 @@ private:
 
 	std::vector<Room_Object*> roomObjectList; // Stores all objects to be added during generateRoom()
 	int attemptCounter; // Stores number of times object in room was attempted to be generated.
+	int exitCounter; // Stores number of exits generated
 	int worldPositionX, worldPositionY; // Position of the room in world (bottom left)
 	ROOM_TYPE roomType; // Stores room type
-	std::vector<EXIT_DIRECTION> numExit; // Stores direction of each exit, and number of exits [ .size() ]
+	std::vector<Room_Exit* > numExit; // Stores direction of each exit, and number of exits [ .size() ]
 };
 
 #endif

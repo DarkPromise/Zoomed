@@ -53,6 +53,21 @@ CMap::~CMap(void)
 	backgroundData.clear();
 }
 
+void CMap::SetTileSize(int tilesize)
+{
+	this->theTileSize = tilesize;
+}
+
+void CMap::setNumOfTiles_MapHeight(int mapHeight)
+{
+	this->theNumOfTiles_MapHeight = mapHeight;
+}
+
+void CMap::setNumOfTiles_MapWidth(int mapWidth)
+{
+	this->theNumOfTiles_MapWidth = mapWidth;
+}
+
 bool CMap::LoadMap(const std::string mapName, const std::string sceneryName, const std::string backgroundName, const std::string collisionName)
 {
 	if (LoadForegroundMap(mapName))
@@ -282,7 +297,6 @@ bool CMap::LoadForegroundMap(const std::string mapName)
 			}
 
 			theLineCounter++;
-			std::cout << theLineCounter << " " << foregroundData.size() << std::endl;
 		}
 	}
 	return true;

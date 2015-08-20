@@ -48,27 +48,45 @@ void ModelHandler::Init() //Anything that moves in the game
 	World* newWorld = new World(WORLD_MAINMENU);
 	m_worldList.push_back(newWorld);
 
-	Room* newRoom = new Room(ROOM_MAINMENU, 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU);
+	// Give a 10 space buffer to the top and left for corridors
+
+	Room* newRoom = new Room(ROOM_MAINMENU, 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU, 10, 10);
 	newRoom->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//Main_Menu//MainMenu_Background.csv");
-	m_worldList[0]->m_roomList.push_back(newRoom);	
+	m_worldList[0]->m_roomList.push_back(newRoom);
 
 	// TEST WORLD
 	newWorld = new World(WORLD_TEST);
 	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 10, 20);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	m_worldList[1]->m_roomList[0]->generateRoom();
-
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 30, 10);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	m_worldList[1]->m_roomList[1]->generateRoom();
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 50, 40);
+	newRoom->addExit(EXIT_DOWN);
+	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
+	m_worldList[1]->m_roomList.push_back(newRoom);
+
+	m_worldList[1]->m_roomList[2]->generateRoom();
+
+	for (unsigned i = 0; i < m_worldList.size(); i++)
+	{
+		for (unsigned j = 0; j < m_worldList[i]->m_roomList.size(); j++)
+		{
+			m_worldList[i]->m_roomList[j]->generateRoom();
+		}
+	}
+
+	for (unsigned i = 0; i < m_worldList.size(); i++)
+	{
+		m_worldList[i]->initWorld();
+	}
 }
 
 bool ModelHandler::InitObjects()
@@ -82,16 +100,16 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000));
 	m_objectList.push_back(object);
 
-	object = new GameObject("Main Menu", TYPE_MAP);
+	/*object = new GameObject("Main Menu", TYPE_MAP, Vector3((float)(m_worldList[0]->m_roomList[0]->getWorldPositionX()*m_worldList[0]->m_roomList[0]->GetTileSize()), (float)(m_worldList[0]->m_roomList[0]->getWorldPositionY()*m_worldList[0]->m_roomList[0]->GetTileSize()), 0));
 	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Background",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Scenery",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Foreground",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
-	m_objectList.push_back(object);
+	m_objectList.push_back(object);*/
 
-	object = new GameObject("Puzzle Test Room", TYPE_MAP, Vector3(-512, -96, 0));
+	/*object = new GameObject("Puzzle Test Room", TYPE_MAP, Vector3((float)(m_worldList[1]->m_roomList[0]->getWorldPositionX()*m_worldList[1]->m_roomList[0]->GetTileSize()), (float)(m_worldList[1]->m_roomList[0]->getWorldPositionY()*m_worldList[1]->m_roomList[0]->GetTileSize()), 0));
 	object->addMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[0]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("Test Scenery",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[0]->sceneryData,32,32));
@@ -100,7 +118,7 @@ bool ModelHandler::InitObjects()
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	m_objectList.push_back(object);
 
-	object = new GameObject("Puzzle Test Room 2", TYPE_MAP, Vector3(-1504, -192, 0));
+	object = new GameObject("Puzzle Test Room 2", TYPE_MAP, Vector3((float)(m_worldList[1]->m_roomList[1]->getWorldPositionX()*m_worldList[1]->m_roomList[1]->GetTileSize()), (float)(m_worldList[1]->m_roomList[1]->getWorldPositionY()*m_worldList[1]->m_roomList[1]->GetTileSize()), 0));
 	object->addMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[1]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("Test Scenery",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[1]->sceneryData,32,32));
@@ -109,12 +127,21 @@ bool ModelHandler::InitObjects()
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	m_objectList.push_back(object);
 
-	object = new GameObject("Puzzle Test Room 2", TYPE_MAP, Vector3(-1056, -832, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[1]->backgroundData,32,32));
+	object = new GameObject("Puzzle Test Room 3", TYPE_MAP, Vector3((float)(m_worldList[1]->m_roomList[2]->getWorldPositionX()*m_worldList[1]->m_roomList[2]->GetTileSize()), (float)(m_worldList[1]->m_roomList[2]->getWorldPositionY()*m_worldList[1]->m_roomList[2]->GetTileSize()), 0));
+	object->addMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[2]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Scenery",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[1]->sceneryData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("Test Scenery",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[2]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Foreground",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[1]->foregroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("Test Foreground",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[2]->foregroundData,32,32));
+	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+	m_objectList.push_back(object);*/
+
+	object = new GameObject("Test World", TYPE_MAP, Vector3(0, 0, 0));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[1]->backgroundData,32,32));
+	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[1]->sceneryData,32,32));
+	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[1]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	m_objectList.push_back(object);
 
