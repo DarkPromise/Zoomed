@@ -133,6 +133,8 @@ void Room::generateRoom()
 
 	// NOTE!! __data[1][0] IS THE TOP LEFT AFTER RENDERING
 
+	int attemptCounter = 0; // counts number of times object was tried to be placed
+
 	switch (roomType)
 	{
 	case ROOM_TESTPUZZLE:
@@ -142,13 +144,17 @@ void Room::generateRoom()
 			this->addExit(EXIT_DOWN);
 
 			//generate objects
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_WHITE_TABLECLOTH_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_MEDIUM_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_SMALL_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_LEFT), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_BED), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_RIGHT), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(3, sceneryData.size()-3)));
+			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_WHITE_TABLECLOTH_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)))
+			{
+				attemptCounter++;
+			}
+			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_MEDIUM_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
+			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_SMALL_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
+			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_LEFT), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
+			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_BED), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
+			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_RIGHT), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
+
+			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET), -1, -1));
 
 			// do not add bronze stuff or open book unless there is a white tablecloth table
 			addObject(roomType, Room_Object(static_cast<Room_Object::ROOM_OBJECT_TYPE>(Room_Object::ROOM_OBJECT_TESTPUZZLE_BRONZE_GLOBE+Math::RandIntMinMax(0, 3))), -1, -1);
@@ -178,11 +184,11 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 			return false;
 		}
 	
-		//Make sure object doesn't collide with other objects
+		//Make sure object doesn't collide with other objects and doesn't lie directly beside
 		{
-			for (int i = 0; i <= object.height; i++)
+			for (int i = -1; i <= object.height+1; i++)
 			{
-				for (int j = 0; j <= object.width; j++)
+				for (int j = -1; j <= object.width+1; j++)
 				{
 					if (sceneryData[originY+i][originX+j] != -1 || foregroundData[originY+i][originX+j] != -1 || collisionData[originY+i][originX+j] != -1)
 					{
@@ -326,9 +332,25 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET:
 			{
-				foregroundData[originY][originX] = 44; foregroundData[originY][originX+1] = 45;
-				sceneryData[originY+1][originX] = 76; sceneryData[originY+1][originX+1] = 77;
-				sceneryData[originY+2][originX] = 108; sceneryData[originY+2][originX+1] = 109;
+				originX = Math::RandFloatMinMax(3, sceneryData[0].size()-4);
+				while (!((originX != -1) && (sceneryData[sceneryData.size()-3][originX] == -1)))
+				{
+					for (int i = originX-1; i < originX+object.width; i++)
+					{
+						for (int j = 3; j <= 6; j++)
+						{
+							if (sceneryData[j][i] != -1)
+							{
+								originX = Math::RandFloatMinMax(3, sceneryData[0].size()-4);
+								break;
+							}
+						}
+					}
+				}
+
+				foregroundData[3][originX] = 44; foregroundData[3][originX+1] = 45;
+				sceneryData[4][originX] = 76; sceneryData[4][originX+1] = 77;
+				sceneryData[5][originX] = 108; sceneryData[5][originX+1] = 109;
 			}
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_PATTERNED_FLOOR:

@@ -48,7 +48,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	m_worldList[0]->m_roomList.push_back(newRoom);	
 
 	// TEST WORLD
-	newWorld = new World(WORLD_TEST);
+	/*newWorld = new World(WORLD_TEST);
 	m_worldList.push_back(newWorld);
 
 	newRoom = new Room(ROOM_TESTPUZZLE);
@@ -56,7 +56,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	m_worldList[1]->m_roomList[0]->generateRoom();
+	m_worldList[1]->m_roomList[0]->generateRoom();*/
 
 }
 
@@ -80,14 +80,14 @@ bool ModelHandler::InitObjects()
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
 	m_objectList.push_back(object);
 
-	object = new GameObject("Puzzle Test Room", TYPE_MAP);
+	/*object = new GameObject("Puzzle Test Room", TYPE_MAP);
 	object->addMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[0]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("Test Scenery",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[0]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("Test Foreground",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[0]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	m_objectList.push_back(object);
+	m_objectList.push_back(object);*/
 
 	/*m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
 	m_meshList[GEO_PLAYER]->textureID = LoadTGA("Images//playerTest.tga");
