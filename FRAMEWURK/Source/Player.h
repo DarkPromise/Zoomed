@@ -13,6 +13,7 @@
 #define PLAYER_WALK_SPEED 3.f;
 #define PLAYER_RUN_SPEED 5.f;
 #define PLAYER_CLIMB_SPEED 6.f;
+#define PLAYER_INVENTORY_SIZE 2;          // 0 for Consumable, 1 for Equipment
 
 struct PlayerControls
 {
