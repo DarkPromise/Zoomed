@@ -21,7 +21,7 @@ enum OBJECT_TYPE
 class GameObject : public Object
 {
 public:
-	GameObject(std::string m_objectName, OBJECT_TYPE objectType = TYPE_OBJECT);
+	GameObject(std::string m_objectName, OBJECT_TYPE objectType = TYPE_OBJECT, Vector3 objectPosition = Vector3(0, 0, 0));
 	~GameObject();
 
 	float mass;

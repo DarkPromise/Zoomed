@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-GameObject::GameObject(std::string m_objectName, OBJECT_TYPE objectType) : m_bStatic(false),
+GameObject::GameObject(std::string m_objectName, OBJECT_TYPE objectType, Vector3 objectPosition) : m_bStatic(false),
 	isAlive(true),
 	isVisible(true),
 	isCollidable(true),
@@ -15,6 +15,7 @@ GameObject::GameObject(std::string m_objectName, OBJECT_TYPE objectType) : m_bSt
 {
 	this->setName(m_objectName);
 	this->setObjectType(objectType);
+	this->setPosition(objectPosition);
 	textures.push_back("Images//unknown.tga");
 }
 

@@ -25,19 +25,19 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 {
 	if(controls.up)
 	{
-		m_playerPos.y += 4;
+		m_playerPos.y += 8;
 	}
 	if(controls.down)
 	{
-		m_playerPos.y -= 4;
+		m_playerPos.y -= 8;
 	}
 	if(controls.left)
 	{
-		m_playerPos.x -= 4;
+		m_playerPos.x -= 8;
 	}
 	if(controls.right)
 	{
-		m_playerPos.x += 4;
+		m_playerPos.x += 8;
 	}
 	//std::cout << m_playerPos.x<< ", " << m_playerPos.y << std::endl;
 }
