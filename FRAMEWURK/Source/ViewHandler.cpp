@@ -521,8 +521,6 @@ void ViewHandler::RenderScene()
 	glfwGetWindowSize(m_window,&m_width,&m_height);
 	glViewport(0,0,m_width,m_height);
 
-	std::cout << m_width << "," << m_height << std::endl;
-
 	Mtx44 Projection;
 	Projection.SetToOrtho(0, m_width, 0, m_height, -10, 1000);
 	projectionStack.LoadIdentity();

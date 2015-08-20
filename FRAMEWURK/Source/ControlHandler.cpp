@@ -104,15 +104,15 @@ void ControlHandler::KeyboardUpdate()
 	static bool toggleFullScreen = false;
 	static bool generateRoom = false;
 
-	if(theView->IsKeyPressed('5') && !toggleFullScreen)
-	{
-		toggleFullScreen = true;
-		theView->toggleFullScreen();
-	}
-	else if(!theView->IsKeyPressed('5') && toggleFullScreen)
-	{
-		toggleFullScreen = false;
-	}
+	//if(theView->IsKeyPressed('5') && !toggleFullScreen)
+	//{
+	//	toggleFullScreen = true;
+	//	theView->toggleFullScreen();
+	//}
+	//else if(!theView->IsKeyPressed('5') && toggleFullScreen)
+	//{
+	//	toggleFullScreen = false;
+	//}
 
 	if(theView->IsKeyPressed('W') || theView->IsKeyPressed(GLFW_KEY_SPACE))
 	{
