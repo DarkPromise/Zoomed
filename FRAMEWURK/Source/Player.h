@@ -135,6 +135,8 @@ public:
 	int GetMapFineOffset_y(void);
 	void ConstraintPlayer(const int left, const int right, const int top, const int bottom, float time);
 
+	Inventory getInventory();
+
 protected:
 	std::string m_name;
 	Vector3 m_playerSpeed;

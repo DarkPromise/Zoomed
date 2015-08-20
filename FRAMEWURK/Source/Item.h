@@ -16,12 +16,14 @@ enum ITEM_ID //Used for Item Effect
 	ITEM_EQUIPMENT_GLASSES,
 	ITEM_EQUIPMENT_ARMOR,
 	ITEM_EQUIPMENT_INVISCLOAK,
+
+	ITEM_DEFAULT,
 };
 
 class Item
 {
 public:
-	Item(std::string itemName, ITEM_ID itemID);
+	Item(std::string itemName = "Default Item", ITEM_ID itemID = ITEM_DEFAULT);
 	~Item(void);
 
 	void renameItem(std::string reName);

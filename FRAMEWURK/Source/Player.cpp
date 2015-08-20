@@ -70,3 +70,8 @@ void Player::ConstraintPlayer(const int left, const int right, const int top, co
 {
 	
 }
+
+Inventory Player::getInventory()
+{
+	return this->m_playerInventory;
+}
