@@ -1,9 +1,14 @@
 #include "Room.h"
 #include "MyMath.h"
 
-Room_Object::Room_Object(ROOM_OBJECT_TYPE objectType)
+#define NUM_ATTEMPTS	100
+
+Room_Object::Room_Object(ROOM_OBJECT_TYPE objectType, int roomHeight, int roomWidth)
 {
 	this->type = objectType;
+
+	this->lowerOriginX = 2; this->upperOriginX = roomWidth-2;
+	this->lowerOriginY = 7; this->upperOriginY = roomHeight-3;
 
 	switch (objectType)
 	{
@@ -47,36 +52,54 @@ Room_Object::Room_Object(ROOM_OBJECT_TYPE objectType)
 			{
 				this->width = 1;
 				this->height = 1;
+
+				this->lowerOriginX = -1; this->upperOriginX = -1;
+				this->lowerOriginY = -1; this->upperOriginY = -1;
 			}
 			break;
 		case ROOM_OBJECT_TESTPUZZLE_BRONZE_CANDLESTICK:
 			{
 				this->width = 1;
 				this->height = 1;
+
+				this->lowerOriginX = -1; this->upperOriginX = -1;
+				this->lowerOriginY = -1; this->upperOriginY = -1;
 			}
 			break;
 		case ROOM_OBJECT_TESTPUZZLE_BRONZE_BOTTLE:
 			{
 				this->width = 1;
 				this->height = 1;
+
+				this->lowerOriginX = -1; this->upperOriginX = -1;
+				this->lowerOriginY = -1; this->upperOriginY = -1;
 			}
 			break;
 		case ROOM_OBJECT_TESTPUZZLE_OPEN_BOOK:
 			{
 				this->width = 1;
 				this->height = 1;
+
+				this->lowerOriginX = -1; this->upperOriginX = -1;
+				this->lowerOriginY = -1; this->upperOriginY = -1;
 			}
 			break;
 		case ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM:
 			{
 				this->width = 3;
 				this->height = 1;
+
+				this->lowerOriginX = -1; this->upperOriginX = -1;
+				this->lowerOriginY = -1; this->upperOriginY = -1;
 			}
 			break;
 		case ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM:
 			{
 				this->width = 3;
 				this->height = 2;
+
+				this->lowerOriginX = -1; this->upperOriginX = -1;
+				this->lowerOriginY = -1; this->upperOriginY = -1;
 			}
 			break;
 		case ROOM_OBJECT_TESTPUZZLE_BIG_WINDOW:
@@ -95,6 +118,9 @@ Room_Object::Room_Object(ROOM_OBJECT_TYPE objectType)
 			{
 				this->width = 2;
 				this->height = 3;
+
+				this->lowerOriginX = -1; this->upperOriginX = -1;
+				this->lowerOriginY = -1; this->upperOriginY = -1;
 			}
 			break;
 		case ROOM_OBJECT_TESTPUZZLE_PATTERNED_FLOOR:
@@ -111,9 +137,49 @@ Room_Object::~Room_Object(void)
 }
 
 
-Room::Room(ROOM_TYPE roomType)
+Room::Room(ROOM_TYPE roomType,
+	const int theScreen_Height, 
+		const int theScreen_Width, 
+		const int theNumOfTiles_Height, 
+		const int theNumOfTiles_Width, 
+		const int theMap_Height, 
+		const int theMap_Width, 
+		const int theTileSize, 
+		const TILESET_ID tileset) : CMap(theScreen_Height, theScreen_Width, theNumOfTiles_Height, theNumOfTiles_Width, theMap_Height, theMap_Width, theTileSize, tileset)
+		, attemptCounter(0)
 {
 	this->roomType = roomType;
+
+	switch (roomType)
+	{
+	case ROOM_TESTPUZZLE:
+		{
+			Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_MEDIUM_TABLE, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			addOBJtoGenerate(tempObject);
+
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_SMALL_TABLE, sceneryData.size(), sceneryData[0].size());
+			addOBJtoGenerate(tempObject);
+
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_LEFT, sceneryData.size(), sceneryData[0].size());
+			addOBJtoGenerate(tempObject);
+
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_BED, sceneryData.size(), sceneryData[0].size());
+			addOBJtoGenerate(tempObject);
+
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_RIGHT, sceneryData.size(), sceneryData[0].size());
+			addOBJtoGenerate(tempObject);
+
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET, sceneryData.size(), sceneryData[0].size());
+			addOBJtoGenerate(tempObject);
+
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_SMALL_TABLE, sceneryData.size(), sceneryData[0].size());
+			addOBJtoGenerate(tempObject);
+
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_BRONZE_GLOBE, sceneryData.size(), sceneryData[0].size());
+			addOBJtoGenerate(tempObject);
+		}
+		break;
+	}
 }
 
 
@@ -121,74 +187,85 @@ Room::~Room(void)
 {
 }
 
-void Room::generateRoom()
+void Room::reset_mapData()
 {
-	// Reset data values
-	for (unsigned i = 1; i < this->sceneryData.size()-1; i++)
+	for (unsigned i = 1; i < this->sceneryData.size()-1; i++) // Reset data values
 	{
 		std::fill(sceneryData[i].begin(), sceneryData[i].end(), -1);
 		std::fill(collisionData[i].begin(), collisionData[i].end(), -1);
 		std::fill(foregroundData[i].begin(), foregroundData[i].end(), -1);
 	}
-
-	// NOTE!! __data[1][0] IS THE TOP LEFT AFTER RENDERING
-
-	int attemptCounter = 0; // counts number of times object was tried to be placed
-
-	switch (roomType)
-	{
-	case ROOM_TESTPUZZLE:
-		{
-			// Generate random exits
-			this->numExit.clear();
-			this->addExit(EXIT_DOWN);
-
-			//generate objects
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_WHITE_TABLECLOTH_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)))
-			{
-				attemptCounter++;
-			}
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_MEDIUM_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_SMALL_TABLE), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_LEFT), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_BED), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_RIGHT), Math::RandIntMinMax(2, sceneryData[0].size()-2), Math::RandIntMinMax(6, sceneryData.size()-3)));
-
-			while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET), -1, -1));
-
-			// do not add bronze stuff or open book unless there is a white tablecloth table
-			addObject(roomType, Room_Object(static_cast<Room_Object::ROOM_OBJECT_TYPE>(Room_Object::ROOM_OBJECT_TESTPUZZLE_BRONZE_GLOBE+Math::RandIntMinMax(0, 3))), -1, -1);
-
-
-			//add exits
-			for (unsigned i = 0; i < numExit.size(); i++)
-			{
-				while (!addObject(roomType, Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM), -1, -1));
-			}
-		}
-		break;
-	}
-	
 }
 
-bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int originY)
+bool Room::attemptToAdd(ROOM_TYPE roomType, Room_Object* object)
 {
-	Room_Object::ROOM_OBJECT_TYPE room_object = object.type;
+	while (attemptCounter < NUM_ATTEMPTS)
+	{
+		if ( addObject(roomType, object, Math::RandIntMinMax(object->lowerOriginX, object->upperOriginX), Math::RandIntMinMax(object->lowerOriginY, object->upperOriginY)) )
+			return true;
+
+		attemptCounter++;
+	}
+
+	return false;
+}
+
+void Room::addOBJtoGenerate(Room_Object* object)
+{
+	this->roomObjectList.push_back(object);
+}
+
+void Room::generateRoom()
+{
+	// NOTE!! __data[1][0] IS THE TOP LEFT AFTER RENDERING
+	bool generatedRoom = false;
+
+	while (!generatedRoom)
+	{
+		attemptCounter = 0; // counts number of times object was tried to be placed
+		generatedRoom = true; // reset room flag
+		reset_mapData(); // reset map data
+
+		switch (roomType)
+		{
+		case ROOM_TESTPUZZLE:
+			{
+				//generate objects
+				for (unsigned i = 0; i < roomObjectList.size(); i++)
+				{
+					if ( attemptToAdd(roomType, roomObjectList[i]) ) 
+					{
+						attemptCounter = 0;
+					}
+					else 
+					{
+						generatedRoom = false;
+					}
+				}
+			}
+			break;
+		}
+	}
+}
+
+bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY)
+{
+	Room_Object::ROOM_OBJECT_TYPE room_object = object->type;
 	
 	// If object is randomised
 	if (originX != -1)
 	{
 		//Make sure object will be rendered in the room
-		if (originY < 5 || (originY + object.height) > sceneryData.size()-2 || originX < 2 || (originX + object.width) > sceneryData[0].size()-2)
+		if (originY < 5 || (originY + object->height) > (int)(sceneryData.size()-2) || originX < 2 || (originX + object->width) > (int)(sceneryData[0].size()-2))
 		{
 			return false;
 		}
 	
 		//Make sure object doesn't collide with other objects and doesn't lie directly beside
 		{
-			for (int i = -1; i <= object.height+1; i++)
+			for (int i = -1; i <= object->height+1; i++)
 			{
-				for (int j = -1; j <= object.width+1; j++)
+				for (int j = -1; j <= object->width+1; j++)
 				{
 					if (sceneryData[originY+i][originX+j] != -1 || foregroundData[originY+i][originX+j] != -1 || collisionData[originY+i][originX+j] != -1)
 					{
@@ -244,9 +321,9 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_BRONZE_GLOBE:
 			{
-				for (int i = 0; i < sceneryData.size(); i++)
+				for (unsigned i = 0; i < sceneryData.size(); i++)
 				{
-					for (int j = 0; j < sceneryData[i].size(); j++)
+					for (unsigned j = 0; j < sceneryData[i].size(); j++)
 					{
 						if (sceneryData[i][j] == 264)
 						{
@@ -259,9 +336,9 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_BRONZE_CANDLESTICK:
 			{
-				for (int i = 0; i < sceneryData.size(); i++)
+				for (unsigned i = 0; i < sceneryData.size(); i++)
 				{
-					for (int j = 0; j < sceneryData[i].size(); j++)
+					for (unsigned j = 0; j < sceneryData[i].size(); j++)
 					{
 						if (sceneryData[i][j] == 264)
 						{
@@ -274,9 +351,9 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_BRONZE_BOTTLE:
 			{
-				for (int i = 0; i < sceneryData.size(); i++)
+				for (unsigned i = 0; i < sceneryData.size(); i++)
 				{
-					for (int j = 0; j < sceneryData[i].size(); j++)
+					for (unsigned j = 0; j < sceneryData[i].size(); j++)
 					{
 						if (sceneryData[i][j] == 264)
 						{
@@ -288,9 +365,9 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_OPEN_BOOK:
 			{
-				for (int i = 0; i < sceneryData.size(); i++)
+				for (unsigned i = 0; i < sceneryData.size(); i++)
 				{
-					for (int j = 0; j < sceneryData[i].size(); j++)
+					for (unsigned j = 0; j < sceneryData[i].size(); j++)
 					{
 						if (sceneryData[i][j] == 264)
 						{
@@ -302,10 +379,10 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM:
 			{
-				originX = Math::RandFloatMinMax(3, sceneryData[0].size()-4);
+				originX = Math::RandIntMinMax(3, sceneryData[0].size()-4);
 				while (!((originX != -1) && (sceneryData[sceneryData.size()-3][originX] == -1)))
 				{
-					originX = Math::RandFloatMinMax(3, sceneryData[0].size()-4);
+					originX = Math::RandIntMinMax(3, sceneryData[0].size()-4);
 				}
 
 				sceneryData[sceneryData.size()-2][originX] = 266; sceneryData[sceneryData.size()-2][originX+1] = 267; sceneryData[sceneryData.size()-2][originX+2] = 268;
@@ -332,16 +409,16 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET:
 			{
-				originX = Math::RandFloatMinMax(3, sceneryData[0].size()-4);
+				originX = Math::RandIntMinMax(3, sceneryData[0].size()-4);
 				while (!((originX != -1) && (sceneryData[sceneryData.size()-3][originX] == -1)))
 				{
-					for (int i = originX-1; i < originX+object.width; i++)
+					for (int i = originX-1; i < originX+object->width; i++)
 					{
 						for (int j = 3; j <= 6; j++)
 						{
 							if (sceneryData[j][i] != -1)
 							{
-								originX = Math::RandFloatMinMax(3, sceneryData[0].size()-4);
+								originX = Math::RandIntMinMax(3, sceneryData[0].size()-4);
 								break;
 							}
 						}
@@ -367,4 +444,26 @@ bool Room::addObject(ROOM_TYPE type, Room_Object object, int originX, int origin
 void Room::addExit(EXIT_DIRECTION exit)
 {
 	this->numExit.push_back(exit);
+	
+	switch (roomType)
+	{
+	case ROOM_TESTPUZZLE:
+		{
+			if (exit == EXIT_DOWN)
+			{
+				Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM, sceneryData.size(), sceneryData[0].size());
+				addOBJtoGenerate(tempObject);
+			}
+			/*else if (exit == EXIT_UP)
+			{
+			}
+			else if (exit == EXIT_LEFT)
+			{
+			}
+			else if (exit == EXIT_RIGHT)
+			{
+			}*/
+		}
+		break;
+	}
 }

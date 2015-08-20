@@ -533,9 +533,9 @@ void ViewHandler::RenderScene()
 		theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 		);
 
-	std::cout << "Position : " << theModel->getCamera().position << std::endl;
-	std::cout << "Target : " << theModel->getCamera().target << std::endl;
-
+	//std::cout << "Position : " << theModel->getCamera().position << std::endl;
+	//std::cout << "Target : " << theModel->getCamera().target << std::endl;
+	
 	//RenderMesh(m_meshList[GEO_AXES],false,false);
 
 	for(unsigned i = 0; i < theModel->m_objectList.size(); ++i)

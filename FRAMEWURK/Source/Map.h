@@ -25,11 +25,8 @@ enum TILESET_ID // ID for tileset to render
 class CMap
 {
 public:
-	CMap(void);		// Default constructor
-	~CMap(void);	// Destructor
-
-	void Init
-		( const int theScreen_Height		// Height of the screen
+	CMap(void); // Default constructor
+	CMap(const int theScreen_Height		// Height of the screen
 		, const int theScreen_Width			// Width of the screen
 		, const int theNumOfTiles_Height	// Number of rows ( height of screen / tilesize )
 		, const int theNumOfTiles_Width		// Number of columns ( width of screen / tilesize )
@@ -38,6 +35,7 @@ public:
 		, const int theTileSize				// Tilesize
 		, const TILESET_ID tileset			// What tileset is the map using
 		);
+	~CMap(void);	// Destructor
 
 	bool LoadMap
 		( const std::string foregroundName	// Foreground Layer -> Things in front of the player

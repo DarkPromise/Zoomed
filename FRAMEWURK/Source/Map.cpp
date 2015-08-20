@@ -1,6 +1,10 @@
 #include "Map.h"
 
 CMap::CMap(void)
+{
+}
+
+CMap::CMap(const int theScreen_Height, const int theScreen_Width, const int theNumOfTiles_Height, const int theNumOfTiles_Width, const int theMap_Height, const int theMap_Width, const int theTileSize, const TILESET_ID tileset)
 : theScreen_Height(0)
 , theScreen_Width(0)
 , theNumOfTiles_Height(0)
@@ -11,22 +15,6 @@ CMap::CMap(void)
 , theNumOfTiles_MapWidth(0)
 , theTileSize(0)
 , theTileset(TILESET_MAIN_MENU)
-{
-	foregroundData.clear();
-	collisionData.clear();
-	sceneryData.clear();
-	backgroundData.clear();
-}
-
-CMap::~CMap(void)
-{
-	foregroundData.clear();
-	collisionData.clear();
-	sceneryData.clear();
-	backgroundData.clear();
-}
-
-void CMap::Init(const int theScreen_Height, const int theScreen_Width, const int theNumOfTiles_Height, const int theNumOfTiles_Width, const int theMap_Height, const int theMap_Width, const int theTileSize, const TILESET_ID tileset)
 {
 	this->theScreen_Height		= theScreen_Height;
 	this->theScreen_Width		= theScreen_Width;
@@ -55,7 +43,14 @@ void CMap::Init(const int theScreen_Height, const int theScreen_Width, const int
 	backgroundData.resize(theNumOfTiles_MapHeight);
 	for (int i = 0; i < theNumOfTiles_MapHeight; ++i)
 		backgroundData[i].resize(theNumOfTiles_MapWidth);
-	
+}
+
+CMap::~CMap(void)
+{
+	foregroundData.clear();
+	collisionData.clear();
+	sceneryData.clear();
+	backgroundData.clear();
 }
 
 bool CMap::LoadMap(const std::string mapName, const std::string sceneryName, const std::string backgroundName, const std::string collisionName)
@@ -287,6 +282,7 @@ bool CMap::LoadForegroundMap(const std::string mapName)
 			}
 
 			theLineCounter++;
+			std::cout << theLineCounter << " " << foregroundData.size() << std::endl;
 		}
 	}
 	return true;
