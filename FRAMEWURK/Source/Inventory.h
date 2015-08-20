@@ -11,7 +11,8 @@ public:
 	~Inventory(void);
 
 	void addItem(Item* item);
-	void removeItem(int itemID);
+	Item* getItem(int slot);
+	void removeItem(int slot);
 	void useItem(Item * item);
 
 private:
