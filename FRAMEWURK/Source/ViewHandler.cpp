@@ -528,8 +528,8 @@ void ViewHandler::RenderScene()
 
 	viewStack.LoadIdentity();
 	viewStack.LookAt(
-		theModel->getPlayer()->getPosition().x - 512,theModel->getPlayer()->getPosition().y - 400,theModel->getCamera().position.z,
-		theModel->getPlayer()->getPosition().x - 512,theModel->getPlayer()->getPosition().y - 400,theModel->getCamera().target.z,
+		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5)),theModel->getCamera().position.z,
+		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5)),theModel->getCamera().target.z,
 		theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 		);
 
