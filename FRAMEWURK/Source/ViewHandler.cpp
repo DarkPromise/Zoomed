@@ -551,6 +551,8 @@ void ViewHandler::RenderScene()
 
 					//Check if currRoom == theModel->m_objectList[i]->getRoom();
 					//if yes, renderplayer else dont render player.
+					std::cout << "Rendering player for : " << theModel->m_objectList[i]->ToString() << std::endl;
+
 					modelStack.PushMatrix();
 					modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
 					RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
