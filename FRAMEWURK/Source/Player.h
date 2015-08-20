@@ -6,6 +6,7 @@
 #include <string>
 #include "World.h"
 #include "Vector3.h"
+#include "Inventory.h"
 
 #define PLAYERNAME_SIZE 20;
 #define PLAYER_JUMP_HEIGHT 7.f;
@@ -139,6 +140,8 @@ protected:
 	Vector3 m_playerPos;
 	Vector3 m_playerDirection;
 	BoundingBox m_boundingbox;
+
+	Inventory m_playerInventory;
 
 	float m_currFear;
 	float m_maxFear;
