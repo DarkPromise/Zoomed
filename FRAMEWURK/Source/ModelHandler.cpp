@@ -24,6 +24,12 @@ ModelHandler::~ModelHandler(void)
 	{
 		delete m_meshList[i];
 	}
+
+	for(unsigned int i = 0; i < m_itemList.size(); ++i)
+	{
+		delete m_itemList[i];
+	}
+	m_itemList.clear();
 }
 
 void ModelHandler::Init() //Anything that moves in the game
@@ -120,6 +126,17 @@ bool ModelHandler::InitObjects()
 		sa19->m_anim = new Animation();
 		sa19->m_anim->Set(0, 2, 0, 0.25f);
 	}*/
+
+	Item * testItem = new Item("Test Item");
+	testItem->setDescription("Just a test item :D");
+	m_itemList.push_back(testItem);
+
+	std::cout << m_itemList[0]->toString() << std::endl;
+
+	//ITEM INVENTORY TESTING
+	this->getPlayer()->getInventory().addItem(m_itemList[0]);                                         //ADD ITEM  
+	std::cout << this->getPlayer()->getInventory().getItem(1)->toString() << std::endl; //GET NAME OF ITEM
+	this->getPlayer()->getInventory().removeItem(1);                                                       //REMOVE ITEM FROM INVENTORY
 
 	return true;
 }

@@ -3,6 +3,7 @@
 
 #include "Item.h"
 #include <vector>
+#include <iostream>
 
 class Inventory
 {

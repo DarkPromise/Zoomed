@@ -135,7 +135,7 @@ public:
 	int GetMapFineOffset_y(void);
 	void ConstraintPlayer(const int left, const int right, const int top, const int bottom, float time);
 
-	Inventory getInventory();
+	Inventory &getInventory();
 
 protected:
 	std::string m_name;

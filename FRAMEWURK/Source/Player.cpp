@@ -19,7 +19,9 @@ Player::Player(std::string name)
 	this->m_name = name;
 }
 
-Player::~Player() {}
+Player::~Player() 
+{
+}
 
 void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 {
@@ -71,7 +73,7 @@ void Player::ConstraintPlayer(const int left, const int right, const int top, co
 	
 }
 
-Inventory Player::getInventory()
+Inventory &Player::getInventory()
 {
 	return this->m_playerInventory;
 }
