@@ -572,7 +572,7 @@ void ViewHandler::RenderScene()
 		}
 	}
 	
-	std::cout << FPS << std::endl;
+	//std::cout << FPS << std::endl;
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
