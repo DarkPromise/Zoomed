@@ -470,7 +470,7 @@ void ViewHandler::RenderGameTextOnScreen(Mesh* mesh, std::string text, Color col
 	for(unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 0.4f + 0.5f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.45f + 0.5f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
@@ -579,8 +579,10 @@ void ViewHandler::RenderScene()
 	}
 	
 	//std::cout << theModel->getPlayer()->getInventory().getItem(1)->toString() << std::endl;
-
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"LEVEL ?", Color(0,1,0), 48.f, 850.f, 690.f);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"FEAR :100%", Color(1,0,0), 48.f, 10.f, 690.f);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"ROOM ?", Color(1,0,0), 48.f, 450.f, 690.f);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f, 850.f, 690.f);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"SANITY", Color(1,0,0), FPS, 460.f, 20.f);
 
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,50.f,50.f);
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,125.f,50.f);
