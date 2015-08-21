@@ -2,6 +2,7 @@
 #define WORLD_H
 
 #include "Room.h"
+#include "Enemy.h"
 
 #include <vector>
 
@@ -113,7 +114,7 @@ public:
 
 	std::vector<Room*> m_roomList;
 private:
-
+	std::vector<Enemy*> enemyList;
 	WORLD_ID WorldID;	// Stores ID of current map
 	std::vector<Room_Exit* > exitList;
 	std::vector<Room_Exit_Connections*> exitConnectionList;
