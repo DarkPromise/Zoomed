@@ -582,7 +582,7 @@ void ViewHandler::RenderScene()
 	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"FEAR :100%", Color(1,0,0), 48.f, 10.f, 690.f);
 	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"ROOM ?", Color(1,0,0), 48.f, 450.f, 690.f);
 	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f, 850.f, 690.f);
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"SANITY", Color(1,0,0), FPS, 460.f, 20.f);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"SANITY", Color(1,0,0), theModel->getPlayer()->getSanity(), 460.f, 20.f);
 
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,50.f,50.f);
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,125.f,50.f);

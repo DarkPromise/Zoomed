@@ -14,7 +14,8 @@ Player::Player(std::string name)
 	mapOffset_x(0),
 	mapOffset_y(0),
 	mapFineOffset_x(0),
-	mapFineOffset_y(0)
+	mapFineOffset_y(0),
+	m_playerSanity(0.f)
 {
 	this->m_name = name;
 }
@@ -45,6 +46,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 
 void Player::update(double dt, World* currentWorld, int currentRoom)
 {
+	m_playerSanity = Math::RandFloatMinMax(59.f,62.f);
 	move(dt,currentWorld->m_roomList[currentRoom]->collisionData);
 }
 
@@ -75,4 +77,9 @@ void Player::ConstraintPlayer(const int left, const int right, const int top, co
 Inventory &Player::getInventory()
 {
 	return this->m_playerInventory;
+}
+
+float Player::getSanity()
+{
+	return this->m_playerSanity;
 }

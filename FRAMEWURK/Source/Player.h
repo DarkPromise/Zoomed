@@ -137,12 +137,15 @@ public:
 
 	Inventory &getInventory();
 
+	float getSanity();
 protected:
 	std::string m_name;
 	Vector3 m_playerSpeed;
 	Vector3 m_playerPos;
 	Vector3 m_playerDirection;
 	BoundingBox m_boundingbox;
+
+	float m_playerSanity;
 
 	Inventory m_playerInventory;
 
