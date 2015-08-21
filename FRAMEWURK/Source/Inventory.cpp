@@ -2,6 +2,7 @@
 
 Inventory::Inventory(void)
 {
+	
 }
 
 Inventory::~Inventory(void)

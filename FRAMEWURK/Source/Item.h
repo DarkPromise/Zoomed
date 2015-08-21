@@ -2,6 +2,9 @@
 #define ITEM_H
 
 #include <string>
+#include <GL\glew.h>   //For LoadTGA GLuint, unless I change LoadTGA to unsigned int
+#include "LoadTGA.h"
+#include "MeshBuilder.h"
 
 enum ITEM_ID //Used for Item Effect
 { 
@@ -27,7 +30,7 @@ enum ITEM_ID //Used for Item Effect
 class Item
 {
 public:
-	Item(std::string itemName = "Default Item", ITEM_ID itemID = ITEM_DEFAULT);
+	Item(std::string itemName = "Default Item", ITEM_ID itemID = ITEM_DEFAULT, const char * = "Images//Items//unknown.tga");
 	~Item(void);
 
 	void renameItem(std::string reName);
@@ -35,12 +38,13 @@ public:
 	void setDescription(std::string itemDescription);
 	std::string getDescription();
 	ITEM_ID getItemID();
-
+	Mesh* getMesh();
 private:
 	std::string m_itemName;
 	std::string m_itemDescription;
+	std::string m_itemImagePath;
 	ITEM_ID m_itemID;
-
+	Mesh * m_itemMesh;
 };
 
 #endif

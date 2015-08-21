@@ -1,13 +1,18 @@
 #include "Item.h"
 
-Item::Item(std::string itemName, ITEM_ID itemID)
+Item::Item(std::string itemName, ITEM_ID itemID, const char * itemPath)
 {
 	this->m_itemName = itemName;
 	this->m_itemID = itemID;
+
+	m_itemMesh = MeshBuilder::GenerateQuad(itemName,Color(0.f,0.f,0.f),32.f);
+	m_itemMesh->textureArray[0] = LoadTGA(itemPath);
 }
 
 Item::~Item(void)
 {
+	delete m_itemMesh;
+	m_itemMesh = NULL;
 }
 
 void Item::renameItem(std::string reName)
@@ -35,4 +40,7 @@ std::string Item::getDescription()
 	return this->m_itemDescription;
 }
 
-
+Mesh* Item::getMesh()
+{
+	return this->m_itemMesh;
+}

@@ -163,7 +163,7 @@ bool ModelHandler::InitObjects()
 	//ITEM INVENTORY TESTING
 	this->getPlayer()->getInventory().addItem(m_itemList[0]);                                         //ADD ITEM  
 	std::cout << this->getPlayer()->getInventory().getItem(1)->toString() << std::endl; //GET NAME OF ITEM
-	this->getPlayer()->getInventory().removeItem(1);                                                       //REMOVE ITEM FROM INVENTORY
+	//this->getPlayer()->getInventory().removeItem(1);                                                       //REMOVE ITEM FROM INVENTORY
 
 	return true;
 }
