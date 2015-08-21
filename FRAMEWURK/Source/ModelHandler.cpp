@@ -118,6 +118,10 @@ void ModelHandler::Init() //Anything that moves in the game
 	
 }
 
+void ModelHandler::InitSound()
+{
+}
+
 bool ModelHandler::InitObjects()
 {
 	GameObject * object = new GameObject("Test Animation");
