@@ -30,6 +30,12 @@ ModelHandler::~ModelHandler(void)
 		delete m_itemList[i];
 	}
 	m_itemList.clear();
+
+	for(unsigned i = 0; i < m_guiList.size(); ++i)
+	{
+		delete m_guiList[i];
+	}
+	m_guiList.clear();
 }
 
 void ModelHandler::Init() //Anything that moves in the game
@@ -162,8 +168,11 @@ bool ModelHandler::InitObjects()
 
 	//ITEM INVENTORY TESTING
 	this->getPlayer()->getInventory().addItem(m_itemList[0]);                                         //ADD ITEM  
-	std::cout << this->getPlayer()->getInventory().getItem(1)->toString() << std::endl; //GET NAME OF ITEM
+	//std::cout << this->getPlayer()->getInventory().getItem(1)->toString() << std::endl; //GET NAME OF ITEM
 	//this->getPlayer()->getInventory().removeItem(1);                                                       //REMOVE ITEM FROM INVENTORY
+
+	Gui * testGui = new Gui("Test Border","Images//UI//Item_Border.tga");
+	m_guiList.push_back(testGui);
 
 	return true;
 }

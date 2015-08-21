@@ -576,7 +576,10 @@ void ViewHandler::RenderScene()
 	}
 	
 	//std::cout << theModel->getPlayer()->getInventory().getItem(1)->toString() << std::endl;
-	RenderMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false);
+	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,50.f,50.f);
+	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,125.f,50.f);
+	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,50.f,50.f); // Consumable
+	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,125.f,50.f); // Equipment
 
 	std::cout << FPS << std::endl;
 

@@ -11,6 +11,7 @@
 #include "Geometry.h"
 #include "LoadTGA.h"
 #include "Item.h"
+#include "Gui.h"
 
 /************************************************
 
@@ -57,6 +58,7 @@ public:
 	//vector<CMap*> m_mapList;
 	vector<World*> m_worldList;
 	vector<Item*> m_itemList;
+	vector<Gui*> m_guiList;
 private:
 	Player  *player;
 	Camera camera;

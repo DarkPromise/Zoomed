@@ -5,8 +5,9 @@ Item::Item(std::string itemName, ITEM_ID itemID, const char * itemPath)
 	this->m_itemName = itemName;
 	this->m_itemID = itemID;
 
-	m_itemMesh = MeshBuilder::GenerateQuad(itemName,Color(0.f,0.f,0.f),32.f);
-	m_itemMesh->textureArray[0] = LoadTGA(itemPath);
+	m_itemMesh = MeshBuilder::GenerateQuad(itemName,Color(0.f,0.f,0.f),1.f);
+	//Rendering in 2D
+	m_itemMesh->textureID = LoadTGA(itemPath);
 }
 
 Item::~Item(void)
