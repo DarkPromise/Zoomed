@@ -151,6 +151,11 @@ bool ModelHandler::InitObjects()
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	m_objectList.push_back(object);
 
+	object = new GameObject("Game Text",TYPE_TEXT);
+	object->addMesh(MeshBuilder::GenerateText("Game Text",16,16));
+	object->getMesh()->textureID = LoadTGA("Images//Fonts//basis33.tga");
+	m_objectList.push_back(object);
+
 	/*m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
 	m_meshList[GEO_PLAYER]->textureID = LoadTGA("Images//playerTest.tga");
 	SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);

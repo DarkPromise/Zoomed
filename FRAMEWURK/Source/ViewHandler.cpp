@@ -341,7 +341,7 @@ void ViewHandler::RenderMesh(Mesh *mesh, bool enableLight, bool enableFog)
 void ViewHandler::Render2DMesh(Mesh *mesh, bool enableLight, bool enableFog, float sizeX, float sizeY, float transX, float transY)
 {
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, m_width, 0, m_height, -10, 10);
+	ortho.SetToOrtho(0, m_width, 0, m_height, -10, 1000);
 	projectionStack.PushMatrix();
 		projectionStack.LoadMatrix(ortho);
 		viewStack.PushMatrix();
@@ -470,7 +470,7 @@ void ViewHandler::RenderGameTextOnScreen(Mesh* mesh, std::string text, Color col
 	for(unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 0.9f + 0.5f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.4f + 0.5f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
@@ -571,11 +571,17 @@ void ViewHandler::RenderScene()
 		}
 		else
 		{
-			RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+			if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT)
+			{
+				RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+			}
 		}
 	}
 	
 	//std::cout << theModel->getPlayer()->getInventory().getItem(1)->toString() << std::endl;
+
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"LEVEL ?", Color(0,1,0), 48.f, 850.f, 690.f);
+
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,50.f,50.f);
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,125.f,50.f);
 	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,50.f,50.f); // Consumable

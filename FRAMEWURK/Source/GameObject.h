@@ -16,6 +16,7 @@ enum OBJECT_TYPE
 	TYPE_MAP,
 	TYPE_OBJECT,
 	TYPE_LIGHT_STENCIL,
+	TYPE_TEXT,
 };
 
 class GameObject : public Object
