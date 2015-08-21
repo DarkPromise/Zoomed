@@ -105,6 +105,7 @@ private:
 	float FPS;
 	double TimeToExit;
 
+	GLint m_viewPort[4];
 	VIEW_TYPE view_type;
 };
 

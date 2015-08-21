@@ -217,6 +217,7 @@ BOOL ViewHandler::CreateGLWindow(char * title, int m_width, int m_height, int bi
 	glfwSetMouseButtonCallback(m_window, mouse_callback);
 	glfwSetWindowSizeCallback(m_window, resize_callback);
 
+	glGetIntegerv(GL_VIEWPORT,m_viewPort);
 	glViewport(0,0,m_window_width,m_window_height); //MAKING IT LOOK NICE, height should be same as width to prevent squeezing
 
 	glewExperimental = true;
@@ -268,6 +269,7 @@ void ViewHandler::UpdateSA(double dt)
 void ViewHandler::Update(double dt)
 {
 	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
+	glGetIntegerv(GL_VIEWPORT,m_viewPort);
 
 	//UpdateSA(dt);
 
@@ -573,7 +575,17 @@ void ViewHandler::RenderScene()
 		{
 			if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT)
 			{
+				if(theModel->m_objectList[i]->getObjectType() == TYPE_ENEMY)
+				{
+					modelStack.PushMatrix();
+					modelStack.Translate(theModel->m_objectList[i]->getPosition().x,theModel->m_objectList[i]->getPosition().y,theModel->m_objectList[i]->getPosition().z);
+					RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+					modelStack.PopMatrix();
+				}
+				else
+				{
 				RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+				}
 			}
 		}
 	}
@@ -582,7 +594,8 @@ void ViewHandler::RenderScene()
 	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"FEAR :100%", Color(1,0,0), 48.f, 10.f, 690.f);
 	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"ROOM ?", Color(1,0,0), 48.f, 450.f, 690.f);
 	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f, 850.f, 690.f);
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"SANITY", Color(1,0,0), theModel->getPlayer()->getSanity(), 460.f, 20.f);
+
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"Sanity", Color(1,0,0), theModel->getPlayer()->getSanity(), 430.f, 20.f);
 
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,50.f,50.f);
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,125.f,50.f);

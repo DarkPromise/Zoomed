@@ -46,7 +46,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 
 void Player::update(double dt, World* currentWorld, int currentRoom)
 {
-	m_playerSanity = Math::RandFloatMinMax(59.f,62.f);
+	m_playerSanity = Math::RandFloatMinMax(59.f,80.f);
 	move(dt,currentWorld->m_roomList[currentRoom]->collisionData);
 }
 

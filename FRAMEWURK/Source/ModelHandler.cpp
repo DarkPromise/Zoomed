@@ -156,6 +156,10 @@ bool ModelHandler::InitObjects()
 	object->getMesh()->textureID = LoadTGA("Images//Fonts//foxscript.tga");
 	m_objectList.push_back(object);
 
+	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(512.f,400.f,0.f));
+	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
+	m_objectList.push_back(object);
+
 	/*m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
 	m_meshList[GEO_PLAYER]->textureID = LoadTGA("Images//playerTest.tga");
 	SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
