@@ -33,7 +33,7 @@ static void error_callback(int error, const char* description)
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	ViewHandler::IsKeyPressed(key);
+	//ViewHandler::IsKeyPressed(key);
 }
 
 static void mouse_callback(GLFWwindow* window, int button, int action, int mods)
@@ -259,7 +259,7 @@ void ViewHandler::toggleFullScreen()
 
 void ViewHandler::UpdateSA(double dt)
 {
-	SpriteAnimation *sprite = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
+	SpriteAnimation *sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[0]->getMesh());
 	if (sprite)
 	{
 		sprite->Update(dt);
@@ -270,7 +270,7 @@ void ViewHandler::Update(double dt)
 {
 	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
 	glGetIntegerv(GL_VIEWPORT,m_viewPort);
-	//UpdateSA(dt);
+	UpdateSA(dt);
 
 	if(ViewHandler::IsKeyPressed('1'))
 		glEnable(GL_CULL_FACE);
@@ -529,8 +529,8 @@ void ViewHandler::RenderScene()
 
 	viewStack.LoadIdentity();
 	viewStack.LookAt(
-		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5)),theModel->getCamera().position.z,
-		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5)),theModel->getCamera().target.z,
+		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5f)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5f)),theModel->getCamera().position.z,
+		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5f)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5f)),theModel->getCamera().target.z,
 		theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 		);
 
@@ -602,7 +602,7 @@ void ViewHandler::RenderScene()
 	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Consumable
 	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Equipment
 
-	std::cout << FPS << std::endl;
+	//std::cout << FPS << std::endl;
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

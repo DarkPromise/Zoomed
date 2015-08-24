@@ -18,6 +18,11 @@ public:
 	void MouseUpdate();
 	void KeyboardUpdate();
 
+	bool keyHeldUp;
+	bool keyHeldDown;
+	bool keyHeldLeft;
+	bool keyHeldRight;
+
 	ModelHandler * theModel;
 	ViewHandler * theView;
 

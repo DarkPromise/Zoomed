@@ -10,6 +10,11 @@ ControlHandler::ControlHandler(ModelHandler * theModel, ViewHandler * theView) :
 	m_dAccumulatedTime_ThreadOne = 0.0;
 	m_dAccumulatedTime_ThreadTwo = 0.0;
 
+	keyHeldUp = false;
+	keyHeldDown = false;
+	keyHeldLeft = false;
+	keyHeldRight = false;
+
 	std::cout << "Controller Initialized" << std::endl;
 	std::cout << std::endl;
 }
@@ -114,39 +119,75 @@ void ControlHandler::KeyboardUpdate()
 	//	toggleFullScreen = false;
 	//}
 
-	if(theView->IsKeyPressed('W') || theView->IsKeyPressed(GLFW_KEY_SPACE))
+	if(theView->IsKeyPressed('W'))
 	{
+		if(keyHeldUp == false)
+		{
+		keyHeldUp = true;
 		theModel->getPlayer()->controls.up = true;
+		}
+		else if(keyHeldUp == true)
+		{
+			theModel->getPlayer()->controls.up = false;
+		}
 	}
-	else
+	else if(!theView->IsKeyPressed('W') && keyHeldUp)
 	{
-		//theModel->getPlayer()->controls.jump = false;
+		keyHeldUp = false;
 		theModel->getPlayer()->controls.up = false;
 	}
 
 	if(theView->IsKeyPressed('A'))
 	{
+		if(keyHeldLeft== false)
+		{
+		keyHeldLeft = true;
 		theModel->getPlayer()->controls.left = true;
+		}
+		else if(keyHeldLeft == true)
+		{
+			theModel->getPlayer()->controls.left = false;
+		}
 	}
-	else
+	else if(!theView->IsKeyPressed('A') && keyHeldLeft)
 	{
+		keyHeldLeft = false;
 		theModel->getPlayer()->controls.left = false;
 	}
 
 	if(theView->IsKeyPressed('S'))
 	{
+		if(keyHeldDown== false)
+		{
+		keyHeldDown = true;
 		theModel->getPlayer()->controls.down = true;
+		}
+		else if(keyHeldDown == true)
+		{
+			theModel->getPlayer()->controls.down = false;
+		}
 	}
-	else
+	else if(!theView->IsKeyPressed('S') && keyHeldDown)
 	{
+		keyHeldDown = false;
 		theModel->getPlayer()->controls.down = false;
 	}
+
 	if(theView->IsKeyPressed('D'))
 	{
+		if(keyHeldRight == false)
+		{
+		keyHeldRight = true;
 		theModel->getPlayer()->controls.right = true;
+		}
+		else if(keyHeldRight == true)
+		{
+			theModel->getPlayer()->controls.right = false;
+		}
 	}
-	else
+	else if(!theView->IsKeyPressed('D') && keyHeldRight)
 	{
+		keyHeldRight = false;
 		theModel->getPlayer()->controls.right = false;
 	}
 

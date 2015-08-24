@@ -9,10 +9,6 @@
 #include "Inventory.h"
 
 #define PLAYERNAME_SIZE 20;
-#define PLAYER_JUMP_HEIGHT 7.f;
-#define PLAYER_WALK_SPEED 3.f;
-#define PLAYER_RUN_SPEED 5.f;
-#define PLAYER_CLIMB_SPEED 6.f;
 #define PLAYER_INVENTORY_SIZE 2;          // 0 for Consumable, 1 for Equipment
 
 struct PlayerControls
@@ -60,21 +56,20 @@ class Game;
 class Player
 {
 public:
+
+	enum CURRENT_STATE
+	{
+		STATE_IDLE = 1,
+		STATE_WALKING,
+		STATE_RUNNING,
+		STATE_ATTACKING,
+	};
+
 	Player(std::string name);
 	~Player();
 	
 	virtual void move(double dt, std::vector<std::vector<int>> collisionMap);
 	virtual void update(double dt, World* currentWorld, int currentRoom);
-
-	Vector3 getSpeed()
-	{
-		return m_playerSpeed;
-	}
-
-	void setSpeed(Vector3 speed)
-	{
-		m_playerSpeed = speed;
-	}
 
 	Vector3 getPosition()
 	{
@@ -136,11 +131,12 @@ public:
 	void ConstraintPlayer(const int left, const int right, const int top, const int bottom, float time);
 
 	Inventory &getInventory();
-
 	float getSanity();
+
+	CURRENT_STATE m_animationState;
 protected:
 	std::string m_name;
-	Vector3 m_playerSpeed;
+	double m_movementDelay;
 	Vector3 m_playerPos;
 	Vector3 m_playerDirection;
 	BoundingBox m_boundingbox;
