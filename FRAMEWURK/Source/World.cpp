@@ -115,159 +115,182 @@ bool World::initCorridors()
 	}
 
 	//2 rooms or more, generate exits
-	bool foundPath = false;
-	Room_Exit* highestExit = exitList[0];
-	Room_Exit* secondHighestExit = exitList[1];
+	//bool foundPath = false;
+	//Room_Exit* highestExit = exitList[0];
+	//Room_Exit* secondHighestExit = exitList[1];
 
-	while (!foundPath)
+	//while (!foundPath)
+	//{
+	//	if (exitList.size() == 3)
+	//	{
+	//		if (highestExit->exitDirection == EXIT_UP)
+	//		{
+	//		}
+	//		else if (highestExit->exitDirection == EXIT_DOWN)
+	//		{
+	//			if (secondHighestExit->exitDirection == EXIT_UP)
+	//			{
+	//			}
+	//			else if (secondHighestExit->exitDirection == EXIT_DOWN)
+	//			{
+	//				int lowerX = 0, upperX = 0;
+	//				if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
+	//				{
+	//					lowerX = highestExit->exitPositionX;
+	//					upperX = secondHighestExit->exitPositionX;
+	//				}
+	//				else
+	//				{
+	//					lowerX = secondHighestExit->exitPositionX;
+	//					upperX = highestExit->exitPositionX;
+	//				}
+
+	//				for (int i = lowerX; (i <= upperX) && !foundPath; i++)
+	//				{
+	//					for (int j = 1; (j <= 5) && !foundPath; j++)
+	//					{
+	//						if (backgroundData[secondHighestExit->exitPositionY+j][lowerX+i] != -1) // if there's a room in between
+	//						{
+	//							std::cout << "in between" << std::endl;
+	//							int connection_type = Math::RandIntMinMax(0, 0);
+
+	//							if (connection_type == 0) // one over
+	//							{
+	//								Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_OVER_ROOMS);
+	//								exitConnectionList.push_back(newConnection);
+	//								std::cout << "Over" << std::endl;
+
+	//								connection_type = Math::RandIntMinMax(0, 1);
+	//								if (connection_type == 0) // connect left room to bottom room
+	//								{
+	//									if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
+	//									{
+	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_LEFT_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+	//									}
+	//									else
+	//									{
+	//										newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_LEFT_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+	//									}
+	//								}
+	//								else // connect right room to bottom room
+	//								{
+	//									if (highestExit->exitPositionX > secondHighestExit->exitPositionX)
+	//									{
+	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+	//									}
+	//									else
+	//									{
+	//										newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+	//									}
+	//								}
+	//								foundPath = true;
+	//							}
+	//							else // connect everything through bottom
+	//							{
+	//								std::cout << "clean case" << std::endl;
+	//								Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
+	//								exitConnectionList.push_back(newConnection);
+
+	//								newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_UNDER_ROOMS);
+	//								exitConnectionList.push_back(newConnection);
+	//								foundPath = true;
+	//							}
+	//						}
+	//						else // space in between
+	//						{
+	//							int connection_type = 0; //Math::RandIntMinMax(0, 1);
+
+	//							if (connection_type == 0)
+	//							{
+	//								connection_type = Math::RandIntMinMax(0, 1);
+
+	//								if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
+	//								{
+	//									if (connection_type == 0) // connect left room below bottom room
+	//									{
+	//										Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+
+	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+	//									}
+	//									else // connect left room to left of bottom room
+	//									{
+	//										Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+
+	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_LEFT_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+	//									}
+	//									foundPath = true;
+	//								}
+	//								else
+	//								{
+	//									if (connection_type == 0) // connect right room to below room
+	//									{
+	//										Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+
+	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+	//									}
+	//									else // connect right room to right of bottom room
+	//									{
+	//										Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+
+	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
+	//										exitConnectionList.push_back(newConnection);
+	//									}
+	//									foundPath = true;
+	//								}
+	//							}
+	//						}
+	//					}
+	//				}
+	//			}
+	//			else if (secondHighestExit->exitDirection == EXIT_LEFT)
+	//			{
+	//			}
+	//			else if (secondHighestExit->exitDirection == EXIT_RIGHT)
+	//			{
+	//			}
+	//		}
+	//		else if (highestExit->exitDirection == EXIT_LEFT)
+	//		{
+	//		}
+	//		else if (highestExit->exitDirection == EXIT_RIGHT)
+	//		{
+	//		}
+	//	}
+	//}
+
+	while (exitConnectionList.size() != exitList.size()-1)
 	{
-		if (exitList.size() == 3)
+		int firstRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
+		int secondRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
+
+		if (exitList[firstRoom]->roomID != exitList[secondRoom]->roomID)
 		{
-			if (highestExit->exitDirection == EXIT_UP)
+			if (false)
 			{
 			}
-			else if (highestExit->exitDirection == EXIT_DOWN)
+			else
 			{
-				if (secondHighestExit->exitDirection == EXIT_UP)
-				{
-				}
-				else if (secondHighestExit->exitDirection == EXIT_DOWN)
-				{
-					int lowerX = 0, upperX = 0;
-					if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
-					{
-						lowerX = highestExit->exitPositionX;
-						upperX = secondHighestExit->exitPositionX;
-					}
-					else
-					{
-						lowerX = secondHighestExit->exitPositionX;
-						upperX = highestExit->exitPositionX;
-					}
-
-					for (int i = lowerX; (i <= upperX) && !foundPath; i++)
-					{
-						for (int j = 1; (j <= 5) && !foundPath; j++)
-						{
-							if (backgroundData[secondHighestExit->exitPositionY+j][lowerX+i] >999) // if there's a room in between
-							{
-								std::cout << "room in betweeN" << std::endl;
-								int connection_type = Math::RandIntMinMax(0, 1);
-
-								if (connection_type == 0) // one over
-								{
-									Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_OVER_ROOMS);
-									exitConnectionList.push_back(newConnection);
-									std::cout << "Over" << std::endl;
-
-									connection_type = Math::RandIntMinMax(0, 1);
-									if (connection_type == 0) // connect left room to bottom room
-									{
-										if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
-										{
-											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_LEFT_ROOMS);
-											exitConnectionList.push_back(newConnection);
-										}
-										else
-										{
-											newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_LEFT_ROOMS);
-											exitConnectionList.push_back(newConnection);
-										}
-									}
-									else // connect right room to bottom room
-									{
-										if (highestExit->exitPositionX > secondHighestExit->exitPositionX)
-										{
-											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
-											exitConnectionList.push_back(newConnection);
-										}
-										else
-										{
-											newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
-											exitConnectionList.push_back(newConnection);
-										}
-									}
-									foundPath = true;
-								}
-								else // connect everything through bottom
-								{
-									std::cout << "clean case" << std::endl;
-									Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
-									exitConnectionList.push_back(newConnection);
-
-									newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_UNDER_ROOMS);
-									exitConnectionList.push_back(newConnection);
-									foundPath = true;
-								}
-							}
-							else // space in between
-							{
-								int connection_type = 0; //Math::RandIntMinMax(0, 1);
-
-								if (connection_type == 0)
-								{
-									connection_type = 1;//Math::RandIntMinMax(0, 1);
-
-									if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
-									{
-										if (connection_type == 0) // connect left room below bottom room
-										{
-											Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
-											exitConnectionList.push_back(newConnection);
-
-											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
-											exitConnectionList.push_back(newConnection);
-										}
-										else // connect left room to left of bottom room
-										{
-											Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
-											exitConnectionList.push_back(newConnection);
-
-											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_LEFT_ROOMS);
-											exitConnectionList.push_back(newConnection);
-										}
-										foundPath = true;
-									}
-									else
-									{
-										if (connection_type == 0) // connect right room to below room
-										{
-											Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
-											exitConnectionList.push_back(newConnection);
-
-											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
-											exitConnectionList.push_back(newConnection);
-										}
-										else // connect right room to right of bottom room
-										{
-											Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
-											exitConnectionList.push_back(newConnection);
-
-											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
-											exitConnectionList.push_back(newConnection);
-										}
-										foundPath = true;
-									}
-								}
-							}
-						}
-					}
-				}
-				else if (secondHighestExit->exitDirection == EXIT_LEFT)
-				{
-				}
-				else if (secondHighestExit->exitDirection == EXIT_RIGHT)
-				{
-				}
-			}
-			else if (highestExit->exitDirection == EXIT_LEFT)
-			{
-			}
-			else if (highestExit->exitDirection == EXIT_RIGHT)
-			{
+				Room_Exit_Connections* newConnection = new Room_Exit_Connections(exitList[firstRoom], exitList[secondRoom], CONNECTION_PATH_FIND);
+				exitConnectionList.push_back(newConnection);
+				
+				exitList[firstRoom]->connected = true;
+				exitList[secondRoom]->connected = true;
 			}
 		}
 	}
+	
+	std::cout << "exits done" << std::endl;
 	return true;
 }
 
@@ -277,8 +300,8 @@ bool World::generateCorridors()
 	{
 		if (exitConnectionList.size() != exitList.size()-1)
 		{
-			std::cout << "SOMETHING WENT WRONG. WENGYEW PLS FIX" << " " << exitConnectionList.size() << " " << exitList.size() << std::endl;
-			return false;
+			//std::cout << "SOMETHING WENT WRONG. WENGYEW PLS FIX" << " " << exitConnectionList.size() << " " << exitList.size() << std::endl;
+			//return false;
 		}
 
 		for (unsigned i = 0; i < exitConnectionList.size(); i++)
@@ -286,12 +309,158 @@ bool World::generateCorridors()
 			if (exitConnectionList[i]->connectionType == CONNECTION_OVER_ROOMS)
 			{
 				std::cout << "Connection Over" << std::endl;
+				int lowerCorridorB = exitConnectionList[i]->exitB->exitPositionY + (3*Math::RandIntMinMax(1, 3));
+				int lowerCorridorA = exitConnectionList[i]->exitA->exitPositionY + (3*Math::RandIntMinMax(1, 3));
+				int leftCornerX = 0, rightCornerX = 0;
+				int leftCorridorX = exitConnectionList[i]->exitA->exitPositionX, rightCorridorX = exitConnectionList[i]->exitB->exitPositionX;
+				if (exitConnectionList[i]->exitA->exitPositionX > exitConnectionList[i]->exitB->exitPositionX)
+				{
+					leftCorridorX = exitConnectionList[i]->exitB->exitPositionX;
+					rightCorridorX = exitConnectionList[i]->exitA->exitPositionX;
+
+					leftCornerX = leftCorridorX;
+					rightCornerX = rightCorridorX;
+
+					bool foundPath = false;
+					for (int j = leftCornerX; !foundPath; j--)
+					{
+						if ((backgroundData[exitConnectionList[i]->exitB->exitPositionY][j] == -1) || ((backgroundData[exitConnectionList[i]->exitB->exitPositionY][j] == exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]) || (backgroundData[exitConnectionList[i]->exitB->exitPositionY][j] == exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR])))
+						{
+							leftCornerX = j - 3;
+							foundPath = true;
+						}
+					}
+					foundPath = false;
+
+					for (int j = rightCornerX; !foundPath; j++)
+					{
+						if ((backgroundData[exitConnectionList[i]->exitA->exitPositionY][j] == -1) || ((backgroundData[exitConnectionList[i]->exitA->exitPositionY][j] == exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]) || (backgroundData[exitConnectionList[i]->exitA->exitPositionY][j] == exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR])))
+						{
+							rightCornerX = j + 3;
+							foundPath = true;
+						}
+					}
+				} // assign left and right limit for X
+				else
+				{
+					std::cout << "else case" << std::endl;
+					leftCornerX = leftCorridorX;
+					rightCornerX = rightCorridorX;
+
+					bool foundPath = false;
+					for (int j = leftCornerX; !foundPath; j--)
+					{
+						if ((backgroundData[exitConnectionList[i]->exitA->exitPositionY][j] == -1) || ((backgroundData[exitConnectionList[i]->exitA->exitPositionY][j] == exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]) || (backgroundData[exitConnectionList[i]->exitA->exitPositionY][j] == exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR])))
+						{
+							leftCornerX = Math::Max(0, j - (3*Math::RandIntMinMax(0, 2)));
+							foundPath = true;
+						}
+					}
+					foundPath = false;
+
+					for (int j = rightCornerX; !foundPath; j++)
+					{
+						if ((backgroundData[exitConnectionList[i]->exitB->exitPositionY][j] != -1) || ((backgroundData[exitConnectionList[i]->exitB->exitPositionY][j] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]) || (backgroundData[exitConnectionList[i]->exitB->exitPositionY][j] != exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR])))
+						{
+							rightCornerX = j + (3*Math::RandIntMinMax(0, 2));
+							foundPath = true;
+						}
+					}
+				} // assign right and left limit for X
+				int foundPath = false;
+				int upperCorridorY = exitConnectionList[i]->exitB->exitPositionY;
+				//assign top corridor Y
+				while (!foundPath)
+				{
+					foundPath = true;
+					for (int j = leftCornerX; (j <= rightCornerX) && foundPath && (j>=3); j++)
+					{
+						if (backgroundData[upperCorridorY][j-3] != -1) // not empty
+						{
+							if (( backgroundData[upperCorridorY][j-3] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR])
+								|| (backgroundData[upperCorridorY][j-3] != exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR]))
+							{
+								if (backgroundData[upperCorridorY][j] != -1) // not empty
+								{
+									if (( backgroundData[upperCorridorY][j] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR])
+										|| (backgroundData[upperCorridorY][j] != exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR]))
+									{
+										foundPath = false;
+										upperCorridorY -= 1;
+									}
+								}
+								
+							}
+						}
+					}
+				}
+				upperCorridorY -= 2;
+
+				//generate stubs below rooms
+				for (int j = exitConnectionList[i]->exitB->exitPositionY; j < lowerCorridorB; j++)
+				{
+					this->backgroundData[j][exitConnectionList[i]->exitB->exitPositionX] = exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR];
+				}
+				for (int j = exitConnectionList[i]->exitA->exitPositionY; j < lowerCorridorA; j++)
+				{
+					this->backgroundData[j][exitConnectionList[i]->exitA->exitPositionX] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+				}
+
+				if (exitConnectionList[i]->exitA->exitPositionX > exitConnectionList[i]->exitB->exitPositionX)
+				{
+					for (int j = exitConnectionList[i]->exitB->exitPositionX; j >= leftCornerX; j--)
+					{
+						this->backgroundData[lowerCorridorB][j] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					}// generate left extension for B
+
+					for (int j = exitConnectionList[i]->exitA->exitPositionX; j <= rightCornerX; j++)
+					{
+						this->backgroundData[lowerCorridorA][j] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					}// generate right extension for A
+	
+					//generate path to top
+					for (int j = lowerCorridorB; j >= upperCorridorY; j--)
+					{
+						this->backgroundData[j][leftCornerX] = exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR];
+					}
+					for (int j = lowerCorridorA; j >= upperCorridorY; j--)
+					{
+						this->backgroundData[j][rightCornerX] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					}
+				} 
+				else
+				{
+					for (int j = exitConnectionList[i]->exitA->exitPositionX; j >= leftCornerX; j--)
+					{
+						this->backgroundData[lowerCorridorA][j] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					}//generate left extension for A
+
+					for (int j = exitConnectionList[i]->exitB->exitPositionX; j <= rightCornerX; j++)
+					{
+						this->backgroundData[lowerCorridorB][j] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					}// generate left extension for B
+
+					//generate path to top
+					for (int j = lowerCorridorB; j >= upperCorridorY; j--)
+					{
+						this->backgroundData[j][rightCornerX] = exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR];
+					}
+					for (int j = lowerCorridorA; j >= upperCorridorY; j--)
+					{
+						this->backgroundData[j][leftCornerX] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					}
+				}
+
+				for (int j = leftCornerX; j <= rightCornerX; j++)
+				{
+					this->backgroundData[upperCorridorY][j] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+				} // top connector
 			}
 			else if (exitConnectionList[i]->connectionType == CONNECTION_UNDER_ROOMS)
 			{
 				std::cout << "Connection Under" << std::endl;
 				int lowerCorridorY = exitConnectionList[i]->exitB->exitPositionY + (3*Math::RandIntMinMax(1, 3));
-
+				 
 				int leftCorridorX = exitConnectionList[i]->exitA->exitPositionX, rightCorridorX = exitConnectionList[i]->exitB->exitPositionX;
 				if (exitConnectionList[i]->exitA->exitPositionX > exitConnectionList[i]->exitB->exitPositionX)
 				{
@@ -365,7 +534,7 @@ bool World::generateCorridors()
 
 				if (upperCorridorY != lowerCorridorY)
 				{
-					upperCorridorY += Math::RandIntMinMax(0, 0);
+					upperCorridorY += Math::RandIntMinMax(0, 3);
 					if (upperCorridorY % 3 != 0)
 					{
 						upperCorridorY -= (upperCorridorY%3);
@@ -401,7 +570,6 @@ bool World::generateCorridors()
 					else // right exit is higher
 					{
 						//connect
-						std::cout << "right exit higher" << leftCorridorX<< " " << leftCornerX << " " << std::endl;
 						for (int j = leftCorridorX; j <= leftCornerX; j++) // horizonal to corner
 						{
 							this->backgroundData[lowerCorridorY][j] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
@@ -419,20 +587,20 @@ bool World::generateCorridors()
 				else
 				{	
 					std::cout << "straight" << std::endl;
-					//for (int j = exitConnectionList[i]->exitA->exitPositionY; j < lowerCorridorY; j++)
-					//{
-					//	this->backgroundData[j][exitConnectionList[i]->exitA->exitPositionX] = (exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]);
-					//} // extend downwards, higher room
+					for (int j = exitConnectionList[i]->exitA->exitPositionY; j < lowerCorridorY; j++)
+					{
+						this->backgroundData[j][exitConnectionList[i]->exitA->exitPositionX] = (exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]);
+					} // extend downwards, higher room
 
-					//for (int j = exitConnectionList[i]->exitB->exitPositionY; j < lowerCorridorY; j++)
-					//{
-					//	this->backgroundData[j][exitConnectionList[i]->exitB->exitPositionX] = exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR];
-					//} // extend downwards, lower room
+					for (int j = exitConnectionList[i]->exitB->exitPositionY; j < lowerCorridorY; j++)
+					{
+						this->backgroundData[j][exitConnectionList[i]->exitB->exitPositionX] = exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR];
+					} // extend downwards, lower room
 
-					//for (int j = leftCorridorX; j <= rightCorridorX; j++)
-					//{
-					//	this->backgroundData[lowerCorridorY][j] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
-					//}// horizontal
+					for (int j = leftCorridorX; j <= rightCorridorX; j++)
+					{
+						this->backgroundData[lowerCorridorY][j] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					}// horizontal
 				}
 			}
 			else if (exitConnectionList[i]->connectionType == CONNECTION_LEFT_ROOMS)
@@ -533,6 +701,195 @@ bool World::generateCorridors()
 				{
  					this->backgroundData[j][RightCorridorX] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
 				} // connect right
+			}
+			else if (exitConnectionList[i]->connectionType == CONNECTION_PATH_FIND)
+			{
+				backgroundData[exitConnectionList[i]->exitB->exitPositionY][exitConnectionList[i]->exitB->exitPositionX] = -1;
+
+				std::vector<Vector3> corridorConnection; // temporary vector to store corridors to place
+				corridorConnection.push_back(Vector3(exitConnectionList[i]->exitA->exitPositionX, exitConnectionList[i]->exitA->exitPositionY, 0)); // push start of corridor
+				while ((corridorConnection.back().x != exitConnectionList[i]->exitB->exitPositionX) && (corridorConnection.back().y != exitConnectionList[i]->exitB->exitPositionY) ) // while not at end
+				{
+					int segmentX = corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX;
+					int segmentY = corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY;
+
+					int directionX = segmentX/(abs(segmentX));
+					int directionY = segmentY/(abs(segmentY));
+
+					std::cout << "A: " << exitConnectionList[i]->exitA->exitPositionX << " " << exitConnectionList[i]->exitA->exitPositionY << std::endl;
+					std::cout << "B: " << exitConnectionList[i]->exitB->exitPositionX << " " << exitConnectionList[i]->exitB->exitPositionY << std::endl;
+
+					bool placedHorizontal;
+					bool canPlaceHorizontal;
+					bool placedVertical;
+					bool canPlaceVertical;
+
+					while (abs(segmentX) != 0) // extend corridor horizontally
+					{
+						segmentX = corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX;
+						segmentY = corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY;
+
+						if (segmentX != 0)
+							directionX = segmentX/(abs(segmentX));
+						if (segmentY != 0)
+						directionY = segmentY/(abs(segmentY));
+
+						placedHorizontal = false;
+
+						while ((!placedHorizontal) && (abs(segmentX) != 0))
+						{
+							canPlaceHorizontal = true;
+							for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
+							{
+								if ((backgroundData[corridorConnection.back().y+0][corridorConnection.back().x-(directionX*j)] != -1) && (backgroundData[corridorConnection.back().y+0][corridorConnection.back().x-(directionX*j)] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+								{
+									// there's a tile in the way
+									canPlaceHorizontal = false;
+								}
+							}
+
+							if (!canPlaceHorizontal) // can't place in direction to room, try extending vertically first
+							{
+								placedVertical = false;
+								int counter = 0;
+								while ((!placedVertical) && (counter != 2))
+								{
+									canPlaceVertical = true;
+									for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
+									{
+										if ((backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x-0] != -1) && (backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+										{
+											//there's a tile in the way
+											canPlaceVertical = false;
+										}
+									}
+
+									if (!canPlaceVertical)
+									{
+										directionY *= -1; // try the other direction
+										counter++;
+									}
+									else
+									{
+										//place tiles in vector
+										for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
+										{
+											corridorConnection.push_back(Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0));
+											placedVertical = true;
+										}
+									}
+								}
+							}
+							else
+							{
+								//place tiles in vector
+								for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
+								{
+									corridorConnection.push_back(Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0));
+									placedHorizontal = true;
+								}
+							}
+
+							directionX *= 1;
+
+						}
+
+					}
+
+					std::cout << "do vertical" << std::endl;
+					while (abs(segmentY) != 0)
+					{
+						std::cout << "next segment vertical" << std::endl;
+						segmentX = corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX;
+						segmentY = corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY;
+
+						if (segmentX != 0)
+							directionX = segmentX/(abs(segmentX));
+						if (segmentY != 0)
+							directionY = segmentY/(abs(segmentY));
+
+						placedVertical = false;
+
+						while ((!placedVertical) && (abs(segmentY) != 0))
+						{
+							std::cout << "try place vertical" << std::endl;
+							canPlaceVertical = true;
+							for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
+							{
+								if ((backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x] != -1) && (backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+								{
+									// there's a tile in the way
+									canPlaceVertical = false;
+									std::cout << backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x] << " cannot vertical" << std::endl;
+								}
+							}
+
+							if (!canPlaceVertical) // can't place in direction to room, try extending horizontally first
+							{
+								std::cout << "try horizontal " << std::endl;
+								placedHorizontal = false;
+								int counter = 0;
+								while ((!placedHorizontal) && (counter != 2))
+								{
+									std::cout << "try place horizontal"<< std::endl;
+									canPlaceHorizontal = true;
+									std::cout << " " << abs(segmentX) << std::endl;
+									for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
+									{
+										//std::cout << "x: " << corridorConnection.back().x-(directionX*j) << " y: " << corridorConnection.back().y+2 << " World size: X:" << backgroundData[0].size() << " Y:" << backgroundData.size() << std::endl;
+										if ((backgroundData[corridorConnection.back().y][corridorConnection.back().x-(directionX*j)] != -1) && (backgroundData[corridorConnection.back().y][corridorConnection.back().x-(directionX*j)] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+										{
+											//there's a tile in the way
+											canPlaceHorizontal = false;
+											std::cout << "cannot horizontal" << std::endl;
+										}
+									}
+
+									if (!canPlaceHorizontal)
+									{
+										directionX *= -1; // try the other direction
+										counter++;
+									}
+									else
+									{
+										//place tiles in vector
+										for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
+										{
+											std::cout << "Pushback into corridor: " << Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0) << std::endl;
+											corridorConnection.push_back(Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0));
+											placedHorizontal = true;
+										}
+									}
+								}
+							}
+							else
+							{
+								//place tiles in vector
+								std::cout << "placing tiles" << std::endl;
+								for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
+								{
+									std::cout << "Pushback into corridor: " << Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0) << std::endl;
+									corridorConnection.push_back(Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0));
+									placedVertical = true;
+								}
+							}
+
+							directionY *= 1;
+
+							std::cout << "inside vertical end" << std::endl;
+						}
+
+						std::cout << "outsie vertical end" << std::endl;
+					}
+				}
+
+				for (unsigned j = 0; j < corridorConnection.size(); j++)
+				{
+					if (j < corridorConnection.size()/2)
+						backgroundData[corridorConnection[j].y][corridorConnection[j].x] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					else
+						backgroundData[corridorConnection[j].y][corridorConnection[j].x] = exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR];
+				}
 			}
 		}
 	}

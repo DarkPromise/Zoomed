@@ -147,13 +147,15 @@ Room::Room(ROOM_TYPE roomType,
 		const int theTileSize, 
 		const TILESET_ID tileset,
 		const int worldPositionX,
-		const int worldPositionY) : CMap(theScreen_Height, theScreen_Width, theNumOfTiles_Height, theNumOfTiles_Width, theMap_Height, theMap_Width, theTileSize, tileset)
+		const int worldPositionY,
+		const int roomID) : CMap(theScreen_Height, theScreen_Width, theNumOfTiles_Height, theNumOfTiles_Width, theMap_Height, theMap_Width, theTileSize, tileset)
 		, attemptCounter(0)
 {
 	numExit.clear();
 	roomObjectList.clear();
 
 	this->roomType = roomType;
+	this->roomID = roomID;
 
 	this->worldPositionX = worldPositionX;
 	this->worldPositionY = worldPositionY;
@@ -459,7 +461,7 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 
 void Room::addExit(EXIT_DIRECTION exit)
 {
-	Room_Exit* newExit = new Room_Exit(exit, this->getRoomType());
+	Room_Exit* newExit = new Room_Exit(exit, this->getRoomType(), this->roomID);
 	this->numExit.push_back(newExit);
 	
 	switch (roomType)

@@ -33,18 +33,22 @@ enum EXIT_DIRECTION
 
 struct Room_Exit
 {
-	Room_Exit(EXIT_DIRECTION exitDirection, ROOM_TYPE roomType = ROOM_NULL, int exitPositionX = 0, int exitPositionY = 0)
+	Room_Exit(EXIT_DIRECTION exitDirection, ROOM_TYPE roomType = ROOM_NULL, int roomID = 0, int exitPositionX = 0, int exitPositionY = 0)
 	{
 		this->exitDirection = exitDirection;
 		this->exitPositionX = exitPositionX;
 		this->exitPositionY = exitPositionY;
 		this->roomType = roomType;
+		this->roomID = roomID;
+		this->connected = false;
 	}
 
 	~Room_Exit()
 	{
 	}
 
+	bool connected;
+	int roomID;
 	ROOM_TYPE roomType;
 	EXIT_DIRECTION exitDirection;
 	int exitPositionX;
@@ -112,7 +116,8 @@ public:
 		const int theTileSize, 
 		const TILESET_ID tileset,
 		const int worldPositionX,
-		const int worldPositionY);
+		const int worldPositionY,
+		const int roomID);
 	~Room(void);
 
 	void addOBJtoGenerate(Room_Object* object);
@@ -128,11 +133,11 @@ public:
 	void generateRoom(); // Add objects and collision based on roomType
 	bool addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY); // Add specific object to room based on position and type (origin top left)
 	void addExit(EXIT_DIRECTION exit); // Adds exit to room
-
 private:
 	void reset_mapData(); // Reset map values
 	bool attemptToAdd(ROOM_TYPE roomType, Room_Object* object);
 
+	int roomID;
 	std::vector<Room_Object*> roomObjectList; // Stores all objects to be added during generateRoom()
 	int attemptCounter; // Stores number of times object in room was attempted to be generated.
 	int exitCounter; // Stores number of exits generated

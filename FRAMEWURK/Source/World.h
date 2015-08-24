@@ -3,6 +3,7 @@
 
 #include "Room.h"
 #include "Enemy.h"
+#include "Vector3.h"
 
 #include <vector>
 
@@ -14,6 +15,7 @@ enum WORLD_ID // ID for levels
 
 enum CONNECTION_TYPE
 {
+	CONNECTION_PATH_FIND,
 	CONNECTION_OVER_ROOMS,
 	CONNECTION_UNDER_ROOMS,
 	CONNECTION_LEFT_ROOMS,

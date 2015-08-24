@@ -47,7 +47,7 @@ void ControlHandler::RunGameLoop()
 		if (m_dAccumulatedTime_ThreadOne > 0.01) //faster
 		{
 			//theView->MouseUpdate();
-			theView->Update(m_dElapsedTime);
+			theView->Update(m_dAccumulatedTime_ThreadOne);
 
 			m_dAccumulatedTime_ThreadOne = 0.0;
 		}

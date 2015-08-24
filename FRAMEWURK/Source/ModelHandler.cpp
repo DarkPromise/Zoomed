@@ -56,7 +56,7 @@ void ModelHandler::Init() //Anything that moves in the game
 
 	// Give a 10 space buffer to the top and left for corridors
 
-	Room* newRoom = new Room(ROOM_MAINMENU, 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU, 10, 10);
+	Room* newRoom = new Room(ROOM_MAINMENU, 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU, 10, 10, 0);
 	newRoom->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//Main_Menu//MainMenu_Background.csv");
 	m_worldList[0]->m_roomList.push_back(newRoom);
 
@@ -64,22 +64,20 @@ void ModelHandler::Init() //Anything that moves in the game
 	newWorld = new World(WORLD_TEST);
 	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 0, 20);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 10, 30, 0);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 20, 30);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 30, 40, 1);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 40, 0);
+	/*newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 50, 10, 2);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
-	m_worldList[1]->m_roomList.push_back(newRoom);
-
-	m_worldList[1]->m_roomList[2]->generateRoom();
+	m_worldList[1]->m_roomList.push_back(newRoom);*/
 
 	for (unsigned i = 0; i < m_worldList.size(); i++)
 	{
