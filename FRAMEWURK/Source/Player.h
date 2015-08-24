@@ -114,8 +114,6 @@ public:
 	bool on_ground;
 	bool is_running;
 
-	//Inventory inventory;
-
 	PlayerControls controls;
 	PlayerControls getPlayerControl()
 	{
@@ -137,6 +135,7 @@ public:
 protected:
 	std::string m_name;
 	double m_movementDelay;
+	double m_movementTimer;
 	Vector3 m_playerPos;
 	Vector3 m_playerDirection;
 	BoundingBox m_boundingbox;

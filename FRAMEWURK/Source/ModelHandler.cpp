@@ -101,7 +101,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateQuad("Test Object",Color(0.f,0.f,1.f),32.f));
 	object->setPosition(Vector3(0.f,0.f,0.f));
 	m_objectList.push_back(object);*/
-
+	
 	GameObject * object = new GameObject("Test Animation");
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Test Animation",1,3,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//playerTest.tga");    //Current State 
@@ -111,7 +111,7 @@ bool ModelHandler::InitObjects()
 	if(playerAnimation)
 	{
 		playerAnimation->m_anim = new Animation();
-		playerAnimation->m_anim->Set(0,2,0,0.25f);
+		playerAnimation->m_anim->Set(0,2,0,0.2f);
 	}
 
 	/*m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
