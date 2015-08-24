@@ -115,178 +115,174 @@ bool World::initCorridors()
 	}
 
 	//2 rooms or more, generate exits
-	//bool foundPath = false;
-	//Room_Exit* highestExit = exitList[0];
-	//Room_Exit* secondHighestExit = exitList[1];
+	/*bool foundPath = false;
+	Room_Exit* highestExit = exitList[0];
+	Room_Exit* secondHighestExit = exitList[1];
 
-	//while (!foundPath)
-	//{
-	//	if (exitList.size() == 3)
-	//	{
-	//		if (highestExit->exitDirection == EXIT_UP)
-	//		{
-	//		}
-	//		else if (highestExit->exitDirection == EXIT_DOWN)
-	//		{
-	//			if (secondHighestExit->exitDirection == EXIT_UP)
-	//			{
-	//			}
-	//			else if (secondHighestExit->exitDirection == EXIT_DOWN)
-	//			{
-	//				int lowerX = 0, upperX = 0;
-	//				if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
-	//				{
-	//					lowerX = highestExit->exitPositionX;
-	//					upperX = secondHighestExit->exitPositionX;
-	//				}
-	//				else
-	//				{
-	//					lowerX = secondHighestExit->exitPositionX;
-	//					upperX = highestExit->exitPositionX;
-	//				}
+	while (!foundPath)
+	{
+		if (exitList.size() == 3)
+		{
+			if (highestExit->exitDirection == EXIT_UP)
+			{
+			}
+			else if (highestExit->exitDirection == EXIT_DOWN)
+			{
+				if (secondHighestExit->exitDirection == EXIT_UP)
+				{
+				}
+				else if (secondHighestExit->exitDirection == EXIT_DOWN)
+				{
+					int lowerX = 0, upperX = 0;
+					if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
+					{
+						lowerX = highestExit->exitPositionX;
+						upperX = secondHighestExit->exitPositionX;
+					}
+					else
+					{
+						lowerX = secondHighestExit->exitPositionX;
+						upperX = highestExit->exitPositionX;
+					}
 
-	//				for (int i = lowerX; (i <= upperX) && !foundPath; i++)
-	//				{
-	//					for (int j = 1; (j <= 5) && !foundPath; j++)
-	//					{
-	//						if (backgroundData[secondHighestExit->exitPositionY+j][lowerX+i] != -1) // if there's a room in between
-	//						{
-	//							std::cout << "in between" << std::endl;
-	//							int connection_type = Math::RandIntMinMax(0, 0);
+					for (int i = lowerX; (i <= upperX) && !foundPath; i++)
+					{
+						for (int j = 1; (j <= 5) && !foundPath; j++)
+						{
+							if (backgroundData[secondHighestExit->exitPositionY+j][lowerX+i] != -1) // if there's a room in between
+							{
+								std::cout << "in between" << std::endl;
+								int connection_type = Math::RandIntMinMax(0, 0);
 
-	//							if (connection_type == 0) // one over
-	//							{
-	//								Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_OVER_ROOMS);
-	//								exitConnectionList.push_back(newConnection);
-	//								std::cout << "Over" << std::endl;
+								if (connection_type == 0) // one over
+								{
+									Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_OVER_ROOMS);
+									exitConnectionList.push_back(newConnection);
+									std::cout << "Over" << std::endl;
 
-	//								connection_type = Math::RandIntMinMax(0, 1);
-	//								if (connection_type == 0) // connect left room to bottom room
-	//								{
-	//									if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
-	//									{
-	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_LEFT_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
-	//									}
-	//									else
-	//									{
-	//										newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_LEFT_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
-	//									}
-	//								}
-	//								else // connect right room to bottom room
-	//								{
-	//									if (highestExit->exitPositionX > secondHighestExit->exitPositionX)
-	//									{
-	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
-	//									}
-	//									else
-	//									{
-	//										newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
-	//									}
-	//								}
-	//								foundPath = true;
-	//							}
-	//							else // connect everything through bottom
-	//							{
-	//								std::cout << "clean case" << std::endl;
-	//								Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
-	//								exitConnectionList.push_back(newConnection);
+									connection_type = Math::RandIntMinMax(0, 1);
+									if (connection_type == 0) // connect left room to bottom room
+									{
+										if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
+										{
+											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_LEFT_ROOMS);
+											exitConnectionList.push_back(newConnection);
+										}
+										else
+										{
+											newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_LEFT_ROOMS);
+											exitConnectionList.push_back(newConnection);
+										}
+									}
+									else // connect right room to bottom room
+									{
+										if (highestExit->exitPositionX > secondHighestExit->exitPositionX)
+										{
+											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
+											exitConnectionList.push_back(newConnection);
+										}
+										else
+										{
+											newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
+											exitConnectionList.push_back(newConnection);
+										}
+									}
+									foundPath = true;
+								}
+								else // connect everything through bottom
+								{
+									std::cout << "clean case" << std::endl;
+									Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
+									exitConnectionList.push_back(newConnection);
 
-	//								newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_UNDER_ROOMS);
-	//								exitConnectionList.push_back(newConnection);
-	//								foundPath = true;
-	//							}
-	//						}
-	//						else // space in between
-	//						{
-	//							int connection_type = 0; //Math::RandIntMinMax(0, 1);
+									newConnection = new Room_Exit_Connections(secondHighestExit, exitList[2], CONNECTION_UNDER_ROOMS);
+									exitConnectionList.push_back(newConnection);
+									foundPath = true;
+								}
+							}
+							else // space in between
+							{
+								int connection_type = 0; //Math::RandIntMinMax(0, 1);
 
-	//							if (connection_type == 0)
-	//							{
-	//								connection_type = Math::RandIntMinMax(0, 1);
+								if (connection_type == 0)
+								{
+									connection_type = Math::RandIntMinMax(0, 1);
 
-	//								if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
-	//								{
-	//									if (connection_type == 0) // connect left room below bottom room
-	//									{
-	//										Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
+									if (highestExit->exitPositionX < secondHighestExit->exitPositionX)
+									{
+										if (connection_type == 0) // connect left room below bottom room
+										{
+											Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
+											exitConnectionList.push_back(newConnection);
 
-	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
-	//									}
-	//									else // connect left room to left of bottom room
-	//									{
-	//										Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
+											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
+											exitConnectionList.push_back(newConnection);
+										}
+										else // connect left room to left of bottom room
+										{
+											Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
+											exitConnectionList.push_back(newConnection);
 
-	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_LEFT_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
-	//									}
-	//									foundPath = true;
-	//								}
-	//								else
-	//								{
-	//									if (connection_type == 0) // connect right room to below room
-	//									{
-	//										Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
+											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_LEFT_ROOMS);
+											exitConnectionList.push_back(newConnection);
+										}
+										foundPath = true;
+									}
+									else
+									{
+										if (connection_type == 0) // connect right room to below room
+										{
+											Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
+											exitConnectionList.push_back(newConnection);
 
-	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
-	//									}
-	//									else // connect right room to right of bottom room
-	//									{
-	//										Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
+											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_UNDER_ROOMS);
+											exitConnectionList.push_back(newConnection);
+										}
+										else // connect right room to right of bottom room
+										{
+											Room_Exit_Connections* newConnection = new Room_Exit_Connections(highestExit, secondHighestExit, CONNECTION_UNDER_ROOMS);
+											exitConnectionList.push_back(newConnection);
 
-	//										newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
-	//										exitConnectionList.push_back(newConnection);
-	//									}
-	//									foundPath = true;
-	//								}
-	//							}
-	//						}
-	//					}
-	//				}
-	//			}
-	//			else if (secondHighestExit->exitDirection == EXIT_LEFT)
-	//			{
-	//			}
-	//			else if (secondHighestExit->exitDirection == EXIT_RIGHT)
-	//			{
-	//			}
-	//		}
-	//		else if (highestExit->exitDirection == EXIT_LEFT)
-	//		{
-	//		}
-	//		else if (highestExit->exitDirection == EXIT_RIGHT)
-	//		{
-	//		}
-	//	}
-	//}
+											newConnection = new Room_Exit_Connections(highestExit, exitList[2], CONNECTION_RIGHT_ROOMS);
+											exitConnectionList.push_back(newConnection);
+										}
+										foundPath = true;
+									}
+								}
+							}
+						}
+					}
+				}
+				else if (secondHighestExit->exitDirection == EXIT_LEFT)
+				{
+				}
+				else if (secondHighestExit->exitDirection == EXIT_RIGHT)
+				{
+				}
+			}
+			else if (highestExit->exitDirection == EXIT_LEFT)
+			{
+			}
+			else if (highestExit->exitDirection == EXIT_RIGHT)
+			{
+			}
+		}
+	}*/
 
 	while (exitConnectionList.size() != exitList.size()-1)
 	{
+		bool correctConnections = false;
+
 		int firstRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
 		int secondRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
 
-		if (exitList[firstRoom]->roomID != exitList[secondRoom]->roomID)
+		if (exitList[firstRoom]->roomID != exitList[secondRoom]->roomID && !exitList[firstRoom]->connected)
 		{
-			if (false)
-			{
-			}
-			else
-			{
-				Room_Exit_Connections* newConnection = new Room_Exit_Connections(exitList[firstRoom], exitList[secondRoom], CONNECTION_PATH_FIND);
-				exitConnectionList.push_back(newConnection);
+			Room_Exit_Connections* newConnection = new Room_Exit_Connections(exitList[firstRoom], exitList[secondRoom], CONNECTION_PATH_FIND);
+			exitConnectionList.push_back(newConnection);
 				
-				exitList[firstRoom]->connected = true;
-				exitList[secondRoom]->connected = true;
-			}
+			exitList[firstRoom]->connected = true;
+			exitList[secondRoom]->connected = true;
 		}
 	}
 	

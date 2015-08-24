@@ -74,10 +74,10 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	/*newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 50, 10, 2);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 50, 10, 2);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
-	m_worldList[1]->m_roomList.push_back(newRoom);*/
+	m_worldList[1]->m_roomList.push_back(newRoom);
 
 	for (unsigned i = 0; i < m_worldList.size(); i++)
 	{

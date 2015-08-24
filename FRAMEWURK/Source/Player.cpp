@@ -64,11 +64,11 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 
 	if(m_currFear > 50)
 	{
-		m_movementDelay = 0.1;
+		m_movementDelay = 0.0;
 	}
 	else
 	{
-		m_movementDelay = 0.08;
+		m_movementDelay = 0.0; // fer weng jew
 	}
 
 	move(dt,currentWorld->m_roomList[currentRoom]->collisionData);
