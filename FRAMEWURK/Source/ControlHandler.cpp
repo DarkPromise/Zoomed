@@ -121,73 +121,73 @@ void ControlHandler::KeyboardUpdate()
 
 	if(theView->IsKeyPressed('W'))
 	{
-		if(keyHeldUp == false)
+		/*if(keyHeldUp == false)
 		{
-		keyHeldUp = true;
+		keyHeldUp = true;*/
 		theModel->getPlayer()->controls.up = true;
-		}
-		else if(keyHeldUp == true)
-		{
-			theModel->getPlayer()->controls.up = false;
-		}
+		//}
+		//else if(keyHeldUp == true)
+		//{
+		//	theModel->getPlayer()->controls.up = false;
+		//}
 	}
-	else if(!theView->IsKeyPressed('W') && keyHeldUp)
+	else// if(!theView->IsKeyPressed('W') && keyHeldUp)
 	{
-		keyHeldUp = false;
+		//keyHeldUp = false;
 		theModel->getPlayer()->controls.up = false;
 	}
 
 	if(theView->IsKeyPressed('A'))
 	{
-		if(keyHeldLeft== false)
-		{
-		keyHeldLeft = true;
+		//if(keyHeldLeft== false)
+		//{
+		//keyHeldLeft = true;
 		theModel->getPlayer()->controls.left = true;
-		}
-		else if(keyHeldLeft == true)
-		{
-			theModel->getPlayer()->controls.left = false;
-		}
+		//}
+		//else if(keyHeldLeft == true)
+		//{
+		//	theModel->getPlayer()->controls.left = false;
+		//}
 	}
-	else if(!theView->IsKeyPressed('A') && keyHeldLeft)
+	else// if(!theView->IsKeyPressed('A') && keyHeldLeft)
 	{
-		keyHeldLeft = false;
+		//keyHeldLeft = false;
 		theModel->getPlayer()->controls.left = false;
 	}
 
 	if(theView->IsKeyPressed('S'))
 	{
-		if(keyHeldDown== false)
-		{
-		keyHeldDown = true;
+		//if(keyHeldDown== false)
+		//{
+		//keyHeldDown = true;
 		theModel->getPlayer()->controls.down = true;
-		}
-		else if(keyHeldDown == true)
-		{
-			theModel->getPlayer()->controls.down = false;
-		}
+		//}
+		//else if(keyHeldDown == true)
+		//{
+		//	theModel->getPlayer()->controls.down = false;
+		//}
 	}
-	else if(!theView->IsKeyPressed('S') && keyHeldDown)
+	else// if(!theView->IsKeyPressed('S') && keyHeldDown)
 	{
-		keyHeldDown = false;
+		//keyHeldDown = false;
 		theModel->getPlayer()->controls.down = false;
 	}
 
 	if(theView->IsKeyPressed('D'))
 	{
-		if(keyHeldRight == false)
-		{
-		keyHeldRight = true;
+		//if(keyHeldRight == false)
+		//{
+		//keyHeldRight = true;
 		theModel->getPlayer()->controls.right = true;
-		}
-		else if(keyHeldRight == true)
-		{
-			theModel->getPlayer()->controls.right = false;
-		}
+		//}
+		//else if(keyHeldRight == true)
+		//{
+		//	theModel->getPlayer()->controls.right = false;
+		//}
 	}
-	else if(!theView->IsKeyPressed('D') && keyHeldRight)
+	else// if(!theView->IsKeyPressed('D') && keyHeldRight)
 	{
-		keyHeldRight = false;
+		//keyHeldRight = false;
 		theModel->getPlayer()->controls.right = false;
 	}
 

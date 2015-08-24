@@ -276,13 +276,16 @@ bool World::initCorridors()
 		int firstRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
 		int secondRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
 
-		if (exitList[firstRoom]->roomID != exitList[secondRoom]->roomID && !exitList[firstRoom]->connected)
+
+		if (exitList[firstRoom]->roomID != exitList[secondRoom]->roomID && ((!exitList[firstRoom]->connected) || (!exitList[secondRoom]->connected)))
 		{
 			Room_Exit_Connections* newConnection = new Room_Exit_Connections(exitList[firstRoom], exitList[secondRoom], CONNECTION_PATH_FIND);
 			exitConnectionList.push_back(newConnection);
 				
 			exitList[firstRoom]->connected = true;
 			exitList[secondRoom]->connected = true;
+
+			std::cout << firstRoom << " " << secondRoom << std::endl;
 		}
 	}
 	
@@ -700,14 +703,15 @@ bool World::generateCorridors()
 			}
 			else if (exitConnectionList[i]->connectionType == CONNECTION_PATH_FIND)
 			{
+				//backgroundData[exitConnectionList[i]->exitA->exitPositionY][exitConnectionList[i]->exitA->exitPositionX] = -1;
 				backgroundData[exitConnectionList[i]->exitB->exitPositionY][exitConnectionList[i]->exitB->exitPositionX] = -1;
 
 				std::vector<Vector3> corridorConnection; // temporary vector to store corridors to place
-				corridorConnection.push_back(Vector3(exitConnectionList[i]->exitA->exitPositionX, exitConnectionList[i]->exitA->exitPositionY, 0)); // push start of corridor
+				corridorConnection.push_back(Vector3((float)(exitConnectionList[i]->exitA->exitPositionX), (float)(exitConnectionList[i]->exitA->exitPositionY), 0)); // push start of corridor
 				while ((corridorConnection.back().x != exitConnectionList[i]->exitB->exitPositionX) && (corridorConnection.back().y != exitConnectionList[i]->exitB->exitPositionY) ) // while not at end
 				{
-					int segmentX = corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX;
-					int segmentY = corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY;
+					int segmentX = (int)(corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX);
+					int segmentY = (int)(corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY);
 
 					int directionX = segmentX/(abs(segmentX));
 					int directionY = segmentY/(abs(segmentY));
@@ -720,172 +724,251 @@ bool World::generateCorridors()
 					bool placedVertical;
 					bool canPlaceVertical;
 
-					while (abs(segmentX) != 0) // extend corridor horizontally
+					bool finishedConnecting = false;
+					while (!finishedConnecting)
 					{
-						segmentX = corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX;
-						segmentY = corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY;
-
-						if (segmentX != 0)
-							directionX = segmentX/(abs(segmentX));
-						if (segmentY != 0)
-						directionY = segmentY/(abs(segmentY));
-
-						placedHorizontal = false;
-
-						while ((!placedHorizontal) && (abs(segmentX) != 0))
+						std::cout << "help" << std::endl;
+						while (abs(segmentX) != 0) // extend corridor horizontally
 						{
-							canPlaceHorizontal = true;
-							for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
-							{
-								if ((backgroundData[corridorConnection.back().y+0][corridorConnection.back().x-(directionX*j)] != -1) && (backgroundData[corridorConnection.back().y+0][corridorConnection.back().x-(directionX*j)] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
-								{
-									// there's a tile in the way
-									canPlaceHorizontal = false;
-								}
-							}
+							std::cout << "Horizontal" << std::endl;
+							std::cout << corridorConnection.back();
+							segmentX = (int)(corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX);
+							segmentY = (int)(corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY);
 
-							if (!canPlaceHorizontal) // can't place in direction to room, try extending vertically first
-							{
-								placedVertical = false;
-								int counter = 0;
-								while ((!placedVertical) && (counter != 2))
-								{
-									canPlaceVertical = true;
-									for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
-									{
-										if ((backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x-0] != -1) && (backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
-										{
-											//there's a tile in the way
-											canPlaceVertical = false;
-										}
-									}
-
-									if (!canPlaceVertical)
-									{
-										directionY *= -1; // try the other direction
-										counter++;
-									}
-									else
-									{
-										//place tiles in vector
-										for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
-										{
-											corridorConnection.push_back(Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0));
-											placedVertical = true;
-										}
-									}
-								}
-							}
+							if (segmentX != 0)
+								directionX = segmentX/(abs(segmentX));
 							else
+								directionX = 1;
+
+							if (segmentY != 0)
+								directionY = segmentY/(abs(segmentY));
+							else
+								directionY = 1;
+
+							std::cout << segmentX << " " << segmentY << std::endl;
+
+							placedHorizontal = false;
+
+							while ((!placedHorizontal) && (abs(segmentX) != 0))
 							{
-								//place tiles in vector
+								std::cout << "PENIS" << std::endl;
+								canPlaceHorizontal = true;
 								for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
 								{
-									corridorConnection.push_back(Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0));
-									placedHorizontal = true;
+									if ((backgroundData[(unsigned)(corridorConnection.back().y+0)][(unsigned)(corridorConnection.back().x-(directionX*j))] != -1) && (backgroundData[(unsigned)(corridorConnection.back().y+0)][(unsigned)(corridorConnection.back().x-(directionX*j))] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+									{
+										// there's a tile in the way
+										canPlaceHorizontal = false;
+									}
 								}
-							}
 
-							directionX *= 1;
-
-						}
-
-					}
-
-					std::cout << "do vertical" << std::endl;
-					while (abs(segmentY) != 0)
-					{
-						std::cout << "next segment vertical" << std::endl;
-						segmentX = corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX;
-						segmentY = corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY;
-
-						if (segmentX != 0)
-							directionX = segmentX/(abs(segmentX));
-						if (segmentY != 0)
-							directionY = segmentY/(abs(segmentY));
-
-						placedVertical = false;
-
-						while ((!placedVertical) && (abs(segmentY) != 0))
-						{
-							std::cout << "try place vertical" << std::endl;
-							canPlaceVertical = true;
-							for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
-							{
-								if ((backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x] != -1) && (backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+								if ((!canPlaceHorizontal) && (abs(segmentX) != 0)) // can't place in direction to room, try extending vertically first
 								{
-									// there's a tile in the way
-									canPlaceVertical = false;
-									std::cout << backgroundData[corridorConnection.back().y-(directionY*j)][corridorConnection.back().x] << " cannot vertical" << std::endl;
+									std::cout << "penis2 " << std::endl;
+									placedVertical = false;
+									int counter = 0;
+									while ((!placedVertical) && (counter != 2))
+									{
+										canPlaceVertical = true;
+
+										if (segmentY == 0 && segmentX != 0)
+										{
+											std::cout << "PI" << std::endl;
+											int temp = corridorConnection.back().y - corridorConnection[corridorConnection.size()-2].y;
+											for (int j = 1; j <= 3; j++)
+											{
+												corridorConnection.push_back(Vector3(corridorConnection.back().x, corridorConnection.back().y-(-temp), 0));
+											}
+
+											std::cout << corridorConnection.back() << " " << exitConnectionList[i]->exitB->exitPositionX << ", " << exitConnectionList[i]->exitB->exitPositionY << std::endl;
+											//system("pause");
+
+											segmentY = (int)(corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY);
+
+											for (int j = 1; j <= abs(segmentX); j++)
+											{
+												corridorConnection.push_back(Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0));
+											}
+											
+											std::cout << corridorConnection.back() << " " << exitConnectionList[i]->exitB->exitPositionX << ", " << exitConnectionList[i]->exitB->exitPositionY << std::endl;
+											//system("pause");
+
+											segmentX = (int)(corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionX);
+
+											for (int j = 1; j <= 3; j++)
+											{
+												corridorConnection.push_back(Vector3(corridorConnection.back().x, corridorConnection.back().y-(temp), 0));
+											}
+
+											std::cout << corridorConnection.back() << " " << exitConnectionList[i]->exitB->exitPositionX << ", " << exitConnectionList[i]->exitB->exitPositionY << std::endl;
+											//system("pause");
+										}
+										else
+										{
+											for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
+											{
+												if ((backgroundData[(unsigned)(corridorConnection.back().y-(directionY*j))][(unsigned)(corridorConnection.back().x-0)] != -1) && (backgroundData[(unsigned)(corridorConnection.back().y-(directionY*j))][(unsigned)(corridorConnection.back().x)] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+												{
+													//there's a tile in the way
+													canPlaceVertical = false;
+												}
+											}
+
+											if (!canPlaceVertical)
+											{
+												directionY *= -1; // try the other direction
+												counter++;
+											}
+											else
+											{
+												//place tiles in vector
+												for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
+												{
+													corridorConnection.push_back(Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0));
+													placedVertical = true;
+												}
+											}
+										}
+									}
 								}
-							}
-
-							if (!canPlaceVertical) // can't place in direction to room, try extending horizontally first
-							{
-								std::cout << "try horizontal " << std::endl;
-								placedHorizontal = false;
-								int counter = 0;
-								while ((!placedHorizontal) && (counter != 2))
+								else
 								{
-									std::cout << "try place horizontal"<< std::endl;
-									canPlaceHorizontal = true;
-									std::cout << " " << abs(segmentX) << std::endl;
+									//place tiles in vector
 									for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
 									{
-										//std::cout << "x: " << corridorConnection.back().x-(directionX*j) << " y: " << corridorConnection.back().y+2 << " World size: X:" << backgroundData[0].size() << " Y:" << backgroundData.size() << std::endl;
-										if ((backgroundData[corridorConnection.back().y][corridorConnection.back().x-(directionX*j)] != -1) && (backgroundData[corridorConnection.back().y][corridorConnection.back().x-(directionX*j)] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
-										{
-											//there's a tile in the way
-											canPlaceHorizontal = false;
-											std::cout << "cannot horizontal" << std::endl;
-										}
-									}
-
-									if (!canPlaceHorizontal)
-									{
-										directionX *= -1; // try the other direction
-										counter++;
-									}
-									else
-									{
-										//place tiles in vector
-										for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
-										{
-											std::cout << "Pushback into corridor: " << Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0) << std::endl;
-											corridorConnection.push_back(Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0));
-											placedHorizontal = true;
-										}
+										//std::cout << "wtf" << std::endl;
+										corridorConnection.push_back(Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0));
+										placedHorizontal = true;
 									}
 								}
-							}
-							else
-							{
-								//place tiles in vector
-								std::cout << "placing tiles" << std::endl;
-								for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
-								{
-									std::cout << "Pushback into corridor: " << Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0) << std::endl;
-									corridorConnection.push_back(Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0));
-									placedVertical = true;
-								}
+
+								directionX *= 1;
+
 							}
 
-							directionY *= 1;
-
-							std::cout << "inside vertical end" << std::endl;
 						}
 
-						std::cout << "outsie vertical end" << std::endl;
+						//std::cout << "do vertical" << std::endl;
+						while (abs(segmentY) != 0)
+						{
+							std::cout << "Vertical" << std::endl;
+							//std::cout << "next segment vertical" << std::endl;
+							segmentX = (int)(corridorConnection.back().x-exitConnectionList[i]->exitB->exitPositionX);
+							segmentY = (int)(corridorConnection.back().y-exitConnectionList[i]->exitB->exitPositionY);
+
+							if (segmentX != 0)
+								directionX = segmentX/(abs(segmentX));
+							if (segmentY != 0)
+								directionY = segmentY/(abs(segmentY));
+
+							placedVertical = false;
+
+							while ((!placedVertical) && (abs(segmentY) != 0))
+							{
+								//std::cout << "try place vertical" << std::endl;
+								canPlaceVertical = true;
+								for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
+								{
+									if ((backgroundData[(unsigned)(corridorConnection.back().y-(directionY*j))][(unsigned)(corridorConnection.back().x)] != -1) && (backgroundData[(unsigned)(corridorConnection.back().y-(directionY*j))][(unsigned)(corridorConnection.back().x)] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+									{
+										// there's a tile in the way
+										canPlaceVertical = false;
+										std::cout << backgroundData[(unsigned)(corridorConnection.back().y-(directionY*j))][(unsigned)(corridorConnection.back().x)] << " cannot vertical" << std::endl;
+									}
+								}
+
+								if (!canPlaceVertical) // can't place in direction to room, try extending horizontally first
+								{
+	//std::cout << "try horizontal " << std::endl;
+									placedHorizontal = false;
+									int counter = 0;
+									while ((!placedHorizontal) && (counter != 2))
+									{
+									//	std::cout << "try place horizontal cheese"<< std::endl;
+										canPlaceHorizontal = true;
+										std::cout << " " << abs(segmentX) << std::endl;
+										for (int j = 1; (j <= 3); j++)
+										{
+											//std::cout << "x: " << corridorConnection.back().x-(directionX*j) << " y: " << corridorConnection.back().y+2 << " World size: X:" << backgroundData[0].size() << " Y:" << backgroundData.size() << std::endl;
+											if ((backgroundData[(unsigned)(corridorConnection.back().y)][(unsigned)(corridorConnection.back().x-(directionX*j))] != -1) && (backgroundData[(unsigned)(corridorConnection.back().y)][(unsigned)(corridorConnection.back().x-(directionX*j))] != exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR]))
+											{
+												//there's a tile in the way
+												std::cout << backgroundData[(unsigned)(corridorConnection.back().y)][(unsigned)(corridorConnection.back().x-(directionX*j))] << std::endl;
+												canPlaceHorizontal = false;
+											//	std::cout << "cannot horizontal" << std::endl;
+											}
+											else
+											{
+												std::cout << backgroundData[(unsigned)(corridorConnection.back().y)][(unsigned)(corridorConnection.back().x-(directionX*j))] << std::endl;
+											}
+										}
+
+										if (!canPlaceHorizontal)
+										{
+											directionX *= -1; // try the other direction
+											counter++;
+										}
+										else
+										{
+											//place tiles in vector
+											std::cout << "horizontal " << std::endl;
+											for (int j = 1; /*(j <= abs(segmentX)) &&*/ (j <= 3); j++)
+											{
+											//	std::cout << "Pushback into corridor: " << Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0) << std::endl;
+												corridorConnection.push_back(Vector3(corridorConnection.back().x-(directionX), corridorConnection.back().y, 0));
+												placedHorizontal = true;
+											}
+										}
+									}
+								}
+								else
+								{
+									//place tiles in vector
+									std::cout << "placing tiles" << std::endl;
+									for (int j = 1; (j <= abs(segmentY)) && (j <= 3); j++)
+									{
+										std::cout << "Pushback into corridor: " << Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0) << std::endl;
+										corridorConnection.push_back(Vector3(corridorConnection.back().x, corridorConnection.back().y-(directionY), 0));
+										placedVertical = true;
+									}
+								}
+
+								directionY *= 1;
+
+								std::cout << "inside vertical end" << std::endl;
+							}
+
+							std::cout << "outsie vertical end" << std::endl;
+						}
+
+						if ((corridorConnection.back().x == exitConnectionList[i]->exitB->exitPositionX) && (corridorConnection.back().y == exitConnectionList[i]->exitB->exitPositionY))
+						{
+							finishedConnecting = true;
+						}
 					}
 				}
+
+				std::cout << corridorConnection.back() << std::endl;
+				std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
+
+				std::cout << "A: " << exitConnectionList[i]->exitA->exitPositionX << " " << exitConnectionList[i]->exitA->exitPositionY << std::endl;
+				std::cout << "B: " << exitConnectionList[i]->exitB->exitPositionX << " " << exitConnectionList[i]->exitB->exitPositionY << std::endl;
 
 				for (unsigned j = 0; j < corridorConnection.size(); j++)
 				{
 					if (j < corridorConnection.size()/2)
-						backgroundData[corridorConnection[j].y][corridorConnection[j].x] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					{
+						backgroundData[(unsigned)(corridorConnection[j].y)][(unsigned)(corridorConnection[j].x)] = exitConnectionList[i]->corridorTileIDA[TILE_CORRIDOR_FLOOR];
+					}
 					else
-						backgroundData[corridorConnection[j].y][corridorConnection[j].x] = exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR];
+					{
+						backgroundData[(unsigned)(corridorConnection[j].y)][(unsigned)(corridorConnection[j].x)] = exitConnectionList[i]->corridorTileIDB[TILE_CORRIDOR_FLOOR];
+					}
+
+					std::cout << "X: " << (unsigned)(corridorConnection[j].x) << " Y: " << (unsigned)(corridorConnection[j].y) << std::endl;
+					
 				}
+				std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
 			}
 		}
 	}
