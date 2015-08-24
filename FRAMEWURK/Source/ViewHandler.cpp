@@ -270,7 +270,6 @@ void ViewHandler::Update(double dt)
 {
 	glfwGetCursorPos(m_window, &MouseInfo.x, &MouseInfo.y); //Update Cursor Coordinates
 	glGetIntegerv(GL_VIEWPORT,m_viewPort);
-
 	//UpdateSA(dt);
 
 	if(ViewHandler::IsKeyPressed('1'))
@@ -591,16 +590,17 @@ void ViewHandler::RenderScene()
 	}
 	
 	//std::cout << theModel->getPlayer()->getInventory().getItem(1)->toString() << std::endl;
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"FEAR :100%", Color(1,0,0), 48.f, 10.f, 690.f);
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"ROOM ?", Color(1,0,0), 48.f, 450.f, 690.f);
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f, 850.f, 690.f);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"FEAR :100%", Color(1,0,0), GameUIWidthOffset, 10.f,m_viewPort[3] - GameUIHeightOffset);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"ROOM ?", Color(1,0,0), GameUIWidthOffset, (m_viewPort[2] * 0.5f) - GameUIWidthOffset, m_viewPort[3] - GameUIHeightOffset);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
 
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"Sanity", Color(1,0,0), theModel->getPlayer()->getSanity(), 430.f, 20.f);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"Sanity", Color(1,0,0), theModel->getPlayer()->getSanity(), (m_viewPort[2] * 0.5f) - GameUISanityWidthOffset, (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
 
-	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,50.f,50.f);
-	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,125.f,50.f);
-	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,50.f,50.f); // Consumable
-	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,125.f,50.f); // Equipment
+	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
+	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
+
+	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Consumable
+	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Equipment
 
 	std::cout << FPS << std::endl;
 

@@ -10,6 +10,7 @@
 #include <GL\GL.h>
 #include <GL\GLU.h>
 
+#include "Define.h"
 #include "ModelHandler.h"
 #include "MatrixStack.h"
 #include "Geometry.h"
