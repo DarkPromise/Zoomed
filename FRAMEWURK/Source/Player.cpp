@@ -46,7 +46,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
 	//std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;
 
-	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Max(0, yColiision-1)][xColiision] != 1) && m_playerPos.y > 0)
+	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Max(0, yColiision-1)][xColiision] != 1) && m_playerPos.y < 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
@@ -83,6 +83,12 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 	}
 
 	move(dt,currentWorld->collisionData);
+
+	m_currFear += dt * 10;
+	if(m_currFear > 100)
+	{
+		m_currFear = 0;
+	}
 }
 
 int Player::GetMapOffset_x(void)
