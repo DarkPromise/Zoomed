@@ -33,27 +33,35 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 		{
 			for(int j = 0; j < collisionMap[i].size(); ++j)
 			{
-				std::cout << collisionMap[i][j] << " ";
+				std::cout << Math::Max(0, collisionMap[i][j]) << " ";
 			}
+			std::cout << std::endl;
 		}
-	std::cout << "End" << std::endl;*/
+	std::cout << "End" << std::endl;
 
-	if(controls.up && this->m_movementTimer > m_movementDelay)
+	system("pause");*/
+
+	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
+	int xColiision = (int)(m_playerPos.x/32);
+	std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
+	//std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;
+
+	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Max(0, yColiision-1)][xColiision] != 1))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
 	}
-	if(controls.down && this->m_movementTimer > m_movementDelay)
+	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision+1][xColiision] != 1))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y -= 32;
 	}
-	if(controls.left && this->m_movementTimer > m_movementDelay)
+	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][Math::Max(0, xColiision-1)] != 1))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x -= 32;
 	}
-	if(controls.right && this->m_movementTimer > m_movementDelay)
+	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] != 1))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x += 32;
@@ -74,7 +82,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 		m_movementDelay = 0.0; // fer weng jew
 	}
 
-	move(dt,currentWorld->m_roomList[currentRoom]->collisionData);
+	move(dt,currentWorld->collisionData);
 }
 
 int Player::GetMapOffset_x(void)

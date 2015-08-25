@@ -254,9 +254,9 @@ void Room::generateRoom()
 	}
 
 	// test collision code
-	for (int i = 0; i < sceneryData.size(); i++)
+	for (unsigned i = 0; i < sceneryData.size(); i++)
 	{
-		for (int j = 0; j < sceneryData[i].size(); j++)
+		for (unsigned j = 0; j < sceneryData[i].size(); j++)
 		{
 			if (this->sceneryData[i][j] != -1)
 			{
@@ -265,16 +265,22 @@ void Room::generateRoom()
 		}
 	}
 
-	/*for (int i = 0; i < backgroundData.size(); i++)
+	int floorTileID = -1;
+	if (this->roomType == ROOM_TESTPUZZLE)
 	{
-		for (int j = 0; j < backgroundData[i].size(); j++)
+		floorTileID = ROOMS_FLOORTILE;
+	}
+
+	for (unsigned i = 0; i < backgroundData.size(); i++)
 		{
-			if (this->backgroundData[i][j] != -1)
+			for (unsigned j = 0; j < backgroundData[i].size(); j++)
 			{
-				this->collisionData[i][j] = 1;
+				if ((this->backgroundData[i][j] != floorTileID) && (this->backgroundData[i][j] != -1))
+				{
+					this->collisionData[i][j] = 1;
+				}
 			}
 		}
-	}*/
 }
 
 bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY)
@@ -424,8 +430,19 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM:
 			{
-				sceneryData[originY][originX] = 330; sceneryData[originY][originX+1] = 331; sceneryData[originY][originX+2] = 332;
-				sceneryData[originY+1][originX] = 362; sceneryData[originY+1][originX+1] = 363; sceneryData[originY+1][originX+2] = 364;
+				originX = Math::RandIntMinMax(3, sceneryData[0].size()-5);
+				while (!((originX != -1) && (sceneryData[sceneryData.size()-3][originX] == -1)))
+				{
+					originX = Math::RandIntMinMax(3, sceneryData[0].size()-5);
+				}
+
+				sceneryData[sceneryData.size()-2][originX] = 266; sceneryData[sceneryData.size()-2][originX+2] = 268;
+				backgroundData[sceneryData.size()-2][originX+1] = 162; sceneryData[sceneryData.size()-2][originX+1] = -1;
+
+				numExit[exitCounter]->exitPositionX = originX+1;
+				numExit[exitCounter]->exitPositionY = sceneryData.size()-2;
+
+				exitCounter++;
 			}
 			break;
 		case Room_Object::ROOM_OBJECT_TESTPUZZLE_BIG_WINDOW:
@@ -486,7 +503,7 @@ void Room::addExit(EXIT_DIRECTION exit)
 		{
 			if (exit == EXIT_DOWN)
 			{
-				Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM, sceneryData.size(), sceneryData[0].size());
+				Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM, sceneryData.size(), sceneryData[0].size());
 				addOBJtoGenerate(tempObject);
 			}
 			/*else if (exit == EXIT_UP)

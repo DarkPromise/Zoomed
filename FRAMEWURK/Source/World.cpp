@@ -100,6 +100,8 @@ void World::initWorld()
 
 	while (!initCorridors());
 	while (!generateCorridors());
+
+	
 }
 
 bool World::initCorridors()
@@ -751,7 +753,6 @@ bool World::generateCorridors()
 
 							while ((!placedHorizontal) && (abs(segmentX) != 0))
 							{
-								std::cout << "PENIS" << std::endl;
 								canPlaceHorizontal = true;
 								for (int j = 1; (j <= abs(segmentX)) && (j <= 3); j++)
 								{
@@ -764,7 +765,6 @@ bool World::generateCorridors()
 
 								if ((!canPlaceHorizontal) && (abs(segmentX) != 0)) // can't place in direction to room, try extending vertically first
 								{
-									std::cout << "penis2 " << std::endl;
 									placedVertical = false;
 									int counter = 0;
 									while ((!placedVertical) && (counter != 2))

@@ -31,6 +31,11 @@ enum EXIT_DIRECTION
 	EXIT_DOWN,
 };
 
+enum ROOM_FLOOR_TILE
+{
+	ROOMS_FLOORTILE = 162
+};
+
 struct Room_Exit
 {
 	Room_Exit(EXIT_DIRECTION exitDirection, ROOM_TYPE roomType = ROOM_NULL, int roomID = 0, int exitPositionX = 0, int exitPositionY = 0)

@@ -69,7 +69,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 50, 10, 2);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 50, 70, 2);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
@@ -153,7 +153,23 @@ bool ModelHandler::InitObjects()
 void ModelHandler::Update(const double dt)
 {
 	camera.Update(dt);
+
+	/*std::cout << "Start" << std::endl;
+	for(int i = 0; i < m_worldList[currentWorld]->sceneryData.size(); ++i)
+		{
+			for(int j = 0; j < m_worldList[currentWorld]->sceneryData[i].size(); ++j)
+			{
+				std::cout << Mszm_worldList[currentWorld]->collisionData[i][j] << " ";
+			}
+			std::cout << std::endl;
+		}
+	std::cout << "End" << std::endl;
+
+	system("pause");*/
+
 	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y));
+	//std::cout << (player->getPosition().x) << " " << (player->getPosition().y) << std::endl;
+	//std::cout << (int)((player->getPosition().x)/32) << " "  << (int)((player->getPosition().y)/32) << std::endl;
 }
 
 Camera ModelHandler::getCamera()
