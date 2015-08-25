@@ -577,7 +577,8 @@ void ViewHandler::RenderScene()
 	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Consumable
 	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Equipment
 
-	Render2DMesh(theModel->m_guiList[1]->getMesh(),false,false,32.f,320.f,GameUIFearBorderWidthOffset, m_viewPort[3] - GameUIFearBorderHeightOffset);
+	Render2DMesh(theModel->m_guiList[2]->getMesh(),false,false,40.f,300.f * (theModel->getPlayer()->getCurrFear() * 0.01f),GameUIFearBorderWidthOffset, m_viewPort[3] - (GameUIFearValueHeightOffset + (30.f - theModel->getPlayer()->getCurrFear() * 1.5f)));
+	Render2DMesh(theModel->m_guiList[1]->getMesh(),false,false,40.f,300.f,GameUIFearBorderWidthOffset, m_viewPort[3] - GameUIFearBorderHeightOffset);
 
 	//std::cout << FPS << std::endl;
 

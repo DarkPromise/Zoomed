@@ -158,6 +158,9 @@ bool ModelHandler::InitObjects()
 	newGui = new Gui("Fear Border","Images//UI//Fear_Border.tga");
 	m_guiList.push_back(newGui);
 
+	newGui = new Gui("Fear","Images//UI//Fear.tga");
+	m_guiList.push_back(newGui);
+
 	return true;
 }
 

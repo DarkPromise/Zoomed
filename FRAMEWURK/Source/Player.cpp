@@ -6,7 +6,7 @@ Player::Player(std::string name)
 	keyPressed(0),
 // Protected Info
 	m_maxFear(100),
-	m_currFear(0),
+	m_currFear(20),
 	m_movementDelay(0.0),
 	m_movementTimer(0.0),
 	m_playerPos(0,0,0),
