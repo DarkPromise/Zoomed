@@ -239,24 +239,29 @@ void Room::generateRoom()
 		generatedRoom = true; // reset room flag
 		reset_mapData(); // reset map data
 
-		switch (roomType)
+		//generate objects
+		for (unsigned i = 0; i < roomObjectList.size(); i++)
 		{
-		case ROOM_TESTPUZZLE:
+			if ( attemptToAdd(roomType, roomObjectList[i]) ) 
 			{
-				//generate objects
-				for (unsigned i = 0; i < roomObjectList.size(); i++)
-				{
-					if ( attemptToAdd(roomType, roomObjectList[i]) ) 
-					{
-						attemptCounter = 0;
-					}
-					else 
-					{
-						generatedRoom = false;
-					}
-				}
+				attemptCounter = 0;
 			}
-			break;
+			else 
+			{
+				generatedRoom = false;
+			}
+		}
+	}
+
+	// test collision code
+	for (int i = 0; i < sceneryData.size(); i++)
+	{
+		for (int j = 0; j < sceneryData[i].size(); j++)
+		{
+			if (sceneryData[j][i] != -1)
+			{
+				collisionData[j][j] = 1;
+			}
 		}
 	}
 }
