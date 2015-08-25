@@ -55,7 +55,6 @@ public:
 	void RenderTile(Mesh* mesh, int TileID);
 	void RenderTileOnScreen(Mesh * mesh, bool enableLight, int TileID, float size, float x, float y);
 	void RenderLevel(int levelID);
-	void RenderTileMap(CMap * mapToRender);
 
 	void Update(double dt);
 	void UpdateSA(double dt);
@@ -89,7 +88,7 @@ private:
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
-	Mesh* m_meshList[NUM_GEOMETRY];
+	//Mesh* m_meshList[NUM_GEOMETRY];
 
 	Light lights[1];
 	bool LightsEnabled;

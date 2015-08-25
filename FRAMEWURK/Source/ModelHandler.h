@@ -53,7 +53,7 @@ public:
 	//vector<GameObject*> m_buttonList; //GUI Class <- Create
 
 	vector<GameObject*> m_objectList;
-	Mesh* m_meshList[NUM_GEOMETRY];
+	//Mesh* m_meshList[NUM_GEOMETRY];
 
 	//vector<CMap*> m_mapList;
 	vector<World*> m_worldList;

@@ -253,17 +253,17 @@ void Room::generateRoom()
 		}
 	}
 
-	// test collision code
-	for (int i = 0; i < sceneryData.size(); i++)
-	{
-		for (int j = 0; j < sceneryData[i].size(); j++)
-		{
-			if (sceneryData[j][i] != -1)
-			{
-				collisionData[j][j] = 1;
-			}
-		}
-	}
+	//// test collision code
+	//for (int i = 0; i < sceneryData.size(); i++)
+	//{
+	//	for (int j = 0; j < sceneryData[i].size(); j++)
+	//	{
+	//		if (sceneryData[j][i] != -1)
+	//		{
+	//			collisionData[j][i] = 1;
+	//		}
+	//	}
+	//}
 }
 
 bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY)

@@ -20,11 +20,6 @@ ModelHandler::~ModelHandler(void)
 	}
 	m_objectList.clear();
 
-	for(unsigned int i = 0; i < NUM_GEOMETRY; ++i)
-	{
-		delete m_meshList[i];
-	}
-
 	for(unsigned int i = 0; i < m_itemList.size(); ++i)
 	{
 		delete m_itemList[i];
@@ -48,7 +43,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
 	
 	m_status = STATE_MENU;
-	currentWorld = WORLD_MAINMENU;
+	currentWorld = WORLD_TEST;
 
 	// MAIN MENU
 	World* newWorld = new World(WORLD_MAINMENU);
@@ -97,71 +92,20 @@ void ModelHandler::Init() //Anything that moves in the game
 
 bool ModelHandler::InitObjects()
 {
-	/*GameObject * object = new GameObject("Test Object");
-	object->addMesh(MeshBuilder::GenerateQuad("Test Object",Color(0.f,0.f,1.f),32.f));
-	object->setPosition(Vector3(0.f,0.f,0.f));
-	m_objectList.push_back(object);*/
-	
 	GameObject * object = new GameObject("Test Animation");
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Test Animation",1,3,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//playerTest.tga");    //Current State 
-	object->setPosition(Vector3(0.f,0.f,0.f));
 	m_objectList.push_back(object);
 	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
 	if(playerAnimation)
 	{
 		playerAnimation->m_anim = new Animation();
-		playerAnimation->m_anim->Set(0,2,0,0.2f);
+		playerAnimation->m_anim->Set(0,2,0,0.1f);
 	}
-
-	/*m_meshList[GEO_PLAYER] = MeshBuilder::GenerateSpriteAnimation("Placeholder", 1, 3, 24.f, 48.f);
-	m_meshList[GEO_PLAYER]->textureID = LoadTGA("Images//playerTest.tga");
-	SpriteAnimation *sa19 = dynamic_cast<SpriteAnimation*>(m_meshList[GEO_PLAYER]);
-	if (sa19)
-	{
-		sa19->m_anim = new Animation();
-		sa19->m_anim->Set(0, 2, 0, 0.25f);
-	}*/
 
 	object = new GameObject("Axes");
 	object->addMesh(MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000));
 	m_objectList.push_back(object);
-
-	/*object = new GameObject("Main Menu", TYPE_MAP, Vector3((float)(m_worldList[0]->m_roomList[0]->getWorldPositionX()*m_worldList[0]->m_roomList[0]->GetTileSize()), (float)(m_worldList[0]->m_roomList[0]->getWorldPositionY()*m_worldList[0]->m_roomList[0]->GetTileSize()), 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Background",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->backgroundData,32,32));
-	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Scenery",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->sceneryData,32,32));
-	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Main Menu Foreground",Color(0.f,0.f,0.f),m_worldList[0]->m_roomList[0]->foregroundData,32,32));
-	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
-	m_objectList.push_back(object);*/
-
-	/*object = new GameObject("Puzzle Test Room", TYPE_MAP, Vector3((float)(m_worldList[1]->m_roomList[0]->getWorldPositionX()*m_worldList[1]->m_roomList[0]->GetTileSize()), (float)(m_worldList[1]->m_roomList[0]->getWorldPositionY()*m_worldList[1]->m_roomList[0]->GetTileSize()), 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[0]->backgroundData,32,32));
-	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Scenery",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[0]->sceneryData,32,32));
-	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Foreground",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[0]->foregroundData,32,32));
-	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	m_objectList.push_back(object);
-
-	object = new GameObject("Puzzle Test Room 2", TYPE_MAP, Vector3((float)(m_worldList[1]->m_roomList[1]->getWorldPositionX()*m_worldList[1]->m_roomList[1]->GetTileSize()), (float)(m_worldList[1]->m_roomList[1]->getWorldPositionY()*m_worldList[1]->m_roomList[1]->GetTileSize()), 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[1]->backgroundData,32,32));
-	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Scenery",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[1]->sceneryData,32,32));
-	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Foreground",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[1]->foregroundData,32,32));
-	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	m_objectList.push_back(object);
-
-	object = new GameObject("Puzzle Test Room 3", TYPE_MAP, Vector3((float)(m_worldList[1]->m_roomList[2]->getWorldPositionX()*m_worldList[1]->m_roomList[2]->GetTileSize()), (float)(m_worldList[1]->m_roomList[2]->getWorldPositionY()*m_worldList[1]->m_roomList[2]->GetTileSize()), 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[2]->backgroundData,32,32));
-	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Scenery",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[2]->sceneryData,32,32));
-	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Test Foreground",Color(0.f,0.f,0.f),m_worldList[1]->m_roomList[2]->foregroundData,32,32));
-	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-	m_objectList.push_back(object);*/
 
 	object = new GameObject("Test World", TYPE_MAP, Vector3(0, 0, 0));
 	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[1]->backgroundData,32,32));
@@ -172,9 +116,14 @@ bool ModelHandler::InitObjects()
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	m_objectList.push_back(object);
 
-	object = new GameObject("Game Text",TYPE_TEXT);
-	object->addMesh(MeshBuilder::GenerateText("Game Text",16,16));
+	object = new GameObject("Game Text Foxscript",TYPE_TEXT);
+	object->addMesh(MeshBuilder::GenerateText("Game Text Foxscript",16,16));
 	object->getMesh()->textureID = LoadTGA("Images//Fonts//foxscript.tga");
+	m_objectList.push_back(object);
+
+	object = new GameObject("Game Text Basis", TYPE_TEXT);
+	object->addMesh(MeshBuilder::GenerateText("Game Text Basis",16,16));
+	object->getMesh()->textureID = LoadTGA("Images//Fonts//basis33.tga");
 	m_objectList.push_back(object);
 
 	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(512.f,400.f,0.f));
@@ -185,15 +134,18 @@ bool ModelHandler::InitObjects()
 	testItem->setDescription("Just a test item :D");
 	m_itemList.push_back(testItem);
 
-	std::cout << m_itemList[0]->toString() << std::endl;
+	//std::cout << m_itemList[0]->toString() << std::endl;
 
 	//ITEM INVENTORY TESTING
 	this->getPlayer()->getInventory().addItem(m_itemList[0]);                                         //ADD ITEM  
 	//std::cout << this->getPlayer()->getInventory().getItem(1)->toString() << std::endl; //GET NAME OF ITEM
 	//this->getPlayer()->getInventory().removeItem(1);                                                       //REMOVE ITEM FROM INVENTORY
 
-	Gui * testGui = new Gui("Test Border","Images//UI//Item_Border.tga");
-	m_guiList.push_back(testGui);
+	Gui * newGui = new Gui("Test Border","Images//UI//Item_Border.tga");
+	m_guiList.push_back(newGui);
+
+	newGui = new Gui("Fear Border","Images//UI//Fear_Border.tga");
+	m_guiList.push_back(newGui);
 
 	return true;
 }

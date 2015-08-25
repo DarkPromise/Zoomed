@@ -485,26 +485,6 @@ void ViewHandler::RenderGameTextOnScreen(Mesh* mesh, std::string text, Color col
 	glEnable(GL_DEPTH_TEST);
 }
 
-void ViewHandler::RenderTileMap(CMap * mapToRender)
-{
-	int m = 0;
-	for(int i = 0; i < mapToRender->GetNumOfTiles_Height(); i++)
-	{
-		for(int k = 0; k < mapToRender->GetNumOfTiles_Width()+1; k++)
-		{
-			m = tileOffset_x + k;
-			if((tileOffset_x+k) >= mapToRender->getNumOfTiles_MapWidth())
-			{
-				break;
-			}
-			if(mapToRender->backgroundData[i][m] != -1)
-			{
-				RenderTileOnScreen(m_meshList[GEO_MAINMENU_TILEMAP],false, mapToRender->backgroundData[i][m], 32.f, (float)k*mapToRender->GetTileSize()-this->theModel->getPlayer()->GetMapFineOffset_x() , (float)607-i*mapToRender->GetTileSize());
-			}
-		}
-	}
-}
-
 void ViewHandler::RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -533,11 +513,6 @@ void ViewHandler::RenderScene()
 		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5f)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5f)),theModel->getCamera().target.z,
 		theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 		);
-
-	//std::cout << "Position : " << theModel->getCamera().position << std::endl;
-	//std::cout << "Target : " << theModel->getCamera().target << std::endl;
-	
-	//RenderMesh(m_meshList[GEO_AXES],false,false);
 
 	for(unsigned i = 0; i < theModel->m_objectList.size(); ++i)
 	{
@@ -590,8 +565,8 @@ void ViewHandler::RenderScene()
 	}
 	
 	//std::cout << theModel->getPlayer()->getInventory().getItem(1)->toString() << std::endl;
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"FEAR :100%", Color(1,0,0), GameUIWidthOffset, 10.f,m_viewPort[3] - GameUIHeightOffset);
-	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"ROOM ?", Color(1,0,0), GameUIWidthOffset, (m_viewPort[2] * 0.5f) - GameUIWidthOffset, m_viewPort[3] - GameUIHeightOffset);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
+	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"ROOM ?", Color(1,0,0), 48.f, (m_viewPort[2] * 0.5f) - GameUIWidthOffset, m_viewPort[3] - GameUIHeightOffset);
 	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
 
 	RenderGameTextOnScreen(theModel->m_objectList[3]->getMesh(),"Sanity", Color(1,0,0), theModel->getPlayer()->getSanity(), (m_viewPort[2] * 0.5f) - GameUISanityWidthOffset, (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
@@ -601,6 +576,8 @@ void ViewHandler::RenderScene()
 
 	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Consumable
 	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Equipment
+
+	Render2DMesh(theModel->m_guiList[1]->getMesh(),false,false,32.f,320.f,GameUIFearBorderWidthOffset, m_viewPort[3] - GameUIFearBorderHeightOffset);
 
 	//std::cout << FPS << std::endl;
 

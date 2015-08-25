@@ -28,15 +28,18 @@ Player::~Player()
 
 void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 {
-	if(controls.up && this->m_movementTimer > m_movementDelay)
-	{
-		for(int i = 0; i < collisionMap.size(); ++i)
+	/*std::cout << "Start" << std::endl;
+	for(int i = 0; i < collisionMap.size(); ++i)
 		{
 			for(int j = 0; j < collisionMap[i].size(); ++j)
 			{
-				//std::cout << collisionMap[i][j] << std::endl;
+				std::cout << collisionMap[i][j] << " ";
 			}
 		}
+	std::cout << "End" << std::endl;*/
+
+	if(controls.up && this->m_movementTimer > m_movementDelay)
+	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
 	}
