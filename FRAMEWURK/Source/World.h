@@ -11,6 +11,7 @@ enum WORLD_ID // ID for levels
 {
 	WORLD_MAINMENU,
 	WORLD_TEST,
+	WORLD_MECH,
 };
 
 enum CONNECTION_TYPE
