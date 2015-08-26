@@ -8,6 +8,6 @@
 
 #define GameUIFearWidthOffset 10.f
 #define GameUIFearHeightOffset 30.f
-#define GameUIFearValueHeightOffset 320.f
+#define GameUIFearValueHeightOffset 310.f
 #define GameUIFearBorderWidthOffset 35.f
-#define GameUIFearBorderHeightOffset 200.f
+#define GameUIFearBorderHeightOffset 190.f

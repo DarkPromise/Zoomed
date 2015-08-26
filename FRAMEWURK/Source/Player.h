@@ -136,6 +136,7 @@ protected:
 	std::string m_name;
 	double m_movementDelay;
 	double m_movementTimer;
+	double m_fearCooldown;
 	Vector3 m_playerPos;
 	Vector3 m_playerDirection;
 	BoundingBox m_boundingbox;

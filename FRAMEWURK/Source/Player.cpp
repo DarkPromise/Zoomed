@@ -6,7 +6,7 @@ Player::Player(std::string name)
 	keyPressed(0),
 // Protected Info
 	m_maxFear(100),
-	m_currFear(20),
+	m_currFear(5),
 	m_movementDelay(0.0),
 	m_movementTimer(0.0),
 	m_playerPos(0,0,0),
@@ -17,7 +17,8 @@ Player::Player(std::string name)
 	mapFineOffset_x(0),
 	mapFineOffset_y(0),
 	m_playerSanity(0.f),
-	m_animationState(STATE_IDLE)
+	m_animationState(STATE_IDLE),
+	m_fearCooldown(0.0)
 {
 	this->m_name = name;
 }
@@ -56,27 +57,34 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
+		m_currFear += dt * 3;
+		m_fearCooldown = 1.0;
 	}
 	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision+1, (int)(collisionMap.size()-1))][Math::Min(xColiision, (int)(collisionMap[0].size()-1))] != 1) && m_playerPos.y < (collisionMap.size()+25)*32)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y -= 32;
+		m_currFear += dt * 3;
+		m_fearCooldown = 1.0;
 	}
 	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision-1] != 1) && m_playerPos.x > 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x -= 32;
+		m_currFear += dt * 3;
+		m_fearCooldown = 1.0;
 	}
 	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] != 1))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x += 32;
+		m_currFear += dt * 3;
+		m_fearCooldown = 1.0;
 	}
 }
 
 void Player::update(double dt, World* currentWorld, int currentRoom)
 {
-	m_playerSanity = Math::RandFloatMinMax(60.f,80.f);
 	m_movementTimer += dt;
 
 	if(m_currFear > 50)
@@ -90,11 +98,14 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 
 	move(dt,currentWorld->collisionData);
 
-	m_currFear += dt * 10;
-	if(m_currFear > 100)
+	m_fearCooldown -= dt;
+	if(m_fearCooldown <= 0.0)
 	{
-		m_currFear = 0;
+		m_fearCooldown = 0.0;
+		m_currFear -= dt * 1.5;
 	}
+	m_currFear = Math::Clamp(m_currFear,2.f,100.f);
+	m_playerSanity = Math::RandFloatMinMax(60.f,80.f);
 }
 
 int Player::GetMapOffset_x(void)
