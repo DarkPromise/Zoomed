@@ -1,3 +1,4 @@
+#include "Player.h"
 #include "Inventory.h"
 
 Inventory::Inventory(void)
@@ -27,19 +28,43 @@ Item* Inventory::getItem(int slot)
 
 void Inventory::removeItem(int slot)
 {
-	delete m_itemList.at(slot - 1);
+	delete m_itemList[slot-1];
 	m_itemList.erase(m_itemList.begin() + slot - 1);
 }
 
-void Inventory::useItem(Item * item)
+void Inventory::useItem(int slot, Player * player)
 {
-	switch(item->getItemID())
+	if((slot-1) < m_itemList.size()) //Check if item exists in slot
 	{
-	case ITEM_REDUCE_NOISE_POTION:
+		switch(m_itemList[slot - 1]->getItemID())
 		{
+		case ITEM_REDUCE_NOISE_POTION:
+			break;
+		case ITEM_REDUCED_NOISE_GAIN_POTION:
+			break;
+		case ITEM_SIGHT_POTION:
+			break;
+		case ITEM_REDUCED_FEAR_GAIN_POTION:
+			break;
+		case ITEM_REDUCE_FEAR_POTION:
+			player->getCurrFear() -= 40.f;
+			break;
+		case ITEM_SUPPRESS_FEAR_POTION:
+			break;
+		case ITEM_COMPASS:
+			break;
+		case ITEM_MAP:
+			break;
+		case ITEM_SAFETY_CHARM:
+			break;
+		case ITEM_EQUIPMENT_BOOTS:
+			break;
+		case ITEM_EQUIPMENT_GLASSES:
+			break;
+		case ITEM_EQUIPMENT_ARMOR:
+			break;
+		case ITEM_EQUIPMENT_INVISCLOAK:
+			break;
 		}
-		break;
-	default:
-		break;
 	}
 }

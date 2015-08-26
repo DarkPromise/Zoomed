@@ -200,6 +200,16 @@ void ControlHandler::KeyboardUpdate()
 		theModel->getPlayer()->controls.use = false;
 	}
 
+	if(theView->IsKeyPressed('1'))
+	{
+		theModel->getPlayer()->getInventory().useItem(1,theModel->getPlayer());
+	}
+
+	if(theView->IsKeyPressed('2'))
+	{
+		theModel->getPlayer()->getInventory().useItem(2,theModel->getPlayer());
+	}
+
 	if(theView->IsKeyPressed('R') && !generateRoom)
 	{
 		generateRoom = true;

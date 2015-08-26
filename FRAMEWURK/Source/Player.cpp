@@ -57,28 +57,28 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
-		m_currFear += dt * 3;
+		m_currFear += (float)dt * 3;
 		m_fearCooldown = 1.0;
 	}
 	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision+1, (int)(collisionMap.size()-1))][Math::Min(xColiision, (int)(collisionMap[0].size()-1))] != 1) && m_playerPos.y < (collisionMap.size()+25)*32)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y -= 32;
-		m_currFear += dt * 3;
+		m_currFear += (float)dt * 3;
 		m_fearCooldown = 1.0;
 	}
 	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision-1] != 1) && m_playerPos.x > 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x -= 32;
-		m_currFear += dt * 3;
+		m_currFear += (float)dt * 3;
 		m_fearCooldown = 1.0;
 	}
 	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] != 1))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x += 32;
-		m_currFear += dt * 3;
+		m_currFear += (float)dt * 3;
 		m_fearCooldown = 1.0;
 	}
 }
@@ -102,7 +102,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 	if(m_fearCooldown <= 0.0)
 	{
 		m_fearCooldown = 0.0;
-		m_currFear -= dt * 1.5;
+		m_currFear -= (float)dt * 1.5;
 	}
 	m_currFear = Math::Clamp(m_currFear,2.f,100.f);
 	m_playerSanity = Math::RandFloatMinMax(60.f,80.f);

@@ -141,7 +141,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
 	m_objectList.push_back(object);
 
-	Item * testItem = new Item("Test Item");
+	Item * testItem = new Item("Test Item",ITEM_REDUCE_FEAR_POTION);
 	testItem->setDescription("Just a test item :D");
 	m_itemList.push_back(testItem);
 
