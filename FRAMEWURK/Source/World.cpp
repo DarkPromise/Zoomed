@@ -130,13 +130,76 @@ bool World::setupCorridors()
 			{
 				if (this->backgroundData[path[i].y+j][path[i].x+k] == -1)
 				{
-					this->backgroundData[path[i].y+j][path[i].x+k] = 163;
+					this->backgroundData[path[i].y+j][path[i].x+k] = TILE_CORRIDOR_FLOOR;
 				}
 			}
 			
 		}
 	}
 
+	std::vector<std::vector<int>> tempCorridor = backgroundData;
+
+	//hard coded corridor change value
+	for (unsigned i = 0; i < backgroundData.size(); i++)
+	{
+		for (unsigned j = 0; j < backgroundData[i].size(); j++)
+		{
+			if (backgroundData[i][j] == TILE_CORRIDOR_FLOOR)
+			{
+				//whole bunches of if else
+				if (backgroundData[i][j-1] == -1 && (backgroundData[i][j+1] != -1) && backgroundData[i+1][j] != -1 && backgroundData[i-1][j] != -1 && backgroundData[i-1][j+1] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_LEFT_WALL;
+				}
+				else if (backgroundData[i][j+1] == -1 && (backgroundData[i][j-1] != -1) && backgroundData[i+1][j] != -1 && backgroundData[i-1][j] != -1 && backgroundData[i-1][j-1] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_RIGHT_WALL;
+				}
+				else if (backgroundData[i-1][j] == -1 && backgroundData[i][j-1] != -1 && backgroundData[i][j+1] != -1 && backgroundData[i+1][j] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_TOP_WALL;
+				}
+				else if (backgroundData[i+1][j] == -1 && backgroundData[i][j-1] != -1 && backgroundData[i][j+1] != -1 && backgroundData[i-1][j] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_BOTTOM_WALL;
+				}
+				else if (backgroundData[i-1][j] != -1 && backgroundData[i+1][j] == -1 && backgroundData[i][j-1] == -1 && backgroundData[i][j+1] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_BOTTOM_LEFT_CORNER;
+				}
+				else if (backgroundData[i-1][j] != -1 && backgroundData[i+1][j] == -1 && backgroundData[i][j+1] == -1 && backgroundData[i][j-1] != -1 && backgroundData[i+1][j-1] == -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_BOTTOM_RIGHT_CORNER;
+				}
+				else if (backgroundData[i+1][j] != -1 && backgroundData[i-1][j] == -1 && backgroundData[i][j-1] == -1 && backgroundData[i][j+1] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_TOP_LEFT_CORNER;
+				}
+				else if (backgroundData[i+1][j] != -1 && backgroundData[i-1][j] == -1 && backgroundData[i][j+1] == -1 && backgroundData[i][j-1] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_TOP_RIGHT_CORNER;
+				}
+				else if (backgroundData[i-1][j-1] != -1 && backgroundData[i-1][j] != -1 && backgroundData[i-1][j+1] == -1 && backgroundData[i][j-1] != -1 && backgroundData[i+1][j] != -1 && backgroundData[i][j+1] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_INNER_TOP_RIGHT_CORNER;
+				}
+				else if (backgroundData[i-1][j+1] != -1 && backgroundData[i-1][j] != -1 && backgroundData[i-1][j-1] == -1 && backgroundData[i][j+1] != -1 && backgroundData[i+1][j] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_INNER_TOP_LEFT_CORNER;
+				}
+				else if (backgroundData[i+1][j+1] != -1 && backgroundData[i+1][j] != -1 && backgroundData[i+1][j-1] == -1 && backgroundData[i][j+1] != -1 && backgroundData[i-1][j] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_INNER_BOTTOM_LEFT_CORNER;
+				}
+				else if (backgroundData[i+1][j-1] != -1 && backgroundData[i+1][j] != -1 && backgroundData[i+1][j+1] == -1 && backgroundData[i][j-1] != -1 && backgroundData[i-1][j] != -1 && backgroundData[i][j+1] != -1)
+				{
+					tempCorridor[i][j] = TILE_CORRIDOR_INNER_BOTTOM_RIGHT_CORNER;
+				}
+			}
+		}
+	}
+
+	backgroundData = tempCorridor;
 
 	return true;
 }
@@ -326,7 +389,7 @@ bool World::pathFind(Two_D_Grid exitA, Two_D_Grid exitB)
 					else
 					{
 						bool hihihi = false;
-						for (int k = 0; k < path.size(); k++)
+						for (unsigned k = 0; k < path.size(); k++)
 						{
 							if (i == path[k].y && j == path[k].x )
 							{
