@@ -433,7 +433,7 @@ bool World::generateCorridors()
 			}
 		}
 	}
-
+	 
 	return true;
 }
 
