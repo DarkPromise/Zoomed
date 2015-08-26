@@ -80,7 +80,12 @@ void ModelHandler::Init() //Anything that moves in the game
 	m_worldList.push_back(newWorld);
 
 	newRoom = new Room(ROOM_MECH, 928, 768, 29, 24, 928, 768,32,TILESET_POOL, 10, 30, 0);
-	//newRoom->addExit(EXIT_DOWN);
+	newRoom->addExit(EXIT_LEFT);
+	newRoom->LoadMap("MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv");
+	m_worldList[2]->m_roomList.push_back(newRoom);
+
+	newRoom = new Room(ROOM_MECH, 928, 768, 29, 24, 928, 768,32,TILESET_POOL, 80, 80, 1);
+	newRoom->addExit(EXIT_RIGHT);
 	newRoom->LoadMap("MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv");
 	m_worldList[2]->m_roomList.push_back(newRoom);
 
