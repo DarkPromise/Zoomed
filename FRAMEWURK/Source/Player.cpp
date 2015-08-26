@@ -28,40 +28,46 @@ Player::~Player()
 
 void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 {
-	/*std::cout << "Start" << std::endl;
-	for(int i = 0; i < collisionMap.size(); ++i)
-		{
-			for(int j = 0; j < collisionMap[i].size(); ++j)
-			{
-				std::cout << Math::Max(0, collisionMap[i][j]) << " ";
-			}
-			std::cout << std::endl;
-		}
-	std::cout << "End" << std::endl;
-
-	system("pause");*/
-
 	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
 	int xColiision = (int)(m_playerPos.x/32);
-	//std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
-	//std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;
+	std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
+	std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;
+
+	if (controls.use)
+	{
+			std::cout << "Start" << std::endl;
+		for(int i = 0; i < collisionMap.size(); ++i)
+			{
+				for(int j = 0; j < collisionMap[i].size(); ++j)
+				{
+					if (yColiision == i && xColiision == j)
+						std::cout << "P ";
+					else
+						std::cout << Math::Max(0, collisionMap[i][j]) << " ";
+				}
+				std::cout << std::endl;
+			}
+		std::cout << "End" << std::endl;
+
+		system("pause");
+	}
 
 	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Max(0, yColiision-1)][Math::Min(xColiision, (int)(collisionMap.size()-1))] != 1) && m_playerPos.y < 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
 	}
-	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision+1, (int)(collisionMap.size()-1))][Math::Min(xColiision, (int)(collisionMap[0].size()-1))] != 1) && m_playerPos.y < collisionMap.size()*32)
+	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision+1, (int)(collisionMap.size()-1))][Math::Min(xColiision, (int)(collisionMap[0].size()-1))] != 1) && m_playerPos.y < (collisionMap.size()+25)*32)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y -= 32;
 	}
-	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision, (int)(collisionMap[0].size()-1))][Math::Max(0, xColiision-1)] != 1) && m_playerPos.x > 0)
+	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision-1] != 1) && m_playerPos.x > 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x -= 32;
 	}
-	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision, (int)(collisionMap[0].size()-1))][Math::Min(xColiision+1, (int)(collisionMap[0].size()-1))] != 1) && m_playerPos.x < collisionMap[0].size()*32)
+	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] != 1))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x += 32;

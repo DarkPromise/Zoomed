@@ -191,6 +191,15 @@ void ControlHandler::KeyboardUpdate()
 		theModel->getPlayer()->controls.right = false;
 	}
 
+	if(theView->IsKeyPressed('H'))
+	{
+		theModel->getPlayer()->controls.use = true;
+	}
+	else
+	{
+		theModel->getPlayer()->controls.use = false;
+	}
+
 	if(theView->IsKeyPressed('R') && !generateRoom)
 	{
 		generateRoom = true;

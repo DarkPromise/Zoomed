@@ -130,12 +130,14 @@ bool World::setupCorridors()
 			{
 				if (this->backgroundData[path[i].y+j][path[i].x+k] == -1)
 				{
-					this->backgroundData[path[i].y+j][path[i].x+k] = 162;
+					this->backgroundData[path[i].y+j][path[i].x+k] = 163;
 				}
 			}
 			
 		}
 	}
+
+
 	return true;
 }
 
@@ -237,7 +239,7 @@ bool World::pathFind(Two_D_Grid exitA, Two_D_Grid exitB)
 
 		x = pNode1->getLocation().x;
 		y = pNode1->getLocation().y;
-		std::cout << "x, y = " << x << "," << y << std::endl;
+		//std::cout << "x, y = " << x << "," << y << std::endl;
 
 		//remove open node from list
 		queue[queueIndex].pop();
@@ -340,7 +342,7 @@ bool World::pathFind(Two_D_Grid exitA, Two_D_Grid exitB)
 				std::cout << std::endl;
 			}
 
-			system("pause");
+			//system("pause");
 
 			return true;
 		}
