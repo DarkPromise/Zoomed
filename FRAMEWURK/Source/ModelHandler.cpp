@@ -141,14 +141,19 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
 	m_objectList.push_back(object);
 
-	Item * testItem = new Item("Test Item",ITEM_REDUCE_FEAR_POTION);
+	Item * testItem = new Item("Test Item 1",ITEM_REDUCE_FEAR_POTION);
 	testItem->setDescription("Just a test item :D");
+	m_itemList.push_back(testItem);
+
+	testItem = new Item("Test Item 2");
+	testItem->setDescription("Equipment Test");
 	m_itemList.push_back(testItem);
 
 	//std::cout << m_itemList[0]->toString() << std::endl;
 
 	//ITEM INVENTORY TESTING
-	this->getPlayer()->getInventory().addItem(m_itemList[0]);                                         //ADD ITEM  
+	this->getPlayer()->getInventory().addItem(m_itemList[0]);                                         //ADD ITEM (Consumable)
+	this->getPlayer()->getInventory().addItem(m_itemList[1]);                                         //ADD ITEM (Equipment)
 	//std::cout << this->getPlayer()->getInventory().getItem(1)->toString() << std::endl; //GET NAME OF ITEM
 	//this->getPlayer()->getInventory().removeItem(1);                                                       //REMOVE ITEM FROM INVENTORY
 

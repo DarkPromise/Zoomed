@@ -132,6 +132,8 @@ public:
 	float getSanity();
 
 	CURRENT_STATE m_animationState;
+
+	void getPassiveEffect(Item * item);
 protected:
 	std::string m_name;
 	double m_movementDelay;

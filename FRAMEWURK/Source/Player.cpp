@@ -85,6 +85,8 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 
 void Player::update(double dt, World* currentWorld, int currentRoom)
 {
+	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
+
 	m_movementTimer += dt;
 
 	if(m_currFear > 50)
@@ -140,4 +142,37 @@ Inventory &Player::getInventory()
 float Player::getSanity()
 {
 	return this->m_playerSanity;
+}
+
+void Player::getPassiveEffect(Item * item)
+{
+	switch(item->getItemID())
+	{
+	case ITEM_REDUCE_NOISE_POTION:
+		break;
+	case ITEM_REDUCED_NOISE_GAIN_POTION:
+		break;
+	case ITEM_SIGHT_POTION:
+		break;
+	case ITEM_REDUCED_FEAR_GAIN_POTION:
+		break;
+	case ITEM_REDUCE_FEAR_POTION:
+		break;
+	case ITEM_SUPPRESS_FEAR_POTION:
+		break;
+	case ITEM_COMPASS:
+		break;
+	case ITEM_MAP:
+		break;
+	case ITEM_SAFETY_CHARM:
+		break;
+	case ITEM_EQUIPMENT_BOOTS:
+		break;
+	case ITEM_EQUIPMENT_GLASSES:
+		break;
+	case ITEM_EQUIPMENT_ARMOR:
+		break;
+	case ITEM_EQUIPMENT_INVISCLOAK:
+		break;
+	}
 }
