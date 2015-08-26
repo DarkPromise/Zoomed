@@ -7,7 +7,7 @@ ViewHandler::ViewHandler(ModelHandler * theModel)
 	this->theModel = theModel;
 
 	this->view_type = VIEW_SIDESCROLLER;
-
+	
 	for(int i = 0; i < 255; i++)
 	{
 		keys[i] = false;
