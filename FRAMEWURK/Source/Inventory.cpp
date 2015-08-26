@@ -17,8 +17,21 @@ Inventory::~Inventory(void)
 
 void Inventory::addItem(Item * item)
 {
-	this->m_itemList.push_back(item);
-	//std::cout << "Added " << item->toString() << " to inventory" << std::endl;
+	if(m_itemList.size() < PLAYER_INVENTORY_SIZE)
+	{
+		this->m_itemList.push_back(item); //JUST INCASE FOR FUTURE ADDONS
+	}
+	else
+	{
+		if(item->getItemType() == ITEM_TYPE_CONSUMABLE)
+		{
+			m_itemList[0] = item;
+		}
+		else if(item->getItemType() == ITEM_TYPE_EQUIPMENT)
+		{
+			m_itemList[1] = item;
+		}
+	}
 }
 
 Item* Inventory::getItem(int slot)
@@ -28,15 +41,15 @@ Item* Inventory::getItem(int slot)
 
 void Inventory::removeItem(int slot)
 {
-	delete m_itemList[slot-1];
-	m_itemList.erase(m_itemList.begin() + slot - 1);
+	delete m_itemList[slot-1]; //Deleting the pointer
+	m_itemList[slot-1] = new Item(); //Reset the item
 }
 
 void Inventory::useItem(int slot, Player * player)
 {
 	if((slot-1) < m_itemList.size()) //Check if item exists in slot
 	{
-		switch(m_itemList[slot - 1]->getItemID())
+		switch(m_itemList[slot - 1]->getItemID()) //Get Item ID
 		{
 		case ITEM_REDUCE_NOISE_POTION:
 			break;
@@ -66,5 +79,6 @@ void Inventory::useItem(int slot, Player * player)
 		case ITEM_EQUIPMENT_INVISCLOAK:
 			break;
 		}
+		removeItem(slot); //Remove Item after using it
 	}
 }

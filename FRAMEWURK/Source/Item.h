@@ -48,6 +48,8 @@ public:
 	Mesh* getMesh();
 	void setDuration(float duration); //Considering all items have a fix duration (unless hack)
 	float getDuration(Item * item);
+	ITEM_TYPE getItemType();
+	void setType(ITEM_TYPE itemType);
 private:
 	std::string m_itemName;
 	std::string m_itemDescription;

@@ -8,8 +8,8 @@
 #include "Vector3.h"
 #include "Inventory.h"
 
-#define PLAYERNAME_SIZE 20;
-#define PLAYER_INVENTORY_SIZE 2;          // 0 for Consumable, 1 for Equipment
+#define PLAYERNAME_SIZE 20
+#define PLAYER_INVENTORY_SIZE 2          // 0 for Consumable, 1 for Equipment
 
 struct PlayerControls
 {

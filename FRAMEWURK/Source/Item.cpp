@@ -86,3 +86,13 @@ float Item::getDuration(Item * item)
 	}
 	return this->m_itemDuration;
 }
+
+void Item::setType(ITEM_TYPE itemType)
+{
+	this->m_itemType = itemType;
+}
+
+ITEM_TYPE Item::getItemType()
+{
+	return this->m_itemType;
+}
