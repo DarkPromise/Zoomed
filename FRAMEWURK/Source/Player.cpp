@@ -43,25 +43,25 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 
 	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
 	int xColiision = (int)(m_playerPos.x/32);
-	std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
+	//std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
 	//std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;
 
-	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Max(0, yColiision-1)][xColiision] != 1) && m_playerPos.y < 0)
+	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Max(0, yColiision-1)][Math::Min(xColiision, (int)(collisionMap.size()-1))] != 1) && m_playerPos.y < 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
 	}
-	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision+1, (int)(collisionMap.size()-1))][xColiision] != 1) && m_playerPos.y < collisionMap.size()*32)
+	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision+1, (int)(collisionMap.size()-1))][Math::Min(xColiision, (int)(collisionMap[0].size()-1))] != 1) && m_playerPos.y < collisionMap.size()*32)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y -= 32;
 	}
-	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][Math::Max(0, xColiision-1)] != 1) && m_playerPos.x > 0)
+	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision, (int)(collisionMap[0].size()-1))][Math::Max(0, xColiision-1)] != 1) && m_playerPos.x > 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x -= 32;
 	}
-	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][Math::Min(xColiision+1, (int)(collisionMap[0].size()-1))] != 1) && m_playerPos.x < collisionMap[0].size()*32)
+	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision, (int)(collisionMap[0].size()-1))][Math::Min(xColiision+1, (int)(collisionMap[0].size()-1))] != 1) && m_playerPos.x < collisionMap[0].size()*32)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x += 32;
