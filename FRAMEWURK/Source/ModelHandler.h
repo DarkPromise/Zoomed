@@ -12,6 +12,7 @@
 #include "LoadTGA.h"
 #include "Item.h"
 #include "Gui.h"
+#include "EnemyMelee.h"
 
 /************************************************
 
@@ -47,10 +48,7 @@ public:
 	Player *getPlayer();
 
 	//Enemy Code
-	double EnemyDelay;
-
-	Enemy* Evil;
-
+	EnemyMelee* Evil;
 
 
 	GAME_STATE m_status;
