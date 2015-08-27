@@ -109,12 +109,11 @@ void ModelHandler::Init() //Anything that moves in the game
 	}
 
 	//Enemy Code
+	EnemyDelay = 0.0;
 
-
-	Evil = new EnemyMelee;
+	Evil = new Enemy();
 	Evil->SetPos(32,-32);
 	Evil->SetData(m_worldList[currentWorld]->collisionData);
-	Evil->SetDelay(0.1);
 	
 }
 //
@@ -242,8 +241,15 @@ void ModelHandler::Update(const double dt)
 
 
 	//Enemy Code
-	Evil->Update(player->getPosition().x, player->getPosition().y, dt); 
-	m_objectList[8]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
+	if(EnemyDelay > 0.2)
+	{
+		Evil->KILL(player->getPosition().x, player->getPosition().y); 
+		EnemyDelay = 0.0;
+		m_objectList[8]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
+		std::cout << Evil->GetPos_x() << std::endl;
+	}
+
+	EnemyDelay += dt;
 }
 
 Camera ModelHandler::getCamera()

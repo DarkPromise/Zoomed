@@ -1,8 +1,8 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#pragma once
 
 #include <iostream>
 #include <vector>
+
 
 class Enemy
 {
@@ -10,9 +10,9 @@ public:
 	Enemy(void);
 	~Enemy(void);
 
+	
 
-	virtual void Update(int D_x, int D_y, double dt);
-
+	
 	// Set position x of the player
 	void SetPos(int pos_x, int pos_y);
 	// Set the destination of this enemy
@@ -28,7 +28,18 @@ public:
 	int GetDestination_y(void);
 
 
-	
+
+	//// Set Animation Invert status of the player
+	//void SetAnimationInvert(bool ENEMYAnimationInvert);
+	//// Get Animation Invert status of the player
+	//bool GetAnimationInvert(void);
+	//// Set Animation Counter of the player
+	//void SetAnimationCounter(int ENEMYAnimationCounter);
+	//// Get Animation Counter of the player
+	//int GetAnimationCounter(void);
+
+	void KILL(int D_x, int D_y);
+
 	int CalculateDistance();
 
 	int CalculateDistance_x();
@@ -43,9 +54,7 @@ public:
 
 	void MoveDown();
 
-	void SetDelay(double t);
-
-	double GetDelay();
+	void Move();
 
 	bool Right;
 
@@ -59,8 +68,6 @@ public:
 
 	std::vector<std::vector<int> > colData;	// 2D vector to store collision values
 
-	double AccumulatedTime;
-
 private:
 	// ENEMY's information
 	int theEnemyPosition_x;
@@ -73,10 +80,4 @@ private:
 	int theDestination_x;
 	int theDestination_y;
 
-	double EnemyDelay;
-
-	
-
 };
-
-#endif
