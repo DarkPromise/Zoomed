@@ -383,6 +383,10 @@ void Room::generateRoom()
 	{
 		floorTileID = MECH_FLOORTILE;
 	}
+	else if (this->roomType == ROOM_TUTORIAL_SIGHT)
+	{
+		floorTileID = RED_FLOORTILE;
+	}
 
 	for (unsigned i = 0; i < backgroundData.size(); i++)
 	{
