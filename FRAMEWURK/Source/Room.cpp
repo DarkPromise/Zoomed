@@ -320,35 +320,7 @@ void Room::addOBJtoGenerate(Room_Object* object)
 
 void Room::generateRoom()
 {
-	// NOTE!! __data[1][0] IS THE TOP LEFT AFTER RENDERING
-	int ignoreTiles[IGNORE_TOTAL] = {
-		BLUE_TILEBLOOD,
-		BLUE_TILEBODY1,
-
-		BLUE_TILEYELLOWBUTTON,
-		BLUE_TILEREDBUTTON,
-		BLUE_TILEPURPLEBUTTON,
-		BLUE_TILEGRAYBUTTON,
-		
-		BLUE_TILEYELLOWBLOCK_OFF,
-		BLUE_TILEREDBLOCK_OFF,
-		BLUE_TILEPURPLEBLOCK_OFF,
-		BLUE_TILEGRAYBLOCK_OFF};
-
-	int collisionTiles[COLLISION_IGNORE_TOTAL] = {
-		COLLISION_BLUE_TILEBLOOD,
-		COLLISION_BLUE_TILEBODY1,
-
-		COLLISION_BLUE_TILEYELLOWBUTTON,
-		COLLISION_BLUE_TILEREDBUTTON,
-		COLLISION_BLUE_TILEPURPLEBUTTON,
-		COLLISION_BLUE_TILEGRAYBUTTON,
-		
-		COLLISION_BLUE_TILEYELLOWBLOCK_OFF,
-		COLLISION_BLUE_TILEREDBLOCK_OFF,
-		COLLISION_BLUE_TILEPURPLEBLOCK_OFF,
-		COLLISION_BLUE_TILEGRAYBLOCK_OFF};
-	
+	// NOTE!! __data[1][0] IS THE TOP LEFT AFTER RENDERING	
 	bool generatedRoom = false;
 
 	while (!generatedRoom)
@@ -398,6 +370,7 @@ void Room::generateRoom()
 	if (this->roomType == ROOM_TESTPUZZLE)
 	{
 		floorTileID = ROOMS_FLOORTILE;
+
 	}
 	else if (this->roomType == ROOM_TUTORIAL_FRIENDS)
 	{
@@ -428,15 +401,83 @@ void Room::generateRoom()
 		}
 	}
 
-	for (unsigned i = 0; i < backgroundData.size(); i++)
+	if (this->theTileset == TILESET_BLUE)
 	{
-		for (unsigned j = 0; j < backgroundData[i].size(); j++)
+		int ignoreTiles[BLUE_IGNORETOTAL] = {
+		BLUE_TILEBLOOD,
+		BLUE_TILEBODY1,
+
+		BLUE_TILEYELLOWBUTTON,
+		BLUE_TILEREDBUTTON,
+		BLUE_TILEPURPLEBUTTON,
+		BLUE_TILEGRAYBUTTON,
+		
+		BLUE_TILEYELLOWBLOCK_OFF,
+		BLUE_TILEREDBLOCK_OFF,
+		BLUE_TILEPURPLEBLOCK_OFF,
+		BLUE_TILEGRAYBLOCK_OFF};
+
+		int collisionTiles[BLUE_IGNORETOTAL] = {
+		COLLISION_BLUE_TILEBLOOD,
+		COLLISION_BLUE_TILEBODY1,
+		COLLISION_BLUE_TILEDEBRIS1,
+
+		COLLISION_BLUE_TILEYELLOWBUTTON,
+		COLLISION_BLUE_TILEREDBUTTON,
+		COLLISION_BLUE_TILEPURPLEBUTTON,
+		COLLISION_BLUE_TILEGRAYBUTTON,
+		
+		COLLISION_BLUE_TILEYELLOWBLOCK_OFF,
+		COLLISION_BLUE_TILEREDBLOCK_OFF,
+		COLLISION_BLUE_TILEPURPLEBLOCK_OFF,
+		COLLISION_BLUE_TILEGRAYBLOCK_OFF};
+
+		for (unsigned i = 0; i < backgroundData.size(); i++)
 		{
-			for (unsigned k = 0; k < IGNORE_TOTAL; k++)
+			for (unsigned j = 0; j < backgroundData[i].size(); j++)
 			{
-				if (sceneryData[i][j] == ignoreTiles[k])
+				for (unsigned k = 0; k < BLUE_IGNORETOTAL; k++)
 				{
-					this->collisionData[i][j] = collisionTiles[k];
+					if (sceneryData[i][j] == ignoreTiles[k])
+					{
+						this->collisionData[i][j] = collisionTiles[k];
+					}
+				}
+			}
+		}
+	}
+	else if (this->theTileset == TILESET_MAIN_MENU)
+	{
+		int ignoreTiles[MAINMENU_IGNORETOTAL] = {
+		MAINMENU_TILEBLOOD,
+		MAINMENU_TILEDEBRIS1,
+		MAINMENU_TILEDEBRIS2,
+		MAINMENU_TILEDEBRIS3,
+		MAINMENU_TILEDEBRIS4,
+		MAINMENU_TILEDEBRIS5,
+		MAINMENU_TILEDEBRIS6,
+		MAINMENU_TILEDEBRIS7,};
+
+		int collisionTiles[MAINMENU_IGNORETOTAL] = {
+		COLLISION_MAINMENU_TILEBLOOD,
+		COLLISION_MAINMENU_TILEDEBRIS1,
+		COLLISION_MAINMENU_TILEDEBRIS2,
+		COLLISION_MAINMENU_TILEDEBRIS3,
+		COLLISION_MAINMENU_TILEDEBRIS4,
+		COLLISION_MAINMENU_TILEDEBRIS5,
+		COLLISION_MAINMENU_TILEDEBRIS6,
+		COLLISION_MAINMENU_TILEDEBRIS7,};
+
+		for (unsigned i = 0; i < backgroundData.size(); i++)
+		{
+			for (unsigned j = 0; j < backgroundData[i].size(); j++)
+			{
+				for (unsigned k = 0; k < MAINMENU_IGNORETOTAL; k++)
+				{
+					if (sceneryData[i][j] == ignoreTiles[k])
+					{
+						this->collisionData[i][j] = collisionTiles[k];
+					}
 				}
 			}
 		}

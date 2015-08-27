@@ -60,14 +60,14 @@ public:
 	std::vector<std::vector<int> > collisionData;	// 2D vector to store collision values
 	std::vector<std::vector<int> > sceneryData;		// 2D vector to store scenery values
 	std::vector<std::vector<int> > backgroundData;	// 2D vector to store background values
-
+TILESET_ID theTileset;			// Stores ID of tileset
 private:
 	int theScreen_Height;		// Stores height of the screen [px]
 	int theScreen_Width;		// Stores width of the screen [px]
 	int theNumOfTiles_Height;	// Stores number of columns in the screen
 	int theNumOfTiles_Width;	// Stores number of rows in the screen
 	int theTileSize;			// Stores tile size
-	TILESET_ID theTileset;			// Stores ID of tileset
+	
 
 	int theMap_Height;				// Stores height of the map [px]
 	int theMap_Width;				// Stores width of the map [px]
