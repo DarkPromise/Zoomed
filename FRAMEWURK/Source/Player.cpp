@@ -53,14 +53,14 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 		system("pause");
 	}
 
-	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Max(0, yColiision-1)][Math::Min(xColiision, (int)(collisionMap.size()-1))] <100) && m_playerPos.y < 0)
+	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y < 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
 		m_currFear += (float)dt * 3;
 		m_fearCooldown = 1.0;
 	}
-	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[Math::Min(yColiision+1, (int)(collisionMap.size()-1))][Math::Min(xColiision, (int)(collisionMap[0].size()-1))] <100) && m_playerPos.y < (collisionMap.size()+25)*32)
+	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision+1][xColiision] < 100 && m_playerPos.y < (collisionMap.size()+25)*32))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y -= 32;
@@ -99,6 +99,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 	}
 
 	move(dt,currentWorld->collisionData);
+	Interact(dt,currentWorld->collisionData);
 
 	m_fearCooldown -= dt;
 	if(m_fearCooldown <= 0.0)
@@ -173,6 +174,57 @@ void Player::getPassiveEffect(Item * item)
 	case ITEM_EQUIPMENT_ARMOR:
 		break;
 	case ITEM_EQUIPMENT_INVISCLOAK:
+		break;
+	}
+}
+
+void Player::Interact(double dt, std::vector<std::vector<int>> collisionMap)
+{
+	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
+	int xColiision = (int)(m_playerPos.x/32);
+
+	switch(collisionMap[yColiision][xColiision])
+	{
+		case COLLISION_BLUE_TILEYELLOWBUTTON:
+		std::cout << "On yellow button" << std::endl;
+		break;
+		default:
+		break;
+	}
+
+	switch(collisionMap[yColiision+1][xColiision])
+	{
+	case 100:
+		std::cout << "Wall Below" << std::endl;
+		break;
+	default:
+		break;
+	}
+
+	switch(collisionMap[yColiision-1][xColiision])
+	{
+	case 100:
+		std::cout << "Wall Above" << std::endl;
+		break;
+	default:
+		break;
+	}
+
+	switch(collisionMap[yColiision][xColiision+1])
+	{
+	case 100:
+		std::cout << "Wall Right" << std::endl;
+		break;
+	default:
+		break;
+	}
+
+	switch(collisionMap[yColiision][xColiision-1])
+	{
+	case 100:
+		std::cout << "Wall Left" << std::endl;
+		break;
+	default:
 		break;
 	}
 }

@@ -70,6 +70,7 @@ public:
 	
 	virtual void move(double dt, std::vector<std::vector<int>> collisionMap);
 	virtual void update(double dt, World* currentWorld, int currentRoom);
+	virtual void Interact(double dt, std::vector<std::vector<int>> collisionMap);
 
 	Vector3 getPosition()
 	{
