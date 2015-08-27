@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include <iostream>
+
 
 Enemy::Enemy(void)
 {
@@ -10,7 +10,10 @@ Enemy::~Enemy(void)
 {
 }
 
+void Enemy::Update(int D_x, int D_y, double dt)
+{
 
+}
 
 // Set position of the player
 void Enemy::SetPos(int x, int y)
@@ -85,155 +88,6 @@ int Enemy::CalculateDistance_y()
 
 }
 
-
-void Enemy::KILL(int D_x, int D_y)
-{
-	Right = false;
-
-	Left = false;
-
-	Up = false;
-
-	Down = false;
-
-	SetDestination(D_x, D_y);
-
-	//int distanceHeroToEnemy = CalculateDistance();
-
-	//std::cout << "Player Pos: " << D_x << "     " << D_y << std::endl;
-
-	//std::cout << "Enemy Pos: " << theEnemyPosition_x  << "     " << theEnemyPosition_y << std::endl;
-
-	//if ( distanceHeroToEnemy < 1000000.0f )
-	//{
-			if(theDestination_x - theEnemyPosition_x > 0 && colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 + 1] < 100)
-				Right = true;
-
-			if(theDestination_x - theEnemyPosition_x < 0 && colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 - 1] < 100)
-				Left = true;
-			
-			if (theDestination_y - theEnemyPosition_y < 0 && colData[abs(GetPos_y()/32) + 26][GetPos_x()/32] < 100)
-				Down = true;
-			
-			if(theDestination_y - theEnemyPosition_y > 0 && colData[abs(GetPos_y()/32) + 24][GetPos_x()/32] < 100)
-				Up = true;
-	//}
-
-			// && CalculateDistance_y() > CalculateDistance_x()
-
-
-			Move();
-
-
-}
-
-void Enemy::Move()
-{
-	if(theDestination_x - theEnemyPosition_x > 0)
-	{
-		if(Right != true && Up != true && Down != true)
-		{
-			if(colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 - 1] < 100)
-			{
-				MoveLeft();
-			}
-
-		}
-		else if(Right == true && Up != true && Down != true)
-		{
-			MoveRight();
-		}
-		else if(Up == true || Down == true)
-		{
-			if(Right == true)
-			{
-				if(CalculateDistance_x() > CalculateDistance_y())
-				{
-					MoveRight();
-				}
-				else
-				{
-					if(Up == true)
-					{
-						MoveUp();
-					}
-					else if(Down == true)
-					{
-						MoveDown();
-					}
-				}
-			}
-			else
-			{
-				if(Up == true)
-				{
-					MoveUp();
-				}
-				else if(Down == true)
-				{
-					MoveDown();
-				}
-			}
-		}
-	}
-	else if(theDestination_x - theEnemyPosition_x < 0)
-	{
-		if(Left != true && Up != true && Down != true)
-		{
-			if(colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 + 1] < 100)
-				MoveRight();
-
-		}
-		else if(Left == true && Up != true && Down != true)
-		{
-			MoveLeft();
-		}
-		else if(Up == true || Down == true)
-		{
-			if(Left == true)
-			{
-				if(CalculateDistance_x() > CalculateDistance_y())
-				{
-					MoveLeft();
-				}
-				else
-				{
-					if(Up == true)
-					{
-						MoveUp();
-					}
-					else if(Down == true)
-					{
-						MoveDown();
-					}
-				}
-			}
-			else
-			{
-				if(Up == true)
-				{
-					MoveUp();
-				}
-				else if(Down == true)
-				{
-					MoveDown();
-				}
-			}
-		}
-	}
-	else if(theDestination_x - theEnemyPosition_x == 0)
-	{
-		if(Up == true)
-		{
-			MoveUp();
-		}
-		else if(Down == true)
-		{
-			MoveDown();
-		}
-	}
-}
-
 void Enemy::MoveRight()
 {
 	theEnemyPosition_x += 32;
@@ -257,4 +111,14 @@ void Enemy::MoveDown()
 void Enemy::SetData(std::vector<std::vector<int> > Data)
 {
 	colData = Data;
+}
+
+void Enemy::SetDelay(double t)
+{
+	EnemyDelay = t;
+}
+
+double Enemy::GetDelay()
+{
+	return EnemyDelay;
 }
