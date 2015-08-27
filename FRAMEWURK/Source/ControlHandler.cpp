@@ -193,7 +193,25 @@ void ControlHandler::KeyboardUpdate()
 
 	if(theView->IsKeyPressed('H'))
 	{
-		theModel->getPlayer()->controls.use = true;
+		//theModel->getPlayer()->controls.use = true;
+
+		std::cout << "Start" << std::endl;
+		for(unsigned i = 0; i < theModel->Evil->colData.size(); ++i)
+			{
+				for(unsigned j = 0; j < theModel->Evil->colData[i].size(); ++j)
+				{
+					if (theModel->Evil->GetPos_y()/32 == i && theModel->Evil->GetPos_x()/32 == j)
+						std::cout << "P ";
+					else
+						std::cout << Math::Max(0, theModel->Evil->colData[i][j]) << " ";
+				}
+				std::cout << std::endl;
+			}
+		std::cout << "End" << std::endl;
+
+		system("pause");
+
+		
 	}
 	else
 	{
@@ -221,6 +239,8 @@ void ControlHandler::KeyboardUpdate()
 		{
 			theModel->currentWorld = (WORLD_ID)((int)(theModel->currentWorld)+1);
 		}
+
+		theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
 		/*theModel->m_worldList[1]->m_roomList[0]->generateRoom();
 		theModel->m_worldList[1]->m_roomList[1]->generateRoom();
 

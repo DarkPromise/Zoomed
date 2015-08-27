@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
+
 
 class Enemy
 {
@@ -50,6 +53,27 @@ public:
 
 	int CalculateDistance_y();
 
+	void MoveRight();
+
+	void MoveLeft();
+
+	void MoveUp();
+
+	void MoveDown();
+
+	void Move();
+
+	bool Right;
+
+	bool Left;
+
+	bool Up;
+
+	bool Down;
+
+	void SetData(std::vector<std::vector<int> > Data);
+
+	std::vector<std::vector<int> > colData;	// 2D vector to store collision values
 
 private:
 	// ENEMY's information

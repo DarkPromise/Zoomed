@@ -38,7 +38,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	Math::InitRNG();
 
 	player = new Player("Josh");
-	player->setPosition(Vector3(4, 0, 0));
+	player->setPosition(Vector3(32,-32, 0));
 
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
 	
@@ -108,6 +108,12 @@ void ModelHandler::Init() //Anything that moves in the game
 		m_worldList[i]->initWorld();
 	}
 
+	//Enemy Code
+	EnemyDelay = 0.0;
+
+	Evil = new Enemy();
+	Evil->SetPos(32,-32);
+	Evil->SetData(m_worldList[currentWorld]->collisionData);
 	
 }
 
@@ -176,7 +182,7 @@ bool ModelHandler::InitObjects()
 	object->getMesh()->textureID = LoadTGA("Images//Fonts//basis33.tga");
 	m_objectList.push_back(object);
 
-	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(512.f,400.f,0.f));
+	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
 	m_objectList.push_back(object);
 
@@ -228,6 +234,18 @@ void ModelHandler::Update(const double dt)
 	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y));
 	//std::cout << (player->getPosition().x) << " " << (player->getPosition().y) << std::endl;
 	//std::cout << (int)((player->getPosition().x)/32) << " "  << (int)((player->getPosition().y)/32) << std::endl;
+
+
+	//Enemy Code
+	if(EnemyDelay > 0.2)
+	{
+		Evil->KILL(player->getPosition().x, player->getPosition().y); 
+		EnemyDelay = 0.0;
+		m_objectList[8]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
+		std::cout << Evil->GetPos_x() << std::endl;
+	}
+
+	EnemyDelay += dt;
 }
 
 Camera ModelHandler::getCamera()

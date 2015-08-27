@@ -46,6 +46,13 @@ public:
 	Game getEnvironment();
 	Player *getPlayer();
 
+	//Enemy Code
+	double EnemyDelay;
+
+	Enemy* Evil;
+
+
+
 	GAME_STATE m_status;
 
 	WORLD_ID currentWorld;

@@ -555,9 +555,11 @@ void ViewHandler::RenderScene()
 				if(theModel->m_objectList[i]->getObjectType() == TYPE_ENEMY)
 				{
 					modelStack.PushMatrix();
-					modelStack.Translate(theModel->m_objectList[i]->getPosition().x,theModel->m_objectList[i]->getPosition().y,theModel->m_objectList[i]->getPosition().z);
+					modelStack.Translate(theModel->m_objectList[i]->getPosition().x + 16,theModel->m_objectList[i]->getPosition().y + 16,theModel->m_objectList[i]->getPosition().z);
 					RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 					modelStack.PopMatrix();
+
+					//std::cout << theModel->m_objectList[i]->getPosition().x << std::endl;
 				}
 				else
 				{
