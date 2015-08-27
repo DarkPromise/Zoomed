@@ -117,10 +117,10 @@ void ModelHandler::Init() //Anything that moves in the game
 	Evil->SetDelay(0.1);
 	
 }
-
-void ModelHandler::InitSound()
-{
-}
+//
+//void ModelHandler::InitSound()
+//{
+//}
 
 bool ModelHandler::InitObjects()
 {

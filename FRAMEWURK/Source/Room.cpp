@@ -278,6 +278,16 @@ Room::Room(ROOM_TYPE roomType,
 
 			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ENGINE, GetNumOfTiles_Height(), GetNumOfTiles_Width());
 			addOBJtoGenerate(tempObject);
+
+		}
+		break;
+	case ROOM_SIGHT:
+		{
+			Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_SIGHT_BRONZE_CANDLESTICK, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			addOBJtoGenerate(tempObject);
+
+			/*tempObject = new Room_Object(Room_Object::ROOM_OBJECT_SIGHT_BRONZE_CANDLESTICK, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			addOBJtoGenerate(tempObject);*/
 		}
 		break;
 	}
@@ -320,7 +330,7 @@ void Room::addOBJtoGenerate(Room_Object* object)
 
 void Room::generateRoom()
 {
-	// NOTE!! __data[1][0] IS THE TOP LEFT AFTER RENDERING	
+	// NOTE!! __data[1][0] IS THE TOP LEFT AFTER RENDERING
 	bool generatedRoom = false;
 
 	while (!generatedRoom)
@@ -328,17 +338,7 @@ void Room::generateRoom()
 		this->exitCounter = 0; // counters number of exits placed
 		attemptCounter = 0; // counts number of times object was tried to be placed
 		generatedRoom = true; // reset room flag
-		if (roomType != ROOM_TUTORIAL_FRIENDS && roomType != ROOM_MAINMENU && roomType != ROOM_MAINMENU)
-		{
-			reset_mapData(); // reset map data
-		}
-		else
-		{
-			for (unsigned i = 1; i < this->sceneryData.size()-1; i++) // Reset data values
-			{
-				std::fill(collisionData[i].begin(), collisionData[i].end(), -1);
-			}
-		}
+		reset_mapData(); // reset map data
 
 		//generate objects
 		for (unsigned i = 0; i < roomObjectList.size(); i++)
@@ -361,7 +361,7 @@ void Room::generateRoom()
 		{
 			if (this->sceneryData[i][j] != -1)
 			{
-				this->collisionData[i][j] = 100;
+				this->collisionData[i][j] = 1;
 			}
 		}
 	}
@@ -370,119 +370,18 @@ void Room::generateRoom()
 	if (this->roomType == ROOM_TESTPUZZLE)
 	{
 		floorTileID = ROOMS_FLOORTILE;
-
-	}
-	else if (this->roomType == ROOM_TUTORIAL_FRIENDS)
-	{
-		floorTileID = BLUE_FLOORTILE;
-	}
-	else if (this->roomType == ROOM_MAINMENU)
-	{
-		floorTileID = MAINMENU_FLOORTILE;
-	}
-	else if (this->roomType == ROOM_MECH)
-	{
-		floorTileID = MECH_FLOORTILE;
 	}
 
 	for (unsigned i = 0; i < backgroundData.size(); i++)
-	{
-		for (unsigned j = 0; j < backgroundData[i].size(); j++)
-		{
-			if ((this->backgroundData[i][j] != floorTileID) && (this->backgroundData[i][j] != -1))
-			{
-				this->collisionData[i][j] = 100;
-			}
-
-			if (this->backgroundData[i][j] > TILE_CORRIDOR_FLOOR && this->backgroundData[i][j] < 1024)
-			{
-				this->collisionData[i][j] = 100;
-			}
-		}
-	}
-
-	if (this->theTileset == TILESET_BLUE)
-	{
-		int ignoreTiles[BLUE_IGNORETOTAL] = {
-		BLUE_TILEBLOOD,
-		BLUE_TILEBODY1,
-		BLUE_TILEDEBRIS1,
-
-		BLUE_TILEYELLOWBUTTON,
-		BLUE_TILEREDBUTTON,
-		BLUE_TILEPURPLEBUTTON,
-		BLUE_TILEGRAYBUTTON,
-		
-		BLUE_TILEYELLOWBLOCK_OFF,
-		BLUE_TILEREDBLOCK_OFF,
-		BLUE_TILEPURPLEBLOCK_OFF,
-		BLUE_TILEGRAYBLOCK_OFF};
-
-		int collisionTiles[BLUE_IGNORETOTAL] = {
-		COLLISION_BLUE_TILEBLOOD,
-		COLLISION_BLUE_TILEBODY1,
-		COLLISION_BLUE_TILEDEBRIS1,
-
-		COLLISION_BLUE_TILEYELLOWBUTTON,
-		COLLISION_BLUE_TILEREDBUTTON,
-		COLLISION_BLUE_TILEPURPLEBUTTON,
-		COLLISION_BLUE_TILEGRAYBUTTON,
-		
-		COLLISION_BLUE_TILEYELLOWBLOCK_OFF,
-		COLLISION_BLUE_TILEREDBLOCK_OFF,
-		COLLISION_BLUE_TILEPURPLEBLOCK_OFF,
-		COLLISION_BLUE_TILEGRAYBLOCK_OFF};
-
-		for (unsigned i = 0; i < backgroundData.size(); i++)
 		{
 			for (unsigned j = 0; j < backgroundData[i].size(); j++)
 			{
-				for (unsigned k = 0; k < BLUE_IGNORETOTAL; k++)
+				if ((this->backgroundData[i][j] != floorTileID) && (this->backgroundData[i][j] != -1))
 				{
-					if (sceneryData[i][j] == ignoreTiles[k])
-					{
-						this->collisionData[i][j] = collisionTiles[k];
-					}
+					this->collisionData[i][j] = 1;
 				}
 			}
 		}
-	}
-	else if (this->theTileset == TILESET_MAIN_MENU)
-	{
-		int ignoreTiles[MAINMENU_IGNORETOTAL] = {
-		MAINMENU_TILEBLOOD,
-		MAINMENU_TILEDEBRIS1,
-		MAINMENU_TILEDEBRIS2,
-		MAINMENU_TILEDEBRIS3,
-		MAINMENU_TILEDEBRIS4,
-		MAINMENU_TILEDEBRIS5,
-		MAINMENU_TILEDEBRIS6,
-		MAINMENU_TILEDEBRIS7,};
-
-		int collisionTiles[MAINMENU_IGNORETOTAL] = {
-		COLLISION_MAINMENU_TILEBLOOD,
-		COLLISION_MAINMENU_TILEDEBRIS1,
-		COLLISION_MAINMENU_TILEDEBRIS2,
-		COLLISION_MAINMENU_TILEDEBRIS3,
-		COLLISION_MAINMENU_TILEDEBRIS4,
-		COLLISION_MAINMENU_TILEDEBRIS5,
-		COLLISION_MAINMENU_TILEDEBRIS6,
-		COLLISION_MAINMENU_TILEDEBRIS7,};
-
-		for (unsigned i = 0; i < backgroundData.size(); i++)
-		{
-			for (unsigned j = 0; j < backgroundData[i].size(); j++)
-			{
-				for (unsigned k = 0; k < MAINMENU_IGNORETOTAL; k++)
-				{
-					if (sceneryData[i][j] == ignoreTiles[k])
-					{
-						this->collisionData[i][j] = collisionTiles[k];
-					}
-				}
-			}
-		}
-	}
 }
 
 bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY)
@@ -786,8 +685,6 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 					}
 				}
 
-
-				
 				sceneryData[originY][originX] = 97;
 				sceneryData[originY+1][originX] = 129;
 				sceneryData[originY+2][originX] = 161;
@@ -829,18 +726,9 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 					originY = Math::RandIntMinMax(4, sceneryData.size()-1);
 				}
 
-
-
-				foregroundData[originY][originX] = 938; sceneryData[originY][originX+1] = 939;
-				foregroundData[originY+1][originX] = 970; foregroundData[originY+1][originX+1] = 971;
+				sceneryData[originY][originX] = 938; sceneryData[originY][originX+1] = 939;
+				sceneryData[originY+1][originX] = 970; sceneryData[originY+1][originX+1] = 971;
 				sceneryData[originY+2][originX] = 1002; sceneryData[originY+2][originX+1] = 1003;
-
-				sceneryData[originY][originX] = 938;
-
-				backgroundData[originY][originX] = MECH_FLOORTILE; backgroundData[originY][originX+1] = MECH_FLOORTILE;
-				backgroundData[originY+1][originX] = MECH_FLOORTILE; backgroundData[originY+1][originX+1] = MECH_FLOORTILE;
-				backgroundData[originY+2][originX] = MECH_FLOORTILE; backgroundData[originY+2][originX+1] = MECH_FLOORTILE;
-
 
 				numExit[exitCounter]->exitPositionX = originX;
 				numExit[exitCounter]->exitPositionY = originY+1;
@@ -858,15 +746,9 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 					originY = Math::RandIntMinMax(4, sceneryData.size()-1);
 				}
 
-				sceneryData[originY][originX] = 842; foregroundData[originY][originX+1] = 843;
-				backgroundData[originY+1][originX] = 874; foregroundData[originY+1][originX+1] = 875;
+				sceneryData[originY][originX] = 842; sceneryData[originY][originX+1] = 843;
+				sceneryData[originY+1][originX] = 874; sceneryData[originY+1][originX+1] = 875;
 				sceneryData[originY+2][originX] = 906; sceneryData[originY+2][originX+1] = 907;
-
-				sceneryData[originY][originX+1] = 843;
-
-				backgroundData[originY][originX] = MECH_FLOORTILE; backgroundData[originY][originX+1] = MECH_FLOORTILE;
-				backgroundData[originY+1][originX] = MECH_FLOORTILE; backgroundData[originY+1][originX+1] = MECH_FLOORTILE;
-				backgroundData[originY+2][originX] = MECH_FLOORTILE; backgroundData[originY+2][originX+1] = MECH_FLOORTILE;
 
 				numExit[exitCounter]->exitPositionX = originX+2;
 				numExit[exitCounter]->exitPositionY = originY+1;

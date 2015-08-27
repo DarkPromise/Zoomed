@@ -15,6 +15,7 @@ enum ROOM_TYPE
 	ROOM_TESTPUZZLE,
 
 	ROOM_MECH,
+	ROOM_SIGHT,
 
 	ROOM_TUTORIAL_FRIENDS,
 
@@ -189,7 +190,9 @@ struct Room_Object
 		ROOM_OBJECT_MECH_LEFT_DOOR,
 		ROOM_OBJECT_MECH_RIGHT_DOOR,
 
-		
+		//JENNY room things
+		ROOM_OBJECT_SIGHT_BRONZE_CANDLESTICK,
+
 	};
 
 	Room_Object(ROOM_OBJECT_TYPE objectType, int roomHeight, int roomWidth);
