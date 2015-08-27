@@ -10,14 +10,7 @@ public:
 	Enemy(void);
 	~Enemy(void);
 
-	enum GEOMETRY_TYPE
-	{
-		GEO_TILEENEMY_FRAME0,
-		GEO_TILEENEMY_FRAME1,
-		GEO_TILEENEMY_FRAME2,
-		GEO_TILEENEMY_FRAME3,
-		NUM_GEOMETRY,
-	};
+	
 
 	
 	// Set position x of the player

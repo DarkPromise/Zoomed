@@ -829,9 +829,18 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 					originY = Math::RandIntMinMax(4, sceneryData.size()-1);
 				}
 
-				sceneryData[originY][originX] = 938; sceneryData[originY][originX+1] = 939;
-				sceneryData[originY+1][originX] = 970; sceneryData[originY+1][originX+1] = 971;
+
+
+				foregroundData[originY][originX] = 938; sceneryData[originY][originX+1] = 939;
+				foregroundData[originY+1][originX] = 970; foregroundData[originY+1][originX+1] = 971;
 				sceneryData[originY+2][originX] = 1002; sceneryData[originY+2][originX+1] = 1003;
+
+				sceneryData[originY][originX] = 938;
+
+				backgroundData[originY][originX] = MECH_FLOORTILE; backgroundData[originY][originX+1] = MECH_FLOORTILE;
+				backgroundData[originY+1][originX] = MECH_FLOORTILE; backgroundData[originY+1][originX+1] = MECH_FLOORTILE;
+				backgroundData[originY+2][originX] = MECH_FLOORTILE; backgroundData[originY+2][originX+1] = MECH_FLOORTILE;
+
 
 				numExit[exitCounter]->exitPositionX = originX;
 				numExit[exitCounter]->exitPositionY = originY+1;
@@ -849,9 +858,15 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 					originY = Math::RandIntMinMax(4, sceneryData.size()-1);
 				}
 
-				sceneryData[originY][originX] = 842; sceneryData[originY][originX+1] = 843;
-				sceneryData[originY+1][originX] = 874; sceneryData[originY+1][originX+1] = 875;
+				sceneryData[originY][originX] = 842; foregroundData[originY][originX+1] = 843;
+				backgroundData[originY+1][originX] = 874; foregroundData[originY+1][originX+1] = 875;
 				sceneryData[originY+2][originX] = 906; sceneryData[originY+2][originX+1] = 907;
+
+				sceneryData[originY][originX+1] = 843;
+
+				backgroundData[originY][originX] = MECH_FLOORTILE; backgroundData[originY][originX+1] = MECH_FLOORTILE;
+				backgroundData[originY+1][originX] = MECH_FLOORTILE; backgroundData[originY+1][originX+1] = MECH_FLOORTILE;
+				backgroundData[originY+2][originX] = MECH_FLOORTILE; backgroundData[originY+2][originX+1] = MECH_FLOORTILE;
 
 				numExit[exitCounter]->exitPositionX = originX+2;
 				numExit[exitCounter]->exitPositionY = originY+1;

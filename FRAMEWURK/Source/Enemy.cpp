@@ -51,27 +51,7 @@ int Enemy::GetDestination_y(void)
 	return theDestination_y;
 }
 
-//// Set Animation Invert status of the player
-//void CEnemy::SetAnimationInvert(bool enemyAnimationInvert)
-//{
-//	this->enemyAnimationInvert = enemyAnimationInvert;
-//}
-//// Get Animation Invert status of the player
-//bool CEnemy::GetAnimationInvert(void)
-//{
-//	return enemyAnimationInvert;
-//}
-//
-//// Set Animation Counter of the player
-//void CEnemy::SetAnimationCounter(int enemyAnimationCounter)
-//{
-//	this->enemyAnimationCounter = enemyAnimationCounter;
-//}
-//// Get Animation Counter of the player
-//int CEnemy::GetAnimationCounter(void)
-//{
-//	return enemyAnimationCounter;
-//}
+
 
 int Enemy::CalculateDistance()
 {
