@@ -739,7 +739,7 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 		case Room_Object::ROOM_OBJECT_MECH_RIGHT_DOOR:
 			{
 				originX = sceneryData[0].size() - 2;
-				originY = Math::RandIntMinMax(4, sceneryData.size()-1);
+				originY = Math::RandIntMinMax(4, sceneryData.size()-3);
 
 				while (!((originY != -1) && (sceneryData[originY][originX] == -1)))
 				{
