@@ -43,7 +43,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
 	
 	m_status = STATE_MENU;
-	currentWorld = WORLD_TEST;
+	currentWorld = WORLD_FRIENDS_TUTORIAL;
 
 	// MAIN MENU
 	World* newWorld = new World(WORLD_MAINMENU);
@@ -51,7 +51,7 @@ void ModelHandler::Init() //Anything that moves in the game
 
 	// Give a 10 space buffer to the top and left for corridors
 
-	Room* newRoom = new Room(ROOM_MAINMENU, 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU, 10, 10, 0);
+	Room* newRoom = new Room(ROOM_MAINMENU, 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU, 10, 30, 0);
 	newRoom->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//Main_Menu//MainMenu_Background.csv");
 	m_worldList[0]->m_roomList.push_back(newRoom);
 
@@ -74,8 +74,6 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-
-
 	newWorld = new World(WORLD_MECH);
 	m_worldList.push_back(newWorld);
 
@@ -89,6 +87,13 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom->LoadMap("MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv");
 	m_worldList[2]->m_roomList.push_back(newRoom);
 
+	newWorld = new World(WORLD_FRIENDS_TUTORIAL);
+	m_worldList.push_back(newWorld);
+	
+	newRoom = new Room(ROOM_TUTORIAL_FRIENDS, 896, 1408, 44, 28, 896, 1408,32,TILESET_BLUE, 20, 20, 0);
+	//newRoom->addExit(EXIT_DOWN);
+	newRoom->LoadMap("MapData//Friends//Friends_Tutorial_Foreground.csv","MapData//Friends//Friends_Tutorial_Scenery.csv","MapData//Friends//Friends_Tutorial_Background.csv","MapData//Friends//Friends_Tutorial_Background.csv");
+	m_worldList[3]->m_roomList.push_back(newRoom);
 
 	for (unsigned i = 0; i < m_worldList.size(); i++)
 	{
@@ -123,13 +128,42 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000));
 	m_objectList.push_back(object);
 
-	object = new GameObject("Test World", TYPE_MAP, Vector3(0, 0, 0));
+	//DON'T PUSH ANYTHING ELSE
+
+	object = new GameObject("Main Menu", TYPE_MAP, Vector3(0, 0, 0));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[0]->backgroundData,32,32));
+	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[0]->sceneryData,32,32));
+	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[0]->foregroundData,32,32));
+	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
+	m_objectList.push_back(object);
+
+	object = new GameObject("Test Puzzle World", TYPE_MAP, Vector3(0, 0, 0));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[1]->backgroundData,32,32));
+	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[1]->sceneryData,32,32));
+	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[1]->foregroundData,32,32));
+	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+	m_objectList.push_back(object);
+
+	object = new GameObject("Test Mech World", TYPE_MAP, Vector3(0, 0, 0));
 	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[2]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_POOL.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[2]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_POOL.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[2]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_POOL.tga");
+	m_objectList.push_back(object);
+
+	object = new GameObject("Friends Tutorial", TYPE_MAP, Vector3(0, 0, 0));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[3]->backgroundData,32,32));
+	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[3]->sceneryData,32,32));
+	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[3]->foregroundData,32,32));
+	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
 	m_objectList.push_back(object);
 
 	object = new GameObject("Game Text Foxscript",TYPE_TEXT);

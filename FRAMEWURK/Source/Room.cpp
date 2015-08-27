@@ -278,9 +278,6 @@ Room::Room(ROOM_TYPE roomType,
 
 			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ENGINE, GetNumOfTiles_Height(), GetNumOfTiles_Width());
 			addOBJtoGenerate(tempObject);
-
-
-
 		}
 		break;
 	}
@@ -331,7 +328,17 @@ void Room::generateRoom()
 		this->exitCounter = 0; // counters number of exits placed
 		attemptCounter = 0; // counts number of times object was tried to be placed
 		generatedRoom = true; // reset room flag
-		reset_mapData(); // reset map data
+		if (roomType != ROOM_TUTORIAL_FRIENDS && roomType != ROOM_MAINMENU && roomType != ROOM_MAINMENU)
+		{
+			reset_mapData(); // reset map data
+		}
+		else
+		{
+			for (unsigned i = 1; i < this->sceneryData.size()-1; i++) // Reset data values
+			{
+				std::fill(collisionData[i].begin(), collisionData[i].end(), -1);
+			}
+		}
 
 		//generate objects
 		for (unsigned i = 0; i < roomObjectList.size(); i++)
@@ -364,17 +371,36 @@ void Room::generateRoom()
 	{
 		floorTileID = ROOMS_FLOORTILE;
 	}
+	else if (this->roomType == ROOM_TUTORIAL_FRIENDS)
+	{
+		floorTileID = BLUE_FLOORTILE;
+	}
+	else if (this->roomType == ROOM_MAINMENU)
+	{
+		floorTileID = MAINMENU_FLOORTILE;
+	}
+	else if (this->roomType == ROOM_MECH)
+	{
+		floorTileID = MECH_FLOORTILE;
+	}
 
 	for (unsigned i = 0; i < backgroundData.size(); i++)
+	{
+		for (unsigned j = 0; j < backgroundData[i].size(); j++)
 		{
-			for (unsigned j = 0; j < backgroundData[i].size(); j++)
+			if ((this->backgroundData[i][j] != floorTileID) && (this->backgroundData[i][j] != -1))
 			{
-				if ((this->backgroundData[i][j] != floorTileID) && (this->backgroundData[i][j] != -1))
-				{
-					this->collisionData[i][j] = 1;
-				}
+				this->collisionData[i][j] = 1;
+			}
+
+			if (this->backgroundData[i][j] > TILE_CORRIDOR_FLOOR && this->backgroundData[i][j] < 1024)
+			{
+				this->collisionData[i][j] = 1;
 			}
 		}
+	}
+
+
 }
 
 bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY)

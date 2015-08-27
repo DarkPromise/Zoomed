@@ -213,6 +213,14 @@ void ControlHandler::KeyboardUpdate()
 	if(theView->IsKeyPressed('R') && !generateRoom)
 	{
 		generateRoom = true;
+		if (theModel->currentWorld+1 == WORLD_TOTAL)
+		{
+			theModel->currentWorld = WORLD_MAINMENU;
+		}
+		else
+		{
+			theModel->currentWorld = (WORLD_ID)((int)(theModel->currentWorld)+1);
+		}
 		/*theModel->m_worldList[1]->m_roomList[0]->generateRoom();
 		theModel->m_worldList[1]->m_roomList[1]->generateRoom();
 
@@ -221,12 +229,12 @@ void ControlHandler::KeyboardUpdate()
 		theModel->m_objectList[3]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->m_roomList[0]->foregroundData,32,32), 2);
 		theModel->m_objectList[3]->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");*/
 
-		theModel->m_objectList[2]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->backgroundData,32,32), 0);
-		theModel->m_objectList[2]->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-		theModel->m_objectList[2]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->sceneryData,32,32), 1);
-		theModel->m_objectList[2]->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
-		theModel->m_objectList[2]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->foregroundData,32,32), 2);
-		theModel->m_objectList[2]->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+		//theModel->m_objectList[2]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->backgroundData,32,32), 0);
+		//theModel->m_objectList[2]->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+		//theModel->m_objectList[2]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->sceneryData,32,32), 1);
+		//theModel->m_objectList[2]->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
+		//theModel->m_objectList[2]->setMesh(MeshBuilder::GenerateTileMap("Test Background",Color(0.f,0.f,0.f),theModel->m_worldList[1]->foregroundData,32,32), 2);
+		//theModel->m_objectList[2]->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_ROOMS.tga");
 	}
 	else if(!theView->IsKeyPressed('R') && generateRoom)
 	{

@@ -31,15 +31,15 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 {
 	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
 	int xColiision = (int)(m_playerPos.x/32);
-	std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
-	std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;
+	/*std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
+	std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;*/
 
 	if (controls.use)
 	{
 			std::cout << "Start" << std::endl;
-		for(int i = 0; i < collisionMap.size(); ++i)
+		for(unsigned i = 0; i < collisionMap.size(); ++i)
 			{
-				for(int j = 0; j < collisionMap[i].size(); ++j)
+				for(unsigned j = 0; j < collisionMap[i].size(); ++j)
 				{
 					if (yColiision == i && xColiision == j)
 						std::cout << "P ";
@@ -104,7 +104,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 	if(m_fearCooldown <= 0.0)
 	{
 		m_fearCooldown = 0.0;
-		m_currFear -= (float)dt * 1.5;
+		m_currFear -= (float)(dt) * 1.5f;
 	}
 	m_currFear = Math::Clamp(m_currFear,2.f,100.f);
 	m_playerSanity = Math::RandFloatMinMax(60.f,80.f);

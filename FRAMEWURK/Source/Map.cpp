@@ -281,7 +281,11 @@ bool CMap::LoadForegroundMap(const std::string mapName)
 						theMaxNumOfColumns = atoi(token.c_str());
 					}
 					if ( theMaxNumOfColumns != theNumOfTiles_MapWidth)
+					{
+						std::cout << theMaxNumOfColumns << std::endl;
 						return false;
+
+					}
 				}
 				else
 				{

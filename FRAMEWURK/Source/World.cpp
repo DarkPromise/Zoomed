@@ -124,9 +124,9 @@ bool World::setupCorridors()
 {
 	for (unsigned i = 0; i < path.size(); i++)
 	{
-		for (int j = -2; j <= 2; j++)
+		for (int j = -5; j <= 5; j++)
 		{
-			for (int k = -2; k <= 2; k++)
+			for (int k = -5; k <= 5; k++)
 			{
 				if (this->backgroundData[path[i].y+j][path[i].x+k] == -1)
 				{
@@ -201,6 +201,17 @@ bool World::setupCorridors()
 
 	backgroundData = tempCorridor;
 
+	for (unsigned i = 0; i < backgroundData.size(); i++)
+	{
+		for (unsigned j = 0; j < backgroundData[i].size(); j++)
+		{
+			if (this->backgroundData[i][j] > TILE_CORRIDOR_FLOOR && this->backgroundData[i][j] < 1024)
+			{
+				this->collisionData[i][j] = 1;
+			}
+		}
+	}
+
 	return true;
 }
 
@@ -240,7 +251,7 @@ bool World::initCorridors()
 				firstRoom = temp;
 			}*/
 
-			std::cout << firstRoom << " " << secondRoom << std::endl;
+
 		}
 	}
 	
@@ -376,34 +387,34 @@ bool World::pathFind(Two_D_Grid exitA, Two_D_Grid exitB)
             }
 			this->path.push_back(Two_D_Grid(exitB.x, exitB.y));
 
-			for (unsigned i = 30; i < closedNodes.size()-10; i++)
-			{
-				for (unsigned j = 0; j < closedNodes[i].size(); j++)
-				{
-					/*if ( i == exitA.y && j == exitA.x )
-						std::cout << directionMap[i][j] << " ";
-					else if ( i == exitB.y && j == exitB.x )
-						std::cout << "B" << " ";
-					else */if ( backgroundData[i][j] != -1 )
-						std::cout << "-" << " ";
-					else
-					{
-						bool hihihi = false;
-						for (unsigned k = 0; k < path.size(); k++)
-						{
-							if (i == path[k].y && j == path[k].x )
-							{
-								hihihi = true;
-								std::cout << "P" << " ";
-								break;
-							}
-						}
-						if (!hihihi)
-							std::cout << " " << " ";
-					}
-				}
-				std::cout << std::endl;
-			}
+			//for (unsigned i = 30; i < closedNodes.size()-10; i++)
+			//{
+			//	for (unsigned j = 0; j < closedNodes[i].size(); j++)
+			//	{
+			//		/*if ( i == exitA.y && j == exitA.x )
+			//			std::cout << directionMap[i][j] << " ";
+			//		else if ( i == exitB.y && j == exitB.x )
+			//			std::cout << "B" << " ";
+			//		else */if ( backgroundData[i][j] != -1 )
+			//			std::cout << "-" << " ";
+			//		else
+			//		{
+			//			bool hihihi = false;
+			//			for (unsigned k = 0; k < path.size(); k++)
+			//			{
+			//				if (i == path[k].y && j == path[k].x )
+			//				{
+			//					hihihi = true;
+			//					std::cout << "P" << " ";
+			//					break;
+			//				}
+			//			}
+			//			if (!hihihi)
+			//				std::cout << " " << " ";
+			//		}
+			//	}
+			//	std::cout << std::endl;
+			//}
 
 			//system("pause");
 

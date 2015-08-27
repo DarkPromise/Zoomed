@@ -513,29 +513,32 @@ void ViewHandler::RenderScene()
 		theModel->getPlayer()->getPosition().x - Math::Round((m_width * 0.5f)),theModel->getPlayer()->getPosition().y - Math::Round((m_height * 0.5f)),theModel->getCamera().target.z,
 		theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 		);
-
+	 
 	for(unsigned i = 0; i < theModel->m_objectList.size(); ++i)
 	{
 		if(theModel->m_objectList[i]->getMeshSize() > 1)
 		{
 			if(theModel->m_objectList[i]->getObjectType() == TYPE_MAP)
 			{
-				modelStack.PushMatrix();
-					modelStack.Translate(theModel->m_objectList[i]->getPosition().x, theModel->m_objectList[i]->getPosition().y, theModel->m_objectList[i]->getPosition().z);
-					RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
-					RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
-
-					//Check if currRoom == theModel->m_objectList[i]->getRoom();
-					//if yes, renderplayer else dont render player.
-					//std::cout << "Rendering player for : " << theModel->m_objectList[i]->ToString() << std::endl;
-
+				if (theModel->currentWorld+2 == i)
+				{
 					modelStack.PushMatrix();
-					modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
-					RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
-					modelStack.PopMatrix();
+						modelStack.Translate(theModel->m_objectList[i]->getPosition().x, theModel->m_objectList[i]->getPosition().y, theModel->m_objectList[i]->getPosition().z);
+						RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
+						RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
 
-					RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
-				modelStack.PopMatrix();
+						//Check if currRoom == theModel->m_objectList[i]->getRoom();
+						//if yes, renderplayer else dont render player.
+						//std::cout << "Rendering player for : " << theModel->m_objectList[i]->ToString() << std::endl;
+
+						modelStack.PushMatrix();
+						modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
+						RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
+						modelStack.PopMatrix();
+
+						RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
+					modelStack.PopMatrix();
+				}
 			}
 			else
 			{

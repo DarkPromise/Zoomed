@@ -47,7 +47,7 @@ void Inventory::removeItem(int slot)
 
 void Inventory::useItem(int slot, Player * player)
 {
-	if((slot-1) < m_itemList.size()) //Check if item exists in slot
+	if((unsigned)(slot-1) < m_itemList.size()) //Check if item exists in slot
 	{
 		switch(m_itemList[slot - 1]->getItemID()) //Get Item ID
 		{
