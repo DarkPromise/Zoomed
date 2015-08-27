@@ -321,6 +321,34 @@ void Room::addOBJtoGenerate(Room_Object* object)
 void Room::generateRoom()
 {
 	// NOTE!! __data[1][0] IS THE TOP LEFT AFTER RENDERING
+	int ignoreTiles[IGNORE_TOTAL] = {
+		BLUE_TILEBLOOD,
+		BLUE_TILEBODY1,
+
+		BLUE_TILEYELLOWBUTTON,
+		BLUE_TILEREDBUTTON,
+		BLUE_TILEPURPLEBUTTON,
+		BLUE_TILEGRAYBUTTON,
+		
+		BLUE_TILEYELLOWBLOCK_OFF,
+		BLUE_TILEREDBLOCK_OFF,
+		BLUE_TILEPURPLEBLOCK_OFF,
+		BLUE_TILEGRAYBLOCK_OFF};
+
+	int collisionTiles[COLLISION_IGNORE_TOTAL] = {
+		COLLISION_BLUE_TILEBLOOD,
+		COLLISION_BLUE_TILEBODY1,
+
+		COLLISION_BLUE_TILEYELLOWBUTTON,
+		COLLISION_BLUE_TILEREDBUTTON,
+		COLLISION_BLUE_TILEPURPLEBUTTON,
+		COLLISION_BLUE_TILEGRAYBUTTON,
+		
+		COLLISION_BLUE_TILEYELLOWBLOCK_OFF,
+		COLLISION_BLUE_TILEREDBLOCK_OFF,
+		COLLISION_BLUE_TILEPURPLEBLOCK_OFF,
+		COLLISION_BLUE_TILEGRAYBLOCK_OFF};
+	
 	bool generatedRoom = false;
 
 	while (!generatedRoom)
@@ -361,7 +389,7 @@ void Room::generateRoom()
 		{
 			if (this->sceneryData[i][j] != -1)
 			{
-				this->collisionData[i][j] = 1;
+				this->collisionData[i][j] = 100;
 			}
 		}
 	}
@@ -390,17 +418,29 @@ void Room::generateRoom()
 		{
 			if ((this->backgroundData[i][j] != floorTileID) && (this->backgroundData[i][j] != -1))
 			{
-				this->collisionData[i][j] = 1;
+				this->collisionData[i][j] = 100;
 			}
 
 			if (this->backgroundData[i][j] > TILE_CORRIDOR_FLOOR && this->backgroundData[i][j] < 1024)
 			{
-				this->collisionData[i][j] = 1;
+				this->collisionData[i][j] = 100;
 			}
 		}
 	}
 
-
+	for (unsigned i = 0; i < backgroundData.size(); i++)
+	{
+		for (unsigned j = 0; j < backgroundData[i].size(); j++)
+		{
+			for (unsigned k = 0; k < IGNORE_TOTAL; k++)
+			{
+				if (sceneryData[i][j] == ignoreTiles[k])
+				{
+					this->collisionData[i][j] = collisionTiles[k];
+				}
+			}
+		}
+	}
 }
 
 bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY)

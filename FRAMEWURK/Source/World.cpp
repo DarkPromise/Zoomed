@@ -207,7 +207,7 @@ bool World::setupCorridors()
 		{
 			if (this->backgroundData[i][j] > TILE_CORRIDOR_FLOOR && this->backgroundData[i][j] < 1024)
 			{
-				this->collisionData[i][j] = 1;
+				this->collisionData[i][j] = 100;
 			}
 		}
 	}
