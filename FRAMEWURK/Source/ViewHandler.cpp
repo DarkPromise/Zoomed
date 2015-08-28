@@ -559,7 +559,7 @@ void ViewHandler::RenderScene()
 					RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 					modelStack.PopMatrix();
 
-					//std::cout << theModel->m_objectList[i]->getPosition().x << std::endl;
+					std::cout << theModel->m_objectList[i]->getPosition().x << std::endl;
 				}
 				else
 				{

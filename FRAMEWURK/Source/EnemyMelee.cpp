@@ -1,5 +1,5 @@
 #include "EnemyMelee.h"
-
+#include "Player.h"
 
 EnemyMelee::EnemyMelee(void)
 {
@@ -12,20 +12,44 @@ EnemyMelee::~EnemyMelee(void)
 
 }
 
-void EnemyMelee::Update(int D_x, int D_y, double dt)
+void EnemyMelee::Update(Player* player, double dt)
 {
 
 	AccumulatedTime += dt; 
+
+
 	 	
-	SetDestination(D_x, D_y);
+	SetDestination(player->getPosition().x, player->getPosition().y);
 
 	 Move();
+
+	 onHit(player);
+
+}
+
+void EnemyMelee::onHit(Player* player)
+{
+	if(CalculateDistance_x() == 32 && CalculateDistance_y() == 0)
+	{
+		if(player->getCurrFear() < 100)
+		{
+			player->getCurrFear() += 10;
+		}
+	}
+	else if(CalculateDistance_x() == 0 && CalculateDistance_y() == 32)
+		{
+		if(player->getCurrFear() < 100)
+		{
+			player->getCurrFear() += 10;
+		}
+	}
 }
 
 void EnemyMelee::Move()
 {
 
-	std::cout << "RUNNING"<< std::endl;
+	//std::cout << GetPos_x() << "	 "<< GetPos_y() << std::endl;
+
 	if(AccumulatedTime > GetDelay())
 	{
 		AccumulatedTime = 0.0;
@@ -52,16 +76,25 @@ void EnemyMelee::Move()
 			Up = true;
 
 
-
+		if(CalculateDistance_x() == 32 && CalculateDistance_y() == 0)
+		{
+			Right = false;
+			Left = false;
+		}
+		else if(CalculateDistance_x() == 0 && CalculateDistance_y() == 32)
+		{
+			Up = false;
+			Down = false;
+		}
 
 		if(GetDestination_x() - GetPos_x() > 0)
 		{
 			if(Right != true && Up != true && Down != true)
 			{
-				if(colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 - 1] < 100)
+				/*if(colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 - 1] < 100)
 				{
 					MoveLeft();
-				}
+				}*/
 
 			}
 			else if(Right == true && Up != true && Down != true)
@@ -105,8 +138,8 @@ void EnemyMelee::Move()
 		{
 			if(Left != true && Up != true && Down != true)
 			{
-				if(colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 + 1] < 100)
-					MoveRight();
+				/*if(colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 + 1] < 100)
+					MoveRight();*/
 
 			}
 			else if(Left == true && Up != true && Down != true)

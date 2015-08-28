@@ -1,5 +1,5 @@
 #include "Enemy.h"
-
+#include "Player.h"
 
 Enemy::Enemy(void)
 {
@@ -10,7 +10,7 @@ Enemy::~Enemy(void)
 {
 }
 
-void Enemy::Update(int D_x, int D_y, double dt)
+void Enemy::Update(Player* player, double dt)
 {
 
 }

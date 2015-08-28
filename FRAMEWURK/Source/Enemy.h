@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+class Player;
+
 class Enemy
 {
 public:
@@ -11,7 +13,7 @@ public:
 	~Enemy(void);
 
 
-	virtual void Update(int D_x, int D_y, double dt);
+	virtual void Update(Player* player, double dt);
 
 	// Set position x of the player
 	void SetPos(int pos_x, int pos_y);

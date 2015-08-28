@@ -263,8 +263,8 @@ void ModelHandler::Update(const double dt)
 
 
 	//Enemy Code
-	Evil->Update(player->getPosition().x, player->getPosition().y, dt); 
-	m_objectList[8]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
+	Evil->Update(player, dt); 
+	m_objectList[9]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
 }
 
 Camera ModelHandler::getCamera()
