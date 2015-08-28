@@ -6,8 +6,9 @@
 #include "World.h"
 #include "Vector3.h"
 #include "Inventory.h"
-
 #include <string>
+
+class ModelHandler;
 
 #define PLAYERNAME_SIZE 20
 #define PLAYER_INVENTORY_SIZE 2          // 0 for Consumable, 1 for Equipment
@@ -74,8 +75,8 @@ public:
 	~Player();
 	
 	virtual void move(double dt, std::vector<std::vector<int>> collisionMap);
-	virtual void update(double dt, World* currentWorld, int currentRoom);
-	virtual void Interact(double dt, World* currentWorld, std::vector<std::vector<int>> collisionMap);
+	virtual void update(double dt, World* currentWorld, int currentRoom, ModelHandler * theModel);
+	virtual void Interact(double dt, World* currentWorld, std::vector<std::vector<int>> collisionMap, ModelHandler * theModel);
 
 	Vector3 getPosition()
 	{

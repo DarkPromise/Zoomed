@@ -39,6 +39,11 @@ public:
 	ModelHandler();
 	~ModelHandler();
 
+	ModelHandler *getInstance()
+	{
+		return this;
+	}
+
 	Camera getCamera();
 
 	void Init();

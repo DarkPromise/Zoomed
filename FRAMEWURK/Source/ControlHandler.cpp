@@ -215,6 +215,15 @@ void ControlHandler::KeyboardUpdate()
 	}
 	else
 	{
+		//theModel->getPlayer()->controls.use = false;
+	}
+
+	if(theView->IsKeyPressed('E'))
+	{
+		theModel->getPlayer()->controls.use = true;
+	}
+	else
+	{
 		theModel->getPlayer()->controls.use = false;
 	}
 
@@ -239,8 +248,6 @@ void ControlHandler::KeyboardUpdate()
 		{
 			theModel->currentWorld = (WORLD_ID)((int)(theModel->currentWorld)+1);
 		}
-
-		theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
 		/*theModel->m_worldList[1]->m_roomList[0]->generateRoom();
 		theModel->m_worldList[1]->m_roomList[1]->generateRoom();
 

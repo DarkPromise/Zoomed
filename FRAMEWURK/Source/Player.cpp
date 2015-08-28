@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "ModelHandler.h"
 
 Player::Player(std::string name)
 	: on_ground(true),
@@ -31,7 +32,8 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	int xColiision = (int)(m_playerPos.x/32);
 	/*std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
 	std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;*/
-	if (controls.use)
+
+	/*if (controls.use)
 	{
 			std::cout << "Start" << std::endl;
 		for(unsigned i = 0; i < collisionMap.size(); ++i)
@@ -48,7 +50,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 		std::cout << "End" << std::endl;
 
 		system("pause");
-	}
+	}*/
 
 	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y+32 < 0)
 	{
@@ -84,8 +86,10 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	}
 }
 
-void Player::update(double dt, World* currentWorld, int currentRoom)
+void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandler * theModel)
 {
+	//std::cout << this->m_playerPos << std::endl;
+
 	m_movementTimer += dt;
 	m_immunityTimer -= dt;
 
@@ -100,7 +104,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
 
 	move(dt,currentWorld->collisionData);
-	Interact(dt, currentWorld, currentWorld->collisionData);
+	Interact(dt, currentWorld, currentWorld->collisionData,theModel);
 
 	m_fearCooldown -= dt;
 	if(m_fearCooldown <= 0.0)
@@ -156,7 +160,7 @@ void Player::getPassiveEffect(Item * item)
 	}
 }
 
-void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<int>> collisionMap)
+void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<int>> collisionMap, ModelHandler * theModel)
 {
 	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
 	int xColiision = (int)(m_playerPos.x/32);
@@ -268,15 +272,70 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 	{
 	case 100:
 		std::cout << "Wall Below" << std::endl;
+		if(currentWorld->getWorldID() == WORLD_MAINMENU)
+		{
+			switch(currentWorld->sceneryData[yColiision+1][xColiision])
+			{
+			case MAINMENU_PILLOWBEDTOP:
+				{
+					if ((controls.use) && ((m_playerPos.y -32 == -640) && (m_playerPos.x  == 864)))
+					{
+						std::cout << "Test" << std::endl;
+						theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
+						theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
+					}
+				}
+				break;
+			case MAINMENU_PILLOWBEDBOTTOM:
+				{
+
+				}
+				break;
+			case MAINMENU_PILLOWLESSBEDTOP:
+				{
+
+				}
+				break;
+			case MAINMENU_PILLOWLESSBEDBOTTOM:
+				{
+
+				}
+				break;
+			}
+		}
 		break;
 	default:
 		break;
 	}
 
+
 	switch(collisionMap[yColiision-1][xColiision])
 	{
 	case 100:
 		std::cout << "Wall Above" << std::endl;
+		switch(currentWorld->sceneryData[yColiision+1][xColiision])
+		{
+		case MAINMENU_PILLOWBEDTOP:
+			{
+				
+			}
+			break;
+		case MAINMENU_PILLOWBEDBOTTOM:
+			{
+
+			}
+			break;
+		case MAINMENU_PILLOWLESSBEDTOP:
+			{
+
+			}
+			break;
+		case MAINMENU_PILLOWLESSBEDBOTTOM:
+			{
+
+			}
+			break;
+		}
 		break;
 	default:
 		break;
