@@ -38,7 +38,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	Math::InitRNG();
 
 	player = new Player("Josh");
-	player->setPosition(Vector3(32,-32, 0));
+	player->setPosition(Vector3(800,-1248, 0));
 
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
 	
@@ -256,10 +256,7 @@ void ModelHandler::Update(const double dt)
 
 	system("pause");*/
 
-	//friend enemy code
-	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y));
-	//std::cout << (player->getPosition().x) << " " << (player->getPosition().y) << std::endl;
-	//std::cout << (int)((player->getPosition().x)/32) << " "  << (int)((player->getPosition().y)/32) << std::endl;
+	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y),getInstance());
 
 	if (m_worldList[currentWorld]->UpdateWorld)
 	{

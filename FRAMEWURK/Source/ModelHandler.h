@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "Define.h"
 #include "Camera.h"
 #include "Game.h"
 #include "Player.h"

@@ -88,7 +88,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 
 void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandler * theModel)
 {
-	//std::cout << this->m_playerPos << std::endl;
+	std::cout << this->m_playerPos << std::endl;
 
 	m_movementTimer += dt;
 	m_immunityTimer -= dt;
@@ -278,7 +278,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 			{
 			case MAINMENU_PILLOWBEDTOP:
 				{
-					if ((controls.use) && ((m_playerPos.y -32 == -640) && (m_playerPos.x  == 864)))
+					if ((controls.use) && ((m_playerPos.y -32 == MainMenuNight1PositionY) && (m_playerPos.x  == MainMenuNight1PositionX)))
 					{
 						std::cout << "Test" << std::endl;
 						theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
