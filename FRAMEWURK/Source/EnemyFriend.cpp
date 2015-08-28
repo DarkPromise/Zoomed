@@ -20,22 +20,22 @@ void EnemyFriend::Update(Player* player, double dt)
 
 	//SetDestination(player->getPosition().x, player->getPosition().y);
 
-	if (player->getPlayerControl().up && AccumulatedTime > this->GetDelay() && !(abs(this->GetPos_x() == player->getPosition().x) && (this->GetPos_y()+32 == player->getPosition().y)) && colData[abs(GetPos_y()/32) + 24][GetPos_x()/32] < 100 && (abs(GetPos_y()/32)-2) > 0)
+	if (player->getPlayerControl().up && AccumulatedTime > this->GetDelay() && !(abs(this->GetPos_x() == (int)(player->getPosition().x)) && (this->GetPos_y()+32 == player->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 24][(int)(GetPos_x()/32)] < 100 && (abs(GetPos_y()/32)-2) > 0)
 	{
 		AccumulatedTime = 0;
 		MoveUp();
 	}
-	else if (player->getPlayerControl().down && AccumulatedTime > player->getMovementDelay() && !(abs(this->GetPos_x() == player->getPosition().x) && (this->GetPos_y()-32 == player->getPosition().y)) && colData[Math::Min(abs(GetPos_y()/32) + 26, (int)(colData.size()-1))][GetPos_x()/32] < 100 && (abs(GetPos_y()/32)+26) < colData.size())
+	else if (player->getPlayerControl().down && AccumulatedTime > player->getMovementDelay() && !(abs(this->GetPos_x() == (int)(player->getPosition().x)) && (this->GetPos_y()-32 == player->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 26][(int)(GetPos_x()/32)] < 100 && (abs(GetPos_y()/32)+26) < colData.size())
 	{
 		AccumulatedTime = 0;
 		MoveDown();
 	}
-	else if (player->getPlayerControl().left && AccumulatedTime > this->GetDelay() && !(abs(this->GetPos_x()+32 == player->getPosition().x) && (this->GetPos_y() == player->getPosition().y)) && colData[abs(GetPos_y()/32) + 25][(GetPos_x()/32) - 1] < 100)
+	else if (player->getPlayerControl().left && AccumulatedTime > this->GetDelay() && !(abs(this->GetPos_x()+32 == (int)(player->getPosition().x)) && (this->GetPos_y() == player->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 25][(int)((GetPos_x()/32)) - 1] < 100)
 	{
 		AccumulatedTime = 0;
 		MoveLeft();
 	}
-	else if (player->getPlayerControl().right && AccumulatedTime > this->GetDelay() && !(abs(this->GetPos_x()-32 == player->getPosition().x) && (this->GetPos_y() == player->getPosition().y)) && colData[abs(GetPos_y()/32) + 25][(GetPos_x()/32) + 1] < 100)
+	else if (player->getPlayerControl().right && AccumulatedTime > this->GetDelay() && !(abs(this->GetPos_x()-32 == (int)(player->getPosition().x)) && (this->GetPos_y() == player->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 25][(int)((GetPos_x()/32)) + 1] < 100)
 	{
 		AccumulatedTime = 0;
 		MoveRight();
@@ -67,16 +67,16 @@ void EnemyFriend::Move()
 
 		Down = false;
 
-		if(GetDestination_x() - GetPos_x() > 0 && colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 + 1] < 100)
+		if(GetDestination_x() - GetPos_x() > 0 && colData[(int)(abs(GetPos_y()/32.f)) + 25][(int)(GetPos_x()/32) + 1] < 100)
 			Right = true;
 
-		if(GetDestination_x() - GetPos_x() < 0 && colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 - 1] < 100)
+		if(GetDestination_x() - GetPos_x() < 0 && colData[(int)(abs(GetPos_y()/32.f)) + 25][(int)(GetPos_x()/32) - 1] < 100)
 			Left = true;
 
-		if (GetDestination_y() - GetPos_y() < 0 && colData[abs(GetPos_y()/32) + 26][GetPos_x()/32] < 100)
+		if (GetDestination_y() - GetPos_y() < 0 && colData[(int)(abs(GetPos_y()/32.f)) + 26][(int)(GetPos_x()/32)] < 100)
 			Down = true;
 
-		if(GetDestination_y() - GetPos_y() > 0 && colData[abs(GetPos_y()/32) + 24][GetPos_x()/32] < 100)
+		if(GetDestination_y() - GetPos_y() > 0 && colData[(int)(abs(GetPos_y()/32.f)) + 24][(int)(GetPos_x()/32)] < 100)
 			Up = true;
 
 
