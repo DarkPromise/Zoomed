@@ -255,6 +255,28 @@ Return a random float between min and max
 	{
 		return (number > 0.0f) ? floor(number + 0.5f) : ceil(number - 0.5f);
 	}
+
+	inline float SmoothDamp(float current, float target, float currVelocity, float smoothTime, float maxSpeed, float deltaTime)
+	{
+		smoothTime = Math::Max(0.0001f,smoothTime);
+		float num = 2.f / smoothTime;
+		float num2 =  num * deltaTime;
+		float num3 = 1.f / (1.f + num2 + 0.48f * num2 * num2 + 0.235f * num2 * num2	* num2);
+		float num4 = current - target;
+		float num5 = target;
+		float num6 = maxSpeed * smoothTime;
+		num4 = Math::Clamp(num4,-num6,num6);
+		target = current - num4;
+		float num7 = (currVelocity + num * num4) * deltaTime;
+		currVelocity = (currVelocity - num * num7) * num3;
+		float num8 = target + (num4 + num7) * num3;
+		if(num5 - current > 0.f == num8 > num5)
+		{
+			num8 = num5;
+			currVelocity = (num8 - num5) / deltaTime;
+		}
+		return num8;
+	}
 }//end namespace Math
 
 /******************************************************************************/

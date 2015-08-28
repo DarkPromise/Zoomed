@@ -14,7 +14,7 @@ Player::Player(std::string name)
 	m_playerDirection(1,0,0),
 	m_boundingbox(1.f,1.f,1.f,-1.f,-1.f,-1.f),           //Can be used for QuadTree, just leaving here for now
 	m_playerSanity(0.f),
-	m_animationState(STATE_IDLE),
+	m_animationState(STATE_IDLE_DOWN),
 	m_fearCooldown(0.0)
 {
 	this->m_name = name;
