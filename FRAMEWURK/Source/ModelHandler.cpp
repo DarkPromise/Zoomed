@@ -38,7 +38,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	Math::InitRNG();
 
 	player = new Player("Josh");
-	player->setPosition(Vector3(832,-608, 0));
+	player->setPosition(Vector3(32,-32, 0));
 
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
 	
@@ -122,10 +122,10 @@ void ModelHandler::Init() //Anything that moves in the game
 	Evil->SetData(m_worldList[currentWorld]->collisionData);
 	Evil->SetDelay(0.1);
 
-	Friend = new EnemyFriend;
-	Friend->SetPos(0,-32);
-	Friend->SetData(m_worldList[currentWorld]->collisionData);
-	Friend->SetDelay(player->getMovementDelay());
+	//Friend = new EnemyFriend;
+	//Friend->SetPos(0,-32);
+	//Friend->SetData(m_worldList[currentWorld]->collisionData);
+	//Friend->SetDelay(player->getMovementDelay());
 	
 }
 
@@ -207,6 +207,10 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
 	m_objectList.push_back(object);
 
+	//object = new GameObject("Enemy", TYPE_ENEMY, Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0.f));
+	//object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(0.f,0.f,1.f),32.f));
+	//m_objectList.push_back(object);
+
 	Item * testItem = new Item("Test Item 1",ITEM_REDUCE_FEAR_POTION);
 	testItem->setDescription("Just a test item :D");
 	m_itemList.push_back(testItem);
@@ -253,10 +257,7 @@ void ModelHandler::Update(const double dt)
 	system("pause");*/
 
 	//friend enemy code
-	Friend->Update(player, dt);
-	m_objectList[9]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
-
-	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y), getInstance());
+	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y));
 	//std::cout << (player->getPosition().x) << " " << (player->getPosition().y) << std::endl;
 	//std::cout << (int)((player->getPosition().x)/32) << " "  << (int)((player->getPosition().y)/32) << std::endl;
 
@@ -271,7 +272,11 @@ void ModelHandler::Update(const double dt)
 	}
 
 	//Enemy Code
+	//Friend->Update(player, dt);
+	//m_objectList[10]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
+
 	Evil->Update(player, dt); 
+	m_objectList[9]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
 }
 
 Camera ModelHandler::getCamera()
