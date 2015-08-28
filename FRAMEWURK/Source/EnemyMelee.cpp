@@ -85,16 +85,16 @@ void EnemyMelee::Move()
 		Down = false;
 
 
-		if(GetDestination_x() - GetPos_x() > 0 && colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 + 1] < 100)
+		if(GetDestination_x() - GetPos_x() > 0 && colData[abs(static_cast<int>(GetPos_y())/32) + 25][static_cast<int>(GetPos_x())/32 + 1] < 100)
 			Right = true;
 
-		if(GetDestination_x() - GetPos_x() < 0 && colData[abs(GetPos_y()/32) + 25][GetPos_x()/32 - 1] < 100)
+		if(GetDestination_x() - GetPos_x() < 0 && colData[abs(static_cast<int>(GetPos_y()/32)) + 25][static_cast<int>(GetPos_x()/32) - 1] < 100)
 			Left = true;
 
-		if (GetDestination_y() - GetPos_y() < 0 && colData[abs(GetPos_y()/32) + 26][GetPos_x()/32] < 100)
+		if (GetDestination_y() - GetPos_y() < 0 && colData[abs(static_cast<int>(GetPos_y()/32)) + 26][static_cast<int>(GetPos_x()/32)] < 100)
 			Down = true;
 
-		if(GetDestination_y() - GetPos_y() > 0 && colData[abs(GetPos_y()/32) + 24][GetPos_x()/32] < 100)
+		if(GetDestination_y() - GetPos_y() > 0 && colData[abs(static_cast<int>(GetPos_y()/32)) + 24][static_cast<int>(GetPos_x()/32)] < 100)
 			Up = true;
 
 
