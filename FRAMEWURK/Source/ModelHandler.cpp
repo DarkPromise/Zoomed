@@ -206,7 +206,7 @@ bool ModelHandler::InitObjects()
 	testItem->setDescription("Just a test item :D");
 	m_itemList.push_back(testItem);
 
-	testItem = new Item("Test Item 2");
+	testItem = new Item("Test Item 2", ITEM_EQUIPMENT_BOOTS);
 	testItem->setDescription("Equipment Test");
 	m_itemList.push_back(testItem);
 

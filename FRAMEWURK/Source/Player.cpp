@@ -172,7 +172,7 @@ void Player::getPassiveEffect(Item * item)
 	case ITEM_SAFETY_CHARM:
 		break;
 	case ITEM_EQUIPMENT_BOOTS:
-		m_movementDelay = 0.06;
+		m_movementDelay -= 0.02;
 		break;
 	case ITEM_EQUIPMENT_GLASSES:
 		break;
