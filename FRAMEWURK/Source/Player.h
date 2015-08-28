@@ -137,6 +137,9 @@ public:
 	
 	double getImmunityTimer();
 	void setImmunityTimer(double time);
+
+	float getVisiblityFactor();
+	void setVisibilityFactor(float visibility);
 protected:
 	std::string m_name;
 	double m_movementDelay;
@@ -148,6 +151,7 @@ protected:
 	BoundingBox m_boundingbox;
 
 	float m_playerSanity;
+	float m_visiblityFactor;
 
 	Inventory m_playerInventory;
 

@@ -15,7 +15,8 @@ Player::Player(std::string name)
 	m_boundingbox(1.f,1.f,1.f,-1.f,-1.f,-1.f),           //Can be used for QuadTree, just leaving here for now
 	m_playerSanity(0.f),
 	m_animationState(STATE_IDLE_DOWN),
-	m_fearCooldown(0.0)
+	m_fearCooldown(0.0),
+	m_visiblityFactor(0.f)
 {
 	this->m_name = name;
 }
@@ -96,9 +97,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 	{
 		m_movementDelay = 0.08; // fer weng jew
 	}
-	std::cout << "1 : " << m_movementDelay << std::endl;
 	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
-	std::cout << "2 : " << m_movementDelay << std::endl;
 
 	move(dt,currentWorld->collisionData);
 	Interact(dt, currentWorld, currentWorld->collisionData);
@@ -312,3 +311,12 @@ void Player::setImmunityTimer(double time)
 	this->m_immunityTimer = time;
 }
 
+float Player::getVisiblityFactor()
+{
+	return this->m_visiblityFactor;
+}
+
+void Player::setVisibilityFactor(float visibility)
+{
+	this->m_visiblityFactor = visibility;
+}
