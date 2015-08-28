@@ -16,26 +16,26 @@ public:
 	virtual void Update(Player* player, double dt);
 
 	// Set position x of the player
-	void SetPos(int pos_x, int pos_y);
+	void SetPos(float pos_x, float pos_y);
 	// Set the destination of this enemy
-	void SetDestination(const int pos_x, const int pos_y);
+	void SetDestination(float pos_x, float pos_y);
 
 	// Get position x of the player
-	int GetPos_x(void);
+	float GetPos_x(void);
 	// Get position y of the player
-	int GetPos_y(void);
+	float GetPos_y(void);
 	// Set the destination of this enemy
-	int GetDestination_x(void);
+	float GetDestination_x(void);
 	// Set the destination of this enemy
-	int GetDestination_y(void);
+	float GetDestination_y(void);
 
 
 	
-	int CalculateDistance();
+	float CalculateDistance();
 
-	int CalculateDistance_x();
+	float CalculateDistance_x();
 
-	int CalculateDistance_y();
+	float CalculateDistance_y();
 
 	void MoveRight();
 
@@ -65,15 +65,15 @@ public:
 
 private:
 	// ENEMY's information
-	int theEnemyPosition_x;
-	int theEnemyPosition_y;
+	float theEnemyPosition_x;
+	float theEnemyPosition_y;
 
 	/*bool enemyAnimationInvert;
 	int enemyAnimationCounter;*/
 
 	// The Destination is the position of the Hero
-	int theDestination_x;
-	int theDestination_y;
+	float theDestination_x;
+	float theDestination_y;
 
 	double EnemyDelay;
 

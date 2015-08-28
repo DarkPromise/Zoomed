@@ -16,7 +16,7 @@ void Enemy::Update(Player* player, double dt)
 }
 
 // Set position of the player
-void Enemy::SetPos(int x, int y)
+void Enemy::SetPos(float x, float y)
 {
 	theEnemyPosition_x = x;
 	theEnemyPosition_y = y;
@@ -24,47 +24,47 @@ void Enemy::SetPos(int x, int y)
 
 
 // Set the destination of this enemy
-void Enemy::SetDestination(const int pos_x, const int pos_y)
+void Enemy::SetDestination(float pos_x, float pos_y)
 {
 	theDestination_x = pos_x;
 	theDestination_y = pos_y;
 }
 
 // Get position x of the player
-int Enemy::GetPos_x(void)
+float Enemy::GetPos_x(void)
 {
 	return theEnemyPosition_x;
 }
 
 // Get position y of the player
-int Enemy::GetPos_y(void)
+float Enemy::GetPos_y(void)
 {
 	return theEnemyPosition_y;
 }
 
 // Set the destination of this enemy
-int Enemy::GetDestination_x(void)
+float Enemy::GetDestination_x(void)
 {
 	return theDestination_x;
 }
 
 // Set the destination of this enemy
-int Enemy::GetDestination_y(void)
+float Enemy::GetDestination_y(void)
 {
 	return theDestination_y;
 }
 
 
 
-int Enemy::CalculateDistance()
+float Enemy::CalculateDistance()
 {
 	return ((theDestination_x - theEnemyPosition_x)*(theDestination_x - theEnemyPosition_x) + 
 			(theDestination_y - theEnemyPosition_y)*(theDestination_y - theEnemyPosition_y));
 }
 
-int Enemy::CalculateDistance_x()
+float Enemy::CalculateDistance_x()
 {
-	int x = theDestination_x - theEnemyPosition_x;
+	float x = theDestination_x - theEnemyPosition_x;
 
 	if(x < 0)
 	{
@@ -75,9 +75,9 @@ int Enemy::CalculateDistance_x()
 }
 
 
-int Enemy::CalculateDistance_y()
+float Enemy::CalculateDistance_y()
 {
-	int y = theDestination_y - theEnemyPosition_y;
+	float y = theDestination_y - theEnemyPosition_y;
 
 	if(y < 0)
 	{
