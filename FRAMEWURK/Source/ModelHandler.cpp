@@ -132,14 +132,14 @@ void ModelHandler::Init() //Anything that moves in the game
 bool ModelHandler::InitObjects()
 {
 	GameObject * object = new GameObject("Test Animation");
-	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Test Animation",1,3,24.f,48.f));
-	object->getMesh()->textureArray[0] = LoadTGA("Images//playerTest.tga");    //Current State 
+	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Test Animation",2,6,24.f,48.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//playerTest2.tga");    //Current State 
 	m_objectList.push_back(object);
 	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
 	if(playerAnimation)
 	{
 		playerAnimation->m_anim = new Animation();
-		playerAnimation->m_anim->Set(0,2,0,0.1f);
+		playerAnimation->m_anim->Set(0,2,0,0.3f);
 	}
 
 	object = new GameObject("Axes");
@@ -243,18 +243,22 @@ void ModelHandler::Update(const double dt)
 {
 	camera.Update(dt);
 
-	/*std::cout << "Start" << std::endl;
-	for(int i = 0; i < m_worldList[currentWorld]->sceneryData.size(); ++i)
+	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
+	switch(player->m_animationState)
 		{
-			for(int j = 0; j < m_worldList[currentWorld]->sceneryData[i].size(); ++j)
-			{
-				std::cout << Mszm_worldList[currentWorld]->collisionData[i][j] << " ";
-			}
-			std::cout << std::endl;
+		case Player::STATE_WALKING_UP:
+			playerAnimation->m_anim->Set(6,8,0,0.3f);
+			break;
+		case Player::STATE_WALKING_DOWN:
+			playerAnimation->m_anim->Set(0,2,0,0.3f);
+			break;
+		case Player::STATE_WALKING_LEFT:
+			playerAnimation->m_anim->Set(3,5,0,0.3f);
+			break;
+		case Player::STATE_WALKING_RIGHT:
+			playerAnimation->m_anim->Set(9,11,0,0.3f);
+			break;
 		}
-	std::cout << "End" << std::endl;
-
-	system("pause");*/
 
 	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y),getInstance());
 

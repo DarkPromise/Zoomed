@@ -54,6 +54,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 
 	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y+32 < 0)
 	{
+		this->m_animationState = Player::STATE_WALKING_UP;
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
 		m_currFear += (float)dt * 3;
@@ -62,14 +63,17 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	}
 	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision+1][xColiision] < 100 && yColiision+2 < collisionMap.size()))
 	{
+		this->m_animationState = Player::STATE_WALKING_DOWN;
 		this->m_movementTimer = 0.0;
 		m_playerPos.y -= 32;
 		m_currFear += (float)dt * 3;
 		m_fearCooldown = 1.0;
 		stand_activated = false;
 	}
+
 	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision-1] <100) && (m_playerPos.x-32 > 0))
 	{
+		this->m_animationState = Player::STATE_WALKING_LEFT;
 		this->m_movementTimer = 0.0;
 		m_playerPos.x -= 32;
 		m_currFear += (float)dt * 3;
@@ -78,6 +82,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 	}
 	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] <100 && xColiision+2 < collisionMap[0].size()))
 	{
+		this->m_animationState = Player::STATE_WALKING_RIGHT;
 		this->m_movementTimer = 0.0;
 		m_playerPos.x += 32;
 		m_currFear += (float)dt * 3;
