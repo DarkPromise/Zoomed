@@ -94,10 +94,11 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 	}
 	else
 	{
-		m_movementDelay = 0.06; // fer weng jew
+		m_movementDelay = 0.08; // fer weng jew
 	}
-
+	std::cout << "1 : " << m_movementDelay << std::endl;
 	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
+	std::cout << "2 : " << m_movementDelay << std::endl;
 
 	move(dt,currentWorld->collisionData);
 	Interact(dt, currentWorld, currentWorld->collisionData);

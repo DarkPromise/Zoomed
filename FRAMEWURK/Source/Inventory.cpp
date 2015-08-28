@@ -63,20 +63,15 @@ void Inventory::useItem(int slot, Player * player)
 			player->getCurrFear() -= 40.f;
 			break;
 		case ITEM_SUPPRESS_FEAR_POTION:
+			player->getCurrFear() = 0.f;
+			player->setImmunityTimer(5.0);
 			break;
 		case ITEM_COMPASS:
 			break;
 		case ITEM_MAP:
 			break;
 		case ITEM_SAFETY_CHARM:
-			break;
-		case ITEM_EQUIPMENT_BOOTS:
-			break;
-		case ITEM_EQUIPMENT_GLASSES:
-			break;
-		case ITEM_EQUIPMENT_ARMOR:
-			break;
-		case ITEM_EQUIPMENT_INVISCLOAK:
+			player->setImmunityTimer(10.0);
 			break;
 		}
 		removeItem(slot); //Remove Item after using it
