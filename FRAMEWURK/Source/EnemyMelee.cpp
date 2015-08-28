@@ -31,31 +31,37 @@ void EnemyMelee::onHit(Player* player)
 {
 	if(CalculateDistance_x() == 32 && CalculateDistance_y() == 0)
 	{
-		if(player->getCurrFear() < 100.f)
+		if(player->getImmunityTimer() < 0.0)
 		{
-			if(player->getCurrFear() + 10.f > 100.f)
+			if(player->getCurrFear() < 100.f)
 			{
-				player->getCurrFear() = 100.f;
-			}
-			else
-			{
-
-				player->getCurrFear() += 10;
+				if(player->getCurrFear() + 10.f > 100.f)
+				{
+					player->getCurrFear() = 100.f;
+				}
+				else
+				{
+					player->getCurrFear() += 10;
+				}
+				player->setImmunityTimer(1.0);
 			}
 		}
 	}
 	else if(CalculateDistance_x() == 0 && CalculateDistance_y() == 32)
 	{
-		if(player->getCurrFear() < 100.f)
+		if(player->getImmunityTimer() < 0.0)
 		{
-			if(player->getCurrFear() + 10.f > 100.f)
+			if(player->getCurrFear() < 100.f)
 			{
-				player->getCurrFear() = 100.f;
-			}
-			else
-			{
-
-				player->getCurrFear() += 10;
+				if(player->getCurrFear() + 10.f > 100.f)
+				{
+					player->getCurrFear() = 100.f;
+				}
+				else
+				{
+					player->getCurrFear() += 10;
+				}
+				player->setImmunityTimer(1.0);
 			}
 		}
 	}

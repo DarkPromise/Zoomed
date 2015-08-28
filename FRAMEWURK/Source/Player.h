@@ -124,23 +124,21 @@ public:
 
 	unsigned keyPressed;
 
-	int GetMapOffset_x(void);
-	int GetMapOffset_y(void);
-	int GetMapFineOffset_x(void);
-	int GetMapFineOffset_y(void);
-	void ConstraintPlayer(const int left, const int right, const int top, const int bottom, float time);
-
 	Inventory &getInventory();
 	float getSanity();
 
 	CURRENT_STATE m_animationState;
 
 	void getPassiveEffect(Item * item);
+	
+	double getImmunityTimer();
+	void setImmunityTimer(double time);
 protected:
 	std::string m_name;
 	double m_movementDelay;
 	double m_movementTimer;
 	double m_fearCooldown;
+	double m_immunityTimer;
 	Vector3 m_playerPos;
 	Vector3 m_playerDirection;
 	BoundingBox m_boundingbox;
@@ -151,10 +149,6 @@ protected:
 
 	float m_currFear;
 	float m_maxFear;
-
-	//Scrolling
-	int mapOffset_x, mapOffset_y;
-	int mapFineOffset_x, mapFineOffset_y;
 };
 
 #endif

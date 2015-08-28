@@ -13,10 +13,6 @@ Player::Player(std::string name)
 	m_playerPos(0,0,0),
 	m_playerDirection(1,0,0),
 	m_boundingbox(1.f,1.f,1.f,-1.f,-1.f,-1.f),           //Can be used for QuadTree, just leaving here for now
-	mapOffset_x(0),
-	mapOffset_y(0),
-	mapFineOffset_x(0),
-	mapFineOffset_y(0),
 	m_playerSanity(0.f),
 	m_animationState(STATE_IDLE),
 	m_fearCooldown(0.0)
@@ -90,6 +86,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 void Player::update(double dt, World* currentWorld, int currentRoom)
 {
 	m_movementTimer += dt;
+	m_immunityTimer -= dt;
 
 	if(m_currFear > 50)
 	{
@@ -113,30 +110,6 @@ void Player::update(double dt, World* currentWorld, int currentRoom)
 	}
 	m_currFear = Math::Clamp(m_currFear,2.f,100.f);
 	m_playerSanity = Math::RandFloatMinMax(60.f,80.f);
-}
-
-int Player::GetMapOffset_x(void)
-{
-	return mapOffset_x;
-}
-
-int Player::GetMapOffset_y(void)
-{
-	return mapOffset_y;
-}
-
-int Player::GetMapFineOffset_x(void)
-{
-	return mapFineOffset_x;
-}
-int Player::GetMapFineOffset_y(void)
-{
-	return mapFineOffset_y;
-}
-
-void Player::ConstraintPlayer(const int left, const int right, const int top, const int bottom, float time)
-{
-	
 }
 
 Inventory &Player::getInventory()
@@ -327,3 +300,14 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 		break;
 	}
 }
+
+double Player::getImmunityTimer()
+{
+	return this->m_immunityTimer;
+}
+
+void Player::setImmunityTimer(double time)
+{
+	this->m_immunityTimer = time;
+}
+
