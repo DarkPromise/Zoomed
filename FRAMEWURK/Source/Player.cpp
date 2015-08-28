@@ -6,8 +6,8 @@ Player::Player(std::string name)
 	stand_activated(false),
 	keyPressed(0),
 // Protected Info
-	m_maxFear(100),
-	m_currFear(5),
+	m_maxFear(100.f),
+	m_currFear(2.f),
 	m_movementDelay(0.0),
 	m_movementTimer(0.0),
 	m_playerPos(0,0,0),
@@ -53,7 +53,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 		system("pause");
 	}
 
-	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y < 0)
+	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y+32 < 0)
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y += 32;
@@ -61,7 +61,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 		m_fearCooldown = 1.0;
 		stand_activated = false;
 	}
-	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision+1][xColiision] < 100 && m_playerPos.y < (collisionMap.size()+25)*32))
+	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision+1][xColiision] < 100 && yColiision+2 < collisionMap.size()))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.y -= 32;
@@ -69,7 +69,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 		m_fearCooldown = 1.0;
 		stand_activated = false;
 	}
-	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision-1] <100) && m_playerPos.x > 0)
+	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision-1] <100) && (m_playerPos.x-32 > 0))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x -= 32;
@@ -77,7 +77,7 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 		m_fearCooldown = 1.0;
 		stand_activated = false;
 	}
-	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] <100))
+	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] <100 && xColiision+2 < collisionMap[0].size()))
 	{
 		this->m_movementTimer = 0.0;
 		m_playerPos.x += 32;
@@ -89,18 +89,18 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 
 void Player::update(double dt, World* currentWorld, int currentRoom)
 {
-	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
-
 	m_movementTimer += dt;
 
 	if(m_currFear > 50)
 	{
-		m_movementDelay = 0.0;
+		m_movementDelay = 0.1;
 	}
 	else
 	{
-		m_movementDelay = 0.0; // fer weng jew
+		m_movementDelay = 0.06; // fer weng jew
 	}
+
+	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
 
 	move(dt,currentWorld->collisionData);
 	Interact(dt, currentWorld, currentWorld->collisionData);
@@ -172,6 +172,7 @@ void Player::getPassiveEffect(Item * item)
 	case ITEM_SAFETY_CHARM:
 		break;
 	case ITEM_EQUIPMENT_BOOTS:
+		m_movementDelay = 0.06;
 		break;
 	case ITEM_EQUIPMENT_GLASSES:
 		break;
