@@ -557,6 +557,8 @@ void ViewHandler::RenderScene()
 					modelStack.Translate(theModel->m_objectList[i]->getPosition().x + 16,theModel->m_objectList[i]->getPosition().y + 16,theModel->m_objectList[i]->getPosition().z);
 					RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 					modelStack.PopMatrix();
+
+					//std::cout << theModel->m_objectList[i]->getPosition().x << std::endl;
 				}
 				else
 				{

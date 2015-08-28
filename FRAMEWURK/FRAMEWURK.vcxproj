@@ -84,6 +84,7 @@
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\ControlHandler.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\EnemyFriend.cpp" />
     <ClCompile Include="Source\EnemyMelee.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameApplication.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\ControlHandler.h" />
     <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\EnemyFriend.h" />
     <ClInclude Include="Source\EnemyMelee.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\GameApplication.h" />

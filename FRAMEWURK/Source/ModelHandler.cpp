@@ -51,7 +51,7 @@ void ModelHandler::Init() //Anything that moves in the game
 
 	// Give a 10 space buffer to the top and left for corridors
 
-	Room* newRoom = new Room(ROOM_MAINMENU, 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU, 10, 30, 0);
+	Room* newRoom = new Room(ROOM_MAINMENU, 800, 1024, 26, 32, 800, 1024,32,TILESET_MAIN_MENU, 10, 50, 0);
 	newRoom->LoadMap("MapData//Main_Menu//MainMenu_Foreground.csv","MapData//Main_Menu//MainMenu_Scenery.csv","MapData//Main_Menu//MainMenu_Background.csv","MapData//Main_Menu//MainMenu_Background.csv");
 	m_worldList[0]->m_roomList.push_back(newRoom);
 
@@ -59,17 +59,17 @@ void ModelHandler::Init() //Anything that moves in the game
 	newWorld = new World(WORLD_TEST);
 	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 10, 30, 0);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 10, 50, 0);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 30, 40, 1);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 30, 60, 1);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
 
-	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 50, 70, 2);
+	newRoom = new Room(ROOM_TESTPUZZLE, 512, 512, 16, 16, 512, 512,32,TILESET_ROOMS, 50, 90, 2);
 	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv","MapData//NIGHT3//P_ROOM_ONE_BACKGROUND.csv");
 	m_worldList[1]->m_roomList.push_back(newRoom);
@@ -77,12 +77,12 @@ void ModelHandler::Init() //Anything that moves in the game
 	newWorld = new World(WORLD_MECH);
 	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_MECH, 928, 768, 29, 24, 928, 768,32,TILESET_POOL, 10, 30, 0);
+	newRoom = new Room(ROOM_MECH, 928, 768, 29, 24, 928, 768,32,TILESET_POOL, 10, 50, 0);
 	newRoom->addExit(EXIT_LEFT);
 	newRoom->LoadMap("MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv");
 	m_worldList[2]->m_roomList.push_back(newRoom);
 
-	newRoom = new Room(ROOM_MECH, 928, 768, 29, 24, 928, 768,32,TILESET_POOL, 80, 80, 1);
+	newRoom = new Room(ROOM_MECH, 928, 768, 29, 24, 928, 768,32,TILESET_POOL, 80, 100, 1);
 	newRoom->addExit(EXIT_RIGHT);
 	newRoom->LoadMap("MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv");
 	m_worldList[2]->m_roomList.push_back(newRoom);
@@ -90,7 +90,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	newWorld = new World(WORLD_FRIENDS_TUTORIAL);
 	m_worldList.push_back(newWorld);
 	
-	newRoom = new Room(ROOM_TUTORIAL_FRIENDS, 896, 1408, 44, 28, 896, 1408,32,TILESET_BLUE, 20, 20, 0);
+	newRoom = new Room(ROOM_TUTORIAL_FRIENDS, 896, 1408, 44, 28, 896, 1408,32,TILESET_BLUE, 20, 40, 0);
 	//newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//Friends//Friends_Tutorial_Foreground.csv","MapData//Friends//Friends_Tutorial_Scenery.csv","MapData//Friends//Friends_Tutorial_Background.csv","MapData//Friends//Friends_Tutorial_Background.csv");
 	m_worldList[3]->m_roomList.push_back(newRoom);
@@ -98,7 +98,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	newWorld = new World(WORLD_SIGHT_TUTORIAL);
 	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_TUTORIAL_FRIENDS, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 20, 0);
+	newRoom = new Room(ROOM_TUTORIAL_FRIENDS, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 40, 0);
 	//newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT2//tutorial//lib_foreground.csv","MapData//NIGHT2//tutorial//lib_scenery.csv","MapData//NIGHT2//tutorial//lib_backgorund.csv","MapData//NIGHT2//tutorial//lib_backgorund.csv");
 	m_worldList[4]->m_roomList.push_back(newRoom);
@@ -121,6 +121,11 @@ void ModelHandler::Init() //Anything that moves in the game
 	Evil->SetPos(32,-32);
 	Evil->SetData(m_worldList[currentWorld]->collisionData);
 	Evil->SetDelay(0.1);
+
+	Friend = new EnemyFriend;
+	Friend->SetPos(0,-32);
+	Friend->SetData(m_worldList[currentWorld]->collisionData);
+	Friend->SetDelay(player->getMovementDelay());
 	
 }
 
@@ -247,6 +252,10 @@ void ModelHandler::Update(const double dt)
 
 	system("pause");*/
 
+	//friend enemy code
+	Friend->Update(player, dt);
+	m_objectList[9]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
+
 	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y));
 	//std::cout << (player->getPosition().x) << " " << (player->getPosition().y) << std::endl;
 	//std::cout << (int)((player->getPosition().x)/32) << " "  << (int)((player->getPosition().y)/32) << std::endl;
@@ -264,7 +273,6 @@ void ModelHandler::Update(const double dt)
 
 	//Enemy Code
 	Evil->Update(player, dt); 
-	m_objectList[9]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
 }
 
 Camera ModelHandler::getCamera()

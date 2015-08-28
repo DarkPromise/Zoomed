@@ -13,6 +13,7 @@
 #include "Item.h"
 #include "Gui.h"
 #include "EnemyMelee.h"
+#include "EnemyFriend.h"
 
 /************************************************
 
@@ -51,7 +52,7 @@ public:
 	double EnemyDelay;
 
 	Enemy* Evil;
-
+	Enemy* Friend;
 
 	std::vector<Enemy*> m_enemyList;
 

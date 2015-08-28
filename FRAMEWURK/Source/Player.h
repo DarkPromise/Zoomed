@@ -3,10 +3,11 @@
 
 #include "AxisAlignedBoundingBox.h"
 #include "Game.h" //Environment
-#include <string>
 #include "World.h"
 #include "Vector3.h"
 #include "Inventory.h"
+
+#include <string>
 
 #define PLAYERNAME_SIZE 20
 #define PLAYER_INVENTORY_SIZE 2          // 0 for Consumable, 1 for Equipment
@@ -114,6 +115,16 @@ public:
 	float &getMaxFear()
 	{
 		return this->m_maxFear;
+	}
+
+	float getMovementDelay()
+	{
+		return (float)(this->m_movementDelay);
+	}
+
+	float getMovementTimer()
+	{
+		return (float)(this->m_movementTimer);
 	}
 
 	bool on_ground;
