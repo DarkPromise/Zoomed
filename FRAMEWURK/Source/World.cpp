@@ -229,31 +229,39 @@ bool World::initCorridors()
 	}
 
 	//2 rooms or more, generate exits
-	while (exitConnectionList.size() != exitList.size()-1)
+	switch (this->WorldID)
 	{
-		bool correctConnections = false;
 
-		int firstRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
-		int secondRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
-
-
-		if (exitList[firstRoom]->roomID != exitList[secondRoom]->roomID && ((!exitList[firstRoom]->connected) || (!exitList[secondRoom]->connected)))
+	default:
 		{
-			Room_Exit_Connections* newConnection = new Room_Exit_Connections(exitList[firstRoom], exitList[secondRoom], CONNECTION_PATH_FIND);
-			exitConnectionList.push_back(newConnection);
-				
-			exitList[firstRoom]->connected = true;
-			exitList[secondRoom]->connected = true;
-
-		/*	if (secondRoom < firstRoom)
+			while (exitConnectionList.size() != exitList.size()-1)
 			{
-				int temp = secondRoom;
-				secondRoom = firstRoom;
-				firstRoom = temp;
-			}*/
+				bool correctConnections = false;
+
+				int firstRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
+				int secondRoom = Math::RandIntMinMax(0, this->m_roomList.size()-1);
 
 
+				if (exitList[firstRoom]->roomID != exitList[secondRoom]->roomID && ((!exitList[firstRoom]->connected) || (!exitList[secondRoom]->connected)))
+				{
+					Room_Exit_Connections* newConnection = new Room_Exit_Connections(exitList[firstRoom], exitList[secondRoom], CONNECTION_PATH_FIND);
+					exitConnectionList.push_back(newConnection);
+				
+					exitList[firstRoom]->connected = true;
+					exitList[secondRoom]->connected = true;
+
+				/*	if (secondRoom < firstRoom)
+					{
+						int temp = secondRoom;
+						secondRoom = firstRoom;
+						firstRoom = temp;
+					}*/
+
+
+				}
+			}
 		}
+		break;
 	}
 	
 	std::cout << "exits done" << std::endl;
