@@ -1,10 +1,13 @@
 #include "EnemyFriend.h"
 #include "Player.h"
+#include "World.h"
+#include "ModelHandler.h"
 
 EnemyFriend::EnemyFriend(void)
 {
 	AccumulatedTime = 0.0;
 	this->SetDelay(0);
+	this->state = STATE_IDLE_RIGHT;
 }
 
 EnemyFriend::~EnemyFriend(void)
@@ -12,33 +15,168 @@ EnemyFriend::~EnemyFriend(void)
 
 }
 
-void EnemyFriend::Update(Player* player, double dt)
+void EnemyFriend::Update(ModelHandler * theModel, double dt)
 {
 	AccumulatedTime += dt;
+
+	int yColiision = Math::Max(0, (int)((abs)(this->GetPos_y())/32)+25);
+	int xColiision = (int)(GetPos_x()/32);
 
 	//std::cout << abs(this->GetPos_y()-player->getPosition().y) << std::endl;
 
 	//SetDestination(player->getPosition().x, player->getPosition().y);
 
-	if (player->getPlayerControl().up && AccumulatedTime > player->getMovementDelay() && !(abs(this->GetPos_x() == (int)(player->getPosition().x)) && (this->GetPos_y()+32 == player->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 24][(int)(GetPos_x()/32)] < 100 && (abs(GetPos_y()/32)-1) > 0)
+	if (!stand_activated)
 	{
+		switch(colData[yColiision][xColiision])
+		{
+			case COLLISION_BLUE_TILEYELLOWBUTTON:
+			{
+				stand_activated = true;
+				for (unsigned i = 0; i < colData.size(); i++)
+				{
+					for (unsigned j = 0; j < colData[i].size(); j++)
+					{
+						if (theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] == BLUE_TILEYELLOWBLOCK_OFF)
+						{
+							theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] = BLUE_TILEYELLOWBLOCK;
+							theModel->m_worldList[theModel->currentWorld]->collisionData[i][j] = 100;
+							theModel->m_worldList[theModel->currentWorld]->UpdateWorld = true;
+						}
+						else if (theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] == BLUE_TILEYELLOWBLOCK)
+						{
+							theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] = BLUE_TILEYELLOWBLOCK_OFF;
+							theModel->m_worldList[theModel->currentWorld]->collisionData[i][j] = 0;
+							theModel->m_worldList[theModel->currentWorld]->UpdateWorld = true;
+						}
+					}
+				}
+				std::cout << "On yellow button" << std::endl;
+			}
+			break;
+			case COLLISION_BLUE_TILEGRAYBUTTON:
+			{
+				stand_activated = true;
+				for (unsigned i = 0; i < colData.size(); i++)
+				{
+					for (unsigned j = 0; j < colData[i].size(); j++)
+					{
+						if (theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] == BLUE_TILEGRAYBLOCK_OFF)
+						{
+							theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] = BLUE_TILEGRAYBLOCK;
+							theModel->m_worldList[theModel->currentWorld]->collisionData[i][j] = 100;
+							theModel->m_worldList[theModel->currentWorld]->UpdateWorld = true;
+						}
+						else if (theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] == BLUE_TILEGRAYBLOCK)
+						{
+							theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] = BLUE_TILEGRAYBLOCK_OFF;
+							theModel->m_worldList[theModel->currentWorld]->collisionData[i][j] = 0;
+							theModel->m_worldList[theModel->currentWorld]->UpdateWorld = true;
+						}
+					}
+				}
+				std::cout << "On gay button" << std::endl;
+			}
+			break;
+			case COLLISION_BLUE_TILEPURPLEBUTTON:
+			{
+				stand_activated = true;
+				for (unsigned i = 0; i < colData.size(); i++)
+				{
+					for (unsigned j = 0; j < colData[i].size(); j++)
+					{
+						if (theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] == BLUE_TILEPURPLEBLOCK_OFF)
+						{
+							theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] = BLUE_TILEPURPLEBLOCK;
+							theModel->m_worldList[theModel->currentWorld]->collisionData[i][j] = 100;
+							theModel->m_worldList[theModel->currentWorld]->UpdateWorld = true;
+						}
+						else if (theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] == BLUE_TILEPURPLEBLOCK)
+						{
+							theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] = BLUE_TILEPURPLEBLOCK_OFF;
+							theModel->m_worldList[theModel->currentWorld]->collisionData[i][j] = 0;
+							theModel->m_worldList[theModel->currentWorld]->UpdateWorld = true;
+						}
+					}
+				}
+				std::cout << "On purpur button" << std::endl;
+			}
+			break;
+			case COLLISION_BLUE_TILEREDBUTTON:
+			{
+				stand_activated = true;
+				for (unsigned i = 0; i < colData.size(); i++)
+				{
+					for (unsigned j = 0; j < colData[i].size(); j++)
+					{
+						if (theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] == BLUE_TILEREDBLOCK_OFF)
+						{
+							theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] = BLUE_TILEREDBLOCK;
+							theModel->m_worldList[theModel->currentWorld]->collisionData[i][j] = 100;
+							theModel->m_worldList[theModel->currentWorld]->UpdateWorld = true;
+						}
+						else if (theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] == BLUE_TILEREDBLOCK)
+						{
+							theModel->m_worldList[theModel->currentWorld]->sceneryData[i][j] = BLUE_TILEREDBLOCK_OFF;
+							theModel->m_worldList[theModel->currentWorld]->collisionData[i][j] = 0;
+							theModel->m_worldList[theModel->currentWorld]->UpdateWorld = true;
+						}
+					}
+				}
+				std::cout << "On FIREENDINGE button" << std::endl;
+			}
+			break;
+		}
+	}
+
+	if ( abs(theModel->getPlayer()->getPosition().x - this->GetPos_x())/32 > 6 || abs(theModel->getPlayer()->getPosition().y - this->GetPos_y()/32 > 6) )
+	{
+		theModel->sound->updateNoiseLevel(1);
+		//std::cout << "NOISE" << std::endl;
+	}
+
+	if (theModel->getPlayer()->getPlayerControl().up && AccumulatedTime > theModel->getPlayer()->getMovementDelay() && !(abs(this->GetPos_x() == (int)(theModel->getPlayer()->getPosition().x)) && (this->GetPos_y()+32 == theModel->getPlayer()->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 24][(int)(GetPos_x()/32)] < 100 && (abs(GetPos_y()/32)-1) > 0)
+	{
+		this->state = EnemyFriend::STATE_WALK_UP;
 		AccumulatedTime = 0;
 		MoveUp();
+		stand_activated = false;
 	}
-	if (player->getPlayerControl().down && AccumulatedTime > player->getMovementDelay() && !(abs(this->GetPos_x() == (int)(player->getPosition().x)) && (this->GetPos_y()-32 == player->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 26][(int)(GetPos_x()/32)] < 100 && (abs(GetPos_y()/32)+26) < colData.size()-1)
+
+	if (theModel->getPlayer()->getPlayerControl().down && AccumulatedTime > theModel->getPlayer()->getMovementDelay() && !(abs(this->GetPos_x() == (int)(theModel->getPlayer()->getPosition().x)) && (this->GetPos_y()-32 == theModel->getPlayer()->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 26][(int)(GetPos_x()/32)] < 100 && (abs(GetPos_y()/32)+26) < colData.size()-1)
 	{
+		this->state = EnemyFriend::STATE_WALK_DOWN;
 		AccumulatedTime = 0;
 		MoveDown();
-	}
-	if (player->getPlayerControl().left && AccumulatedTime > player->getMovementDelay() && !(abs(this->GetPos_x()+32 == (int)(player->getPosition().x)) && (this->GetPos_y() == player->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 25][(int)((GetPos_x()/32)) - 1] < 100 && (abs(GetPos_x()-32) > 0))
+		stand_activated = false;
+	} 
+
+	if (theModel->getPlayer()->getPlayerControl().left && AccumulatedTime > theModel->getPlayer()->getMovementDelay() && !(abs(this->GetPos_x()-32 == (int)(theModel->getPlayer()->getPosition().x)) && (this->GetPos_y() == theModel->getPlayer()->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 25][(int)((GetPos_x()/32)) - 1] < 100 && (abs(GetPos_x()-32) > 0))
 	{
+		this->state = EnemyFriend::STATE_WALK_LEFT;
 		AccumulatedTime = 0;
 		MoveLeft();
+		stand_activated = false;
 	}
-	if (player->getPlayerControl().right && AccumulatedTime > player->getMovementDelay() && !(abs(this->GetPos_x()-32 == (int)(player->getPosition().x)) && (this->GetPos_y() == player->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 25][(int)((GetPos_x()/32)) + 1] < 100 && (abs(GetPos_x()/32)) < colData[0].size()-1)
+
+	if (theModel->getPlayer()->getPlayerControl().right && AccumulatedTime > theModel->getPlayer()->getMovementDelay() && !(abs(this->GetPos_x()+32 == (int)(theModel->getPlayer()->getPosition().x)) && (this->GetPos_y() == theModel->getPlayer()->getPosition().y)) && colData[(int)(abs(GetPos_y()/32)) + 25][(int)((GetPos_x()/32)) + 1] < 100 && (abs(GetPos_x()/32)) < colData[0].size()-1)
 	{
+		this->state = EnemyFriend::STATE_WALK_RIGHT;
 		AccumulatedTime = 0;
 		MoveRight();
+		stand_activated = false;
+	}
+
+	if (theModel->getPlayer()->getPlayerControl().use)
+	{
+		//for (unsigned i = 0; i < colData.size(); i++)
+		//{
+		//	for (unsigned j = 0; j < colData[i].size(); j++)
+		//	{
+		//		std::cout << colData[i][j] << " ";
+		//	}
+		//	std::cout << std::endl;
+		//}
 	}
 
 	// onHit(player);

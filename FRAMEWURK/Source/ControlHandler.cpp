@@ -200,8 +200,10 @@ void ControlHandler::KeyboardUpdate()
 			{
 				for(unsigned j = 0; j < theModel->Evil->colData[i].size(); ++j)
 				{
-					if (theModel->Evil->GetPos_y()/32 == i && theModel->Evil->GetPos_x()/32 == j)
+					if ((abs)(theModel->getPlayer()->getPosition().y)/32 == i && theModel->getPlayer()->getPosition().x/32 == j)
+					{
 						std::cout << "P ";
+					}
 					else
 						std::cout << Math::Max(0, theModel->Evil->colData[i][j]) << " ";
 				}

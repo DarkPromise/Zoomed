@@ -328,7 +328,7 @@ void Room::generateRoom()
 		this->exitCounter = 0; // counters number of exits placed
 		attemptCounter = 0; // counts number of times object was tried to be placed
 		generatedRoom = true; // reset room flag
-		if (roomType != ROOM_TUTORIAL_FRIENDS && roomType != ROOM_MAINMENU && roomType != ROOM_MAINMENU && roomType != ROOM_TUTORIAL_SIGHT)
+		if (roomType != ROOM_MAINMENU && roomType != ROOM_FRIENDS_TUTORIAL && (roomType < ROOM_FRIENDS_CLASSROOM_SYMMETRY || roomType > ROOM_FRIENDS_ROOM_THREE) && roomType != ROOM_TUTORIAL_SIGHT)
 		{
 			reset_mapData(); // reset map data
 		}
@@ -372,7 +372,7 @@ void Room::generateRoom()
 		floorTileID = ROOMS_FLOORTILE;
 
 	}
-	else if (this->roomType == ROOM_TUTORIAL_FRIENDS)
+	else if (this->roomType >= ROOM_FRIENDS_TUTORIAL && this->roomType <= ROOM_FRIENDS_ROOM_THREE)
 	{
 		floorTileID = BLUE_FLOORTILE;
 	}
@@ -409,11 +409,6 @@ void Room::generateRoom()
 				this->collisionData[i][j] = 100;
 			}
 
-			if (this->backgroundData[i][j] > TILE_CORRIDOR_FLOOR && this->backgroundData[i][j] < 1024)
-			{
-				this->collisionData[i][j] = 100;
-			}
-
 			if (this->roomType == ROOM_TUTORIAL_SIGHT)
 			{
 				if (this->sceneryData[i][j] == RED_TABLE_TILE1 || this->sceneryData[i][j] == RED_TABLE_TILE2 || this->sceneryData[i][j] == RED_TABLE_TILE3 || this->sceneryData[i][j] == RED_TABLE_TILE4 || this->sceneryData[i][j] == RED_CHAIR_TILE)
@@ -439,7 +434,31 @@ void Room::generateRoom()
 		BLUE_TILEYELLOWBLOCK_OFF,
 		BLUE_TILEREDBLOCK_OFF,
 		BLUE_TILEPURPLEBLOCK_OFF,
-		BLUE_TILEGRAYBLOCK_OFF};
+		BLUE_TILEGRAYBLOCK_OFF,
+
+		BLUE_FINISHTILE,
+
+		BLUE_LOCKERHIDE,
+		BLUE_LOCKERHIDE2,
+		
+		BLUE_TILEDEBRIS2,
+		BLUE_TILEDEBRIS3,
+		BLUE_TILEDEBRIS4,
+		BLUE_TILEDEBRIS5,
+		BLUE_TILEDEBRIS6,
+		BLUE_TILEDEBRIS7,
+
+		BLUE_DOORTILE1,
+		BLUE_DOORTILE2,
+		BLUE_DOORTILE3,
+		BLUE_DOORTILE4,
+		BLUE_DOORTILE5,
+		BLUE_DOORTILE6,
+		BLUE_DOORTILE7,
+		BLUE_DOORTILE8,
+
+		BLUE_TILEDEBRIS8,
+		BLUE_TILEDEBRIS9};
 
 		int collisionTiles[BLUE_IGNORETOTAL] = {
 		COLLISION_BLUE_TILEBLOOD,
@@ -454,7 +473,31 @@ void Room::generateRoom()
 		COLLISION_BLUE_TILEYELLOWBLOCK_OFF,
 		COLLISION_BLUE_TILEREDBLOCK_OFF,
 		COLLISION_BLUE_TILEPURPLEBLOCK_OFF,
-		COLLISION_BLUE_TILEGRAYBLOCK_OFF};
+		COLLISION_BLUE_TILEGRAYBLOCK_OFF,
+
+		COLLISION_BLUE_FINISHTILE,
+		
+		COLLISION_BLUE_LOCKERHIDE,
+		COLLISION_BLUE_LOCKERHIDE2,
+	
+		COLLISION_BLUE_TILEDEBRIS2,
+		COLLISION_BLUE_TILEDEBRIS3,
+		COLLISION_BLUE_TILEDEBRIS4,
+		COLLISION_BLUE_TILEDEBRIS5,
+		COLLISION_BLUE_TILEDEBRIS6,
+		COLLISION_BLUE_TILEDEBRIS7,
+
+		COLLISION_BLUE_DOORTILE1,
+		COLLISION_BLUE_DOORTILE2,
+		COLLISION_BLUE_DOORTILE3,
+		COLLISION_BLUE_DOORTILE4,
+		COLLISION_BLUE_DOORTILE5,
+		COLLISION_BLUE_DOORTILE6,
+		COLLISION_BLUE_DOORTILE7,
+		COLLISION_BLUE_DOORTILE8,
+
+		COLLISION_BLUE_TILEDEBRIS8,
+		COLLISION_BLUE_TILEDEBRIS9};
 
 		for (unsigned i = 0; i < backgroundData.size(); i++)
 		{
@@ -918,15 +961,6 @@ void Room::addExit(EXIT_DIRECTION exit)
 				Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM, sceneryData.size(), sceneryData[0].size());
 				addOBJtoGenerate(tempObject);
 			}
-			/*else if (exit == EXIT_UP)
-			{
-			}
-			else if (exit == EXIT_LEFT)
-			{
-			}
-			else if (exit == EXIT_RIGHT)
-			{
-			}*/
 		}
 		break;
 	case ROOM_MECH:
@@ -1008,13 +1042,109 @@ void Room::addExit(EXIT_DIRECTION exit)
 				exitCounter++;
 			}
 		}
-		break;
+		break;/*
 	case ROOM_THREE_03_SIGHT:
 		{
 			if(exit == EXIT_DOWN)
 			{
 				numExit[exitCounter]->exitPositionX = 9;
 				numExit[exitCounter]->exitPositionY = 24;
+
+				exitCounter++;
+			}
+		}
+		break;*/
+		case ROOM_FRIENDS_CLASSROOM_SYMMETRY:
+		{
+			if (exit == EXIT_DOWN)
+			{
+				int counter = 0;
+				for (unsigned j = 0; j < numExit.size(); j++)
+				{
+					if (numExit[j]->exitDirection == EXIT_DOWN && numExit[j]->roomType == ROOM_FRIENDS_CLASSROOM_SYMMETRY)
+					{
+						counter++;
+					}
+				}
+
+				if (counter == 0)
+				{
+					numExit[exitCounter]->exitPositionX = 5;
+					numExit[exitCounter]->exitPositionY = sceneryData.size()-1;
+
+					exitCounter++;
+				}
+				else if (counter == 1)
+				{
+					numExit[exitCounter]->exitPositionX = 25;
+					numExit[exitCounter]->exitPositionY = sceneryData.size()-1;
+
+					exitCounter++;
+				}
+			}
+		}
+		break;
+	case ROOM_FRIENDS_TOILET:
+		{
+			if (exit == EXIT_RIGHT)
+			{
+				numExit[exitCounter]->exitPositionX = 17;
+				numExit[exitCounter]->exitPositionY = 6;
+
+				exitCounter++;
+			}
+		}
+		break;
+	case ROOM_FRIENDS_ROOM_ONE:
+		{
+			if (exit == EXIT_DOWN)
+			{
+				numExit[exitCounter]->exitPositionX = 6;
+				numExit[exitCounter]->exitPositionY = 12;
+
+				exitCounter++;
+			}
+		}
+		break;
+	case ROOM_FRIENDS_ROOM_TWO:
+		{
+			if (exit == EXIT_LEFT)
+			{
+				numExit[exitCounter]->exitPositionX = 1;
+				numExit[exitCounter]->exitPositionY = 6;
+
+				exitCounter++;
+			}
+			else if (exit == EXIT_RIGHT)
+			{
+				numExit[exitCounter]->exitPositionX = 17;
+				numExit[exitCounter]->exitPositionY = 6;
+
+				exitCounter++;
+			}
+		}
+		break;
+	case ROOM_FRIENDS_ROOM_THREE:
+		{
+			if (exit == EXIT_LEFT)
+			{
+				numExit[exitCounter]->exitPositionX = 1;
+				numExit[exitCounter]->exitPositionY = 11;
+
+				exitCounter++;
+			}
+			else if (exit== EXIT_UP)
+			{
+				numExit[exitCounter]->exitPositionX = 6;
+				numExit[exitCounter]->exitPositionY = 3;
+
+				exitCounter++;
+
+				newExit = new Room_Exit(exit, this->getRoomType(), this->roomID);
+				this->numExit.push_back(newExit);
+
+				numExit[exitCounter]->exitPositionX = 7;
+				numExit[exitCounter]->exitPositionY = 3;
 
 				exitCounter++;
 			}

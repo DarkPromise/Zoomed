@@ -1,5 +1,6 @@
 #include "EnemyMelee.h"
 #include "Player.h"
+#include "World.h"
 
 EnemyMelee::EnemyMelee(void)
 {
@@ -12,12 +13,12 @@ EnemyMelee::~EnemyMelee(void)
 
 }
 
-void EnemyMelee::Update(Player* player, double dt)
+void EnemyMelee::Update(Player* player, World* currentWorld, double dt)
 {
 
 	AccumulatedTime += dt; 
 
-
+	this->colData = currentWorld->collisionData;
 	 	
 	SetDestination(player->getPosition().x, player->getPosition().y);
 

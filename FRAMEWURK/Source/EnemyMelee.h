@@ -10,7 +10,7 @@ public:
 	EnemyMelee(void);
 	~EnemyMelee(void);
 
-	void Update(Player* player,double dt);
+	void Update(Player* player, World* currentWorld, double dt);
 
 	void onHit(Player* player);
 

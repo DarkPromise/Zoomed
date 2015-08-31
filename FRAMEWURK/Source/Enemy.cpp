@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "Player.h"
+#include "World.h"
 
 Enemy::Enemy(void)
 {
@@ -10,7 +11,7 @@ Enemy::~Enemy(void)
 {
 }
 
-void Enemy::Update(Player* player, double dt)
+void Enemy::Update(Player* player, World* currentWorld, double dt)
 {
 
 }
@@ -20,6 +21,9 @@ void Enemy::SetPos(float x, float y)
 {
 	theEnemyPosition_x = x;
 	theEnemyPosition_y = y;
+
+	spawnPoint_x = x;
+	spawnPoint_y = y;
 }
 
 
@@ -40,6 +44,16 @@ float Enemy::GetPos_x(void)
 float Enemy::GetPos_y(void)
 {
 	return theEnemyPosition_y;
+}
+
+float Enemy::GetSpawn_x(void)
+{
+	return spawnPoint_x;
+}
+
+float Enemy::GetSpawn_y(void)
+{
+	return spawnPoint_y;
 }
 
 // Set the destination of this enemy
@@ -78,6 +92,38 @@ float Enemy::CalculateDistance_x()
 float Enemy::CalculateDistance_y()
 {
 	float y = theDestination_y - theEnemyPosition_y;
+
+	if(y < 0)
+	{
+		y *= -1;
+	}
+
+	return y;
+
+}
+
+float Enemy::CalculateDistance(float x, float y)
+{
+	return ((x - this->GetPos_x())*(x - this->GetPos_x()) + 
+		(y - this->GetPos_y())*(y - this->GetPos_y()));
+}
+
+float Enemy::CalculateDistance_x(float x2)
+{
+	float x = x2 - theEnemyPosition_x;
+
+	if(x < 0)
+	{
+		x *= -1;
+	}
+
+	return x;
+}
+
+
+float Enemy::CalculateDistance_y(float y2)
+{
+	float y = y2 - theEnemyPosition_y;
 
 	if(y < 0)
 	{

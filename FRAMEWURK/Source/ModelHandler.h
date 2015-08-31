@@ -15,6 +15,8 @@
 #include "Gui.h"
 #include "EnemyMelee.h"
 #include "EnemyFriend.h"
+#include "EnemyFather.h"
+#include "Sound.h"
 
 /************************************************
 
@@ -58,15 +60,17 @@ public:
 	double EnemyDelay;
 
 	Enemy* Evil;
-	Enemy* Friend;
+
+	EnemyFriend* getFriend();
+	EnemyFather* getFather();
 
 	std::vector<Enemy*> m_enemyList;
-
 
 	GAME_STATE m_status;
 
 	WORLD_ID currentWorld;
 
+	Sound* sound;
 	//vector<GameObject*> m_buttonList; //GUI Class <- Create
 
 	vector<GameObject*> m_objectList;
@@ -76,10 +80,11 @@ public:
 	vector<World*> m_worldList;
 	vector<Item*> m_itemList;
 	vector<Gui*> m_guiList;
-
-
 private:
 	Player  *player;
+	EnemyFriend* Friend;
+	EnemyFather* Father;
+
 	Camera camera;
 	Game theEnvironment; //Contains gravity, current conditions(wind) etc.
 };

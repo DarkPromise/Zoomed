@@ -128,7 +128,10 @@ bool CMap::LoadCollisionMap(const std::string mapName)
 						theMaxNumOfColumns = atoi(token.c_str());
 					}
 					if ( theMaxNumOfColumns != theNumOfTiles_MapWidth)
+					{
+						std::cout << theMaxNumOfColumns << std::endl;
 						return false;
+					}
 				}
 				else
 				{
@@ -265,8 +268,11 @@ bool CMap::LoadForegroundMap(const std::string mapName)
 			getline(file, aLineOfText);
 
 			if  (theLineCounter>=theNumOfTiles_MapHeight)
+			{
+				std::cout << theLineCounter << std::endl;
 				break;
-
+			}
+			
 			// If this line is not a comment line, then process it
 			if(!(aLineOfText.find("//*") == NULL) && aLineOfText != "")
 			{

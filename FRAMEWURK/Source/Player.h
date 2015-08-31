@@ -74,7 +74,7 @@ public:
 	Player(std::string name);
 	~Player();
 		
-	virtual void move(double dt, World* currentWorld, std::vector<std::vector<int>> collisionMap);
+	virtual void move(double dt, ModelHandler * theModel, std::vector<std::vector<int>> collisionMap);
 	virtual void update(double dt, World* currentWorld, int currentRoom, ModelHandler * theModel);
 	virtual void Interact(double dt, World* currentWorld, std::vector<std::vector<int>> collisionMap, ModelHandler * theModel);
 
@@ -128,6 +128,21 @@ public:
 		return (float)(this->m_movementTimer);
 	}
 
+	bool getGoalState()
+	{
+		return this->levelGoal;
+	}
+
+	bool getIsHiding()
+	{
+		return this->hiding;
+	}
+
+	void setIsHiding(bool state)
+	{
+		this->hiding = state;
+	}
+
 	bool on_ground;
 	bool is_running;
 	bool stand_activated;
@@ -166,6 +181,9 @@ protected:
 	float m_visiblityFactor;
 
 	Inventory m_playerInventory;
+
+	bool hiding;
+	bool levelGoal;
 
 	float m_currFear;
 	float m_maxFear;
