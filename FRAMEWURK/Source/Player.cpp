@@ -32,29 +32,11 @@ void Player::move(double dt, ModelHandler * theModel, std::vector<std::vector<in
 {
 	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
 	int xColiision = (int)(m_playerPos.x/32);
-	/*std::cout << xColiision << " " << yColiision << " " << Math::Max(0, collisionMap[yColiision][xColiision]) << std::endl;
-	std::cout << collisionMap[0].size() << " " << collisionMap.size() << std::endl;*/
 
-	/*if (controls.use)
-	{
-			std::cout << "Start" << std::endl;
-		for(unsigned i = 0; i < collisionMap.size(); ++i)
-			{
-				for(unsigned j = 0; j < collisionMap[i].size(); ++j)
-				{
-					if (yColiision == i && xColiision == j)
-						std::cout << "P ";
-					else
-						std::cout << Math::Max(0, collisionMap[i][j]) << " ";
-				}
-				std::cout << std::endl;
-			}
-		std::cout << "End" << std::endl;
-
-		system("pause");
-	}*/
 	bool moved = false;
 	bool canMove = true;
+
+	std::cout << this->m_playerPos << std::endl;
 
 	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y+32 < 0 )
 	{
@@ -217,18 +199,6 @@ void Player::getPassiveEffect(Item * item)
 {
 	switch(item->getItemID())
 	{
-	case ITEM_REDUCE_NOISE_POTION:
-		break;
-	case ITEM_REDUCED_NOISE_GAIN_POTION:
-		break;
-	case ITEM_SIGHT_POTION:
-		break;
-	case ITEM_REDUCED_FEAR_GAIN_POTION:
-		break;
-	case ITEM_REDUCE_FEAR_POTION:
-		break;
-	case ITEM_SUPPRESS_FEAR_POTION:
-		break;
 	case ITEM_COMPASS:
 		break;
 	case ITEM_MAP:
@@ -379,7 +349,19 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 				{
 				case MAINMENU_PILLOWBEDTOP:
 					{
-						if ((controls.use) && ((m_playerPos.y -32 == MainMenuNight1PositionY) && (m_playerPos.x  == MainMenuNight1PositionX)))
+						if ((controls.use) && ((m_playerPos.y-32 == MainMenuChangeCharPositionY) && (m_playerPos.x  == MainMenuChangeCharPositionX)))
+						{
+							/*theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
+							theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
+							this->setPosition(Vector3(768, -1120, 0));
+
+							theModel->getFather()->SetPos(2112, -896);*/
+						}
+					}
+					break;
+				case MAINMENU_PILLOWLESSBEDTOP:
+					{
+						if ((controls.use) && ((m_playerPos.y-32 == MainMenuNight1PositionY) && (m_playerPos.x  == MainMenuNight1PositionX)))
 						{
 							std::cout << "Test" << std::endl;
 							theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
@@ -388,21 +370,18 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 
 							theModel->getFather()->SetPos(2112, -896);
 						}
-					}
-					break;
-				case MAINMENU_PILLOWBEDBOTTOM:
-					{
-
-					}
-					break;
-				case MAINMENU_PILLOWLESSBEDTOP:
-					{
-
-					}
-					break;
-				case MAINMENU_PILLOWLESSBEDBOTTOM:
-					{
-
+						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight2PositionY) && (m_playerPos.x  == MainMenuNight2PositionX)))
+						{
+							std::cout << "Test" << std::endl;
+						}
+						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight3PositionY) && (m_playerPos.x  == MainMenuNight3PositionX)))
+						{
+							std::cout << "Test" << std::endl;
+						}
+						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight4PositionY) && (m_playerPos.x  == MainMenuNight4PositionX)))
+						{
+							std::cout << "Test" << std::endl;
+						}
 					}
 					break;
 				}

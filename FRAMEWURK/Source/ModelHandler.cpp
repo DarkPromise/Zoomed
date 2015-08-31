@@ -166,7 +166,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom = new Room(ROOM_FRIENDS_ROOM_THREE, 704, 448, 23, 14, 704, 448, 32, TILESET_BLUE, 50, 70, 4);
 	newRoom->addExit(EXIT_UP);
 	newRoom->addExit(EXIT_LEFT);
- 	newRoom->LoadMap("MapData//Friends//Room3//Room_3_Foreground.csv","MapData//Friends//Room3//Room_3_Scenery.csv","MapData//Friends//Room3//Room_3_Background.csv","MapData//Friends//Room3//Room_3_Background.csv");
+	newRoom->LoadMap("MapData//Friends//Room3//Room_3_Foreground.csv","MapData//Friends//Room3//Room_3_Scenery.csv","MapData//Friends//Room3//Room_3_Background.csv","MapData//Friends//Room3//Room_3_Background.csv");
 	m_worldList[7]->m_roomList.push_back(newRoom);
 
 	for (unsigned i = 0; i < m_worldList.size(); i++)
@@ -295,6 +295,11 @@ bool ModelHandler::InitObjects()
 	object->getMesh()->textureID = LoadTGA("Images//Fonts//foxscript.tga");
 	m_objectList.push_back(object);
 
+	object = new GameObject("Game Text Basis", TYPE_TEXT);
+	object->addMesh(MeshBuilder::GenerateText("Game Text Basis",16,16));
+	object->getMesh()->textureID = LoadTGA("Images//Fonts//basis33.tga");
+	m_objectList.push_back(object);
+
 	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
 	m_objectList.push_back(object);
@@ -321,21 +326,17 @@ bool ModelHandler::InitObjects()
 		enemyAnim->m_anim->Set(0,2,0,0.3f);
 	}
 
-	Item * testItem = new Item("Test Item 1",ITEM_REDUCE_FEAR_POTION);
-	testItem->setDescription("Just a test item :D");
-	m_itemList.push_back(testItem);
+	Item * item = new Item("Consumable");
+	item->setDescription("Consumable");
+	m_itemList.push_back(item);
 
-	testItem = new Item("Test Item 2", ITEM_EQUIPMENT_BOOTS);
-	testItem->setDescription("Equipment Test");
-	m_itemList.push_back(testItem);
+	item = new Item("Equipment");
+	item->setDescription("Equipment");
+	m_itemList.push_back(item);
 
-	//std::cout << m_itemList[0]->toString() << std::endl;
-
-	//ITEM INVENTORY TESTING
+	//ITEM INVENTORY
 	this->getPlayer()->getInventory().addItem(m_itemList[0]);                                         //ADD ITEM (Consumable)
 	this->getPlayer()->getInventory().addItem(m_itemList[1]);                                         //ADD ITEM (Equipment)
-	//std::cout << this->getPlayer()->getInventory().getItem(1)->toString() << std::endl; //GET NAME OF ITEM
-	//this->getPlayer()->getInventory().removeItem(1);                                                       //REMOVE ITEM FROM INVENTORY
 
 	Gui * newGui = new Gui("Test Border","Images//UI//Item_Border.tga");
 	m_guiList.push_back(newGui);
@@ -394,7 +395,7 @@ void ModelHandler::Update(const double dt)
 			break;
 		}
 
-	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[12]->getMesh());
+	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[13]->getMesh());
 	switch(dynamic_cast<EnemyFriend*>(Friend)->state)
 	{
 	case EnemyFriend::STATE_WALK_UP:
@@ -426,24 +427,24 @@ void ModelHandler::Update(const double dt)
 	//Enemy Code
 	if (currentWorld == WORLD_FRIENDS_TUTORIAL)
 	{
-		m_objectList[12]->isAlive = true;
+		m_objectList[13]->isAlive = true;
 		Friend->Update(this->getInstance(), dt);
-		m_objectList[12]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
+		m_objectList[13]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
 		Friend->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 
-		m_objectList[13]->isAlive = true;
+		m_objectList[14]->isAlive = true;
 		Father->Update(this->getInstance(), this->sound->getNoiseLevel(), dt);
-		m_objectList[13]->setPosition(Vector3(Father->GetPos_x(),Father->GetPos_y(),0));
+		m_objectList[14]->setPosition(Vector3(Father->GetPos_x(),Father->GetPos_y(),0));
 		Father->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 	}
 	else
 	{
-		m_objectList[11]->isAlive = false;
-		m_objectList[12]->isAlive = false;
+		m_objectList[13]->isAlive = false;
+		m_objectList[14]->isAlive = false;
 	}
 
 	Evil->Update(player, m_worldList[currentWorld], dt); 
-	m_objectList[11]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
+	m_objectList[12]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
 }
 
 Camera ModelHandler::getCamera()

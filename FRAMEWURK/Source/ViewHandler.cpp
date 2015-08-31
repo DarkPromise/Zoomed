@@ -265,13 +265,13 @@ void ViewHandler::UpdateSA(double dt)
 		sprite->Update(dt);
 	}
 
-	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[12]->getMesh());
+	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[13]->getMesh());
 	if (sprite)
 	{
 		sprite->Update(dt);
 	}
 
-	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[13]->getMesh());
+	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[14]->getMesh());
 	if (sprite)
 	{
 		sprite->Update(dt);
@@ -596,13 +596,16 @@ void ViewHandler::RenderScene()
 			}
 		}
 	}
-	
-	//std::cout << theModel->getPlayer()->getInventory().getItem(1)->toString() << std::endl;
-	RenderGameTextOnScreen(theModel->m_objectList[7]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
-	RenderGameTextOnScreen(theModel->m_objectList[7]->getMesh(),"ROOM ?", Color(1,0,0), 48.f, (m_viewPort[2] * 0.5f) - GameUIWidthOffset, m_viewPort[3] - GameUIHeightOffset);
-	RenderGameTextOnScreen(theModel->m_objectList[7]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
 
-	RenderGameTextOnScreen(theModel->m_objectList[7]->getMesh(),"Sanity", Color(1,0,0), theModel->getPlayer()->getSanity(), (m_viewPort[2] * 0.5f) - GameUISanityWidthOffset, (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
+	for(int i = 0; i < theModel->m_objectList.size(); ++i)
+	{
+		std::cout << "ID : " << i << " " << theModel->m_objectList[i]->ToString() << std::endl;
+	}
+
+	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
+	RenderGameTextOnScreen(theModel->m_objectList[11]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
+
+	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"Sanity", Color(1,0,0), theModel->getPlayer()->getSanity(), (m_viewPort[2] * 0.5f) - GameUISanityWidthOffset, (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
 
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
@@ -612,8 +615,6 @@ void ViewHandler::RenderScene()
 
 	Render2DMesh(theModel->m_guiList[2]->getMesh(),false,false,40.f,300.f * (theModel->getPlayer()->getCurrFear() * 0.01f),GameUIFearBorderWidthOffset, m_viewPort[3] - (GameUIFearValueHeightOffset + (30.f - theModel->getPlayer()->getCurrFear() * 1.5f)));
 	Render2DMesh(theModel->m_guiList[1]->getMesh(),false,false,40.f,300.f,GameUIFearBorderWidthOffset, m_viewPort[3] - GameUIFearBorderHeightOffset);
-
-	//std::cout << FPS << std::endl;
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
