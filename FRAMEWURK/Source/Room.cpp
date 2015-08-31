@@ -213,12 +213,13 @@ Room::Room(ROOM_TYPE roomType,
 {
 	numExit.clear();
 	roomObjectList.clear();
-
+	this->exitCounter = 0;
 	this->roomType = roomType;
 	this->roomID = roomID;
 
 	this->worldPositionX = worldPositionX;
 	this->worldPositionY = worldPositionY;
+
 
 	switch (roomType)
 	{
@@ -327,7 +328,7 @@ void Room::generateRoom()
 		this->exitCounter = 0; // counters number of exits placed
 		attemptCounter = 0; // counts number of times object was tried to be placed
 		generatedRoom = true; // reset room flag
-		if (roomType != ROOM_TUTORIAL_FRIENDS && roomType != ROOM_MAINMENU && roomType != ROOM_MAINMENU)
+		if (roomType != ROOM_TUTORIAL_FRIENDS && roomType != ROOM_MAINMENU && roomType != ROOM_MAINMENU && roomType != ROOM_TUTORIAL_SIGHT)
 		{
 			reset_mapData(); // reset map data
 		}
@@ -387,6 +388,17 @@ void Room::generateRoom()
 	{
 		floorTileID = RED_FLOORTILE;
 	}
+	else if (this->roomType == ROOM_TWO_01_SIGHT)
+	{
+		for(int floorTile = SIGHT_TWO_FLOORTILE_FIRST; floorTile < SIGHT_TWO_FLOORTILE_LAST; ++floorTile)
+		{
+			floorTileID = floorTile;
+		}
+	}/*
+	else if(this->roomType == ROOM_TWO_02_SIGHT)
+	{
+
+	}*/
 
 	for (unsigned i = 0; i < backgroundData.size(); i++)
 	{
@@ -400,6 +412,14 @@ void Room::generateRoom()
 			if (this->backgroundData[i][j] > TILE_CORRIDOR_FLOOR && this->backgroundData[i][j] < 1024)
 			{
 				this->collisionData[i][j] = 100;
+			}
+
+			if (this->roomType == ROOM_TUTORIAL_SIGHT)
+			{
+				if (this->sceneryData[i][j] == RED_TABLE_TILE1 || this->sceneryData[i][j] == RED_TABLE_TILE2 || this->sceneryData[i][j] == RED_TABLE_TILE3 || this->sceneryData[i][j] == RED_TABLE_TILE4 || this->sceneryData[i][j] == RED_CHAIR_TILE)
+				{
+					this->collisionData[i][j] = 2;
+				}
 			}
 		}
 	}
@@ -920,6 +940,83 @@ void Room::addExit(EXIT_DIRECTION exit)
 			{
 				Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_LEFT_DOOR, sceneryData.size(), sceneryData[0].size());
 				addOBJtoGenerate(tempObject);
+			}
+		}
+		break;
+	case ROOM_TUTORIAL_SIGHT:
+		{
+			
+			
+		}
+		break;
+	case ROOM_TWO_01_SIGHT:
+		{
+
+		}
+		break;
+	case ROOM_TWO_02_SIGHT:
+		{
+		/*	int count = 0;
+			for (int j = 0; j < numExit.size(); j++)
+			{
+				if(numExit[j]->exitDirection == EXIT_UP && numExit[j]->roomType == ROOM_TUTORIAL_SIGHT)
+				{
+						count ++;
+				}
+			}
+			if(count == 0)
+			{
+				numExit[exitCounter]->exitPositionX = 8;
+				numExit[exitCounter]->exitPositionY = 34;
+
+				exitCounter++;
+			}
+			else if(count == 1)
+			{
+				numExit[exitCounter]->exitPositionX = 8;
+					numExit[exitCounter]->exitPositionY = 34;
+
+					exitCounter++;
+			}*/
+		}
+		break;
+	case ROOM_THREE_01_SIGHT:
+		{
+			if(exit == EXIT_RIGHT)
+			{
+				numExit[exitCounter]->exitPositionX = 29;
+				numExit[exitCounter]->exitPositionY = 11;
+
+				exitCounter++;
+			}
+		}
+		break;
+	case ROOM_THREE_02_SIGHT:
+		{
+			if(exit == EXIT_DOWN)
+			{
+				numExit[exitCounter]->exitPositionX = 8;
+				numExit[exitCounter]->exitPositionY = 34;
+
+				exitCounter++;
+			}
+			else if(exit == EXIT_UP)
+			{
+				numExit[exitCounter]->exitPositionX = 11;
+				numExit[exitCounter]->exitPositionY = 3;
+
+				exitCounter++;
+			}
+		}
+		break;
+	case ROOM_THREE_03_SIGHT:
+		{
+			if(exit == EXIT_DOWN)
+			{
+				numExit[exitCounter]->exitPositionX = 9;
+				numExit[exitCounter]->exitPositionY = 24;
+
+				exitCounter++;
 			}
 		}
 		break;

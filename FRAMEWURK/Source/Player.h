@@ -73,8 +73,8 @@ public:
 
 	Player(std::string name);
 	~Player();
-	
-	virtual void move(double dt, std::vector<std::vector<int>> collisionMap);
+		
+	virtual void move(double dt, World* currentWorld, std::vector<std::vector<int>> collisionMap);
 	virtual void update(double dt, World* currentWorld, int currentRoom, ModelHandler * theModel);
 	virtual void Interact(double dt, World* currentWorld, std::vector<std::vector<int>> collisionMap, ModelHandler * theModel);
 

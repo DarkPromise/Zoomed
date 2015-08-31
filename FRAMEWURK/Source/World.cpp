@@ -265,6 +265,7 @@ bool World::initCorridors()
 	}
 	
 	std::cout << "exits done" << std::endl;
+
 	return true;
 }
 

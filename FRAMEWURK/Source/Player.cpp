@@ -26,7 +26,7 @@ Player::~Player()
 {
 }
 
-void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
+void Player::move(double dt,World* currentWorld, std::vector<std::vector<int>> collisionMap)
 {
 	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
 	int xColiision = (int)(m_playerPos.x/32);
@@ -52,42 +52,266 @@ void Player::move(double dt,std::vector<std::vector<int>> collisionMap)
 		system("pause");
 	}*/
 
-	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y+32 < 0)
+	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y < 0)
 	{
-		this->m_animationState = Player::STATE_WALKING_UP;
-		this->m_movementTimer = 0.0;
-		m_playerPos.y += 32;
-		m_currFear += (float)dt * 3;
-		m_fearCooldown = 1.0;
-		stand_activated = false;
-	}
-	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision+1][xColiision] < 100 && yColiision+2 < collisionMap.size()))
-	{
-		this->m_animationState = Player::STATE_WALKING_DOWN;
-		this->m_movementTimer = 0.0;
-		m_playerPos.y -= 32;
-		m_currFear += (float)dt * 3;
-		m_fearCooldown = 1.0;
-		stand_activated = false;
-	}
+		if(collisionMap[yColiision-1][xColiision] == 2)
+		{
+			this->m_movementTimer = 0.0;
+			stand_activated = false;
+			if (currentWorld->sceneryData[yColiision-1][xColiision] == RED_TABLE_TILE3)
+			{
+				if(currentWorld->sceneryData[yColiision-3][xColiision] == -1 && currentWorld->backgroundData[yColiision-3][xColiision] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision-3][xColiision] = currentWorld->sceneryData[yColiision-2][xColiision];
+					currentWorld->sceneryData[yColiision-2][xColiision] = currentWorld->sceneryData[yColiision-1][xColiision];
+					currentWorld->sceneryData[yColiision-3][xColiision+1] = currentWorld->sceneryData[yColiision-2][xColiision+1];
+					currentWorld->sceneryData[yColiision-2][xColiision+1] = currentWorld->sceneryData[yColiision-1][xColiision+1];
+					currentWorld->UpdateWorld = true;
+					currentWorld->sceneryData[yColiision-1][xColiision] = -1;
+					currentWorld->sceneryData[yColiision-1][xColiision+1] = -1;
+					currentWorld->collisionData[yColiision-3][xColiision] = 2;
+					currentWorld->collisionData[yColiision-3][xColiision+1] = 2;
+					currentWorld->collisionData[yColiision-1][xColiision] = 0;
+					currentWorld->collisionData[yColiision-1][xColiision+1] = 0;
+				}
+			}
+			else if (currentWorld->sceneryData[yColiision-1][xColiision] == RED_TABLE_TILE4)
+			{
+				if(currentWorld->sceneryData[yColiision-3][xColiision-1] == -1 && currentWorld->backgroundData[yColiision-3][xColiision-1] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision-3][xColiision] = currentWorld->sceneryData[yColiision-2][xColiision];
+					currentWorld->sceneryData[yColiision-2][xColiision] = currentWorld->sceneryData[yColiision-1][xColiision];
+					currentWorld->sceneryData[yColiision-3][xColiision-1] = currentWorld->sceneryData[yColiision-2][xColiision-1];
+					currentWorld->sceneryData[yColiision-2][xColiision-1] = currentWorld->sceneryData[yColiision-1][xColiision-1];
+					currentWorld->UpdateWorld = true;
+					currentWorld->sceneryData[yColiision-1][xColiision] = -1;
+					currentWorld->sceneryData[yColiision-1][xColiision-1] = -1;
+					currentWorld->collisionData[yColiision-3][xColiision] = 2;
+					currentWorld->collisionData[yColiision-3][xColiision-1] = 2;
+					currentWorld->collisionData[yColiision-1][xColiision] = 0;
+					currentWorld->collisionData[yColiision-1][xColiision-1] = 0;
+				}
 
-	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision-1] <100) && (m_playerPos.x-32 > 0))
-	{
-		this->m_animationState = Player::STATE_WALKING_LEFT;
-		this->m_movementTimer = 0.0;
-		m_playerPos.x -= 32;
-		m_currFear += (float)dt * 3;
-		m_fearCooldown = 1.0;
-		stand_activated = false;
+			}
+			else if (currentWorld->sceneryData[yColiision-1][xColiision] == RED_CHAIR_TILE)
+			{
+				if(currentWorld->sceneryData[yColiision-2][xColiision] == -1 && currentWorld->backgroundData[yColiision-2][xColiision] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision-2][xColiision] = currentWorld->sceneryData[yColiision-1][xColiision];
+					currentWorld->foregroundData[yColiision-3][xColiision] = currentWorld->foregroundData[yColiision-2][xColiision];
+
+					currentWorld->sceneryData[yColiision-1][xColiision] = -1;
+					currentWorld->foregroundData[yColiision-1][xColiision] = -1;
+					currentWorld->UpdateWorld = true;
+					currentWorld->collisionData[yColiision-2][xColiision] = 2;
+					currentWorld->collisionData[yColiision-1][xColiision] = 0;
+				}
+			}
+		}
+		else
+		{
+			this->m_movementTimer = 0.0;
+			m_playerPos.y += 32;
+			m_currFear += (float)dt * 3;
+			m_fearCooldown = 1.0;
+			stand_activated = false;
+		}
+
 	}
-	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] <100 && xColiision+2 < collisionMap[0].size()))
+	if(controls.down && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision+1][xColiision] < 100 && m_playerPos.y < (collisionMap.size()+25)*32))
+	{	
+		if(collisionMap[yColiision+1][xColiision] == 2)
+		{
+			this->m_movementTimer = 0.0;
+			stand_activated = false;
+			if (currentWorld->sceneryData[yColiision+1][xColiision] == RED_TABLE_TILE1)
+			{
+				if(currentWorld->sceneryData[yColiision+3][xColiision] == -1 && currentWorld->backgroundData[yColiision+3][xColiision] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision+3][xColiision] = currentWorld->sceneryData[yColiision+2][xColiision];
+					currentWorld->sceneryData[yColiision+2][xColiision] = currentWorld->sceneryData[yColiision+1][xColiision];
+					currentWorld->sceneryData[yColiision+3][xColiision+1] = currentWorld->sceneryData[yColiision+2][xColiision+1];
+					currentWorld->sceneryData[yColiision+2][xColiision+1] = currentWorld->sceneryData[yColiision+1][xColiision+1];
+					currentWorld->UpdateWorld = true;
+					currentWorld->sceneryData[yColiision+1][xColiision] = -1;
+					currentWorld->sceneryData[yColiision+1][xColiision+1] = -1;
+					currentWorld->collisionData[yColiision+3][xColiision] = 2;
+					currentWorld->collisionData[yColiision+3][xColiision+1] = 2;
+					currentWorld->collisionData[yColiision+1][xColiision] = 0;	
+					currentWorld->collisionData[yColiision+1][xColiision+1] = 0;
+				}
+			}
+			else if (currentWorld->sceneryData[yColiision+1][xColiision] == RED_TABLE_TILE2)
+			{
+				if(currentWorld->sceneryData[yColiision+3][xColiision] == -1 && currentWorld->backgroundData[yColiision+3][xColiision] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision+3][xColiision] = currentWorld->sceneryData[yColiision+2][xColiision];
+					currentWorld->sceneryData[yColiision+2][xColiision] = currentWorld->sceneryData[yColiision+1][xColiision];
+					currentWorld->sceneryData[yColiision+3][xColiision-1] = currentWorld->sceneryData[yColiision+2][xColiision-1];
+					currentWorld->sceneryData[yColiision+2][xColiision-1] = currentWorld->sceneryData[yColiision+1][xColiision-1];
+					currentWorld->UpdateWorld = true;
+					currentWorld->sceneryData[yColiision+1][xColiision] = -1;
+					currentWorld->sceneryData[yColiision+1][xColiision-1] = -1;
+					currentWorld->collisionData[yColiision+3][xColiision] = 2;
+					currentWorld->collisionData[yColiision+3][xColiision-1] = 2;
+					currentWorld->collisionData[yColiision+1][xColiision] = 0;
+					currentWorld->collisionData[yColiision+1][xColiision-1] = 0;
+				}
+
+			}
+			else if (currentWorld->sceneryData[yColiision+1][xColiision] == RED_CHAIR_TILE)
+			{
+				if(currentWorld->sceneryData[yColiision+2][xColiision] == -1 && currentWorld->backgroundData[yColiision+2][xColiision] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision+2][xColiision] = currentWorld->sceneryData[yColiision+1][xColiision];
+					currentWorld->foregroundData[yColiision][xColiision] = currentWorld->foregroundData[yColiision-1][xColiision];
+
+					currentWorld->sceneryData[yColiision+1][xColiision] = -1;
+					currentWorld->foregroundData[yColiision+1][xColiision] = -1;
+					currentWorld->UpdateWorld = true;
+					currentWorld->collisionData[yColiision+2][xColiision] = 2;
+					currentWorld->collisionData[yColiision+1][xColiision] = 0;
+				}
+			}
+		}
+		else
+		{
+			this->m_movementTimer = 0.0;
+			m_playerPos.y -= 32;
+			m_currFear += (float)dt * 3;
+			m_fearCooldown = 1.0;
+			stand_activated = false;
+		}
+	}
+	if(controls.left && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision-1] <100) && m_playerPos.x > 0)
 	{
-		this->m_animationState = Player::STATE_WALKING_RIGHT;
-		this->m_movementTimer = 0.0;
-		m_playerPos.x += 32;
-		m_currFear += (float)dt * 3;
-		m_fearCooldown = 1.0;
-		stand_activated = false;
+		if(collisionMap[yColiision][xColiision-1] == 2)
+		{
+			this->m_movementTimer = 0.0;
+			stand_activated = false;
+			if (currentWorld->sceneryData[yColiision][xColiision-1] == RED_TABLE_TILE2)
+			{
+				if(currentWorld->sceneryData[yColiision][xColiision-3] == -1 && currentWorld->backgroundData[yColiision][xColiision-3] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision][xColiision-3] = currentWorld->sceneryData[yColiision][xColiision-2];
+					currentWorld->sceneryData[yColiision][xColiision-2] = currentWorld->sceneryData[yColiision][xColiision-1];
+					currentWorld->sceneryData[yColiision+1][xColiision-3] = currentWorld->sceneryData[yColiision+1][xColiision-2];
+					currentWorld->sceneryData[yColiision+1][xColiision-2] = currentWorld->sceneryData[yColiision+1][xColiision-1];
+					currentWorld->UpdateWorld = true;
+					currentWorld->sceneryData[yColiision][xColiision-1] = -1;
+					currentWorld->sceneryData[yColiision+1][xColiision-1] = -1;
+					currentWorld->collisionData[yColiision][xColiision-3] = 2;
+					currentWorld->collisionData[yColiision+1][xColiision-3] = 2;
+					currentWorld->collisionData[yColiision][xColiision-1] = 0;	
+					currentWorld->collisionData[yColiision+1][xColiision-1] = 0;
+				}
+			}
+			else if (currentWorld->sceneryData[yColiision][xColiision-1] == RED_TABLE_TILE4)
+			{
+				if(currentWorld->sceneryData[yColiision][xColiision-3] == -1 && currentWorld->backgroundData[yColiision][xColiision-3] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision][xColiision-3] = currentWorld->sceneryData[yColiision][xColiision-2];
+					currentWorld->sceneryData[yColiision][xColiision-2] = currentWorld->sceneryData[yColiision][xColiision-1];
+					currentWorld->sceneryData[yColiision-1][xColiision-3] = currentWorld->sceneryData[yColiision-1][xColiision-2];
+					currentWorld->sceneryData[yColiision-1][xColiision-2] = currentWorld->sceneryData[yColiision-1][xColiision-1];
+					currentWorld->UpdateWorld = true;
+					currentWorld->sceneryData[yColiision][xColiision-1] = -1;
+					currentWorld->sceneryData[yColiision-1][xColiision-1] = -1;
+					currentWorld->collisionData[yColiision][xColiision-3] = 2;
+					currentWorld->collisionData[yColiision-1][xColiision-3] = 2;
+					currentWorld->collisionData[yColiision][xColiision-1] = 0;	
+					currentWorld->collisionData[yColiision-1][xColiision-1] = 0;
+				}
+
+			}
+			else if (currentWorld->sceneryData[yColiision][xColiision-1] == RED_CHAIR_TILE)
+			{
+				if(currentWorld->sceneryData[yColiision][xColiision-2] == -1 && currentWorld->backgroundData[yColiision][xColiision-2] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision][xColiision-2] = currentWorld->sceneryData[yColiision][xColiision-1];
+					currentWorld->foregroundData[yColiision-1][xColiision-2] = currentWorld->foregroundData[yColiision-1][xColiision-1];
+
+					currentWorld->sceneryData[yColiision-1][xColiision-1] = -1;
+					currentWorld->foregroundData[yColiision-1][xColiision-1] = -1;
+					currentWorld->UpdateWorld = true;
+					currentWorld->collisionData[yColiision][xColiision-2] = 2;
+					currentWorld->collisionData[yColiision][xColiision-1] = 0;
+				}
+			}
+		}
+		else
+		{
+			this->m_movementTimer = 0.0;
+			m_playerPos.x -= 32;
+			m_currFear += (float)dt * 3;
+			m_fearCooldown = 1.0;
+			stand_activated = false;
+		}
+	}
+	if(controls.right && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision][xColiision+1] <100))
+	{
+		if(collisionMap[yColiision][xColiision-1] == 2)
+		{
+			this->m_movementTimer = 0.0;
+			stand_activated = false;
+			if (currentWorld->sceneryData[yColiision][xColiision+1] == RED_TABLE_TILE2)
+			{
+				if(currentWorld->sceneryData[yColiision][xColiision+3] == -1 && currentWorld->backgroundData[yColiision][xColiision+3] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision][xColiision+3] = currentWorld->sceneryData[yColiision][xColiision+2];
+					currentWorld->sceneryData[yColiision][xColiision+2] = currentWorld->sceneryData[yColiision][xColiision+1];
+					currentWorld->sceneryData[yColiision+1][xColiision+3] = currentWorld->sceneryData[yColiision+1][xColiision+2];
+					currentWorld->sceneryData[yColiision+1][xColiision+2] = currentWorld->sceneryData[yColiision+1][xColiision+1];
+					currentWorld->UpdateWorld = true;
+					currentWorld->sceneryData[yColiision][xColiision+1] = -1;
+					currentWorld->sceneryData[yColiision+1][xColiision+1] = -1;
+					currentWorld->collisionData[yColiision][xColiision+3] = 2;
+					currentWorld->collisionData[yColiision+1][xColiision+3] = 2;
+					currentWorld->collisionData[yColiision][xColiision+1] = 0;	
+					currentWorld->collisionData[yColiision+1][xColiision+1] = 0;
+				}
+			}
+			else if (currentWorld->sceneryData[yColiision][xColiision+1] == RED_TABLE_TILE4)
+			{
+				if(currentWorld->sceneryData[yColiision][xColiision+3] == -1 && currentWorld->backgroundData[yColiision][xColiision+3] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision][xColiision+3] = currentWorld->sceneryData[yColiision][xColiision+2];
+					currentWorld->sceneryData[yColiision][xColiision+2] = currentWorld->sceneryData[yColiision][xColiision+1];
+					currentWorld->sceneryData[yColiision-1][xColiision+3] = currentWorld->sceneryData[yColiision-1][xColiision+2];
+					currentWorld->sceneryData[yColiision-1][xColiision+2] = currentWorld->sceneryData[yColiision-1][xColiision+1];
+					currentWorld->UpdateWorld = true;
+					currentWorld->sceneryData[yColiision][xColiision+1] = -1;
+					currentWorld->sceneryData[yColiision-1][xColiision+1] = -1;
+					currentWorld->collisionData[yColiision][xColiision+3] = 2;
+					currentWorld->collisionData[yColiision-1][xColiision+3] = 2;
+					currentWorld->collisionData[yColiision][xColiision+1] = 0;	
+					currentWorld->collisionData[yColiision-1][xColiision+1] = 0;
+				}
+
+			}
+			else if (currentWorld->sceneryData[yColiision][xColiision+1] == RED_CHAIR_TILE)
+			{
+				if(currentWorld->sceneryData[yColiision][xColiision+2] == -1 && currentWorld->backgroundData[yColiision][xColiision+2] == RED_FLOORTILE)
+				{
+					currentWorld->sceneryData[yColiision][xColiision+2] = currentWorld->sceneryData[yColiision][xColiision+1];
+					currentWorld->foregroundData[yColiision-1][xColiision+2] = currentWorld->foregroundData[yColiision-1][xColiision+1];
+
+					currentWorld->sceneryData[yColiision-1][xColiision+1] = -1;
+					currentWorld->foregroundData[yColiision-1][xColiision+1] = -1;
+					currentWorld->UpdateWorld = true;
+					currentWorld->collisionData[yColiision][xColiision+2] = 2;
+					currentWorld->collisionData[yColiision][xColiision+1] = 0;
+				}
+			}
+		}
+		else
+		{
+			this->m_movementTimer = 0.0;
+			m_playerPos.x += 32;
+			m_currFear += (float)dt * 3;
+			m_fearCooldown = 1.0;
+			stand_activated = false;
+		}
 	}
 }
 
@@ -108,7 +332,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 	}
 	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
 
-	move(dt,currentWorld->collisionData);
+	move(dt, currentWorld, currentWorld->collisionData);
 	Interact(dt, currentWorld, currentWorld->collisionData,theModel);
 
 	m_fearCooldown -= dt;
