@@ -231,18 +231,10 @@ bool World::initCorridors()
 	//2 rooms or more, generate exits
 	switch (this->WorldID)
 	{
-	case WORLD_SIGHT_03:
-		{
-			Room_Exit_Connections* newConnection = new Room_Exit_Connections(exitList[0], exitList[1], CONNECTION_PATH_FIND);
-					exitConnectionList.push_back(newConnection);
 
-					newConnection = new Room_Exit_Connections(exitList[1], exitList[2], CONNECTION_PATH_FIND);
-					exitConnectionList.push_back(newConnection);
-		}
-		break;
 	default:
 		{
-			while (exitConnectionList.size() != exitList.size()-1 && exitList.size() != 0)
+			while (exitConnectionList.size() != exitList.size()-1)
 			{
 				bool correctConnections = false;
 

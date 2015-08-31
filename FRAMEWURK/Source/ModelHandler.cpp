@@ -101,7 +101,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom = new Room(ROOM_TUTORIAL_SIGHT, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 40, 0);
 	//newRoom->addExit(EXIT_UP);
 	//newRoom->addExit(EXIT_UP);
-	newRoom->LoadMap("MapData//NIGHT2//1//lib_foreground.csv","MapData//NIGHT2//1//lib_scenery.csv","MapData//NIGHT2//1//lib_backgorund.csv","MapData//NIGHT2//1//lib_backgorund.csv");
+	newRoom->LoadMap("MapData//NIGHT2//1//lib_foreground.csv","MapData//NIGHT2//tutorial//lib_scenery.csv","MapData//NIGHT2//tutorial//lib_backgorund.csv","MapData//NIGHT2//tutorial//lib_backgorund.csv");
 	m_worldList[4]->m_roomList.push_back(newRoom);
 
 	newWorld = new World(WORLD_SIGHT_02);
@@ -132,7 +132,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	m_worldList[6]->m_roomList.push_back(newRoom);
 
 	newRoom = new Room(ROOM_THREE_03_SIGHT, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 120, 2);
-	//newRoom->addExit(EXIT_DOWN);
+	newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//NIGHT2//3//ritualRoom_foreground.csv","MapData//NIGHT2//3//ritualRoom_scenery.csv","MapData//NIGHT2//3//ritualRoom_backgorund.csv","MapData//NIGHT2//3//ritualRoom_backgorund.csv");
 	m_worldList[6]->m_roomList.push_back(newRoom);
 
@@ -223,24 +223,6 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[4]->sceneryData,32,48));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
 	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[4]->foregroundData,32,48));
-	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	m_objectList.push_back(object);
-
-	object = new GameObject("Sight 02", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[5]->backgroundData,32,48));
-	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_CLEAN2.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[5]->sceneryData,32,48));
-	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_CLEAN2.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[5]->foregroundData,32,48));
-	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_CLEAN2.tga");
-	m_objectList.push_back(object);
-	
-	object = new GameObject("Sight 03", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[6]->backgroundData,32,48));
-	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[6]->sceneryData,32,48));
-	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[6]->foregroundData,32,48));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
 	m_objectList.push_back(object);
 

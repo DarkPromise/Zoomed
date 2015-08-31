@@ -1008,7 +1008,7 @@ void Room::addExit(EXIT_DIRECTION exit)
 				exitCounter++;
 			}
 		}
-		break;/*
+		break;
 	case ROOM_THREE_03_SIGHT:
 		{
 			if(exit == EXIT_DOWN)
@@ -1019,7 +1019,7 @@ void Room::addExit(EXIT_DIRECTION exit)
 				exitCounter++;
 			}
 		}
-		break;*/
+		break;
 	}
 }
 
