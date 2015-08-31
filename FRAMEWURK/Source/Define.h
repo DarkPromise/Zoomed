@@ -13,4 +13,4 @@
 #define GameUIFearBorderHeightOffset 190.f
 
 #define MainMenuNight1PositionY -1280.f
-#define MainMenuNight1PositionX 864.f
+#define MainMenuNight1PositionX 868.f

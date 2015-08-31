@@ -38,7 +38,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	Math::InitRNG();
 
 	player = new Player("Josh");
-	player->setPosition(Vector3(800,-1248, 0));
+	player->setPosition(Vector3(804,-1248, 0));
 
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
 	
@@ -166,7 +166,7 @@ bool ModelHandler::InitObjects()
 {
 	GameObject * object = new GameObject("Test Animation");
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Test Animation",2,6,24.f,48.f));
-	object->getMesh()->textureArray[0] = LoadTGA("Images//playerTest2.tga");    //Current State 
+	object->getMesh()->textureArray[0] = LoadTGA("Images//playerTest5.tga");    //Current State 
 	m_objectList.push_back(object);
 	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
 	if(playerAnimation)

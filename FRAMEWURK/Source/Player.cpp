@@ -359,18 +359,6 @@ void Player::getPassiveEffect(Item * item)
 {
 	switch(item->getItemID())
 	{
-	case ITEM_REDUCE_NOISE_POTION:
-		break;
-	case ITEM_REDUCED_NOISE_GAIN_POTION:
-		break;
-	case ITEM_SIGHT_POTION:
-		break;
-	case ITEM_REDUCED_FEAR_GAIN_POTION:
-		break;
-	case ITEM_REDUCE_FEAR_POTION:
-		break;
-	case ITEM_SUPPRESS_FEAR_POTION:
-		break;
 	case ITEM_COMPASS:
 		break;
 	case ITEM_MAP:
