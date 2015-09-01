@@ -75,7 +75,7 @@ BOOL ViewHandler::InitGL() //Initialize OpenGL Values
 	glEnable(GL_CULL_FACE); //Allow culling of faces
 	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); //Allows the interior of polygon to be filled
 	glEnable(GL_BLEND); //Allow blending of textures with alpha
-	glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE_ARB); //Perfect Blending
+	//glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE_ARB); //Perfect Blending
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA); //Alpha stuff
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST); //Nicest Perspective that can be calculated
 
@@ -608,6 +608,8 @@ void ViewHandler::RenderScene()
 
 	Render2DMesh(theModel->m_guiList[2]->getMesh(),false,false,40.f,300.f * (theModel->getPlayer()->getCurrFear() * 0.01f),GameUIFearBorderWidthOffset, m_viewPort[3] - (GameUIFearValueHeightOffset + (30.f - theModel->getPlayer()->getCurrFear() * 1.5f)));
 	Render2DMesh(theModel->m_guiList[1]->getMesh(),false,false,40.f,300.f,GameUIFearBorderWidthOffset, m_viewPort[3] - GameUIFearBorderHeightOffset);
+
+	Render2DMesh(theModel->m_guiList[3]->getMesh(),false,false,512.f,128.f, m_viewPort[2] * 0.5f,  m_viewPort[3] * 0.5f);
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

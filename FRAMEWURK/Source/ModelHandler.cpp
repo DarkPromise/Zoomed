@@ -199,8 +199,6 @@ void ModelHandler::Init() //Anything that moves in the game
 	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
 
 	newRoom = new Room(ROOM_SCHOOL_BASEMENT, 544, 256, 18, 8, 544, 256, 32, TILESET_GENERAL, 0, 0, 1);
-	//newRoom->addExit(EXIT_LEFT);
-	//newRoom->addExit(EXIT_LEFT);
 	newRoom->LoadMap("MapData//Night1//Level1//BasementEntrance//BasementEntrance_Foreground.csv","MapData//Night1//Level1//BasementEntrance//BasementEntrance_Scenery.csv","MapData//Night1//Level1//BasementEntrance//BasementEntrance_Background.csv","MapData//Night1//Level1//BasementEntrance//BasementEntrance_Background.csv");
 	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
 
@@ -325,9 +323,9 @@ bool ModelHandler::InitObjects()
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
 	m_objectList.push_back(object);
 
-	object = new GameObject("Game Text Foxscript",TYPE_TEXT);
-	object->addMesh(MeshBuilder::GenerateText("Game Text Foxscript",16,16));
-	object->getMesh()->textureID = LoadTGA("Images//Fonts//foxscript.tga");
+	object = new GameObject("Game Text Onryou",TYPE_TEXT);
+	object->addMesh(MeshBuilder::GenerateText("Game Text Onryou",16,16));
+	object->getMesh()->textureID = LoadTGA("Images//Fonts//onryou.tga");
 	m_objectList.push_back(object);
 
 	object = new GameObject("Game Text Basis", TYPE_TEXT);
@@ -361,6 +359,15 @@ bool ModelHandler::InitObjects()
 		enemyAnim->m_anim->Set(0,2,0,0.3f);
 	}
 
+	object = new GameObject("Night 1 (School) Level 1", TYPE_MAP, Vector3(0, 0, 0));
+	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->backgroundData,32,32));
+	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->sceneryData,32,32));
+	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->foregroundData,32,32));
+	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	m_objectList.push_back(object);
+
 	Item * item = new Item("Consumable");
 	item->setDescription("Consumable");
 	m_itemList.push_back(item);
@@ -380,6 +387,9 @@ bool ModelHandler::InitObjects()
 	m_guiList.push_back(newGui);
 
 	newGui = new Gui("Fear","Images//UI//Fear.tga");
+	m_guiList.push_back(newGui);
+
+	newGui = new Gui("Wrong End","Images//UI//WrongEnd2.tga");
 	m_guiList.push_back(newGui);
 
 	return true;
