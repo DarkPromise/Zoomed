@@ -601,7 +601,7 @@ void ViewHandler::RenderScene()
 	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
 	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
 
-	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"Sanity", Color(1,0,0), theModel->getPlayer()->getSanity(), (m_viewPort[2] * 0.5f) - GameUISanityWidthOffset, (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
+	Render2DMesh(theModel->m_guiList[3]->getMesh(),false,false,208.f * theModel->getPlayer()->getSanity() ,55.f * theModel->getPlayer()->getSanity(),(m_viewPort[2] * 0.5f), (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
 
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
 	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
@@ -612,7 +612,7 @@ void ViewHandler::RenderScene()
 	Render2DMesh(theModel->m_guiList[2]->getMesh(),false,false,40.f,300.f * (theModel->getPlayer()->getCurrFear() * 0.01f),GameUIFearBorderWidthOffset, m_viewPort[3] - (GameUIFearValueHeightOffset + (30.f - theModel->getPlayer()->getCurrFear() * 1.5f)));
 	Render2DMesh(theModel->m_guiList[1]->getMesh(),false,false,40.f,300.f,GameUIFearBorderWidthOffset, m_viewPort[3] - GameUIFearBorderHeightOffset);
 
-	Render2DMesh(theModel->m_guiList[3]->getMesh(),false,false,512.f,128.f, m_viewPort[2] * 0.5f,  m_viewPort[3] * 0.5f);
+	//Render2DMesh(theModel->m_guiList[3]->getMesh(),false,false,512.f,128.f, m_viewPort[2] * 0.5f,  m_viewPort[3] * 0.5f);
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

@@ -179,7 +179,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 		m_currFear -= (float)(dt) * 1.5f;
 	}
 	m_currFear = Math::Clamp(m_currFear,2.f,100.f);
-	m_playerSanity = Math::RandFloatMinMax(60.f,80.f);
+	m_playerSanity = Math::RandFloatMinMax(1.f,1.5f);
 }
 
 Inventory &Player::getInventory()
