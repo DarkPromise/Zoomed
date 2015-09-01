@@ -169,6 +169,41 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom->LoadMap("MapData//Friends//Room3//Room_3_Foreground.csv","MapData//Friends//Room3//Room_3_Scenery.csv","MapData//Friends//Room3//Room_3_Background.csv","MapData//Friends//Room3//Room_3_Background.csv");
 	m_worldList[7]->m_roomList.push_back(newRoom);
 
+	//School World Level 1
+	newWorld = new World(WORLD_SCHOOL_LEVEL1);
+	m_worldList.push_back(newWorld);
+
+	newRoom = new Room(ROOM_SCHOOL_INFIRMARY, 416, 544, 14, 17, 416, 544, 32, TILESET_BLUE, 20, 40, 1);
+	//newRoom->addExit(EXIT_RIGHT);
+	newRoom->LoadMap("MapData//Night1//Level1//Infirmary//Infirmary_Foreground.csv","MapData//Night1//Level1//Infirmary//Infirmary_Scenery.csv","MapData//Night1//Level1//Infirmary//Infirmary_Background.csv","MapData//Night1//Level1//Infirmary//Infirmary_Background.csv");
+	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
+
+	newRoom = new Room(ROOM_SCHOOL_MALEBATHROOM, 288, 480, 10, 15, 288, 480, 32, TILESET_BLUE, 20, 20, 1);
+	//newRoom->addExit(EXIT_RIGHT);
+	newRoom->LoadMap("MapData//Night1//Level1//MaleBathroom//Bathroom_Foreground.csv","MapData//Night1//Level1//MaleBathroom//Bathroom_Scenery.csv","MapData//Night1//Level1//MaleBathroom//Bathroom_Background.csv","MapData//Night1//Level1//MaleBathroom//Bathroom_Background.csv");
+	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
+
+	newRoom = new Room(ROOM_SCHOOL_HIDDENROOM, 288, 288, 10, 9, 288, 288, 32, TILESET_BLUE, 0, 0, 1);
+	newRoom->LoadMap("MapData//Night1//Level1//HiddenRoom//HiddenRoom_Foreground.csv","MapData//Night1//Level1//HiddenRoom//HiddenRoom_Scenery.csv","MapData//Night1//Level1//HiddenRoom//HiddenRoom_Background.csv","MapData//Night1//Level1//HiddenRoom//HiddenRoom_Background.csv");
+	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
+
+	newRoom = new Room(ROOM_SCHOOL_ENTRANCE, 480, 576, 16, 18, 480, 576, 32, TILESET_BLUE, 0, 0, 1);
+	//newRoom->addExit(EXIT_RIGHT);
+	newRoom->LoadMap("MapData//Night1//Level1//Entrance//Entrance_Foreground.csv","MapData//Night1//Level1//Entrance//Entrance_Scenery.csv","MapData//Night1//Level1//Entrance//Entrance_Background.csv","MapData//Night1//Level1//Entrance//Entrance_Background.csv");
+	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
+
+	newRoom = new Room(ROOM_SCHOOL_CLASSROOM, 672, 544, 22, 17, 672, 544, 32, TILESET_BLUE, 0, 0, 1);
+	//newRoom->addExit(EXIT_LEFT);
+	//newRoom->addExit(EXIT_LEFT);
+	newRoom->LoadMap("MapData//Night1//Level1//Classroom//Classroom_Foreground.csv","MapData//Night1//Level1//Classroom//Classroom_Scenery.csv","MapData//Night1//Level1//Classroom//Classroom_Background.csv","MapData//Night1//Level1//Classroom//Classroom_Background.csv");
+	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
+
+	newRoom = new Room(ROOM_SCHOOL_BASEMENT, 544, 256, 18, 8, 544, 256, 32, TILESET_GENERAL, 0, 0, 1);
+	//newRoom->addExit(EXIT_LEFT);
+	//newRoom->addExit(EXIT_LEFT);
+	newRoom->LoadMap("MapData//Night1//Level1//BasementEntrance//BasementEntrance_Foreground.csv","MapData//Night1//Level1//BasementEntrance//BasementEntrance_Scenery.csv","MapData//Night1//Level1//BasementEntrance//BasementEntrance_Background.csv","MapData//Night1//Level1//BasementEntrance//BasementEntrance_Background.csv");
+	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
+
 	for (unsigned i = 0; i < m_worldList.size(); i++)
 	{
 		for (unsigned j = 0; j < m_worldList[i]->m_roomList.size(); j++)
