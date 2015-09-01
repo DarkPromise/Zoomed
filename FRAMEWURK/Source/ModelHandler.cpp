@@ -95,7 +95,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom = new Room(ROOM_TUTORIAL_SIGHT, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 40, 0);
 	//newRoom->addExit(EXIT_UP);
 	//newRoom->addExit(EXIT_UP);
-	newRoom->LoadMap("MapData//NIGHT2//tutorial//lib_foreground.csv","MapData//NIGHT2//tutorial//lib_scenery.csv","MapData//NIGHT2//tutorial//lib_backgorund.csv","MapData//NIGHT2//tutorial//lib_backgorund.csv");
+	newRoom->LoadMap("MapData//Sight//1//lib_foreground.csv","MapData//Sight//1//lib_scenery.csv","MapData//Sight//1//lib_backgorund.csv","MapData//Sight//1//lib_backgorund.csv");
 	m_worldList[3]->m_roomList.push_back(newRoom);
 
 	newWorld = new World(WORLD_SIGHT_02);
@@ -103,12 +103,12 @@ void ModelHandler::Init() //Anything that moves in the game
 
 	//newRoom = new Room(ROOM_TWO_01_SIGHT, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 40, 0);
 	////newRoom->addExit(EXIT_DOWN);
-	//newRoom->LoadMap("MapData//NIGHT2//2//artRoom_foreground.csv","MapData//NIGHT2//2//artRoom_scenery.csv","MapData//NIGHT2//2//artRoom_backgorund.csv","MapData//NIGHT2//2//artRoom_backgorund.csv");
+	//newRoom->LoadMap("MapData//Sight//2//artRoom_foreground.csv","MapData//Sight//2//artRoom_scenery.csv","MapData//Sight//2//artRoom_backgorund.csv","MapData//Sight//2//artRoom_backgorund.csv");
 	//m_worldList[4]->m_roomList.push_back(newRoom);
 
 	newRoom = new Room(ROOM_TWO_02_SIGHT, 800, 1056, 33, 25, 800, 1056,32,TILESET_RED, 20, 80, 1);
 	//newRoom->addExit(EXIT_DOWN);
-	newRoom->LoadMap("MapData//NIGHT2//2//hiddenRoom_foreground.csv","MapData//NIGHT2//2//hiddenRoom_scenery.csv","MapData//NIGHT2//2//hiddenRoom_backgorund.csv","MapData//NIGHT2//2//hiddenRoom_backgorund.csv");
+	newRoom->LoadMap("MapData//Sight//2//hiddenRoom_foreground.csv","MapData//Sight//2//hiddenRoom_scenery.csv","MapData//Sight//2//hiddenRoom_backgorund.csv","MapData//Sight//2//hiddenRoom_backgorund.csv");
 	m_worldList[4]->m_roomList.push_back(newRoom);
 	
 	newWorld = new World(WORLD_SIGHT_03);
@@ -116,18 +116,18 @@ void ModelHandler::Init() //Anything that moves in the game
 
 	newRoom = new Room(ROOM_THREE_01_SIGHT, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 40, 0);
 	newRoom->addExit(EXIT_RIGHT);
-	newRoom->LoadMap("MapData//NIGHT2//3//arrowRoom_foreground.csv","MapData//NIGHT2//3//arrowRoom_scenery.csv","MapData//NIGHT2//3//arrowRoom_backgorund.csv","MapData//NIGHT2//3//arrowRoom_backgorund.csv");
+	newRoom->LoadMap("MapData//Sight//3//arrowRoom_foreground.csv","MapData//Sight//3//arrowRoom_scenery.csv","MapData//Sight//3//arrowRoom_backgorund.csv","MapData//Sight//3//arrowRoom_backgorund.csv");
 	m_worldList[5]->m_roomList.push_back(newRoom);
 	
 	newRoom = new Room(ROOM_THREE_02_SIGHT, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 80, 1);
 	newRoom->addExit(EXIT_UP);
 	newRoom->addExit(EXIT_DOWN);
-	newRoom->LoadMap("MapData//NIGHT2//3//pianoRoom_foreground.csv","MapData//NIGHT2//3//pianoRoom_scenery.csv","MapData//NIGHT2//3//pianoRoom_backgorund.csv","MapData//NIGHT2//3//pianoRoom_backgorund.csv");
+	newRoom->LoadMap("MapData//Sight//3//pianoRoom_foreground.csv","MapData//Sight//3//pianoRoom_scenery.csv","MapData//Sight//3//pianoRoom_backgorund.csv","MapData//Sight//3//pianoRoom_backgorund.csv");
 	m_worldList[5]->m_roomList.push_back(newRoom);
 
 	newRoom = new Room(ROOM_THREE_03_SIGHT, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 120, 2);
 	//newRoom->addExit(EXIT_DOWN);
-	newRoom->LoadMap("MapData//NIGHT2//3//ritualRoom_foreground.csv","MapData//NIGHT2//3//ritualRoom_scenery.csv","MapData//NIGHT2//3//ritualRoom_backgorund.csv","MapData//NIGHT2//3//ritualRoom_backgorund.csv");
+	newRoom->LoadMap("MapData//Sight//3//ritualRoom_foreground.csv","MapData//Sight//3//ritualRoom_scenery.csv","MapData//Sight//3//ritualRoom_backgorund.csv","MapData//Sight//3//ritualRoom_backgorund.csv");
 	m_worldList[5]->m_roomList.push_back(newRoom);
 
 	newWorld = new World(WORLD_FRIENDS_TUTORIAL);
