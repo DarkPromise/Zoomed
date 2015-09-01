@@ -219,11 +219,11 @@ bool ModelHandler::InitObjects()
 	//DON'T PUSH ANYTHING ELSE
 
 	object = new GameObject("Main Menu", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[0]->backgroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[WORLD_MAINMENU]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[0]->sceneryData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_MAINMENU]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[0]->foregroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_MAINMENU]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_MAINMENU.tga");
 	m_objectList.push_back(object);
 
@@ -246,47 +246,47 @@ bool ModelHandler::InitObjects()
 	m_objectList.push_back(object);
 
 	object = new GameObject("Sight Tutorial", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[3]->backgroundData,32,48));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_TUTORIAL]->backgroundData,32,48));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[3]->sceneryData,32,48));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_TUTORIAL]->sceneryData,32,48));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[3]->foregroundData,32,48));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_TUTORIAL]->foregroundData,32,48));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
 	m_objectList.push_back(object);
 
 	object = new GameObject("Sight 02", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[4]->backgroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_02]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[4]->sceneryData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_02]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[4]->foregroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_02]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
 	m_objectList.push_back(object);
 	
 	object = new GameObject("Sight 03", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[5]->backgroundData,32,48));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_03]->backgroundData,32,48));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[5]->sceneryData,32,48));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_03]->sceneryData,32,48));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[5]->foregroundData,32,48));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_03]->foregroundData,32,48));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
 	m_objectList.push_back(object);
 
 	object = new GameObject("Friends Tutorial", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[6]->backgroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_TUTORIAL]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[6]->sceneryData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_TUTORIAL]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[6]->foregroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_TUTORIAL]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
 	m_objectList.push_back(object);
 
 	object = new GameObject("Friends Level 1", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("Friends Background",Color(0.f,0.f,0.f),m_worldList[7]->backgroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("Friends Background",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_LEVEL1]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Friends Scenery",Color(0.f,0.f,0.f),m_worldList[7]->sceneryData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("Friends Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_LEVEL1]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Friends Foreground",Color(0.f,0.f,0.f),m_worldList[7]->foregroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("Friends Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_LEVEL1]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
 	m_objectList.push_back(object);
 
