@@ -596,7 +596,7 @@ void ViewHandler::RenderScene()
 	}*/
 
 	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
-	RenderGameTextOnScreen(theModel->m_objectList[11]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
+	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
 
 	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"Sanity", Color(1,0,0), theModel->getPlayer()->getSanity(), (m_viewPort[2] * 0.5f) - GameUISanityWidthOffset, (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
 
