@@ -12,184 +12,184 @@ Room_Object::Room_Object(ROOM_OBJECT_TYPE objectType, int roomHeight, int roomWi
 
 	switch (objectType)
 	{
-		case ROOM_OBJECT_TESTPUZZLE_BED:
-			{
-				this->width = 2;
-				this->height = 4;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_MEDIUM_TABLE:
-			{
-				this->width = 2;
-				this->height = 2;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_SMALL_TABLE:
-			{
-				this->width = 2;
-				this->height = 2;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_LEFT:
-			{
-				this->width = 1;
-				this->height = 1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_RIGHT:
-			{
-				this->width = 1;
-				this->height = 1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_WHITE_TABLECLOTH_TABLE:
-			{
-				this->width = 3;
-				this->height = 3;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_BRONZE_GLOBE:
-			{
-				this->width = 1;
-				this->height = 1;
+	case ROOM_OBJECT_TESTPUZZLE_BED:
+		{
+			this->width = 2;
+			this->height = 4;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_MEDIUM_TABLE:
+		{
+			this->width = 2;
+			this->height = 2;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_SMALL_TABLE:
+		{
+			this->width = 2;
+			this->height = 2;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_LEFT:
+		{
+			this->width = 1;
+			this->height = 1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_CHAIR_SLANT_RIGHT:
+		{
+			this->width = 1;
+			this->height = 1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_WHITE_TABLECLOTH_TABLE:
+		{
+			this->width = 3;
+			this->height = 3;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_BRONZE_GLOBE:
+		{
+			this->width = 1;
+			this->height = 1;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_BRONZE_CANDLESTICK:
-			{
-				this->width = 1;
-				this->height = 1;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_BRONZE_CANDLESTICK:
+		{
+			this->width = 1;
+			this->height = 1;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_BRONZE_BOTTLE:
-			{
-				this->width = 1;
-				this->height = 1;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_BRONZE_BOTTLE:
+		{
+			this->width = 1;
+			this->height = 1;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_OPEN_BOOK:
-			{
-				this->width = 1;
-				this->height = 1;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_OPEN_BOOK:
+		{
+			this->width = 1;
+			this->height = 1;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM:
-			{
-				this->width = 3;
-				this->height = 1;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_CLOSED_EXIT_BOTTOM:
+		{
+			this->width = 3;
+			this->height = 1;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM:
-			{
-				this->width = 3;
-				this->height = 2;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_OPEN_EXIT_BOTTOM:
+		{
+			this->width = 3;
+			this->height = 2;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_BIG_WINDOW:
-			{
-				this->width = 3;
-				this->height = 4;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_SMALL_WINDOW:
-			{
-				this->width = 2;
-				this->height = 2;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET:
-			{
-				this->width = 2;
-				this->height = 3;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_BIG_WINDOW:
+		{
+			this->width = 3;
+			this->height = 4;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_SMALL_WINDOW:
+		{
+			this->width = 2;
+			this->height = 2;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_GLASS_CABINET:
+		{
+			this->width = 2;
+			this->height = 3;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_TESTPUZZLE_PATTERNED_FLOOR:
-			{
-				this->width = 1;
-				this->height = 1;
-			}
-			break;
-		case ROOM_OBJECT_MECH_FACTORY_PIPES:
-			{
-				this->width = 5;
-				this->height = 4;
-			}
-			break;
-		case ROOM_OBJECT_MECH_CURVE_PIPES:
-			{
-				this->width = 3;
-				this->height = 2;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_TESTPUZZLE_PATTERNED_FLOOR:
+		{
+			this->width = 1;
+			this->height = 1;
+		}
+		break;
+	case ROOM_OBJECT_MECH_FACTORY_PIPES:
+		{
+			this->width = 5;
+			this->height = 4;
+		}
+		break;
+	case ROOM_OBJECT_MECH_CURVE_PIPES:
+		{
+			this->width = 3;
+			this->height = 2;
 
-				/*this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;*/
-			}
-			break;
-		case ROOM_OBJECT_MECH_WALL_PIPES:
-			{
-				this->width = 4;
-				this->height = 3;
+			/*this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;*/
+		}
+		break;
+	case ROOM_OBJECT_MECH_WALL_PIPES:
+		{
+			this->width = 4;
+			this->height = 3;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_MECH_HOSE_PIPE:
-			{
-				this->width = 3;
-				this->height = 2;
-			}
-			break;
-		case ROOM_OBJECT_MECH_ROCK_WALL:
-			{
-				this->width = 4;
-				this->height = 2;
-			}
-			break;
-		case ROOM_OBJECT_MECH_ROCK_RIGHT:
-			{
-				this->width = 1;
-				this->height = 3;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_MECH_HOSE_PIPE:
+		{
+			this->width = 3;
+			this->height = 2;
+		}
+		break;
+	case ROOM_OBJECT_MECH_ROCK_WALL:
+		{
+			this->width = 4;
+			this->height = 2;
+		}
+		break;
+	case ROOM_OBJECT_MECH_ROCK_RIGHT:
+		{
+			this->width = 1;
+			this->height = 3;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_MECH_ROCK_LEFT:
-			{
-				this->width = 1;
-				this->height = 3;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_MECH_ROCK_LEFT:
+		{
+			this->width = 1;
+			this->height = 3;
 
-				this->lowerOriginX = -1; this->upperOriginX = -1;
-				this->lowerOriginY = -1; this->upperOriginY = -1;
-			}
-			break;
-		case ROOM_OBJECT_MECH_ENGINE:
-			{
-				this->width = 2;
-				this->height = 2;
+			this->lowerOriginX = -1; this->upperOriginX = -1;
+			this->lowerOriginY = -1; this->upperOriginY = -1;
+		}
+		break;
+	case ROOM_OBJECT_MECH_ENGINE:
+		{
+			this->width = 2;
+			this->height = 2;
 
-			}
-			break;
+		}
+		break;
 	}
 }
 
@@ -199,17 +199,17 @@ Room_Object::~Room_Object(void)
 
 Room::Room(ROOM_TYPE roomType,
 	const int theScreen_Height, 
-		const int theScreen_Width, 
-		const int theNumOfTiles_Height, 
-		const int theNumOfTiles_Width, 
-		const int theMap_Height, 
-		const int theMap_Width, 
-		const int theTileSize, 
-		const TILESET_ID tileset,
-		const int worldPositionX,
-		const int worldPositionY,
-		const int roomID) : CMap(theScreen_Height, theScreen_Width, theNumOfTiles_Height, theNumOfTiles_Width, theMap_Height, theMap_Width, theTileSize, tileset)
-		, attemptCounter(0)
+	const int theScreen_Width, 
+	const int theNumOfTiles_Height, 
+	const int theNumOfTiles_Width, 
+	const int theMap_Height, 
+	const int theMap_Width, 
+	const int theTileSize, 
+	const TILESET_ID tileset,
+	const int worldPositionX,
+	const int worldPositionY,
+	const int roomID) : CMap(theScreen_Height, theScreen_Width, theNumOfTiles_Height, theNumOfTiles_Width, theMap_Height, theMap_Width, theTileSize, tileset)
+	, attemptCounter(0)
 {
 	numExit.clear();
 	roomObjectList.clear();
@@ -252,7 +252,7 @@ Room::Room(ROOM_TYPE roomType,
 		break;
 	case ROOM_MECH:
 		{
-			
+
 
 			Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_WALL_PIPES, GetNumOfTiles_Height(), GetNumOfTiles_Width());
 			addOBJtoGenerate(tempObject);
@@ -395,10 +395,10 @@ void Room::generateRoom()
 			floorTileID = floorTile;
 		}
 	}/*
-	else if(this->roomType == ROOM_TWO_02_SIGHT)
-	{
+	 else if(this->roomType == ROOM_TWO_02_SIGHT)
+	 {
 
-	}*/
+	 }*/
 
 	for (unsigned i = 0; i < backgroundData.size(); i++)
 	{
@@ -422,139 +422,139 @@ void Room::generateRoom()
 	if (this->theTileset == TILESET_BLUE)
 	{
 		int ignoreTiles[BLUE_IGNORETOTAL] = {
-		BLUE_TILEBLOOD,
-		BLUE_TILEBODY1,
-		BLUE_TILEDEBRIS1,
+			BLUE_TILEBLOOD,
+			BLUE_TILEBODY1,
+			BLUE_TILEDEBRIS1,
 
-		BLUE_TILEYELLOWBUTTON,
-		BLUE_TILEREDBUTTON,
-		BLUE_TILEPURPLEBUTTON,
-		BLUE_TILEGRAYBUTTON,
-		
-		BLUE_TILEYELLOWBLOCK_OFF,
-		BLUE_TILEREDBLOCK_OFF,
-		BLUE_TILEPURPLEBLOCK_OFF,
-		BLUE_TILEGRAYBLOCK_OFF,
+			BLUE_TILEYELLOWBUTTON,
+			BLUE_TILEREDBUTTON,
+			BLUE_TILEPURPLEBUTTON,
+			BLUE_TILEGRAYBUTTON,
 
-		BLUE_FINISHTILE,
+			BLUE_TILEYELLOWBLOCK_OFF,
+			BLUE_TILEREDBLOCK_OFF,
+			BLUE_TILEPURPLEBLOCK_OFF,
+			BLUE_TILEGRAYBLOCK_OFF,
 
-		BLUE_LOCKERHIDE,
-		BLUE_LOCKERHIDE2,
-		
-		BLUE_TILEDEBRIS2,
-		BLUE_TILEDEBRIS3,
-		BLUE_TILEDEBRIS4,
-		BLUE_TILEDEBRIS5,
-		BLUE_TILEDEBRIS6,
-		BLUE_TILEDEBRIS7,
+			BLUE_FINISHTILE,
 
-		BLUE_DOORTILE1,
-		BLUE_DOORTILE2,
-		BLUE_DOORTILE3,
-		BLUE_DOORTILE4,
-		BLUE_DOORTILE5,
-		BLUE_DOORTILE6,
-		BLUE_DOORTILE7,
-		BLUE_DOORTILE8,
+			BLUE_LOCKERHIDE,
+			BLUE_LOCKERHIDE2,
 
-		BLUE_TILEDEBRIS8,
-		BLUE_TILEDEBRIS9};
+			BLUE_TILEDEBRIS2,
+			BLUE_TILEDEBRIS3,
+			BLUE_TILEDEBRIS4,
+			BLUE_TILEDEBRIS5,
+			BLUE_TILEDEBRIS6,
+			BLUE_TILEDEBRIS7,
 
-		int collisionTiles[BLUE_IGNORETOTAL] = {
-		COLLISION_BLUE_TILEBLOOD,
-		COLLISION_BLUE_TILEBODY1,
-		COLLISION_BLUE_TILEDEBRIS1,
+			BLUE_DOORTILE1,
+			BLUE_DOORTILE2,
+			BLUE_DOORTILE3,
+			BLUE_DOORTILE4,
+			BLUE_DOORTILE5,
+			BLUE_DOORTILE6,
+			BLUE_DOORTILE7,
+			BLUE_DOORTILE8,
 
-		COLLISION_BLUE_TILEYELLOWBUTTON,
-		COLLISION_BLUE_TILEREDBUTTON,
-		COLLISION_BLUE_TILEPURPLEBUTTON,
-		COLLISION_BLUE_TILEGRAYBUTTON,
-		
-		COLLISION_BLUE_TILEYELLOWBLOCK_OFF,
-		COLLISION_BLUE_TILEREDBLOCK_OFF,
-		COLLISION_BLUE_TILEPURPLEBLOCK_OFF,
-		COLLISION_BLUE_TILEGRAYBLOCK_OFF,
+			BLUE_TILEDEBRIS8,
+			BLUE_TILEDEBRIS9};
 
-		COLLISION_BLUE_FINISHTILE,
-		
-		COLLISION_BLUE_LOCKERHIDE,
-		COLLISION_BLUE_LOCKERHIDE2,
-	
-		COLLISION_BLUE_TILEDEBRIS2,
-		COLLISION_BLUE_TILEDEBRIS3,
-		COLLISION_BLUE_TILEDEBRIS4,
-		COLLISION_BLUE_TILEDEBRIS5,
-		COLLISION_BLUE_TILEDEBRIS6,
-		COLLISION_BLUE_TILEDEBRIS7,
+			int collisionTiles[BLUE_IGNORETOTAL] = {
+				COLLISION_BLUE_TILEBLOOD,
+				COLLISION_BLUE_TILEBODY1,
+				COLLISION_BLUE_TILEDEBRIS1,
 
-		COLLISION_BLUE_DOORTILE1,
-		COLLISION_BLUE_DOORTILE2,
-		COLLISION_BLUE_DOORTILE3,
-		COLLISION_BLUE_DOORTILE4,
-		COLLISION_BLUE_DOORTILE5,
-		COLLISION_BLUE_DOORTILE6,
-		COLLISION_BLUE_DOORTILE7,
-		COLLISION_BLUE_DOORTILE8,
+				COLLISION_BLUE_TILEYELLOWBUTTON,
+				COLLISION_BLUE_TILEREDBUTTON,
+				COLLISION_BLUE_TILEPURPLEBUTTON,
+				COLLISION_BLUE_TILEGRAYBUTTON,
 
-		COLLISION_BLUE_TILEDEBRIS8,
-		COLLISION_BLUE_TILEDEBRIS9};
+				COLLISION_BLUE_TILEYELLOWBLOCK_OFF,
+				COLLISION_BLUE_TILEREDBLOCK_OFF,
+				COLLISION_BLUE_TILEPURPLEBLOCK_OFF,
+				COLLISION_BLUE_TILEGRAYBLOCK_OFF,
 
-		for (unsigned i = 0; i < backgroundData.size(); i++)
-		{
-			for (unsigned j = 0; j < backgroundData[i].size(); j++)
-			{
-				for (unsigned k = 0; k < BLUE_IGNORETOTAL; k++)
+				COLLISION_BLUE_FINISHTILE,
+
+				COLLISION_BLUE_LOCKERHIDE,
+				COLLISION_BLUE_LOCKERHIDE2,
+
+				COLLISION_BLUE_TILEDEBRIS2,
+				COLLISION_BLUE_TILEDEBRIS3,
+				COLLISION_BLUE_TILEDEBRIS4,
+				COLLISION_BLUE_TILEDEBRIS5,
+				COLLISION_BLUE_TILEDEBRIS6,
+				COLLISION_BLUE_TILEDEBRIS7,
+
+				COLLISION_BLUE_DOORTILE1,
+				COLLISION_BLUE_DOORTILE2,
+				COLLISION_BLUE_DOORTILE3,
+				COLLISION_BLUE_DOORTILE4,
+				COLLISION_BLUE_DOORTILE5,
+				COLLISION_BLUE_DOORTILE6,
+				COLLISION_BLUE_DOORTILE7,
+				COLLISION_BLUE_DOORTILE8,
+
+				COLLISION_BLUE_TILEDEBRIS8,
+				COLLISION_BLUE_TILEDEBRIS9};
+
+				for (unsigned i = 0; i < backgroundData.size(); i++)
 				{
-					if (sceneryData[i][j] == ignoreTiles[k])
+					for (unsigned j = 0; j < backgroundData[i].size(); j++)
 					{
-						this->collisionData[i][j] = collisionTiles[k];
+						for (unsigned k = 0; k < BLUE_IGNORETOTAL; k++)
+						{
+							if (sceneryData[i][j] == ignoreTiles[k])
+							{
+								this->collisionData[i][j] = collisionTiles[k];
+							}
+						}
 					}
 				}
-			}
-		}
 	}
 	else if (this->theTileset == TILESET_MAIN_MENU)
 	{
 		int ignoreTiles[MAINMENU_IGNORETOTAL] = {
-		MAINMENU_TILEBLOOD,
-		MAINMENU_TILEDEBRIS1,
-		MAINMENU_TILEDEBRIS2,
-		MAINMENU_TILEDEBRIS3,
-		MAINMENU_TILEDEBRIS4,
-		MAINMENU_TILEDEBRIS5,
-		MAINMENU_TILEDEBRIS6,
-		MAINMENU_TILEDEBRIS7,};
+			MAINMENU_TILEBLOOD,
+			MAINMENU_TILEDEBRIS1,
+			MAINMENU_TILEDEBRIS2,
+			MAINMENU_TILEDEBRIS3,
+			MAINMENU_TILEDEBRIS4,
+			MAINMENU_TILEDEBRIS5,
+			MAINMENU_TILEDEBRIS6,
+			MAINMENU_TILEDEBRIS7,};
 
-		int collisionTiles[MAINMENU_IGNORETOTAL] = {
-		COLLISION_MAINMENU_TILEBLOOD,
-		COLLISION_MAINMENU_TILEDEBRIS1,
-		COLLISION_MAINMENU_TILEDEBRIS2,
-		COLLISION_MAINMENU_TILEDEBRIS3,
-		COLLISION_MAINMENU_TILEDEBRIS4,
-		COLLISION_MAINMENU_TILEDEBRIS5,
-		COLLISION_MAINMENU_TILEDEBRIS6,
-		COLLISION_MAINMENU_TILEDEBRIS7,};
+			int collisionTiles[MAINMENU_IGNORETOTAL] = {
+				COLLISION_MAINMENU_TILEBLOOD,
+				COLLISION_MAINMENU_TILEDEBRIS1,
+				COLLISION_MAINMENU_TILEDEBRIS2,
+				COLLISION_MAINMENU_TILEDEBRIS3,
+				COLLISION_MAINMENU_TILEDEBRIS4,
+				COLLISION_MAINMENU_TILEDEBRIS5,
+				COLLISION_MAINMENU_TILEDEBRIS6,
+				COLLISION_MAINMENU_TILEDEBRIS7,};
 
-		for (unsigned i = 0; i < backgroundData.size(); i++)
-		{
-			for (unsigned j = 0; j < backgroundData[i].size(); j++)
-			{
-				for (unsigned k = 0; k < MAINMENU_IGNORETOTAL; k++)
+				for (unsigned i = 0; i < backgroundData.size(); i++)
 				{
-					if (sceneryData[i][j] == ignoreTiles[k])
+					for (unsigned j = 0; j < backgroundData[i].size(); j++)
 					{
-						this->collisionData[i][j] = collisionTiles[k];
+						for (unsigned k = 0; k < MAINMENU_IGNORETOTAL; k++)
+						{
+							if (sceneryData[i][j] == ignoreTiles[k])
+							{
+								this->collisionData[i][j] = collisionTiles[k];
+							}
+						}
 					}
 				}
-			}
-		}
 	}
 }
 
 bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int originY)
 {
 	Room_Object::ROOM_OBJECT_TYPE room_object = object->type;
-	
+
 	// If object is randomised
 	if (originX != -1)
 	{
@@ -563,7 +563,7 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 		{
 			return false;
 		}
-	
+
 		//Make sure object doesn't collide with other objects and doesn't lie directly beside
 		{
 			for (int i = -1; i <= object->height+1; i++)
@@ -853,7 +853,7 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 				}
 
 
-				
+
 				sceneryData[originY][originX] = 97;
 				sceneryData[originY+1][originX] = 129;
 				sceneryData[originY+2][originX] = 161;
@@ -865,17 +865,17 @@ bool Room::addObject(ROOM_TYPE type, Room_Object* object, int originX, int origi
 				originX = Math::RandIntMinMax(4, sceneryData[0].size()-6);
 				while (!((originX != -1) && (sceneryData[sceneryData.size()-4][originX] == -1)))
 				{
-					for (int i = originX-1; i < originX+object->width; i++)
-					{
-						for (int j = 2; j <= 7; j++)
-						{
-							if (sceneryData[j][i] != -1)
-							{
-								originX = Math::RandIntMinMax(4, sceneryData[0].size()-6);
-								break;
-							}
-						}
-					}
+				for (int i = originX-1; i < originX+object->width; i++)
+				{
+				for (int j = 2; j <= 7; j++)
+				{
+				if (sceneryData[j][i] != -1)
+				{
+				originX = Math::RandIntMinMax(4, sceneryData[0].size()-6);
+				break;
+				}
+				}
+				}
 				}*/
 
 				foregroundData[originY][originX+1] = 522; foregroundData[originY][originX+2] = 523; 
@@ -951,7 +951,7 @@ void Room::addExit(EXIT_DIRECTION exit)
 {
 	Room_Exit* newExit = new Room_Exit(exit, this->getRoomType(), this->roomID);
 	this->numExit.push_back(newExit);
-	
+
 	switch (roomType)
 	{
 	case ROOM_TESTPUZZLE:
@@ -979,8 +979,8 @@ void Room::addExit(EXIT_DIRECTION exit)
 		break;
 	case ROOM_TUTORIAL_SIGHT:
 		{
-			
-			
+
+
 		}
 		break;
 	case ROOM_TWO_01_SIGHT:
@@ -990,27 +990,27 @@ void Room::addExit(EXIT_DIRECTION exit)
 		break;
 	case ROOM_TWO_02_SIGHT:
 		{
-		/*	int count = 0;
+			/*	int count = 0;
 			for (int j = 0; j < numExit.size(); j++)
 			{
-				if(numExit[j]->exitDirection == EXIT_UP && numExit[j]->roomType == ROOM_TUTORIAL_SIGHT)
-				{
-						count ++;
-				}
+			if(numExit[j]->exitDirection == EXIT_UP && numExit[j]->roomType == ROOM_TUTORIAL_SIGHT)
+			{
+			count ++;
+			}
 			}
 			if(count == 0)
 			{
-				numExit[exitCounter]->exitPositionX = 8;
-				numExit[exitCounter]->exitPositionY = 34;
+			numExit[exitCounter]->exitPositionX = 8;
+			numExit[exitCounter]->exitPositionY = 34;
 
-				exitCounter++;
+			exitCounter++;
 			}
 			else if(count == 1)
 			{
-				numExit[exitCounter]->exitPositionX = 8;
-					numExit[exitCounter]->exitPositionY = 34;
+			numExit[exitCounter]->exitPositionX = 8;
+			numExit[exitCounter]->exitPositionY = 34;
 
-					exitCounter++;
+			exitCounter++;
 			}*/
 		}
 		break;
@@ -1043,18 +1043,18 @@ void Room::addExit(EXIT_DIRECTION exit)
 			}
 		}
 		break;/*
-	case ROOM_THREE_03_SIGHT:
-		{
-			if(exit == EXIT_DOWN)
-			{
-				numExit[exitCounter]->exitPositionX = 9;
-				numExit[exitCounter]->exitPositionY = 24;
+			  case ROOM_THREE_03_SIGHT:
+			  {
+			  if(exit == EXIT_DOWN)
+			  {
+			  numExit[exitCounter]->exitPositionX = 9;
+			  numExit[exitCounter]->exitPositionY = 24;
 
-				exitCounter++;
-			}
-		}
-		break;*/
-		case ROOM_FRIENDS_CLASSROOM_SYMMETRY:
+			  exitCounter++;
+			  }
+			  }
+			  break;*/
+	case ROOM_FRIENDS_CLASSROOM_SYMMETRY:
 		{
 			if (exit == EXIT_DOWN)
 			{
