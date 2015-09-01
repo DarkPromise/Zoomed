@@ -562,10 +562,13 @@ void ViewHandler::RenderScene()
 								modelStack.PopMatrix();
 							}
 						}
-						modelStack.PushMatrix();
-						modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
-						RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
-						modelStack.PopMatrix();
+						if(!theModel->getPlayer()->getIsHiding())
+						{
+							modelStack.PushMatrix();
+							modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
+							RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
+							modelStack.PopMatrix();
+						}
 						RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
 						modelStack.PopMatrix();
 					}
