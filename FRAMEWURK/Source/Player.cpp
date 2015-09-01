@@ -36,8 +36,6 @@ void Player::move(double dt, ModelHandler * theModel, std::vector<std::vector<in
 	bool moved = false;
 	bool canMove = true;
 
-	std::cout << this->m_playerPos << std::endl;
-
 	if(controls.up && this->m_movementTimer > m_movementDelay && (collisionMap[yColiision-1][xColiision]<100) && m_playerPos.y+32 < 0 )
 	{
 		if (theModel->currentWorld == WORLD_FRIENDS_TUTORIAL)
@@ -153,7 +151,6 @@ void Player::move(double dt, ModelHandler * theModel, std::vector<std::vector<in
 
 void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandler * theModel)
 {
-	//::cout << this->m_playerPos << std::endl;
 
 	m_movementTimer += dt;
 	m_immunityTimer -= dt;
@@ -363,7 +360,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					{
 						if ((controls.use) && ((m_playerPos.y-32 == MainMenuNight1PositionY) && (m_playerPos.x  == MainMenuNight1PositionX)))
 						{
-							std::cout << "Test" << std::endl;
 							theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
 							theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
 							this->setPosition(Vector3(768, -1120, 0));

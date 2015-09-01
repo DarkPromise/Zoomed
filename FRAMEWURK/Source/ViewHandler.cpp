@@ -560,21 +560,14 @@ void ViewHandler::RenderScene()
 									modelStack.Translate(theModel->m_objectList[j]->getPosition().x,theModel->m_objectList[j]->getPosition().y,theModel->m_objectList[j]->getPosition().z);
 									RenderMesh(theModel->m_objectList[j]->getMesh(),false,false);
 									modelStack.PopMatrix();
-
-									//std::cout << theModel->m_objectList[i]->getPosition().x << std::endl;
 								}
 							}
-							//Check if currRoom == theModel->m_objectList[i]->getRoom();
-							//if yes, renderplayer else dont render player.
-							//std::cout << "Rendering player for : " << theModel->m_objectList[i]->ToString() << std::endl;
-
 							modelStack.PushMatrix();
 							modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
 							RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
 							modelStack.PopMatrix();
-
 							RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
-						modelStack.PopMatrix();
+							modelStack.PopMatrix();
 					}
 				}
 				else
@@ -597,10 +590,10 @@ void ViewHandler::RenderScene()
 		}
 	}
 
-	for(int i = 0; i < theModel->m_objectList.size(); ++i)
+	/*for(int i = 0; i < theModel->m_objectList.size(); ++i)
 	{
 		std::cout << "ID : " << i << " " << theModel->m_objectList[i]->ToString() << std::endl;
-	}
+	}*/
 
 	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
 	RenderGameTextOnScreen(theModel->m_objectList[11]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);

@@ -308,7 +308,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Enemy animation",2,6,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_sister.tga");    //Current State 
 	m_objectList.push_back(object);
-	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[12]->getMesh());
+	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[13]->getMesh());
 	if(enemyAnim)
 	{
 		enemyAnim->m_anim = new Animation();
@@ -319,7 +319,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Father animation",2,6,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_madFather.tga");    //Current State 
 	m_objectList.push_back(object);
-	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[13]->getMesh());
+	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[14]->getMesh());
 	if(enemyAnim)
 	{
 		enemyAnim->m_anim = new Animation();
@@ -338,7 +338,7 @@ bool ModelHandler::InitObjects()
 	this->getPlayer()->getInventory().addItem(m_itemList[0]);                                         //ADD ITEM (Consumable)
 	this->getPlayer()->getInventory().addItem(m_itemList[1]);                                         //ADD ITEM (Equipment)
 
-	Gui * newGui = new Gui("Test Border","Images//UI//Item_Border.tga");
+	Gui * newGui = new Gui("Item Border","Images//UI//Item_Border.tga");
 	m_guiList.push_back(newGui);
 
 	newGui = new Gui("Fear Border","Images//UI//Fear_Border.tga");
