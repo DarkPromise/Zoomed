@@ -252,8 +252,6 @@ Room::Room(ROOM_TYPE roomType,
 		break;
 	case ROOM_MECH:
 		{
-
-
 			Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_WALL_PIPES, GetNumOfTiles_Height(), GetNumOfTiles_Width());
 			addOBJtoGenerate(tempObject);
 
@@ -328,7 +326,7 @@ void Room::generateRoom()
 		this->exitCounter = 0; // counters number of exits placed
 		attemptCounter = 0; // counts number of times object was tried to be placed
 		generatedRoom = true; // reset room flag
-		if (roomType != ROOM_MAINMENU && roomType != ROOM_FRIENDS_TUTORIAL && (roomType < ROOM_FRIENDS_CLASSROOM_SYMMETRY || roomType > ROOM_FRIENDS_ROOM_THREE) && roomType != ROOM_TUTORIAL_SIGHT)
+		if (roomType != ROOM_MAINMENU && roomType != ROOM_FRIENDS_TUTORIAL && (roomType < ROOM_FRIENDS_CLASSROOM_SYMMETRY || roomType > ROOM_FRIENDS_ROOM_THREE) && roomType != ROOM_TUTORIAL_SIGHT && roomType != ROOM_SCHOOL_INFIRMARY)
 		{
 			reset_mapData(); // reset map data
 		}

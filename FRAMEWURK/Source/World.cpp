@@ -400,14 +400,14 @@ bool World::pathFind(Two_D_Grid exitA, Two_D_Grid exitB)
 			std::cout << std::endl;*/
 			std::vector<int> pathDirection;
 			this->path.push_back(Two_D_Grid(exitA.x, exitA.y));
-            while(!(x == exitA.x && y == exitA.y)) 
+			while(!(x == exitA.x && y == exitA.y)) 
 			{
-                int temp = directionMap[y][x];
+				int temp = directionMap[y][x];
 				pathDirection.push_back((temp + 4/2) % 4);
-                y += iDir[temp];
-                x += jDir[temp];
+				y += iDir[temp];
+				x += jDir[temp];
 				this->path.push_back(Two_D_Grid(x, y));
-            }
+			}
 			this->path.push_back(Two_D_Grid(exitB.x, exitB.y));
 
 			//for (unsigned i = 30; i < closedNodes.size()-10; i++)
