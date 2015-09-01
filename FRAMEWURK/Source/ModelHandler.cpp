@@ -40,7 +40,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	sound = new Sound();
 
 	player = new Player("Josh");
-	player->setPosition(Vector3(804,-1248, 0));
+	player->setPosition(Vector3(800,-1248, 0));
 
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
 	
