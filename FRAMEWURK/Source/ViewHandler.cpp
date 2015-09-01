@@ -7,7 +7,7 @@ ViewHandler::ViewHandler(ModelHandler * theModel)
 	this->theModel = theModel;
 
 	this->view_type = VIEW_SIDESCROLLER;
-	
+
 	for(int i = 0; i < 255; i++)
 	{
 		keys[i] = false;
@@ -17,7 +17,7 @@ ViewHandler::ViewHandler(ModelHandler * theModel)
 	TimeToExit = 0.0;
 	tileOffset_x = 0;
 	tileOffset_y = 0;
-	
+
 	std::cout << "View Handler Initialized" << std::endl;
 }
 
@@ -183,7 +183,7 @@ BOOL ViewHandler::InitObjects() //Object textures, etc...
 BOOL ViewHandler::CreateGLWindow(char * title, int m_width, int m_height, int bits)
 {
 	glfwSetErrorCallback(error_callback);
-	
+
 	if(!glfwInit())
 	{
 		exit(EXIT_FAILURE);
@@ -322,7 +322,7 @@ void ViewHandler::RenderMesh(Mesh *mesh, bool enableLight, bool enableFog)
 	{	
 		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	}
-	
+
 	for(int i = 0; i < MAX_TEXTURES; i++)
 	{
 		if(mesh->textureArray[i] > 0)
@@ -355,39 +355,39 @@ void ViewHandler::Render2DMesh(Mesh *mesh, bool enableLight, bool enableFog, flo
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, m_width, 0, m_height, -10, 1000);
 	projectionStack.PushMatrix();
-		projectionStack.LoadMatrix(ortho);
-		viewStack.PushMatrix();
-		viewStack.LoadIdentity();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity();
 
-			modelStack.PushMatrix();
-				modelStack.LoadIdentity();
-				modelStack.Translate(transX, transY, 0);
-				modelStack.Scale(sizeX, sizeY, 1);
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity();
+	modelStack.Translate(transX, transY, 0);
+	modelStack.Scale(sizeX, sizeY, 1);
 
-				Mtx44 MVP, modelView, modelView_inverse_transpose;
+	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
-				MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 
-				glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-				if(mesh->textureID > 0)
-				{
-					glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-					glActiveTexture(GL_TEXTURE0);
-					glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-					glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-				}
-				else
-				{
-					glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
-				}
-				mesh->Render();
-				if(mesh->textureID > 0)
-				{
-					glBindTexture(GL_TEXTURE_2D, 0);
-				}
-	   
-			modelStack.PopMatrix();
-		viewStack.PopMatrix();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+	if(mesh->textureID > 0)
+	{
+		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mesh->textureID);
+		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+	}
+	else
+	{
+		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
+	}
+	mesh->Render();
+	if(mesh->textureID > 0)
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	modelStack.PopMatrix();
+	viewStack.PopMatrix();
 	projectionStack.PopMatrix();
 
 }
@@ -501,7 +501,7 @@ void ViewHandler::RenderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	modelStack.LoadIdentity(); //Setting point of origin at 0,0,0
-	
+
 	//Enable Light Position
 	if(lights[0].type == Light::LIGHT_DIRECTIONAL)
 	{
@@ -522,8 +522,8 @@ void ViewHandler::RenderScene()
 	{
 		viewStack.LoadIdentity();
 		viewStack.LookAt(
-			 (theModel->getFriend()->GetPos_x() + theModel->getPlayer()->getPosition().x)/2 - Math::Round((m_width * 0.5f)), (theModel->getFriend()->GetPos_y() + theModel->getPlayer()->getPosition().y)/2 - Math::Round((m_height * 0.5f)), theModel->getCamera().position.z,
-			 (theModel->getFriend()->GetPos_x() + theModel->getPlayer()->getPosition().x)/2 - Math::Round((m_width * 0.5f)), (theModel->getFriend()->GetPos_y() + theModel->getPlayer()->getPosition().y)/2 - Math::Round((m_height * 0.5f)), theModel->getCamera().target.z,
+			(theModel->getFriend()->GetPos_x() + theModel->getPlayer()->getPosition().x)/2 - Math::Round((m_width * 0.5f)), (theModel->getFriend()->GetPos_y() + theModel->getPlayer()->getPosition().y)/2 - Math::Round((m_height * 0.5f)), theModel->getCamera().position.z,
+			(theModel->getFriend()->GetPos_x() + theModel->getPlayer()->getPosition().x)/2 - Math::Round((m_width * 0.5f)), (theModel->getFriend()->GetPos_y() + theModel->getPlayer()->getPosition().y)/2 - Math::Round((m_height * 0.5f)), theModel->getCamera().target.z,
 			theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 			);
 	}
@@ -536,7 +536,7 @@ void ViewHandler::RenderScene()
 			theModel->getCamera().up.x,theModel->getCamera().up.y,theModel->getCamera().up.z
 			);
 	}
-	 
+
 	for(unsigned i = 0; i < theModel->m_objectList.size(); ++i)
 	{
 		if(theModel->m_objectList[i]->getMeshSize() > 1)
@@ -548,26 +548,26 @@ void ViewHandler::RenderScene()
 					if (theModel->currentWorld+2 == i)
 					{
 						modelStack.PushMatrix();
-							modelStack.Translate(theModel->m_objectList[i]->getPosition().x, theModel->m_objectList[i]->getPosition().y, theModel->m_objectList[i]->getPosition().z);
-							RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
-							RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
+						modelStack.Translate(theModel->m_objectList[i]->getPosition().x, theModel->m_objectList[i]->getPosition().y, theModel->m_objectList[i]->getPosition().z);
+						RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
+						RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
 
-							for (unsigned j = 0; j < theModel->m_objectList.size(); ++j)
+						for (unsigned j = 0; j < theModel->m_objectList.size(); ++j)
+						{
+							if(theModel->m_objectList[j]->getObjectType() == TYPE_ENEMY && theModel->m_objectList[j]->isAlive)
 							{
-								if(theModel->m_objectList[j]->getObjectType() == TYPE_ENEMY && theModel->m_objectList[j]->isAlive)
-								{
-									modelStack.PushMatrix();
-									modelStack.Translate(theModel->m_objectList[j]->getPosition().x,theModel->m_objectList[j]->getPosition().y,theModel->m_objectList[j]->getPosition().z);
-									RenderMesh(theModel->m_objectList[j]->getMesh(),false,false);
-									modelStack.PopMatrix();
-								}
+								modelStack.PushMatrix();
+								modelStack.Translate(theModel->m_objectList[j]->getPosition().x,theModel->m_objectList[j]->getPosition().y,theModel->m_objectList[j]->getPosition().z);
+								RenderMesh(theModel->m_objectList[j]->getMesh(),false,false);
+								modelStack.PopMatrix();
 							}
-							modelStack.PushMatrix();
-							modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
-							RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
-							modelStack.PopMatrix();
-							RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
-							modelStack.PopMatrix();
+						}
+						modelStack.PushMatrix();
+						modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
+						RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
+						modelStack.PopMatrix();
+						RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
+						modelStack.PopMatrix();
 					}
 				}
 				else
@@ -578,13 +578,13 @@ void ViewHandler::RenderScene()
 					}
 				}
 			}
-			else
+		}
+		else
+		{
+			if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT)
 			{
-				if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT)
 				{
-					{
 					RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
-					}
 				}
 			}
 		}
@@ -592,7 +592,7 @@ void ViewHandler::RenderScene()
 
 	/*for(int i = 0; i < theModel->m_objectList.size(); ++i)
 	{
-		std::cout << "ID : " << i << " " << theModel->m_objectList[i]->ToString() << std::endl;
+	std::cout << "ID : " << i << " " << theModel->m_objectList[i]->ToString() << std::endl;
 	}*/
 
 	RenderGameTextOnScreen(theModel->m_objectList[10]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
