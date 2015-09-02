@@ -111,6 +111,8 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\SpriteAnimation.cpp" />
+    <ClCompile Include="Source\Textbox.cpp" />
+    <ClCompile Include="Source\TextDatabase.cpp" />
     <ClCompile Include="Source\Tile.cpp" />
     <ClCompile Include="Source\timer.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
@@ -155,6 +157,8 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Sound.h" />
     <ClInclude Include="Source\SpriteAnimation.h" />
+    <ClInclude Include="Source\Textbox.h" />
+    <ClInclude Include="Source\TextDatabase.h" />
     <ClInclude Include="Source\Tile.h" />
     <ClInclude Include="Source\timer.h" />
     <ClInclude Include="Source\Utility.h" />
