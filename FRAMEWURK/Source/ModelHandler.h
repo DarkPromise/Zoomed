@@ -97,6 +97,8 @@ private:
 	Player  *player;
 	EnemyFriend* Friend;
 	EnemyFather* Father;
+	EnemyDasher * Dash;
+	EnemyGhost * Ghost;
 
 	CTextBox* TextBox;
 

@@ -190,6 +190,14 @@ void ModelHandler::Init() //Anything that moves in the game
 	Father = new EnemyFather();
 	Father->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 	Father->SetDelay(0.5);
+
+	Dash = new EnemyDasher();
+	Dash->SetPos(1152.f,-480.f);
+	Dash->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
+
+	Ghost = new EnemyGhost();
+	Ghost->SetPos(320.f,-2080.f);
+	Ghost->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
 }
 
 bool ModelHandler::InitObjects()
@@ -337,7 +345,7 @@ bool ModelHandler::InitObjects()
 		enemyAnim->m_anim->Set(0,2,0,0.3f);
 	}
 
-	object = new GameObject("Enemy Dasher", TYPE_ENEMY, Vector3(m_enemyList[0]->GetPos_x(),m_enemyList[0]->GetPos_y(),0.f)); //ID = 16
+	object = new GameObject("Enemy Dasher", TYPE_ENEMY, Vector3(Dash->GetPos_x(),Dash->GetPos_y(),0.f)); //ID = 16
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Dasher Animation",2,6,32.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_dasher.tga");    //Current State 
 	m_objectList.push_back(object);
@@ -348,7 +356,7 @@ bool ModelHandler::InitObjects()
 		enemyAnim->m_anim->Set(0,2,0,0.3f);
 	}
 
-	object = new GameObject("Enemy Ghost", TYPE_ENEMY, Vector3(m_enemyList[1]->GetPos_x(),m_enemyList[1]->GetPos_y(),0.f)); //ID = 17
+	object = new GameObject("Enemy Ghost", TYPE_ENEMY, Vector3(Ghost->GetPos_x(),Ghost->GetPos_y(),0.f)); //ID = 17
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Ghost Animation",2,6,32.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
 	m_objectList.push_back(object);
@@ -470,7 +478,7 @@ void ModelHandler::Update(const double dt)
 	if(currentWorld == WORLD_SCHOOL_LEVEL1)
 	{
 		SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[16]->getMesh());
-		switch(dynamic_cast<EnemyDasher*>(m_enemyList[0])->getAnimState())
+		switch(dynamic_cast<EnemyDasher*>(Dash)->getAnimState())
 		{
 		case EnemyDasher::STATE_WALKING_UP:
 			enemyAnim->m_anim->Set(6,8,0,0.3f);
@@ -487,7 +495,7 @@ void ModelHandler::Update(const double dt)
 		}
 
 		enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[17]->getMesh());
-		switch(dynamic_cast<EnemyGhost*>(m_enemyList[1])->getAnimState())
+		switch(dynamic_cast<EnemyGhost*>(Ghost)->getAnimState())
 		{
 		case EnemyGhost::STATE_WALKING_UP:
 			enemyAnim->m_anim->Set(6,8,0,0.3f);
@@ -539,14 +547,14 @@ void ModelHandler::Update(const double dt)
 	if (currentWorld == WORLD_SCHOOL_LEVEL1)
 	{
 		m_objectList[16]->isAlive = true;
-		m_enemyList[0]->Update(this->player,m_worldList[currentWorld],dt);
-		m_objectList[16]->setPosition(Vector3(m_enemyList[0]->GetPos_x(),m_enemyList[0]->GetPos_y(),0));
-		m_enemyList[0]->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
+		Dash->Update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(Dash->GetPos_x(), Dash->GetPos_y()),getInstance());
+		m_objectList[16]->setPosition(Vector3(Dash->GetPos_x(),Dash->GetPos_y(),0));
+		Dash->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
 
 		m_objectList[17]->isAlive = true;
-		m_enemyList[1]->Update(this->player,m_worldList[currentWorld],dt);
-		m_objectList[17]->setPosition(Vector3(m_enemyList[1]->GetPos_x(),m_enemyList[1]->GetPos_y(),0));
-		m_enemyList[1]->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
+		Ghost->Update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(Ghost->GetPos_x(), Ghost->GetPos_y()),getInstance());
+		m_objectList[17]->setPosition(Vector3(Ghost->GetPos_x(),Ghost->GetPos_y(),0));
+		Ghost->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
 	}
 	else
 	{
