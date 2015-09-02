@@ -126,6 +126,24 @@ void EnemyFriend::Update(ModelHandler * theModel, double dt)
 				std::cout << "On FIREENDINGE button" << std::endl;
 			}
 			break;
+			case COLLISION_BLUE_FINISHTILE:
+				{
+					stand_activated = true;
+					theModel->m_worldList[WORLD_FRIENDS_LEVEL1]->worldClear[1] = true;
+
+					if (theModel->m_worldList[WORLD_FRIENDS_LEVEL1]->worldClear[0] && theModel->m_worldList[WORLD_FRIENDS_LEVEL1]->worldClear[1])
+					{
+						if ( theModel->currentWorld == WORLD_FRIENDS_FINISH)
+						{
+							theModel->currentWorld = WORLD_MAINMENU;
+						}
+						else
+						{
+							theModel->currentWorld = (WORLD_ID)((int)(theModel->currentWorld)+1) ;
+						}
+					}
+				}
+			break;
 		}
 	}
 

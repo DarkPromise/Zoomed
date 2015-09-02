@@ -265,13 +265,13 @@ void ViewHandler::UpdateSA(double dt)
 		sprite->Update(dt);
 	}
 
-	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[14]->getMesh());
+	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[OBJ_ENEMYSISTER]->getMesh());
 	if (sprite)
 	{
 		sprite->Update(dt);
 	}
 
-	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[15]->getMesh());
+	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[OBJ_ENEMYFATHER]->getMesh());
 	if (sprite)
 	{
 		sprite->Update(dt);

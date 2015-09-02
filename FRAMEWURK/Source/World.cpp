@@ -55,6 +55,9 @@ void World::initWorld()
 		}
 	}
 
+	worldClear[0] = false;
+	worldClear[1] = false;
+
 	this->SetTileSize(m_roomList[0]->GetTileSize());
 	this->setNumOfTiles_MapHeight(worldHeight+11); // 10 space buffer below
 	this->setNumOfTiles_MapWidth(worldWidth+10); // 10 space buffer to the right

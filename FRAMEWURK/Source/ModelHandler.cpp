@@ -143,38 +143,21 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom = new Room(ROOM_FRIENDS_TUTORIAL, 896, 1920, 60, 28, 896, 1920,32,TILESET_BLUE, 20, 40, 0);
 	//newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//Friends//Friends_Tutorial_Foreground.csv","MapData//Friends//Friends_Tutorial_Scenery.csv","MapData//Friends//Friends_Tutorial_Background.csv","MapData//Friends//Friends_Tutorial_Background.csv");
-	m_worldList[6]->m_roomList.push_back(newRoom);
+	m_worldList[WORLD_FRIENDS_TUTORIAL]->m_roomList.push_back(newRoom);
 
 	newWorld = new World(WORLD_FRIENDS_LEVEL1);
 	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_FRIENDS_CLASSROOM_SYMMETRY, 576, 992, 18, 31, 576, 992, 32, TILESET_BLUE, 20, 40, 0);
-	newRoom->addExit(EXIT_DOWN);
-	newRoom->addExit(EXIT_DOWN);
-	newRoom->LoadMap("MapData//Friends//Classroom//Classroom_1_Foreground.csv","MapData//Friends//Classroom//Classroom_1_Scenery.csv","MapData//Friends//Classroom//Classroom_1_Background.csv","MapData//Friends//Classroom//Classroom_1_Background.csv");
-	m_worldList[7]->m_roomList.push_back(newRoom);
+	newRoom = new Room(ROOM_FRIENDS_TUTORIAL, 3200, 2880, 100, 90, 3200, 2880, 32, TILESET_BLUE, 20, 20, 0);
+	newRoom->LoadMap("MapData//Friends//World1//Level1_Foreground.csv","MapData//Friends//World1//Level1_Scenery.csv","MapData//Friends//World1//Level1_Background.csv","MapData//Friends//World1//Level1_Background.csv");
+	m_worldList[WORLD_FRIENDS_LEVEL1]->m_roomList.push_back(newRoom);
 
-	newRoom = new Room(ROOM_FRIENDS_TOILET, 352, 608, 11, 19, 352, 608, 32, TILESET_BLUE, 20, 70, 1);
-	newRoom->addExit(EXIT_RIGHT);
-	newRoom->LoadMap("MapData//Friends//Toilet//FRIEND_TOLIET_Foreground.csv","MapData//Friends//Toilet//FRIEND_TOLIET_Scenery.csv","MapData//Friends//Toilet//FRIEND_TOLIET_Background.csv","MapData//Friends//Toilet//FRIEND_TOLIET_Background.csv");
-	m_worldList[7]->m_roomList.push_back(newRoom);
+	newWorld = new World(WORLD_FRIENDS_FINISH);
+	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_FRIENDS_ROOM_ONE, 416, 448, 14, 13, 416, 448, 32, TILESET_BLUE, 30, 90, 2);
-	newRoom->addExit(EXIT_DOWN);
-	newRoom->LoadMap("MapData//Friends//Room1//Room_1_Foreground.csv","MapData//Friends//Room1//Room_1_Scenery.csv","MapData//Friends//Room1//Room_1_Background.csv","MapData//Friends//Room1//Room_1_Background.csv");
-	m_worldList[7]->m_roomList.push_back(newRoom);
-
-	newRoom = new Room(ROOM_FRIENDS_ROOM_TWO, 352, 608, 11, 19, 352, 608, 32, TILESET_BLUE, 30, 110, 3);
-	newRoom->addExit(EXIT_RIGHT);
-	newRoom->addExit(EXIT_LEFT);
-	newRoom->LoadMap("MapData//Friends//Room2//Room_2_Foreground.csv","MapData//Friends//Room2//Room_2_Scenery.csv","MapData//Friends//Room2//Room_2_Background.csv","MapData//Friends//Room2//Room_2_Background.csv");
-	m_worldList[7]->m_roomList.push_back(newRoom);
-
-	newRoom = new Room(ROOM_FRIENDS_ROOM_THREE, 704, 448, 23, 14, 704, 448, 32, TILESET_BLUE, 50, 70, 4);
-	newRoom->addExit(EXIT_UP);
-	newRoom->addExit(EXIT_LEFT);
-	newRoom->LoadMap("MapData//Friends//Room3//Room_3_Foreground.csv","MapData//Friends//Room3//Room_3_Scenery.csv","MapData//Friends//Room3//Room_3_Background.csv","MapData//Friends//Room3//Room_3_Background.csv");
-	m_worldList[7]->m_roomList.push_back(newRoom);
+	newRoom = new Room(ROOM_FRIENDS_TUTORIAL, 320, 320, 10, 10, 320, 320, 32, TILESET_BLUE, 20, 20, 0);
+	newRoom->LoadMap("MapData//Friends//Finished//Finished_Foreground.csv","MapData//Friends//Finished//Finished_Scenery.csv","MapData//Friends//Finished//Finished_Background.csv","MapData//Friends//Finished//Finished_Background.csv");
+	m_worldList[WORLD_FRIENDS_FINISH]->m_roomList.push_back(newRoom);
 
 	//School World
 	newWorld = new World(WORLD_SCHOOL_LEVEL1);
@@ -200,7 +183,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	}
 
 	//Enemy Code
-	Evil = new EnemyMelee;
+ 	Evil = new EnemyMelee;
 	Evil->SetPos(32,-32);
 	Evil->SetData(m_worldList[currentWorld]->collisionData);
 	Evil->SetDelay(0.1);
@@ -316,6 +299,15 @@ bool ModelHandler::InitObjects()
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
 	m_objectList.push_back(object);
 
+	object = new GameObject("Friends Finish", TYPE_MAP, Vector3(0, 0, 0));
+	object->addMesh(MeshBuilder::GenerateTileMap("Friends Background",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_FINISH]->backgroundData,32,32));
+	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Friends Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_FINISH]->sceneryData,32,32));
+	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Friends Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_FRIENDS_FINISH]->foregroundData,32,32));
+	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	m_objectList.push_back(object);
+
 	object = new GameObject("Night 1 (School) Level 1", TYPE_MAP, Vector3(0, 0, 0));
 	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->backgroundData,32,48));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
@@ -343,7 +335,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Enemy animation",2,6,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_sister.tga");    //Current State 
 	m_objectList.push_back(object);
-	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[13]->getMesh());
+	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_ENEMYSISTER]->getMesh());
 	if(enemyAnim)
 	{
 		enemyAnim->m_anim = new Animation();
@@ -354,7 +346,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Father animation",2,6,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_madFather.tga");    //Current State 
 	m_objectList.push_back(object);
-	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[14]->getMesh());
+	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_ENEMYFATHER]->getMesh());
 	if(enemyAnim)
 	{
 		enemyAnim->m_anim = new Animation();
@@ -455,7 +447,7 @@ void ModelHandler::Update(const double dt)
 			break;
 		}
 
-	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[14]->getMesh());
+	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_ENEMYSISTER]->getMesh());
 	switch(dynamic_cast<EnemyFriend*>(Friend)->state)
 	{
 	case EnemyFriend::STATE_WALK_UP:
@@ -524,20 +516,20 @@ void ModelHandler::Update(const double dt)
 	//Enemy Code
 	if (currentWorld == WORLD_FRIENDS_TUTORIAL)
 	{
-		m_objectList[14]->isAlive = true;
+		m_objectList[OBJ_ENEMYSISTER]->isAlive = true;
 		Friend->Update(this->getInstance(), dt);
-		m_objectList[14]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
+		m_objectList[OBJ_ENEMYSISTER]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
 		Friend->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 
-		m_objectList[15]->isAlive = true;
+		m_objectList[OBJ_ENEMYFATHER]->isAlive = true;
 		Father->Update(this->getInstance(), this->sound->getNoiseLevel(), dt);
-		m_objectList[15]->setPosition(Vector3(Father->GetPos_x(),Father->GetPos_y(),0));
+		m_objectList[OBJ_ENEMYFATHER]->setPosition(Vector3(Father->GetPos_x(),Father->GetPos_y(),0));
 		Father->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 	}
 	else
 	{
-		m_objectList[14]->isAlive = false;
-		m_objectList[15]->isAlive = false;
+		m_objectList[OBJ_ENEMYSISTER]->isAlive = false;
+		m_objectList[OBJ_ENEMYFATHER]->isAlive = false;
 	}
 
 
@@ -561,7 +553,7 @@ void ModelHandler::Update(const double dt)
 
 
 	Evil->Update(player, m_worldList[currentWorld], dt); 
-	m_objectList[13]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
+	m_objectList[OBJ_ENEMY]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
 }
 
 Camera ModelHandler::getCamera()

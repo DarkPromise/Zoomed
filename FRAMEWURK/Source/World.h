@@ -19,6 +19,7 @@ enum WORLD_ID // ID for levels
 
 	WORLD_FRIENDS_TUTORIAL,
 	WORLD_FRIENDS_LEVEL1,
+	WORLD_FRIENDS_FINISH,
 
 	WORLD_SCHOOL_LEVEL1,
 	WORLD_SCHOOL_LEVEL2,
@@ -167,6 +168,9 @@ public:
 	std::vector<Room*> m_roomList;
 
 	bool UpdateWorld;
+
+	//friend world's winning condition
+	bool worldClear[2];
 private:
 	// for pathfinding
 	std::vector<std::vector<int>> openNodes; 

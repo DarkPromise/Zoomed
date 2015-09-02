@@ -325,7 +325,19 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 				case COLLISION_BLUE_FINISHTILE:
 				{
 					stand_activated = true;
-					levelGoal = true;
+					theModel->m_worldList[WORLD_FRIENDS_LEVEL1]->worldClear[0] = true;
+
+					if (theModel->m_worldList[WORLD_FRIENDS_LEVEL1]->worldClear[0] && theModel->m_worldList[WORLD_FRIENDS_LEVEL1]->worldClear[1])
+					{
+						if ( theModel->currentWorld == WORLD_FRIENDS_FINISH)
+						{
+							theModel->currentWorld = WORLD_MAINMENU;
+						}
+						else
+						{
+							theModel->currentWorld = (WORLD_ID)((int)(theModel->currentWorld) +1) ;
+						}
+					}
 				}
 				break;
 				default:
@@ -334,6 +346,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					levelGoal = false;
 				}
 				break;
+				
 			}
 		}
 
