@@ -31,6 +31,12 @@ ModelHandler::~ModelHandler(void)
 		delete m_guiList[i];
 	}
 	m_guiList.clear();
+
+	for(unsigned int i = 0; i < m_enemyList.size(); ++i)
+	{
+		delete m_enemyList[i];
+	}
+	m_enemyList.clear();
 }
 
 void ModelHandler::Init() //Anything that moves in the game
@@ -207,13 +213,23 @@ void ModelHandler::Init() //Anything that moves in the game
 	Father = new EnemyFather();
 	Father->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 	Father->SetDelay(0.5);
+
+	EnemyDasher * dash = new EnemyDasher();
+	dash->SetPos(1152.f,-480.f);
+	dash->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
+	m_enemyList.push_back(dash);
+
+	EnemyGhost* ghost = new EnemyGhost();
+	ghost->SetPos(320.f,-2080.f);
+	ghost->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
+	m_enemyList.push_back(ghost);
 }
 
 bool ModelHandler::InitObjects()
 {
 	GameObject * object = new GameObject("Player");
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Player",2,6,32.f,48.f));
-	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_level1.tga");    //Current State 
 	m_objectList.push_back(object);
 	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
 	if(playerAnimation)
@@ -345,6 +361,28 @@ bool ModelHandler::InitObjects()
 		enemyAnim->m_anim->Set(0,2,0,0.3f);
 	}
 
+	object = new GameObject("Enemy Dasher", TYPE_ENEMY, Vector3(m_enemyList[0]->GetPos_x(),m_enemyList[0]->GetPos_y(),0.f)); //ID = 16
+	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Dasher Animation",2,6,32.f,48.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_dasher.tga");    //Current State 
+	m_objectList.push_back(object);
+	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[16]->getMesh());
+	if(enemyAnim)
+	{
+		enemyAnim->m_anim = new Animation();
+		enemyAnim->m_anim->Set(0,2,0,0.3f);
+	}
+
+	object = new GameObject("Enemy Ghost", TYPE_ENEMY, Vector3(m_enemyList[1]->GetPos_x(),m_enemyList[1]->GetPos_y(),0.f)); //ID = 17
+	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Ghost Animation",2,6,32.f,48.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
+	m_objectList.push_back(object);
+	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[17]->getMesh());
+	if(enemyAnim)
+	{
+		enemyAnim->m_anim = new Animation();
+		enemyAnim->m_anim->Set(0,2,0,0.3f);
+	}
+
 	Item * item = new Item("Consumable");
 	item->setDescription("Consumable");
 	m_itemList.push_back(item);
@@ -434,6 +472,43 @@ void ModelHandler::Update(const double dt)
 		break;
 	}
 
+	if(currentWorld == WORLD_SCHOOL_LEVEL1)
+	{
+		SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[16]->getMesh());
+		switch(dynamic_cast<EnemyDasher*>(m_enemyList[0])->getAnimState())
+		{
+		case EnemyDasher::STATE_WALKING_UP:
+			enemyAnim->m_anim->Set(6,8,0,0.3f);
+			break;
+		case EnemyDasher::STATE_WALKING_DOWN:
+			enemyAnim->m_anim->Set(0,2,0,0.3f);
+			break;
+		case EnemyDasher::STATE_WALKING_LEFT:
+			enemyAnim->m_anim->Set(3,5,0,0.3f);
+			break;
+		case EnemyDasher::STATE_WALKING_RIGHT:
+			enemyAnim->m_anim->Set(9,11,0,0.3f);
+			break;
+		}
+
+		enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[17]->getMesh());
+		switch(dynamic_cast<EnemyGhost*>(m_enemyList[1])->getAnimState())
+		{
+		case EnemyGhost::STATE_WALKING_UP:
+			enemyAnim->m_anim->Set(6,8,0,0.3f);
+			break;
+		case EnemyGhost::STATE_WALKING_DOWN:
+			enemyAnim->m_anim->Set(0,2,0,0.3f);
+			break;
+		case EnemyGhost::STATE_WALKING_LEFT:
+			enemyAnim->m_anim->Set(3,5,0,0.3f);
+			break;
+		case EnemyGhost::STATE_WALKING_RIGHT:
+			enemyAnim->m_anim->Set(9,11,0,0.3f);
+			break;
+		}
+	}
+
 	player->update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(player->getPosition().x, player->getPosition().y),getInstance());
 
 	if (m_worldList[currentWorld]->UpdateWorld)
@@ -464,6 +539,26 @@ void ModelHandler::Update(const double dt)
 		m_objectList[14]->isAlive = false;
 		m_objectList[15]->isAlive = false;
 	}
+
+
+	if (currentWorld == WORLD_SCHOOL_LEVEL1)
+	{
+		m_objectList[16]->isAlive = true;
+		m_enemyList[0]->Update(this->player,m_worldList[currentWorld],dt);
+		m_objectList[16]->setPosition(Vector3(m_enemyList[0]->GetPos_x(),m_enemyList[0]->GetPos_y(),0));
+		m_enemyList[0]->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
+
+		m_objectList[17]->isAlive = true;
+		m_enemyList[1]->Update(this->player,m_worldList[currentWorld],dt);
+		m_objectList[17]->setPosition(Vector3(m_enemyList[1]->GetPos_x(),m_enemyList[1]->GetPos_y(),0));
+		m_enemyList[1]->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
+	}
+	else
+	{
+		m_objectList[16]->isAlive = false;
+		m_objectList[17]->isAlive = false;
+	}
+
 
 	Evil->Update(player, m_worldList[currentWorld], dt); 
 	m_objectList[13]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));

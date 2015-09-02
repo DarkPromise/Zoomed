@@ -276,6 +276,18 @@ void ViewHandler::UpdateSA(double dt)
 	{
 		sprite->Update(dt);
 	}
+
+	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[16]->getMesh());
+	if (sprite)
+	{
+		sprite->Update(dt);
+	}
+
+	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[17]->getMesh());
+	if (sprite)
+	{
+		sprite->Update(dt);
+	}
 }
 
 void ViewHandler::Update(double dt)

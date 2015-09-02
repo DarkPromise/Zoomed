@@ -33,6 +33,8 @@ void Player::move(double dt, ModelHandler * theModel, std::vector<std::vector<in
 	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
 	int xColiision = (int)(m_playerPos.x/32);
 
+	std::cout << m_playerPos << std::endl;
+
 	bool moved = false;
 	bool canMove = true;
 

@@ -16,6 +16,8 @@
 #include "EnemyMelee.h"
 #include "EnemyFriend.h"
 #include "EnemyFather.h"
+#include "EnemyDasher.h"
+#include "EnemyGhost.h"
 #include "Sound.h"
 
 /************************************************

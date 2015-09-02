@@ -8,6 +8,15 @@ class Player;
 class World;
 class ModelHandler;
 
+enum ENEMY_STATE
+{
+	STATE_IDLE,
+	STATE_PATROL,
+	STATE_STUNNED,
+	STATE_ATTACKING,
+	STATE_DEAD,
+};
+
 enum ENEMY_TYPES
 {
 	TYPE_ENEMYMELEE,
@@ -80,8 +89,19 @@ public:
 	double AccumulatedTime;
 
 	ENEMY_TYPES type;
+	
+	void setState(ENEMY_STATE state)
+	{
+		this->m_currState = state;
+	}
 
+	ENEMY_STATE getState()
+	{
+		return this->m_currState;
+	}
 private:
+	ENEMY_STATE m_currState;
+
 	// ENEMY's information
 	float theEnemyPosition_x;
 	float theEnemyPosition_y;
