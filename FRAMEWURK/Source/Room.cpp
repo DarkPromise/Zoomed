@@ -326,7 +326,7 @@ void Room::generateRoom()
 		this->exitCounter = 0; // counters number of exits placed
 		attemptCounter = 0; // counts number of times object was tried to be placed
 		generatedRoom = true; // reset room flag
-		if (roomType != ROOM_MAINMENU && roomType != ROOM_FRIENDS_TUTORIAL && (roomType < ROOM_FRIENDS_CLASSROOM_SYMMETRY || roomType > ROOM_FRIENDS_ROOM_THREE) && roomType != ROOM_TUTORIAL_SIGHT && roomType != ROOM_SCHOOL_INFIRMARY)
+		if (roomType != ROOM_MAINMENU && roomType != ROOM_FRIENDS_TUTORIAL && (roomType < ROOM_FRIENDS_CLASSROOM_SYMMETRY || roomType > ROOM_FRIENDS_ROOM_THREE) && roomType != ROOM_TUTORIAL_SIGHT && roomType != ROOM_SCHOOL_MAIN)
 		{
 			reset_mapData(); // reset map data
 		}
@@ -546,6 +546,105 @@ void Room::generateRoom()
 						}
 					}
 				}
+	}
+	else if(this->theTileset == TILESET_RED)
+	{
+		int ignoreFloorTiles[SCHOOL_FLOORTOTAL] = {
+			SCHOOL_FLOORTILE_1,
+			SCHOOL_FLOORTILE_2,
+			SCHOOL_FLOORTILE_3,
+			SCHOOL_FLOORTILE_4,
+			SCHOOL_FLOORTILE_5, 
+			SCHOOL_FLOORTILE_6,
+			SCHOOL_FLOORTILE_7,
+			SCHOOL_FLOORTILE_8,
+			SCHOOL_FLOORTILE_9,
+			SCHOOL_FLOORTILE_10, 
+			SCHOOL_FLOORTILE_11,
+			SCHOOL_FLOORTILE_12,
+			SCHOOL_FLOORTILE_13,
+			SCHOOL_FLOORTILE_14,
+			SCHOOL_FLOORTILE_15,
+			SCHOOL_FLOORTILE_16,
+			SCHOOL_FLOORTILE_17,
+			SCHOOL_FLOORTILE_18,
+		};
+
+		int ignoreTiles[SCHOOL_DEBRISTOTAL] = {
+			SCHOOL_FLOORTILE_DEBRIS_1,
+			SCHOOL_FLOORTILE_DEBRIS_2,
+			SCHOOL_FLOORTILE_DEBRIS_3,
+			SCHOOL_FLOORTILE_DEBRIS_4,
+			SCHOOL_FLOORTILE_DEBRIS_5,
+			SCHOOL_FLOORTILE_DEBRIS_6,
+			SCHOOL_FLOORTILE_DEBRIS_7,
+			SCHOOL_FLOORTILE_DEBRIS_8,
+			SCHOOL_FLOORTILE_DEBRIS_9,
+			SCHOOL_FLOORTILE_DEBRIS_10,
+			SCHOOL_FLOORTILE_DEBRIS_11,
+			SCHOOL_FLOORTILE_DEBRIS_12,
+			SCHOOL_FLOORTILE_DEBRIS_13,
+			SCHOOL_FLOORTILE_DEBRIS_14,
+			SCHOOL_FLOORTILE_DEBRIS_15,
+			SCHOOL_FLOORTILE_DEBRIS_16,
+			SCHOOL_DOORFRAME_RIGHT,
+			SCHOOL_DOORFRAME_LEFT,
+		};
+
+		int collisionTiles[SCHOOL_DEBRISTOTAL] = {
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_1,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_2,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_3,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_4,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_5,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_6,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_7,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_8,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_9,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_10,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_11,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_12,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_13,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_14,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_15,
+			COLLISION_SCHOOL_FLOORTILE_DEBRIS_16,
+			COLLISION_SCHOOL_DOORFRAME_RIGHT,
+			COLLISION_SCHOOL_DOORFRAME_LEFT,
+		};
+
+		for (unsigned i = 0; i < backgroundData.size(); i++)
+		{
+			for (unsigned j = 0; j < backgroundData[i].size(); j++)
+			{
+				for (unsigned k = 0; k < SCHOOL_FLOORTOTAL; k++)
+				{
+					if (backgroundData[i][j] == ignoreFloorTiles[k]) //Setting all floor tiles to be 0
+					{
+						if(sceneryData[i][j] > -1)
+						{
+						}
+						else
+						{
+							collisionData[i][j] = 1;
+						}
+					}
+				}
+			}
+		}
+
+		for (unsigned i = 0; i < backgroundData.size(); i++)
+		{
+			for (unsigned j = 0; j < backgroundData[i].size(); j++)
+			{
+				for (unsigned k = 0; k < SCHOOL_DEBRISTOTAL; ++k)
+				{
+					if (sceneryData[i][j] == ignoreTiles[k])
+					{
+						this->collisionData[i][j] = collisionTiles[k];
+					}
+				}
+			}
+		}
 	}
 }
 

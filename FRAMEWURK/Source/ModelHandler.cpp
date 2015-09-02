@@ -173,9 +173,9 @@ void ModelHandler::Init() //Anything that moves in the game
 	newWorld = new World(WORLD_SCHOOL_LEVEL1);
 	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_SCHOOL_INFIRMARY, 416, 544, 14, 17, 416, 544, 32, TILESET_BLUE, 0, 40, 0);
+	newRoom = new Room(ROOM_SCHOOL_MAIN, 2336, 1216, 74, 38, 2336, 1216, 32, TILESET_RED, 2, 26, 0);
 	//newRoom->addExit(EXIT_RIGHT);
-	newRoom->LoadMap("MapData//Night1//Level1//Infirmary//Infirmary_Foreground.csv","MapData//Night1//Level1//Infirmary//Infirmary_Scenery.csv","MapData//Night1//Level1//Infirmary//Infirmary_Background.csv","MapData//Night1//Level1//Infirmary//Infirmary_Background.csv");
+	newRoom->LoadMap("MapData//Night1//Level1//Main//Main_Foreground.csv","MapData//Night1//Level1//Main//Main_Scenery.csv","MapData//Night1//Level1//Main//Main_Background.csv","MapData//Night1//Level1//Main//Main_Background.csv");
 	m_worldList[WORLD_SCHOOL_LEVEL1]->m_roomList.push_back(newRoom);
 
 	for (unsigned i = 0; i < m_worldList.size(); i++)
@@ -300,12 +300,12 @@ bool ModelHandler::InitObjects()
 	m_objectList.push_back(object);
 
 	object = new GameObject("Night 1 (School) Level 1", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->backgroundData,32,32));
-	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->sceneryData,32,32));
-	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->foregroundData,32,32));
-	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->backgroundData,32,48));
+	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->sceneryData,32,48));
+	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
+	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->foregroundData,32,48));
+	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
 	m_objectList.push_back(object);
 
 	object = new GameObject("Game Text Onryou",TYPE_TEXT);
@@ -322,7 +322,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
 	m_objectList.push_back(object);
 
-	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0.f));
+	object = new GameObject("Enemy Sister", TYPE_ENEMY, Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Enemy animation",2,6,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_sister.tga");    //Current State 
 	m_objectList.push_back(object);
@@ -343,15 +343,6 @@ bool ModelHandler::InitObjects()
 		enemyAnim->m_anim = new Animation();
 		enemyAnim->m_anim->Set(0,2,0,0.3f);
 	}
-
-	/*object = new GameObject("Night 1 (School) Level 1", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->backgroundData,32,32));
-	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->sceneryData,32,32));
-	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("Night 1 (School) Level 1 Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_SCHOOL_LEVEL1]->foregroundData,32,32));
-	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
-	m_objectList.push_back(object);*/
 
 	Item * item = new Item("Consumable");
 	item->setDescription("Consumable");
@@ -425,7 +416,7 @@ void ModelHandler::Update(const double dt)
 			break;
 		}
 
-	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[13]->getMesh());
+	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[14]->getMesh());
 	switch(dynamic_cast<EnemyFriend*>(Friend)->state)
 	{
 	case EnemyFriend::STATE_WALK_UP:
@@ -457,24 +448,24 @@ void ModelHandler::Update(const double dt)
 	//Enemy Code
 	if (currentWorld == WORLD_FRIENDS_TUTORIAL)
 	{
-		m_objectList[13]->isAlive = true;
+		m_objectList[14]->isAlive = true;
 		Friend->Update(this->getInstance(), dt);
-		m_objectList[13]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
+		m_objectList[14]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
 		Friend->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 
-		m_objectList[14]->isAlive = true;
+		m_objectList[15]->isAlive = true;
 		Father->Update(this->getInstance(), this->sound->getNoiseLevel(), dt);
-		m_objectList[14]->setPosition(Vector3(Father->GetPos_x(),Father->GetPos_y(),0));
+		m_objectList[15]->setPosition(Vector3(Father->GetPos_x(),Father->GetPos_y(),0));
 		Father->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 	}
 	else
 	{
-		m_objectList[13]->isAlive = false;
 		m_objectList[14]->isAlive = false;
+		m_objectList[15]->isAlive = false;
 	}
 
 	Evil->Update(player, m_worldList[currentWorld], dt); 
-	m_objectList[12]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
+	m_objectList[13]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
 }
 
 Camera ModelHandler::getCamera()
