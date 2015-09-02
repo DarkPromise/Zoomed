@@ -132,19 +132,19 @@ void Player::move(double dt, ModelHandler * theModel, std::vector<std::vector<in
 	{
 		if (this->m_animationState == Player::STATE_WALKING_UP)
 		{
-			this->m_animationState = Player::STATE_IDLE_UP;
+			//this->m_animationState = Player::STATE_IDLE_UP;
 		}
 		else if (this->m_animationState == Player::STATE_WALKING_DOWN)
 		{
-			this->m_animationState = Player::STATE_IDLE_DOWN;
+			//this->m_animationState = Player::STATE_IDLE_DOWN;
 		}
 		else if (this->m_animationState == Player::STATE_WALKING_LEFT)
 		{
-			this->m_animationState = Player::STATE_IDLE_LEFT;
+		//	this->m_animationState = Player::STATE_IDLE_LEFT;
 		}
 		else if (this->m_animationState == Player::STATE_WALKING_RIGHT)
 		{
-			this->m_animationState = Player::STATE_IDLE_RIGHT;
+			//this->m_animationState = Player::STATE_IDLE_RIGHT;
 		}
 	}
 }
@@ -381,6 +381,27 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					break;
 				}
 			}
+			else if(currentWorld->getWorldID() == WORLD_SCHOOL_LEVEL1)
+			{
+				case SCHOOL_ITEMBOX1:
+					{
+						if(controls.use)
+						{
+							for(int i = 0; i < ITEM_DEFAULT; ++i)
+							{
+
+							}
+						}
+					}
+					break;
+				case SCHOOL_ITEMBOX2:
+					{
+						if(controls.use)
+						{
+						}
+					}
+					break;
+			}
 			break;
 		case 201:
 			{
@@ -431,6 +452,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 
 				}
 				break;
+
 			}
 			break;
 		case 200:

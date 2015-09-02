@@ -212,14 +212,14 @@ void ModelHandler::Init() //Anything that moves in the game
 bool ModelHandler::InitObjects()
 {
 	GameObject * object = new GameObject("Player");
-	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Player",2,6,24.f,48.f));
-	object->getMesh()->textureArray[0] = LoadTGA("Images//playerTest5.tga");    //Current State 
+	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Player",2,6,32.f,48.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
 	m_objectList.push_back(object);
 	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
 	if(playerAnimation)
 	{
 		playerAnimation->m_anim = new Animation();
-		playerAnimation->m_anim->Set(0,2,0,0.3f);
+		playerAnimation->m_anim->Set(0,2,0,0.5f);
 	}
 
 	object = new GameObject("Axes");
@@ -380,39 +380,39 @@ void ModelHandler::Update(const double dt)
 	switch(player->m_animationState)
 		{
 		case Player::STATE_WALKING_UP:
-			playerAnimation->m_anim->Set(6,8,0,0.3f);
+			playerAnimation->m_anim->Set(6,8,0,0.4f);
 			break;
 		case Player::STATE_WALKING_DOWN:
-			playerAnimation->m_anim->Set(0,2,0,0.3f);
+			playerAnimation->m_anim->Set(0,2,0,0.4f);
 			break;
 		case Player::STATE_WALKING_LEFT:
-			playerAnimation->m_anim->Set(3,5,0,0.3f);
+			playerAnimation->m_anim->Set(3,5,0,0.4f);
 			break;
 		case Player::STATE_WALKING_RIGHT:
-			playerAnimation->m_anim->Set(9,11,0,0.3f);
+			playerAnimation->m_anim->Set(9,11,0,0.4f);
 			break;
 		case Player::STATE_IDLE_UP:
-			if (playerAnimation->m_currentFrame == 8)
+			if (playerAnimation->m_currentFrame == 7)
 			{
-				playerAnimation->m_anim->Set(8,8,0,0.3f);
+				playerAnimation->m_anim->Set(7,7,0,0.4f);
 			}
 			break;
 		case Player::STATE_IDLE_DOWN:
-			if (playerAnimation->m_currentFrame == 2)
+			if (playerAnimation->m_currentFrame == 1)
 			{
-				playerAnimation->m_anim->Set(2,2,0,0.3f);
+				playerAnimation->m_anim->Set(1,1,0,0.4f);
 			}
 			break;
 		case Player::STATE_IDLE_LEFT:
-			if (playerAnimation->m_currentFrame == 5)
+			if (playerAnimation->m_currentFrame == 4)
 			{
-				playerAnimation->m_anim->Set(5,5,0,0.3f);
+				playerAnimation->m_anim->Set(4,4,0,0.4f);
 			}
 			break;
 		case Player::STATE_IDLE_RIGHT:
-			if (playerAnimation->m_currentFrame == 11)
+			if (playerAnimation->m_currentFrame == 10)
 			{
-				playerAnimation->m_anim->Set(11,11,0,0.3f);
+				playerAnimation->m_anim->Set(10,10,0,0.4f);
 			}
 			break;
 		}

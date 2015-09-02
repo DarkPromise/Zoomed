@@ -624,7 +624,7 @@ void ViewHandler::RenderScene()
 
 bool ViewHandler::isQuitGame()
 {
-	if(ViewHandler::IsKeyPressed(VK_ESCAPE) || glfwWindowShouldClose(m_window) || TimeToExit > 1.0)
+	if(ViewHandler::IsKeyPressed(VK_ESCAPE) || glfwWindowShouldClose(m_window))
 	{
 		//Prompt confirmation
 		return true;
