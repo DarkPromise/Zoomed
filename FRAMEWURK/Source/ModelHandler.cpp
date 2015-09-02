@@ -31,12 +31,6 @@ ModelHandler::~ModelHandler(void)
 		delete m_guiList[i];
 	}
 	m_guiList.clear();
-
-	for(unsigned int i = 0; i < m_enemyList.size(); ++i)
-	{
-		delete m_enemyList[i];
-	}
-	m_enemyList.clear();
 }
 
 void ModelHandler::Init() //Anything that moves in the game
@@ -196,23 +190,13 @@ void ModelHandler::Init() //Anything that moves in the game
 	Father = new EnemyFather();
 	Father->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
 	Father->SetDelay(0.5);
-
-	EnemyDasher * dash = new EnemyDasher();
-	dash->SetPos(1152.f,-480.f);
-	dash->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
-	m_enemyList.push_back(dash);
-
-	EnemyGhost* ghost = new EnemyGhost();
-	ghost->SetPos(320.f,-2080.f);
-	ghost->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
-	m_enemyList.push_back(ghost);
 }
 
 bool ModelHandler::InitObjects()
 {
 	GameObject * object = new GameObject("Player");
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Player",2,6,32.f,48.f));
-	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_level1.tga");    //Current State 
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
 	m_objectList.push_back(object);
 	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
 	if(playerAnimation)
@@ -375,6 +359,17 @@ bool ModelHandler::InitObjects()
 		enemyAnim->m_anim->Set(0,2,0,0.3f);
 	}
 
+	object = new GameObject("Textbox", TYPE_OBJECT, Vector3(0, 0, 0));
+	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),1.f));
+	object->getMesh()->textureID = LoadTGA("Images//UI//Textbox.tga");
+	m_objectList.push_back(object);
+
+	object = new GameObject("Textbox", TYPE_OBJECT, Vector3(0, 0, 0));
+	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),1.f));
+	object->getMesh()->textureID = LoadTGA("Images//UI//Textbox_Finish.tga"); 
+	m_objectList.push_back(object);
+
+
 	Item * item = new Item("Consumable");
 	item->setDescription("Consumable");
 	m_itemList.push_back(item);
@@ -405,6 +400,14 @@ bool ModelHandler::InitObjects()
 void ModelHandler::Update(const double dt)
 {
 	camera.Update(dt);
+
+	//textbox
+	if (TextBox->getSpeed())
+	{
+		TextBox->SpeedUp(true);
+	}
+
+	TextBox->UpdateText(dt);
 
 	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
 	switch(player->m_animationState)

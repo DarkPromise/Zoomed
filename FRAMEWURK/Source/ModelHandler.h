@@ -19,6 +19,7 @@
 #include "EnemyDasher.h"
 #include "EnemyGhost.h"
 #include "Sound.h"
+#include "Textbox.h"
 
 /************************************************
 
@@ -87,10 +88,17 @@ public:
 	{
 		return m_currLevel;
 	}
+
+	CTextBox* getTextBox()
+	{
+		return this->TextBox;
+	}
 private:
 	Player  *player;
 	EnemyFriend* Friend;
 	EnemyFather* Father;
+
+	CTextBox* TextBox;
 
 	int m_currLevel;
 

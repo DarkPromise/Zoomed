@@ -110,6 +110,37 @@ void ControlHandler::KeyboardUpdate()
 	static bool toggleFullScreen = false;
 	static bool generateRoom = false;
 
+	if(theView->IsKeyPressed(VK_SPACE))
+	{
+		if (keyHeldSpace)
+		{
+			keyHeldSpace = false;
+			if (theModel->getTextBox()->inText)
+			{
+				if (theModel->getTextBox()->paragraphFinished() && theModel->getTextBox()->isFinished())
+				{
+					theModel->getTextBox()->inText = false;
+				}
+				else
+				{
+					if (theModel->getTextBox()->isFinished())
+					{
+						//myEngine2->play2D(SoundFX[SOUND_NEXT]);
+						theModel->getTextBox()->nextSentence();
+					}
+					else
+					{
+						theModel->getTextBox()->SpeedUp(true);
+					}
+				}
+			}
+		}
+	}
+	else if (!theView->IsKeyPressed(VK_SPACE))
+	{
+		keyHeldSpace = true;
+	}
+
 	if(theView->IsKeyPressed('W'))
 	{
 		/*if(keyHeldUp == false)

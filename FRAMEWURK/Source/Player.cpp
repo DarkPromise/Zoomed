@@ -385,6 +385,9 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
 							this->setPosition(Vector3(768, -1120, 0));
 							theModel->getFather()->SetPos(2112, -896);
+
+							theModel->getTextBox()->inText = true;
+							theModel->getTextBox()->setParagraph(0);
 						}
 						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight3PositionY) && (m_playerPos.x  == MainMenuNight3PositionX)))
 						{
