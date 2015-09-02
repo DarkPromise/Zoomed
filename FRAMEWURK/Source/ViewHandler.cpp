@@ -259,7 +259,7 @@ void ViewHandler::toggleFullScreen()
 
 void ViewHandler::UpdateSA(double dt)
 {
-	SpriteAnimation *sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[0]->getMesh());
+	SpriteAnimation *sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[OBJ_PLAYER]->getMesh());
 	if (sprite)
 	{
 		sprite->Update(dt);
@@ -277,13 +277,13 @@ void ViewHandler::UpdateSA(double dt)
 		sprite->Update(dt);
 	}
 
-	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[16]->getMesh());
+	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[OBJ_DASHER]->getMesh());
 	if (sprite)
 	{
 		sprite->Update(dt);
 	}
 
-	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[17]->getMesh());
+	sprite = dynamic_cast<SpriteAnimation*>(theModel->m_objectList[OBJ_GHOST]->getMesh());
 	if (sprite)
 	{
 		sprite->Update(dt);

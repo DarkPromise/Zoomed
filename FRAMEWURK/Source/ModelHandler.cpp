@@ -36,7 +36,7 @@ ModelHandler::~ModelHandler(void)
 void ModelHandler::Init() //Anything that moves in the game
 {
 	Math::InitRNG();
-
+	TextBox = new CTextBox();
 	sound = new Sound();
 
 	player = new Player("Josh");
@@ -177,7 +177,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	}
 
 	//Enemy Code
- 	Evil = new EnemyMelee;
+	Evil = new EnemyMelee;
 	Evil->SetPos(32,-32);
 	Evil->SetData(m_worldList[currentWorld]->collisionData);
 	Evil->SetDelay(0.1);
@@ -206,7 +206,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Player",2,6,32.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
 	m_objectList.push_back(object);
-	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
+	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_PLAYER]->getMesh());
 	if(playerAnimation)
 	{
 		playerAnimation->m_anim = new Animation();
@@ -349,7 +349,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Dasher Animation",2,6,32.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_dasher.tga");    //Current State 
 	m_objectList.push_back(object);
-	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[16]->getMesh());
+	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_DASHER]->getMesh());
 	if(enemyAnim)
 	{
 		enemyAnim->m_anim = new Animation();
@@ -360,7 +360,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Ghost Animation",2,6,32.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
 	m_objectList.push_back(object);
-	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[17]->getMesh());
+	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_GHOST]->getMesh());
 	if(enemyAnim)
 	{
 		enemyAnim->m_anim = new Animation();
@@ -417,7 +417,7 @@ void ModelHandler::Update(const double dt)
 
 	TextBox->UpdateText(dt);
 
-	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[0]->getMesh());
+	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_PLAYER]->getMesh());
 	switch(player->m_animationState)
 		{
 		case Player::STATE_WALKING_UP:
@@ -477,7 +477,7 @@ void ModelHandler::Update(const double dt)
 
 	if(currentWorld == WORLD_SCHOOL_LEVEL1)
 	{
-		SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[16]->getMesh());
+		SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_DASHER]->getMesh());
 		switch(dynamic_cast<EnemyDasher*>(Dash)->getAnimState())
 		{
 		case EnemyDasher::STATE_WALKING_UP:
@@ -494,7 +494,7 @@ void ModelHandler::Update(const double dt)
 			break;
 		}
 
-		enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[17]->getMesh());
+		enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_GHOST]->getMesh());
 		switch(dynamic_cast<EnemyGhost*>(Ghost)->getAnimState())
 		{
 		case EnemyGhost::STATE_WALKING_UP:
@@ -546,20 +546,20 @@ void ModelHandler::Update(const double dt)
 
 	if (currentWorld == WORLD_SCHOOL_LEVEL1)
 	{
-		m_objectList[16]->isAlive = true;
+		m_objectList[OBJ_DASHER]->isAlive = true;
 		Dash->Update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(Dash->GetPos_x(), Dash->GetPos_y()),getInstance());
-		m_objectList[16]->setPosition(Vector3(Dash->GetPos_x(),Dash->GetPos_y(),0));
+		m_objectList[OBJ_DASHER]->setPosition(Vector3(Dash->GetPos_x(),Dash->GetPos_y(),0));
 		Dash->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
 
-		m_objectList[17]->isAlive = true;
+		m_objectList[OBJ_GHOST]->isAlive = true;
 		Ghost->Update(dt,m_worldList[currentWorld], m_worldList[currentWorld]->getRoom(Ghost->GetPos_x(), Ghost->GetPos_y()),getInstance());
-		m_objectList[17]->setPosition(Vector3(Ghost->GetPos_x(),Ghost->GetPos_y(),0));
+		m_objectList[OBJ_GHOST]->setPosition(Vector3(Ghost->GetPos_x(),Ghost->GetPos_y(),0));
 		Ghost->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
 	}
 	else
 	{
-		m_objectList[16]->isAlive = false;
-		m_objectList[17]->isAlive = false;
+		m_objectList[OBJ_DASHER]->isAlive = false;
+		m_objectList[OBJ_GHOST]->isAlive = false;
 	}
 
 
