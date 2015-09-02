@@ -80,10 +80,17 @@ public:
 	vector<World*> m_worldList;
 	vector<Item*> m_itemList;
 	vector<Gui*> m_guiList;
+
+	int &getCurrLevel()
+	{
+		return m_currLevel;
+	}
 private:
 	Player  *player;
 	EnemyFriend* Friend;
 	EnemyFather* Father;
+
+	int m_currLevel;
 
 	Camera camera;
 	Game theEnvironment; //Contains gravity, current conditions(wind) etc.

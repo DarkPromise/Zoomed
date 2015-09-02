@@ -598,8 +598,12 @@ void ViewHandler::RenderScene()
 	std::cout << "ID : " << i << " " << theModel->m_objectList[i]->ToString() << std::endl;
 	}*/
 
+	std::ostringstream s1;
+	s1.precision(3);
+	s1 << "LEVEL "<< theModel->getCurrLevel();
+
 	RenderGameTextOnScreen(theModel->m_objectList[11]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
-	RenderGameTextOnScreen(theModel->m_objectList[11]->getMesh(),"LEVEL ?", Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
+	RenderGameTextOnScreen(theModel->m_objectList[11]->getMesh(),s1.str(), Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
 
 	Render2DMesh(theModel->m_guiList[3]->getMesh(),false,false,208.f * theModel->getPlayer()->getSanity() ,55.f * theModel->getPlayer()->getSanity(),(m_viewPort[2] * 0.5f), (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
 

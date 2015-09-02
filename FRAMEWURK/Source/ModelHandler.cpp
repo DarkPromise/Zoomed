@@ -45,6 +45,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
 	
 	m_status = STATE_MENU;
+	m_currLevel = 0;
 	currentWorld = WORLD_MAINMENU;
 
 	// MAIN MENU

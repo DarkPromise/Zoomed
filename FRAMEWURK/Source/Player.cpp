@@ -364,12 +364,14 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 						if ((controls.use) && ((m_playerPos.y-32 == MainMenuNight1PositionY) && (m_playerPos.x  == MainMenuNight1PositionX)))
 						{
 							theModel->currentWorld = WORLD_SCHOOL_LEVEL1;
+							theModel->getCurrLevel() = 1;
 							theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
 							this->setPosition(Vector3(768, -1120, 0));
 						}
 						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight2PositionY) && (m_playerPos.x  == MainMenuNight2PositionX)))
 						{
 							theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
+							theModel->getCurrLevel() = 2;
 							theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
 							this->setPosition(Vector3(768, -1120, 0));
 							theModel->getFather()->SetPos(2112, -896);
