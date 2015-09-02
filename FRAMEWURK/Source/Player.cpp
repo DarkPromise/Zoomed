@@ -154,10 +154,6 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 	m_movementTimer += dt;
 	m_immunityTimer -= dt;
 
-	int yColiision = Math::Max(0, (int)((abs)(m_playerPos.y)/32)+25);
-	int xColiision = (int)(m_playerPos.x/32);
-	std::cout << "Standing on : " <<  currentWorld->sceneryData[yColiision][xColiision] << std::endl; 
-
 	if(m_currFear > 50)
 	{
 		m_movementDelay = 0.1;
@@ -342,7 +338,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 		switch(collisionMap[yColiision+1][xColiision])
 		{
 		case 100:
-			std::cout << "Wall Below : " << collisionMap[yColiision+1][xColiision] << std::endl;
 			if(currentWorld->getWorldID() == WORLD_MAINMENU)
 			{
 				switch(currentWorld->sceneryData[yColiision+1][xColiision])
@@ -365,8 +360,8 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 						{
 							theModel->currentWorld = WORLD_SCHOOL_LEVEL1;
 							theModel->getCurrLevel() = 1;
-							theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
-							this->setPosition(Vector3(768, -1120, 0));
+							//theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
+							this->setPosition(Vector3(Level1SpawnPointX, Level1SpawnPointY, 0));
 						}
 						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight2PositionY) && (m_playerPos.x  == MainMenuNight2PositionX)))
 						{
@@ -378,11 +373,9 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 						}
 						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight3PositionY) && (m_playerPos.x  == MainMenuNight3PositionX)))
 						{
-							std::cout << "Test" << std::endl;
 						}
 						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight4PositionY) && (m_playerPos.x  == MainMenuNight4PositionX)))
 						{
-							std::cout << "Test" << std::endl;
 						}
 					}
 					break;
@@ -416,7 +409,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 		switch(collisionMap[yColiision-1][xColiision])
 		{
 		case 100:
-			std::cout << "Wall Above : "<< collisionMap[yColiision-1][xColiision] << std::endl;
 			switch(currentWorld->sceneryData[yColiision+1][xColiision])
 			{
 			case MAINMENU_PILLOWBEDTOP:
@@ -458,7 +450,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 		switch(collisionMap[yColiision][xColiision+1])
 		{
 		case 100:
-			std::cout << "Wall Right : " << collisionMap[yColiision][xColiision+1] << std::endl;
 			break;
 		case 200:
 			{
@@ -488,7 +479,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 		switch(collisionMap[yColiision][xColiision-1])
 		{
 		case 100:
-			std::cout << "Wall Left : " << currentWorld->sceneryData[yColiision][xColiision-1] << std::endl;
 			break;
 		case 200:
 			{

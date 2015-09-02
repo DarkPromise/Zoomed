@@ -22,6 +22,7 @@ public:
 	bool keyHeldDown;
 	bool keyHeldLeft;
 	bool keyHeldRight;
+	bool keyUse;
 
 	ModelHandler * theModel;
 	ViewHandler * theView;

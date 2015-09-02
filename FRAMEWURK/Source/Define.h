@@ -21,3 +21,6 @@
 #define MainMenuNight3PositionX 1056.f
 #define MainMenuNight4PositionY -1280.f
 #define MainMenuNight4PositionX 1120.f
+
+#define Level1SpawnPointX 480.f
+#define Level1SpawnPointY -1376.f

@@ -14,6 +14,7 @@ ControlHandler::ControlHandler(ModelHandler * theModel, ViewHandler * theView) :
 	keyHeldDown = false;
 	keyHeldLeft = false;
 	keyHeldRight = false;
+	keyUse = false;
 
 	std::cout << "Controller Initialized" << std::endl;
 	std::cout << std::endl;
@@ -108,16 +109,6 @@ void ControlHandler::KeyboardUpdate()
 {
 	static bool toggleFullScreen = false;
 	static bool generateRoom = false;
-
-	//if(theView->IsKeyPressed('5') && !toggleFullScreen)
-	//{
-	//	toggleFullScreen = true;
-	//	theView->toggleFullScreen();
-	//}
-	//else if(!theView->IsKeyPressed('5') && toggleFullScreen)
-	//{
-	//	toggleFullScreen = false;
-	//}
 
 	if(theView->IsKeyPressed('W'))
 	{
@@ -222,10 +213,19 @@ void ControlHandler::KeyboardUpdate()
 
 	if(theView->IsKeyPressed('E'))
 	{
+		if(keyUse == false)
+		{
+		keyUse = true;
 		theModel->getPlayer()->controls.use = true;
+		}
+		else if(keyUse == true)
+		{
+			theModel->getPlayer()->controls.use = false;
+		}
 	}
-	else
+	else if(!theView->IsKeyPressed('E') && keyUse)
 	{
+		keyUse = false;
 		theModel->getPlayer()->controls.use = false;
 	}
 
