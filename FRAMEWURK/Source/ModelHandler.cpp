@@ -37,6 +37,7 @@ void ModelHandler::Init() //Anything that moves in the game
 {
 	Math::InitRNG();
 	TextBox = new CTextBox();
+	TextBox->inText = true;
 	sound = new Sound();
 
 	player = new Player("Josh");

@@ -367,13 +367,13 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");
 								break;
 							case 2:
-								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_main.tga");
+								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_josh.tga");
 								break;
 							case 3:
 								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_level1.tga");
 								break;
 							case 4:
-								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_josh.tga");
+								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_main.tga");
 								break;
 							}
 						}
@@ -386,6 +386,9 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							theModel->currentWorld = WORLD_SCHOOL_LEVEL1;
 							theModel->getCurrLevel() = 1;
 							this->setPosition(Vector3(Level1SpawnPointX, Level1SpawnPointY, 0));
+							theModel->getTextBox()->inText = true;
+							theModel->getTextBox()->nextEpisode();
+							theModel->getTextBox()->setParagraph(0);
 						}
 						else if((controls.use) && ((m_playerPos.y == MainMenuNight2PositionY) && (m_playerPos.x  == MainMenuNight2PositionX)))
 						{
@@ -567,6 +570,72 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 			this->setIsHiding(false);
 			this->m_playerPos.y -= 32;
 			this->stand_activated = false;
+		}
+	}
+
+	//Hardcoded Position Interaction Values
+	if(theModel->currentWorld == WORLD_SCHOOL_LEVEL1)
+	{
+		static bool Objective1 = false;
+		static bool Message1 = false;
+		static bool Objective2 = false;
+		static bool Objective3 = false;
+		static bool Objective4 = false;
+		static bool Objective5 = false;
+
+		if(controls.use)
+		{
+			if(m_playerPos.x == Level1Obj1X && m_playerPos.y == Level1Obj1Y)
+			{
+				if(Objective1 == false)
+				{
+					Objective1 = true;
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(1);
+				}
+				else
+				{
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(2);
+				}
+			}
+			if((m_playerPos.x == Level1Obj2X1 || m_playerPos.x == Level1Obj2X2) && (m_playerPos.y == Level1Obj2Y))
+			{
+				if(Objective1 == true)
+				{
+					if(Objective2 == false)
+					{
+						Objective2 = true;
+						theModel->getTextBox()->inText = true;
+						theModel->getTextBox()->setParagraph(5);
+						//Teleport Player upwards
+						m_playerPos.y += 160; //5 Tiles
+					}
+					else
+					{
+						//Teleport Player upwards
+						m_playerPos.y += 160; //5 Tiles
+					}
+				}
+				else
+				{
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(4);
+				}
+			}
+		}
+		if(m_playerPos.x == Level1Message1X && m_playerPos.y == Level1Message1Y)
+		{
+			if(Message1 == false)
+			{
+				Message1 = true;
+				theModel->getTextBox()->inText = true;
+				theModel->getTextBox()->setParagraph(3);
+			}
+		}
+		if((m_playerPos.x == Level1Obj2X1 || m_playerPos.x == Level1Obj2X2) && (m_playerPos.y == Level1Obj2Back))
+		{
+			m_playerPos.y -= 128;
 		}
 	}
 }

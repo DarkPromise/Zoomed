@@ -24,6 +24,13 @@
 
 #define Level1SpawnPointX 480.f
 #define Level1SpawnPointY -1376.f
+#define Level1Obj1X 320.f
+#define Level1Obj1Y -1408.f
+#define Level1Obj2X1 1088.f
+#define Level1Obj2X2 1120.f
+#define Level1Obj2Y -1120.f
+#define Level1Obj2Back -992.f
+#define Level1Message1X 544.f
 
 #define Level3SpawnPointX 384.f
 #define Level3SpawnPointY -320.f
