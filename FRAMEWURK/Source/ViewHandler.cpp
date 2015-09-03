@@ -596,7 +596,7 @@ void ViewHandler::RenderScene()
 		}
 		else
 		{
-			if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT && theModel->m_objectList[i]->getObjectType() != TYPE_TEXTBOX)
+			if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT && theModel->m_objectList[i]->getObjectType() != TYPE_TEXTBOX && theModel->m_objectList[i]->getObjectType() != TYPE_AXES)
 			{
 				RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 			}

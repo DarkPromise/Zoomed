@@ -229,7 +229,7 @@ bool ModelHandler::InitObjects()
 		playerAnimation->m_anim->Set(0,2,0,0.5f);
 	}
 
-	object = new GameObject("Axes");
+	object = new GameObject("Axes",TYPE_AXES);
 	object->addMesh(MeshBuilder::GenerateAxes("Axes", 100000, 100000, 100000));
 	m_objectList.push_back(object);
 
