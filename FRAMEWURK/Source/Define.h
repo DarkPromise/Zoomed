@@ -47,6 +47,10 @@
 #define Level1FinishY -512.f
 #define Level1FinishSpawnX 896.f
 #define Level1FinishSpawnY -1280.f
+#define Level1GhostPositionX 320.f
+#define Level1GhostPositionY -2080.f
+#define Level1DashPositionX 640.f
+#define Level1DashPositionY -1248.f
 
 #define Level3SpawnPointX 384.f
 #define Level3SpawnPointY -320.f

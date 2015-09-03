@@ -35,6 +35,7 @@ public:
 	int canLeft;
 	int canRight;
 	int nothing;
+	bool canDash;
 
 	std::vector<int> moveList;
 private:

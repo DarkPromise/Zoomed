@@ -613,8 +613,6 @@ void ViewHandler::RenderScene()
 	{
 		theModel->getTextBox()->initText();
 
-		std::cout << theModel->getTextBox()->getTextToRender()[0] << std::endl;
-
 		if (theModel->getTextBox()->isFinished())
 		{
 			Render2DMesh(theModel->m_objectList[OBJ_TEXTBOX2]->getMesh(),false,false, 360.f, 120.f, m_viewPort[2] *0.5f,  (m_viewPort[3] * 0.5f) - 100);

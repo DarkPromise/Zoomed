@@ -156,6 +156,8 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 	m_movementTimer += dt;
 	m_immunityTimer -= dt;
 
+	//std::cout << m_playerPos << std::endl;
+
 	if(m_currFear >= 100)
 	{
 		theModel->getPlayer()->setIsHiding(true);
@@ -404,7 +406,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							theModel->getCurrLevel() = 1;
 							this->setPosition(Vector3(Level1SpawnPointX, Level1SpawnPointY, 0));
 							theModel->getTextBox()->inText = true;
-							theModel->getTextBox()->nextEpisode();
+							theModel->getTextBox()->setEpisode(1);
 							theModel->getTextBox()->setParagraph(0);
 						}
 						else if((controls.use) && ((m_playerPos.y == MainMenuNight2PositionY) && (m_playerPos.x  == MainMenuNight2PositionX)))

@@ -208,11 +208,11 @@ void ModelHandler::Init() //Anything that moves in the game
 	Father->SetDelay(0.5);
 
 	Dash = new EnemyDasher();
-	Dash->SetPos(1152.f,-480.f);
+	Dash->SetPos(Level1DashPositionX,Level1DashPositionY);
 	Dash->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
 
 	Ghost = new EnemyGhost();
-	Ghost->SetPos(320.f,-2080.f);
+	Ghost->SetPos(Level1GhostPositionX,Level1GhostPositionY);
 	Ghost->SetData(m_worldList[WORLD_SCHOOL_LEVEL1]->collisionData);
 }
 

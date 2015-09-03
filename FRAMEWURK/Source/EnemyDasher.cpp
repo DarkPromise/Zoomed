@@ -7,6 +7,7 @@ EnemyDasher::EnemyDasher(void) : movementDelay(0.0)
 	, canLeft(3)
 	, canRight(4)
 	, nothing(0)
+	, canDash(true)
 {
 	Enemy::setState(STATE_IDLE);
 }
@@ -51,18 +52,19 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 	}
 	moveList.push_back(nothing);
 
-
 	if(Enemy::getState() != STATE_STUNNED)
 	{
 		if(!theModel->getPlayer()->getIsHiding())
 		{
-			if((abs(xCollision - playerX) <= 9) && (abs(yCollision - playerY) == 0))
+			if((abs(xCollision - playerX) <= 6) && (abs(yCollision - playerY) == 0))
 			{
 				Enemy::setState(STATE_ATTACKING);
+				canDash = true;
 			}
-			else if((abs(xCollision - playerX) == 0) && (abs(yCollision - playerY) <= 9))
+			else if((abs(xCollision - playerX) == 0) && (abs(yCollision - playerY) <= 6))
 			{
 				Enemy::setState(STATE_ATTACKING);
+				canDash = true;
 			}
 		}
 		else
@@ -133,42 +135,70 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 			//Dash to player
 			if((abs(yCollision - playerY) == 0)) //Dash X
 			{
-				if((collisionMap[yCollision][xCollision-1] < 100) || (collisionMap[yCollision][xCollision+1] < 100))
+				if((collisionMap[yCollision][xCollision-1] < 100) || (collisionMap[yCollision][xCollision+1] < 100)) //Check Walls Left Right
 				{
 					if(playerX > xCollision)
 					{
-						this->getAnimState() = STATE_WALKING_RIGHT;
-						Enemy::SetPos(Math::Round(Math::SmoothDamp(Enemy::GetPos_x(),theModel->getPlayer()->getPosition().x - 32.f,1280.f,0.01f,1280.f,1.0)),Enemy::GetPos_y());
-						if(Enemy::GetPos_x() == theModel->getPlayer()->getPosition().x - 32.f)
+						int difference = playerX - xCollision;
+						for(int i = 0; i < difference; ++i)
 						{
-							Enemy::setState(STATE_STUNNED);
-							if((theModel->getPlayer()->getCurrFear() + 20) > 100.f)
+							if(collisionMap[yCollision][xCollision+1+i] < 100)
 							{
-								theModel->getPlayer()->getCurrFear() = 100.f;
 							}
 							else
 							{
-								theModel->getPlayer()->getCurrFear() += 20.f;
+								canDash = false;
 							}
-							Enemy::SetDelay(0.0);
+						}
+						if(canDash)
+						{
+							this->getAnimState() = STATE_WALKING_RIGHT;
+							Enemy::SetPos(Math::Round(Math::SmoothDamp(Enemy::GetPos_x(),theModel->getPlayer()->getPosition().x - 32.f,1280.f,0.01f,1280.f,1.0)),Enemy::GetPos_y());
+							if(Enemy::GetPos_x() == theModel->getPlayer()->getPosition().x - 32.f)
+							{
+								Enemy::setState(STATE_STUNNED);
+								if((theModel->getPlayer()->getCurrFear() + 20) > 100.f)
+								{
+									theModel->getPlayer()->getCurrFear() = 100.f;
+								}
+								else
+								{
+									theModel->getPlayer()->getCurrFear() += 20.f;
+								}
+								Enemy::SetDelay(0.0);
+							}
 						}
 					}
 					else
 					{
-						this->getAnimState() = STATE_WALKING_LEFT;
-						Enemy::SetPos(Math::Round(Math::SmoothDamp(Enemy::GetPos_x(),theModel->getPlayer()->getPosition().x + 32.f,1280.f,0.01f,1280.f,1.0)),Enemy::GetPos_y());
-						if(Enemy::GetPos_x() == theModel->getPlayer()->getPosition().x + 32.f)
+						int difference = xCollision - playerX;
+						for(int i = 0; i < difference; ++i)
 						{
-							Enemy::setState(STATE_STUNNED);
-							if((theModel->getPlayer()->getCurrFear() + 20) > 100.f)
+							if(collisionMap[yCollision][xCollision-1-i] < 100)
 							{
-								theModel->getPlayer()->getCurrFear() = 100.f;
 							}
 							else
 							{
-								theModel->getPlayer()->getCurrFear() += 20.f;
+								canDash = false;
 							}
-							Enemy::SetDelay(0.0);
+						}
+						if(canDash)
+						{
+							this->getAnimState() = STATE_WALKING_LEFT;
+							Enemy::SetPos(Math::Round(Math::SmoothDamp(Enemy::GetPos_x(),theModel->getPlayer()->getPosition().x + 32.f,1280.f,0.01f,1280.f,1.0)),Enemy::GetPos_y());
+							if(Enemy::GetPos_x() == theModel->getPlayer()->getPosition().x + 32.f)
+							{
+								Enemy::setState(STATE_STUNNED);
+								if((theModel->getPlayer()->getCurrFear() + 20) > 100.f)
+								{
+									theModel->getPlayer()->getCurrFear() = 100.f;
+								}
+								else
+								{
+									theModel->getPlayer()->getCurrFear() += 20.f;
+								}
+								Enemy::SetDelay(0.0);
+							}
 						}
 					}
 				}
@@ -184,38 +214,66 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 				{
 					if(playerY > yCollision)
 					{
-						this->getAnimState() = STATE_WALKING_DOWN;
-						Enemy::SetPos(Enemy::GetPos_x(),Math::Round(Math::SmoothDamp(Enemy::GetPos_y(),theModel->getPlayer()->getPosition().y + 32.f,1280.f,0.01f,1280.f,1.0)));
-						if(Enemy::GetPos_y() == theModel->getPlayer()->getPosition().y + 32.f)
+						int difference = playerY - yCollision;
+						for(int i = 0; i < difference; ++i)
 						{
-							Enemy::setState(STATE_STUNNED);
-							if((theModel->getPlayer()->getCurrFear() + 20) > 100.f)
+							if(collisionMap[yCollision+1+i][xCollision] < 100)
 							{
-								theModel->getPlayer()->getCurrFear() = 100.f;
 							}
 							else
 							{
-								theModel->getPlayer()->getCurrFear() += 20.f;
+								canDash = false;
 							}
-							Enemy::SetDelay(0.0);
+						}
+						if(canDash)
+						{
+							this->getAnimState() = STATE_WALKING_DOWN;
+							Enemy::SetPos(Enemy::GetPos_x(),Math::Round(Math::SmoothDamp(Enemy::GetPos_y(),theModel->getPlayer()->getPosition().y + 32.f,1280.f,0.01f,1280.f,1.0)));
+							if(Enemy::GetPos_y() == theModel->getPlayer()->getPosition().y + 32.f)
+							{
+								Enemy::setState(STATE_STUNNED);
+								if((theModel->getPlayer()->getCurrFear() + 20) > 100.f)
+								{
+									theModel->getPlayer()->getCurrFear() = 100.f;
+								}
+								else
+								{
+									theModel->getPlayer()->getCurrFear() += 20.f;
+								}
+								Enemy::SetDelay(0.0);
+							}
 						}
 					}
 					else
 					{
-						this->getAnimState() = STATE_WALKING_UP;
-						Enemy::SetPos(Enemy::GetPos_x(),Math::Round(Math::SmoothDamp(Enemy::GetPos_y(),theModel->getPlayer()->getPosition().y - 32.f,1280.f,0.01f,1280.f,1.0)));
-						if(Enemy::GetPos_y() == theModel->getPlayer()->getPosition().y - 32.f)
+						int difference = yCollision - playerY;
+						for(int i = 0; i < difference; ++i)
 						{
-							Enemy::setState(STATE_STUNNED);
-							if((theModel->getPlayer()->getCurrFear() + 20) > 100.f)
+							if(collisionMap[yCollision-1-i][xCollision] < 100)
 							{
-								theModel->getPlayer()->getCurrFear() = 100.f;
 							}
 							else
 							{
-								theModel->getPlayer()->getCurrFear() += 20.f;
+								canDash = false;
 							}
-							Enemy::SetDelay(0.0);
+						}
+						if(canDash)
+						{
+							this->getAnimState() = STATE_WALKING_UP;
+							Enemy::SetPos(Enemy::GetPos_x(),Math::Round(Math::SmoothDamp(Enemy::GetPos_y(),theModel->getPlayer()->getPosition().y - 32.f,1280.f,0.01f,1280.f,1.0)));
+							if(Enemy::GetPos_y() == theModel->getPlayer()->getPosition().y - 32.f)
+							{
+								Enemy::setState(STATE_STUNNED);
+								if((theModel->getPlayer()->getCurrFear() + 20) > 100.f)
+								{
+									theModel->getPlayer()->getCurrFear() = 100.f;
+								}
+								else
+								{
+									theModel->getPlayer()->getCurrFear() += 20.f;
+								}
+								Enemy::SetDelay(0.0);
+							}
 						}
 					}
 				}
