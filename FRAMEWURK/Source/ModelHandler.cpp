@@ -561,26 +561,29 @@ void ModelHandler::Update(const double dt)
 
 	if (m_worldList[currentWorld]->UpdateWorld)
 	{
-		if (currentWorld == WORLD_FRIENDS_TUTORIAL)
+		if (currentWorld == WORLD_FRIENDS_TUTORIAL || currentWorld == WORLD_FRIENDS_LEVEL1)
 		{
+
 			m_objectList[currentWorld+2]->setMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[currentWorld]->sceneryData,32,32), 1);
 			m_objectList[currentWorld+2]->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
+			m_objectList[currentWorld+2]->setMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[currentWorld]->foregroundData,32,32), 2);
+			m_objectList[currentWorld+2]->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_BLUE.tga");
 		}
 		m_worldList[currentWorld]->UpdateWorld = false;
 	}
 
 	//Enemy Code
-	if (currentWorld == WORLD_FRIENDS_TUTORIAL)
+	if (currentWorld == WORLD_FRIENDS_TUTORIAL || currentWorld == WORLD_FRIENDS_LEVEL1)
 	{
 		m_objectList[OBJ_ENEMYSISTER]->isAlive = true;
 		Friend->Update(this->getInstance(), dt);
 		m_objectList[OBJ_ENEMYSISTER]->setPosition(Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0));
-		Friend->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
+		Friend->SetData(m_worldList[currentWorld]->collisionData);
 
 		m_objectList[OBJ_ENEMYFATHER]->isAlive = true;
 		Father->Update(this->getInstance(), this->sound->getNoiseLevel(), dt);
 		m_objectList[OBJ_ENEMYFATHER]->setPosition(Vector3(Father->GetPos_x(),Father->GetPos_y(),0));
-		Father->SetData(m_worldList[WORLD_FRIENDS_TUTORIAL]->collisionData);
+		Father->SetData(m_worldList[currentWorld]->collisionData);
 	}
 	else
 	{

@@ -335,10 +335,19 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 						if ( theModel->currentWorld == WORLD_FRIENDS_FINISH)
 						{
 							theModel->currentWorld = WORLD_MAINMENU;
+							theModel->getPlayer()->setPosition(Vector3(800,-1248, 0));
 						}
 						else
 						{
-							theModel->currentWorld = (WORLD_ID)((int)(theModel->currentWorld) +1) ;
+							theModel->currentWorld = (WORLD_ID)((int)(theModel->currentWorld)+1);
+							if (theModel->currentWorld == WORLD_FRIENDS_LEVEL1)
+							{
+								theModel->getPlayer()->setPosition(Vector3(2944,-768, 0));
+							}
+							else if (theModel->currentWorld == WORLD_FRIENDS_FINISH)
+							{
+								theModel->getPlayer()->setPosition(Vector3(800,-1088, 0));
+							}
 						}
 					}
 				}
@@ -467,6 +476,40 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 				}
 			}
 			break;
+		case 150:
+			{
+				if (controls.use)
+				{
+					if (theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision+1][xColiision] == 74)
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision+1][xColiision] = 75;
+						theModel->m_worldList[theModel->currentWorld]->foregroundData[yColiision][xColiision] = 43;
+					}
+					else
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision+1][xColiision] = 74;
+						theModel->m_worldList[theModel->currentWorld]->foregroundData[yColiision][xColiision] = 42;
+					}
+					currentWorld->UpdateWorld = true;
+				}
+			}
+			break;
+		case 151:
+			{
+				if (controls.use)
+				{
+					if (theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision+1][xColiision] == 282)
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision+1][xColiision] = 283;
+					}
+					else
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision+1][xColiision] = 282;
+					}
+					currentWorld->UpdateWorld = true;
+				}
+			}
+			break;
 		default:
 			break;
 		}
@@ -509,6 +552,41 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 				}
 			}
 			break;
+		case 150:
+			{
+				if (controls.use)
+				{
+					//hide code
+					if (theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision-1][xColiision] == 74)
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision-1][xColiision] = 75;
+						theModel->m_worldList[theModel->currentWorld]->foregroundData[yColiision-2][xColiision] = 43;
+					}
+					else
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision-1][xColiision] = 74;
+						theModel->m_worldList[theModel->currentWorld]->foregroundData[yColiision-2][xColiision] = 42;
+					}
+					currentWorld->UpdateWorld = true;
+				}
+			}
+			break;
+		case 151:
+			{
+				if (controls.use)
+				{
+					if (theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision-1][xColiision] == 282)
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision-1][xColiision] = 283;
+					}
+					else
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision-1][xColiision] = 282;
+					}
+					currentWorld->UpdateWorld = true;
+				}
+			}
+			break;
 		default:
 			break;
 		}
@@ -538,6 +616,41 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 				}
 			}
 			break;
+		case 150:
+			{
+				if (controls.use)
+				{
+					//hide code
+					if (theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision+1] == 74)
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision+1] = 75;
+						theModel->m_worldList[theModel->currentWorld]->foregroundData[yColiision-1][xColiision+1] = 43;
+					}
+					else
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision+1] = 74;
+						theModel->m_worldList[theModel->currentWorld]->foregroundData[yColiision-1][xColiision+1] = 42;
+					}
+					currentWorld->UpdateWorld = true;
+				}
+			}
+			break;
+		case 151:
+			{
+				if (controls.use)
+				{
+					if (theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision+1] == 282)
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision+1] = 283;
+					}
+					else
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision+1] = 282;
+					}
+					currentWorld->UpdateWorld = true;
+				}
+			}
+			break;
 		default:
 			break;
 		}
@@ -564,6 +677,41 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					this->setIsHiding(true);
 					this->m_playerPos.x -= 32;
 					this->m_playerPos.y -= 32;
+				}
+			}
+			break;
+		case 150:
+			{
+				if (controls.use)
+				{
+					//hide code
+					if (theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision-1] == 74)
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision-1] = 75;
+						theModel->m_worldList[theModel->currentWorld]->foregroundData[yColiision-1][xColiision-1] = 43;
+					}
+					else
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision-1] = 74;
+						theModel->m_worldList[theModel->currentWorld]->foregroundData[yColiision-1][xColiision-1] = 42;
+					}
+					currentWorld->UpdateWorld = true;
+				}
+			}
+			break;
+		case 151:
+			{
+				if (controls.use)
+				{
+					if (theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision-1] == 282)
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision-1] = 283;
+					}
+					else
+					{
+						theModel->m_worldList[theModel->currentWorld]->sceneryData[yColiision][xColiision-1] = 282;
+					}
+					currentWorld->UpdateWorld = true;
 				}
 			}
 			break;

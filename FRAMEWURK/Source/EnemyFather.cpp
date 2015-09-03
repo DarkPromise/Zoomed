@@ -18,7 +18,7 @@ void EnemyFather::Update(ModelHandler* theModel, int noiseLevel, double dt)
 	AccumulatedTime += dt; 
 
 	SetDestination(theModel->getPlayer()->getPosition().x, theModel->getPlayer()->getPosition().y);
-	if (CalculateDistance() >= CalculateDistance(theModel->getFriend()->GetPos_x(), theModel->getFriend()->GetPos_x()))
+	if (CalculateDistance() >= CalculateDistance(theModel->getFriend()->GetPos_x(), theModel->getFriend()->GetPos_x()) || theModel->getPlayer()->getIsHiding())
 	{
 		SetDestination(theModel->getFriend()->GetPos_x(), theModel->getFriend()->GetPos_x());
 	}
@@ -197,50 +197,53 @@ void EnemyFather::ReturnToSpawn()
 
 void EnemyFather::onHit(Player* player, EnemyFriend* player2)
 {
-	if(CalculateDistance_x() == 32 && CalculateDistance_y() == 0)
+	if (player->getIsHiding() == false)
 	{
-		if(player->getImmunityTimer() < 0.0)
+		if(CalculateDistance_x() == 32 && CalculateDistance_y() == 0)
 		{
-			if(player->getCurrFear() < 100.f)
+			if(player->getImmunityTimer() < 0.0)
 			{
-				if(player->getCurrFear() + 10.f > 100.f)
+				if(player->getCurrFear() < 100.f)
 				{
-					player->getCurrFear() = 100.f;
+					if(player->getCurrFear() + 10.f > 100.f)
+					{
+						player->getCurrFear() = 100.f;
+					}
+					else
+					{
+						player->getCurrFear() += 10;
+					}
+					player->setImmunityTimer(1.0);
 				}
-				else
-				{
-					player->getCurrFear() += 10;
-				}
-				player->setImmunityTimer(1.0);
 			}
 		}
-	}
-	else if(CalculateDistance_x() == 0 && CalculateDistance_y() == 32)
-	{
-		if(player->getImmunityTimer() < 0.0)
+		else if(CalculateDistance_x(player2->GetPos_x()) == 0 && CalculateDistance_y(player2->GetPos_y()) == 32)
 		{
-			if(player->getCurrFear() < 100.f)
+			if(player->getImmunityTimer() < 0.0)
 			{
-				if(player->getCurrFear() + 10.f > 100.f)
+				if(player->getCurrFear() < 100.f)
 				{
-					player->getCurrFear() = 100.f;
+					if(player->getCurrFear() + 10.f > 100.f)
+					{
+						player->getCurrFear() = 100.f;
+					}
+					else
+					{
+						player->getCurrFear() += 10;
+					}
+					player->setImmunityTimer(1.0);
 				}
-				else
-				{
-					player->getCurrFear() += 10;
-				}
-				player->setImmunityTimer(1.0);
 			}
 		}
 	}
 
 	if(CalculateDistance_x(player2->GetPos_x()) == 32 && CalculateDistance_y(player2->GetPos_y()) == 0)
 	{
-		
+		player2->alive = false;
 	}
 	else if(CalculateDistance_x(player2->GetPos_x()) == 0 && CalculateDistance_y(player2->GetPos_y()) == 32)
 	{
-		
+		player2->alive = false;
 	}
 }
 

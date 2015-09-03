@@ -16,7 +16,7 @@ public:
 	string getText(int episodeNum, int paragraphNum, int sentenceNum);
 	int getSentences(int episodeNum, int paragraphNum);
 private:
-	vector<string> m_Text[2][50];
+	vector<string> m_Text[5][50];
 
 
 };

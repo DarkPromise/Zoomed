@@ -31,6 +31,8 @@ public:
 	bool stand_activated;
 
 	ENEMYFRIEND_STATE state;
+
+	bool alive;
 };
 
 

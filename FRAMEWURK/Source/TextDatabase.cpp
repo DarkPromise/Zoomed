@@ -64,6 +64,16 @@ CTextDatabase::CTextDatabase()
 	m_Text[1][17].push_back(  static_cast<string>("Theres an incomplete salt circle.. wait what?"));
 
 	m_Text[1][18].push_back(  static_cast<string>(""));
+
+	m_Text[2][0].push_back( static_cast<string>("This.."));
+	m_Text[2][0].push_back( static_cast<string>("It's the class I was studying in"));
+	m_Text[2][0].push_back( static_cast<string>("It's where we were..."));
+
+	m_Text[2][1].push_back( static_cast<string>("It's a newspaper article about us..."));
+	m_Text[2][1].push_back( static_cast<string>("I should collect these."));
+
+	m_Text[2][2].push_back( static_cast<string>("It's a newspaper article about us..."));
+	m_Text[2][2].push_back( static_cast<string>("I should collect these."));
 }
 
 

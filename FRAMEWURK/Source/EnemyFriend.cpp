@@ -8,6 +8,7 @@ EnemyFriend::EnemyFriend(void)
 	AccumulatedTime = 0.0;
 	this->SetDelay(0);
 	this->state = STATE_IDLE_RIGHT;
+	this->alive = true;
 }
 
 EnemyFriend::~EnemyFriend(void)
@@ -140,6 +141,15 @@ void EnemyFriend::Update(ModelHandler * theModel, double dt)
 						else
 						{
 							theModel->currentWorld = (WORLD_ID)((int)(theModel->currentWorld)+1) ;
+						}
+
+						if (theModel->currentWorld == WORLD_FRIENDS_LEVEL1)
+						{
+							theModel->getPlayer()->setPosition(Vector3(2784,-160, 0));
+						}
+						else if (theModel->currentWorld == WORLD_FRIENDS_FINISH)
+						{
+							theModel->getPlayer()->setPosition(Vector3(800,-1088, 0));
 						}
 					}
 				}
