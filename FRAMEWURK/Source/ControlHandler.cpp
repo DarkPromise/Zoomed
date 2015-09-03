@@ -218,6 +218,16 @@ void ControlHandler::KeyboardUpdate()
 		theModel->getPlayer()->controls.use = false;
 	}
 
+	if(theModel->currentWorld != WORLD_MAINMENU)
+	{
+		if(theView->IsKeyPressed(VK_BACK))
+		{
+			theModel->currentWorld = WORLD_MAINMENU;
+			theModel->getCurrLevel() = 0;
+			theModel->getPlayer()->setPosition(Vector3(800, -1248, 0));
+		}
+	}
+
 	if(theView->IsKeyPressed('1'))
 	{
 		theModel->getPlayer()->getInventory().useItem(1,theModel->getPlayer());
