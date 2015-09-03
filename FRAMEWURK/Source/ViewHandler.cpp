@@ -627,25 +627,40 @@ void ViewHandler::RenderScene()
 	std::cout << "ID : " << i << " " << theModel->m_objectList[i]->ToString() << std::endl;
 	}*/
 
-	std::ostringstream s1;
-	s1.precision(3);
-	s1 << "LEVEL "<< theModel->getCurrLevel();
+	if(theModel->getPlayer()->isDead)
+	{
+		Render2DMesh(theModel->m_guiList[4]->getMesh(),false,false,512.f,128.f, m_viewPort[2] * 0.5f,  m_viewPort[3] * 0.5f);
 
-	RenderGameTextOnScreen(theModel->m_objectList[OBJ_FONTONRYOU]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
-	RenderGameTextOnScreen(theModel->m_objectList[OBJ_FONTONRYOU]->getMesh(),s1.str(), Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
+		if(this->IsKeyPressed(VK_RETURN))
+		{
+			theModel->getPlayer()->isDead = false;
+			theModel->getPlayer()->setIsHiding(false);
+			theModel->currentWorld = WORLD_MAINMENU;
+			theModel->getCurrLevel() = 0;
+			theModel->getPlayer()->setPosition(Vector3(800, -1248, 0));
+			theModel->getPlayer()->getCurrFear() = 0.f;
+		}
+	}
+	else
+	{
+		std::ostringstream s1;
+		s1.precision(3);
+		s1 << "LEVEL "<< theModel->getCurrLevel();
 
-	Render2DMesh(theModel->m_guiList[3]->getMesh(),false,false,208.f * theModel->getPlayer()->getSanity() ,55.f * theModel->getPlayer()->getSanity(),(m_viewPort[2] * 0.5f), (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
+		RenderGameTextOnScreen(theModel->m_objectList[OBJ_FONTONRYOU]->getMesh(),"FEAR", Color(1,0,0), 28.f, GameUIFearWidthOffset,m_viewPort[3] - GameUIFearHeightOffset);
+		RenderGameTextOnScreen(theModel->m_objectList[OBJ_FONTONRYOU]->getMesh(),s1.str(), Color(1,0,0), 48.f,  (m_viewPort[2] - GameUILevelWidthOffset), m_viewPort[3] - GameUIHeightOffset);
 
-	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
-	Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
+		Render2DMesh(theModel->m_guiList[3]->getMesh(),false,false,208.f * theModel->getPlayer()->getSanity() ,55.f * theModel->getPlayer()->getSanity(),(m_viewPort[2] * 0.5f), (m_viewPort[3] - (m_viewPort[3]) + GameUISanityHeightOffset));
 
-	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Consumable
-	Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Equipment
+		Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
+		Render2DMesh(theModel->getPlayer()->getInventory().getItem(1)->getMesh(),false,false,32.f,32.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset));
 
-	Render2DMesh(theModel->m_guiList[2]->getMesh(),false,false,40.f,300.f * (theModel->getPlayer()->getCurrFear() * 0.01f),GameUIFearBorderWidthOffset, m_viewPort[3] - (GameUIFearValueHeightOffset + (30.f - theModel->getPlayer()->getCurrFear() * 1.5f)));
-	Render2DMesh(theModel->m_guiList[1]->getMesh(),false,false,40.f,300.f,GameUIFearBorderWidthOffset, m_viewPort[3] - GameUIFearBorderHeightOffset);
+		Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,GameUIWidthOffset,(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Consumable
+		Render2DMesh(theModel->m_guiList[0]->getMesh(),false,false,50.f,50.f,(GameUIWidthOffset * 2.f) + (GameUIWidthOffset * 0.5f),(m_viewPort[3] - (m_viewPort[3]) + GameUIHeightOffset)); // Equipment
 
-	//Render2DMesh(theModel->m_guiList[3]->getMesh(),false,false,512.f,128.f, m_viewPort[2] * 0.5f,  m_viewPort[3] * 0.5f);
+		Render2DMesh(theModel->m_guiList[2]->getMesh(),false,false,40.f,300.f * (theModel->getPlayer()->getCurrFear() * 0.01f),GameUIFearBorderWidthOffset, m_viewPort[3] - (GameUIFearValueHeightOffset + (30.f - theModel->getPlayer()->getCurrFear() * 1.5f)));
+		Render2DMesh(theModel->m_guiList[1]->getMesh(),false,false,40.f,300.f,GameUIFearBorderWidthOffset, m_viewPort[3] - GameUIFearBorderHeightOffset);
+	}
 
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();

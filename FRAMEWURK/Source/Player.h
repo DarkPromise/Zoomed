@@ -146,7 +146,7 @@ public:
 	bool on_ground;
 	bool is_running;
 	bool stand_activated;
-
+	bool isDead;
 	int character;
 
 	PlayerControls controls;

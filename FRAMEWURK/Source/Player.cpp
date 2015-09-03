@@ -20,7 +20,8 @@ Player::Player(std::string name)
 	m_visiblityFactor(0.f),
 	levelGoal(false),
 	hiding(false),
-	character(1)
+	character(1),
+	isDead(false)
 {
 	this->m_name = name;
 }
@@ -155,7 +156,14 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 	m_movementTimer += dt;
 	m_immunityTimer -= dt;
 
-	if(m_currFear > 50)
+	if(m_currFear >= 100)
+	{
+		theModel->getPlayer()->setIsHiding(true);
+		theModel->currentWorld = WORLD_MAINMENU;
+		theModel->getCurrLevel() = 0;
+		isDead = true;
+	}
+	else	if(m_currFear > 50)
 	{
 		m_movementDelay = 0.1;
 	}

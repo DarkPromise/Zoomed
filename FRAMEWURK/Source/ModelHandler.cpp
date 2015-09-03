@@ -441,7 +441,10 @@ bool ModelHandler::InitObjects()
 	newGui = new Gui("Fear","Images//UI//Fear.tga");
 	m_guiList.push_back(newGui);
 
-	newGui = new Gui("Wrong End","Images//UI//Sanity.tga");
+	newGui = new Gui("Sanity","Images//UI//Sanity.tga");
+	m_guiList.push_back(newGui);
+
+	newGui = new Gui("Wrong End","Images//UI//WrongEnd2.tga");
 	m_guiList.push_back(newGui);
 
 	return true;
