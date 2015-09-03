@@ -19,7 +19,8 @@ Player::Player(std::string name)
 	m_fearCooldown(0.0),
 	m_visiblityFactor(0.f),
 	levelGoal(false),
-	hiding(false)
+	hiding(false),
+	character(1)
 {
 	this->m_name = name;
 }
@@ -153,7 +154,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 {
 	m_movementTimer += dt;
 	m_immunityTimer -= dt;
-
+	std::cout << this->m_playerPos << std::endl;
 	if(m_currFear > 50)
 	{
 		m_movementDelay = 0.1;
@@ -245,7 +246,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							}
 						}
 					}
-					std::cout << "On yellow button" << std::endl;
 				}
 				break;
 				case COLLISION_BLUE_TILEGRAYBUTTON:
@@ -269,7 +269,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							}
 						}
 					}
-					std::cout << "On gay button" << std::endl;
 				}
 				break;
 				case COLLISION_BLUE_TILEPURPLEBUTTON:
@@ -293,7 +292,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							}
 						}
 					}
-					std::cout << "On purpur button" << std::endl;
 				}
 				break;
 				case COLLISION_BLUE_TILEREDBUTTON:
@@ -317,7 +315,6 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							}
 						}
 					}
-					std::cout << "On FIREENDINGE button" << std::endl;
 				}
 				break;
 				case COLLISION_BLUE_FINISHTILE:
@@ -357,13 +354,28 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 				{
 				case MAINMENU_PILLOWBEDTOP:
 					{
-						if ((controls.use) && ((m_playerPos.y-32 == MainMenuChangeCharPositionY) && (m_playerPos.x  == MainMenuChangeCharPositionX)))
+						if ((controls.use) && ((m_playerPos.y == MainMenuChangeCharPositionY) && (m_playerPos.x  == MainMenuChangeCharPositionX)))
 						{
-							/*theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
-							theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
-							this->setPosition(Vector3(768, -1120, 0));
-
-							theModel->getFather()->SetPos(2112, -896);*/
+							character++;
+							if(character > 4)
+							{
+								character = 1;
+							}
+							switch(character)
+							{
+							case 1:
+								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");
+								break;
+							case 2:
+								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_main.tga");
+								break;
+							case 3:
+								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_level1.tga");
+								break;
+							case 4:
+								theModel->m_objectList[OBJ_PLAYER]->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_josh.tga");
+								break;
+							}
 						}
 					}
 					break;
@@ -379,7 +391,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 						{
 							theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
 							theModel->getCurrLevel() = 2;
-							theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
+							theModel->m_objectList[OBJ_ENEMYSISTER]->isAlive = true;
 							this->setPosition(Vector3(768, -1120, 0));
 							theModel->getFather()->SetPos(2112, -896);
 

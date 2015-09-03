@@ -147,6 +147,8 @@ public:
 	bool is_running;
 	bool stand_activated;
 
+	int character;
+
 	PlayerControls controls;
 	PlayerControls getPlayerControl()
 	{

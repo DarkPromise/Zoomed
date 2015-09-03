@@ -323,11 +323,13 @@ bool ModelHandler::InitObjects()
 
 	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
+	object->isAlive = false;
 	m_objectList.push_back(object);
 
 	object = new GameObject("Enemy Sister", TYPE_ENEMY, Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Enemy animation",2,6,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_sister.tga");    //Current State 
+	object->isAlive = false;
 	m_objectList.push_back(object);
 	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_ENEMYSISTER]->getMesh());
 	if(enemyAnim)
