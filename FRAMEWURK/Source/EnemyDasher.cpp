@@ -1,8 +1,12 @@
 #include "EnemyDasher.h"
 #include "ModelHandler.h"
 
-EnemyDasher::EnemyDasher(void) :
-movementDelay(0.0)
+EnemyDasher::EnemyDasher(void) : movementDelay(0.0)
+	, canUp(1)
+	, canDown(2)
+	, canLeft(3)
+	, canRight(4)
+	, nothing(0)
 {
 	Enemy::setState(STATE_IDLE);
 }
@@ -27,15 +31,36 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 	int playerY = Math::Max(0, (int)((abs)(theModel->getPlayer()->getPosition().y)/32)+25);
 	int playerX = (int)(theModel->getPlayer()->getPosition().x/32);
 
+	moveList.clear();
+
+	if(collisionMap[yCollision-1][xCollision] < 100)
+	{
+		moveList.push_back(canUp);
+	}
+	if(collisionMap[yCollision+1][xCollision] < 100)
+	{
+		moveList.push_back(canDown);
+	}
+	if(collisionMap[yCollision][xCollision-1] < 100)
+	{
+		moveList.push_back(canLeft);
+	}
+	if(collisionMap[yCollision][xCollision+1] < 100)
+	{
+		moveList.push_back(canRight);
+	}
+	moveList.push_back(nothing);
+
+
 	if(Enemy::getState() != STATE_STUNNED)
 	{
 		if(!theModel->getPlayer()->getIsHiding())
 		{
-			if((abs(xCollision - playerX) <= 5) && (abs(yCollision - playerY) == 0))
+			if((abs(xCollision - playerX) <= 9) && (abs(yCollision - playerY) == 0))
 			{
 				Enemy::setState(STATE_ATTACKING);
 			}
-			else if((abs(xCollision - playerX) == 0) && (abs(yCollision - playerY) <= 5))
+			else if((abs(xCollision - playerX) == 0) && (abs(yCollision - playerY) <= 9))
 			{
 				Enemy::setState(STATE_ATTACKING);
 			}
@@ -49,10 +74,16 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 	if( (Enemy::getState() == STATE_IDLE || Enemy::getState() == STATE_PATROL) && Enemy::GetDelay() > 1.5) //New State every 1.5s  //Super Fake AI 
 	{
 		Enemy::SetDelay(0.0);
-		int moveWhere = Math::RandIntMinMax(1,4);
+		int moveWhere = Math::RandIntMinMax(0,moveList.size());
 
-		switch(moveWhere)
+		switch(moveList[moveWhere])
 		{
+		case 0:
+			{
+				//do nothing
+				Enemy::SetDelay(1.5);
+			}
+			break;
 		case 1:
 			{
 				this->getAnimState() = STATE_WALKING_UP;
@@ -95,7 +126,7 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 			break;
 		}
 	}
-	else if(Enemy::getState() == STATE_ATTACKING && Enemy::GetDelay() > 1.5 && Enemy::getState() != STATE_STUNNED)
+	else if(Enemy::getState() == STATE_ATTACKING && Enemy::getState() != STATE_STUNNED)
 	{
 		if(!theModel->getPlayer()->getIsHiding())
 		{
@@ -188,11 +219,11 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 						}
 					}
 				}
-				else
-				{
-					Enemy::setState(STATE_PATROL);
-					Enemy::SetDelay(0.0);
-				}
+			}
+			else
+			{
+				Enemy::setState(STATE_PATROL);
+				Enemy::SetDelay(0.0);
 			}
 		}
 	}
@@ -203,6 +234,8 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 			Enemy::setState(STATE_PATROL);
 		}
 	}
+
+
 }
 
 void EnemyDasher::setState(ENEMY_STATE state)

@@ -30,6 +30,13 @@ public:
 	CURRENT_STATE &getAnimState();
 
 	double movementDelay;
+	int canUp;
+	int canDown;
+	int canLeft;
+	int canRight;
+	int nothing;
+
+	std::vector<int> moveList;
 private:
 	CURRENT_STATE m_animState;
 };

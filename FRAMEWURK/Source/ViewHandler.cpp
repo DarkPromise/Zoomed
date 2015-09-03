@@ -596,9 +596,15 @@ void ViewHandler::RenderScene()
 		}
 		else
 		{
-			if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT && theModel->m_objectList[i]->getObjectType() != TYPE_TEXTBOX && theModel->m_objectList[i]->getObjectType() != TYPE_AXES)
+			if(theModel->m_objectList[i]->isAlive)
 			{
-				RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+				if(theModel->m_objectList[i]->isVisible)
+				{
+					if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT && theModel->m_objectList[i]->getObjectType() != TYPE_TEXTBOX && theModel->m_objectList[i]->getObjectType() != TYPE_AXES && theModel->m_objectList[i]->getObjectType() != TYPE_PLAYER)
+					{
+						RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
+					}
+				}
 			}
 		}
 	}

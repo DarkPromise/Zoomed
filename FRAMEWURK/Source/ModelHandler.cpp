@@ -218,7 +218,7 @@ void ModelHandler::Init() //Anything that moves in the game
 
 bool ModelHandler::InitObjects()
 {
-	GameObject * object = new GameObject("Player");
+	GameObject * object = new GameObject("Player", TYPE_PLAYER);
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Player",2,6,32.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
 	m_objectList.push_back(object);
@@ -386,12 +386,12 @@ bool ModelHandler::InitObjects()
 		enemyAnim->m_anim->Set(0,2,0,0.3f);
 	}
 
-	object = new GameObject("Textbox", TYPE_OBJECT, Vector3(0, 0, 0));
+	object = new GameObject("Textbox", TYPE_TEXTBOX, Vector3(0, 0, 0));
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),1.f));
 	object->getMesh()->textureID = LoadTGA("Images//UI//Textbox.tga");
 	m_objectList.push_back(object);
 
-	object = new GameObject("Textbox", TYPE_OBJECT, Vector3(0, 0, 0));
+	object = new GameObject("Textbox", TYPE_TEXTBOX, Vector3(0, 0, 0));
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),1.f));
 	object->getMesh()->textureID = LoadTGA("Images//UI//Textbox_Finish.tga"); 
 	m_objectList.push_back(object);
