@@ -369,14 +369,13 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					break;
 				case MAINMENU_PILLOWLESSBEDTOP:
 					{
-						if ((controls.use) && ((m_playerPos.y-32 == MainMenuNight1PositionY) && (m_playerPos.x  == MainMenuNight1PositionX)))
+						if ((controls.use) && ((m_playerPos.y == MainMenuNight1PositionY) && (m_playerPos.x  == MainMenuNight1PositionX)))
 						{
 							theModel->currentWorld = WORLD_SCHOOL_LEVEL1;
 							theModel->getCurrLevel() = 1;
-							//theModel->Evil->SetData(theModel->m_worldList[theModel->currentWorld]->collisionData);
 							this->setPosition(Vector3(Level1SpawnPointX, Level1SpawnPointY, 0));
 						}
-						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight2PositionY) && (m_playerPos.x  == MainMenuNight2PositionX)))
+						else if((controls.use) && ((m_playerPos.y == MainMenuNight2PositionY) && (m_playerPos.x  == MainMenuNight2PositionX)))
 						{
 							theModel->currentWorld = WORLD_FRIENDS_TUTORIAL;
 							theModel->getCurrLevel() = 2;
@@ -387,10 +386,10 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							theModel->getTextBox()->inText = true;
 							theModel->getTextBox()->setParagraph(0);
 						}
-						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight3PositionY) && (m_playerPos.x  == MainMenuNight3PositionX)))
+						else if((controls.use) && ((m_playerPos.y == MainMenuNight3PositionY) && (m_playerPos.x  == MainMenuNight3PositionX)))
 						{
 						}
-						else if((controls.use) && ((m_playerPos.y-32 == MainMenuNight4PositionY) && (m_playerPos.x  == MainMenuNight4PositionX)))
+						else if((controls.use) && ((m_playerPos.y == MainMenuNight4PositionY) && (m_playerPos.x  == MainMenuNight4PositionX)))
 						{
 						}
 					}

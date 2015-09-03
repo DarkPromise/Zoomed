@@ -117,9 +117,6 @@ private:
 	float theDestination_y;
 
 	double EnemyDelay;
-
-	
-
 };
 
 #endif

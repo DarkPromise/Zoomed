@@ -255,26 +255,25 @@ Room::Room(ROOM_TYPE roomType,
 			Room_Object* tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_WALL_PIPES, GetNumOfTiles_Height(), GetNumOfTiles_Width());
 			addOBJtoGenerate(tempObject);
 
-			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ROCK_RIGHT, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ROCK_RIGHT, sceneryData.size(), sceneryData[0].size());
 			addOBJtoGenerate(tempObject);
 
-			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ROCK_LEFT, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ROCK_LEFT,  sceneryData.size(), sceneryData[0].size());
 			addOBJtoGenerate(tempObject);
 
-
-			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_HOSE_PIPE, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_HOSE_PIPE,  sceneryData.size(), sceneryData[0].size());
 			addOBJtoGenerate(tempObject);
 
-			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ROCK_WALL, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ROCK_WALL,  sceneryData.size(), sceneryData[0].size());
 			addOBJtoGenerate(tempObject);
 
-			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_FACTORY_PIPES, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_FACTORY_PIPES,  sceneryData.size(), sceneryData[0].size());
 			addOBJtoGenerate(tempObject);
 
-			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_CURVE_PIPES, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_CURVE_PIPES, sceneryData.size(), sceneryData[0].size());
 			addOBJtoGenerate(tempObject);
 
-			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ENGINE, GetNumOfTiles_Height(), GetNumOfTiles_Width());
+			tempObject = new Room_Object(Room_Object::ROOM_OBJECT_MECH_ENGINE, sceneryData.size(), sceneryData[0].size());
 			addOBJtoGenerate(tempObject);
 		}
 		break;
@@ -303,8 +302,9 @@ bool Room::attemptToAdd(ROOM_TYPE roomType, Room_Object* object)
 	while (attemptCounter < NUM_ATTEMPTS)
 	{
 		if ( addObject(roomType, object, Math::RandIntMinMax(object->lowerOriginX, object->upperOriginX), Math::RandIntMinMax(object->lowerOriginY, object->upperOriginY)) )
+		{
 			return true;
-
+		}
 		attemptCounter++;
 	}
 
@@ -339,7 +339,8 @@ void Room::generateRoom()
 		}
 
 		//generate objects
-		for (unsigned i = 0; i < roomObjectList.size(); i++)
+
+		/*for (unsigned i = 0; i < roomObjectList.size(); i++)
 		{
 			if ( attemptToAdd(roomType, roomObjectList[i]) ) 
 			{
@@ -349,7 +350,8 @@ void Room::generateRoom()
 			{
 				generatedRoom = false;
 			}
-		}
+		}*/           //FOR COMPILING IN RELEASE. FIX PLEASE. CAUSE OF ERROR : ROOM TYPE 3 : AHMAD'S WORLD/ROOM
+
 	}
 
 	// test collision code

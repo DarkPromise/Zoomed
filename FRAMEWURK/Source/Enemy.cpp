@@ -2,8 +2,10 @@
 #include "Player.h"
 #include "World.h"
 
-Enemy::Enemy(void)
+Enemy::Enemy(void) :
+EnemyDelay(0.0)
 {
+	
 }
 
 
@@ -13,7 +15,7 @@ Enemy::~Enemy(void)
 
 void Enemy::Update(Player* player, World* currentWorld, double dt)
 {
-
+	this->EnemyDelay += dt;
 }
 
 // Set position of the player

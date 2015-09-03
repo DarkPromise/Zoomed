@@ -28,6 +28,8 @@ public:
 	ENEMY_STATE getState();
 
 	CURRENT_STATE &getAnimState();
+
+	double movementDelay;
 private:
 	CURRENT_STATE m_animState;
 };

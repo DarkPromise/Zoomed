@@ -40,6 +40,8 @@ World::~World(void)
 
 void World::initWorld()
 {
+	std::cout << "Hit" << std::endl;
+
 	worldWidth = 0; worldHeight = 0;
 
 	for (unsigned i = 0; i < m_roomList.size(); i++)
@@ -246,6 +248,11 @@ bool World::initCorridors()
 	case WORLD_FRIENDS_LEVEL1:
 		{
 			std::cout << "HI" << std::endl;
+		}
+		break;
+	case WORLD_SCHOOL_LEVEL1:
+		{
+			std::cout << "Derp" << std::endl;
 		}
 		break;
 	default:

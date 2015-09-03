@@ -170,6 +170,8 @@ void ModelHandler::Init() //Anything that moves in the game
 		}
 	}
 
+	//DOESNT REACH HERE (RELEASE MODE)
+
 	for (unsigned i = 0; i < m_worldList.size(); i++)
 	{
 		m_worldList[i]->initWorld();
