@@ -574,15 +574,17 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 	}
 
 	//Hardcoded Position Interaction Values
+	static bool Objective1 = false;
+	static bool Message1 = false;
+	static bool Objective2 = false;
+	static bool Objective3 = false;
+	static bool Message2 = false;
+	static bool Objective4 = false;
+	static bool Objective5 = false;
+	static bool Objective6 = false;
+
 	if(theModel->currentWorld == WORLD_SCHOOL_LEVEL1)
 	{
-		static bool Objective1 = false;
-		static bool Message1 = false;
-		static bool Objective2 = false;
-		static bool Objective3 = false;
-		static bool Objective4 = false;
-		static bool Objective5 = false;
-
 		if(controls.use)
 		{
 			if(m_playerPos.x == Level1Obj1X && m_playerPos.y == Level1Obj1Y)
@@ -633,6 +635,111 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 				theModel->getTextBox()->setParagraph(3);
 			}
 		}
+		if(m_playerPos.x == Level1Obj3X && m_playerPos.y == Level1Obj3Y)
+		{
+			if(controls.use)
+			{
+				if(Objective3 == false)
+				{
+					Objective3 = true;
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(6);
+				}
+				else
+				{
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(7);
+				}
+			}
+		}
+		if(m_playerPos.x == Level1Message2X && m_playerPos.y == Level1Message2Y)
+		{
+			if(Message2 == false)
+			{
+				Message2 = true;
+				theModel->getTextBox()->inText = true;
+				theModel->getTextBox()->setParagraph(8);
+			}
+		}
+		if(m_playerPos.x == Level1Obj4X && m_playerPos.y == Level1Obj4Y)
+		{
+			if(Objective4 == false)
+			{
+				Objective4 = true;
+				theModel->getTextBox()->inText = true;
+				theModel->getTextBox()->setParagraph(9);
+			}
+		}
+		if(m_playerPos.x == Level1Obj5X && m_playerPos.y == Level1Obj5Y)
+		{
+			if(controls.use)
+			{
+				if(Objective4 == true)
+				{
+					if(Objective5 == false)
+					{
+						Objective5 = true;
+						theModel->getTextBox()->inText = true;
+						theModel->getTextBox()->setParagraph(11);
+					}
+					else
+					{
+						theModel->getTextBox()->inText = true;
+						theModel->getTextBox()->setParagraph(12);
+					}
+				}
+				else
+				{
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(10);
+				}
+			}
+		}
+		if(m_playerPos.x == Level1Obj6X && m_playerPos.y == Level1Obj6Y)
+		{
+			if(controls.use)
+			{
+				if(Objective6 == false)
+				{
+					Objective6 = true;
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(11);
+				}
+				else
+				{
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(12);
+				}
+			}
+		}
+
+		if((m_playerPos.x == Level1FinishX1 || m_playerPos.x == Level1FinishX2) && (m_playerPos.y == Level1FinishY))
+		{
+			if(Objective6 == true)
+			{
+				if(Objective5 == true)
+				{
+					//Go back to main menu
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(15);
+
+					theModel->currentWorld = WORLD_MAINMENU;
+					theModel->getCurrLevel() = 0;
+					this->setPosition(Vector3(Level1FinishSpawnX, Level1FinishSpawnY, 0));
+				}
+				else
+				{
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(16);
+				}
+			}
+			else
+			{
+				theModel->getTextBox()->inText = true;
+				theModel->getTextBox()->setParagraph(17);
+			}
+		}
+
 		if((m_playerPos.x == Level1Obj2X1 || m_playerPos.x == Level1Obj2X2) && (m_playerPos.y == Level1Obj2Back))
 		{
 			m_playerPos.y -= 128;
