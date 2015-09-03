@@ -66,6 +66,11 @@ void CTextBox::nextEpisode()
 	this->episodeIndex += 1;
 }
 
+void CTextBox::setEpisode(int num)
+{
+	this->episodeIndex = num;
+}
+
 bool CTextBox::getSpeed()
 {
 	return speedUpText;

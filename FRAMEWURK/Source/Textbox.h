@@ -21,6 +21,7 @@ public:
 	std::array<string, 5> getTextToRender(); // returns text to render
 	void nextSentence(); // sentenceIndex++ (goes to next sentence)
 	void nextEpisode(); // Goes to next episode (affects text database)
+	void setEpisode(int num); // Sets episode
 	void setParagraph(int paragraphNum); // Sets what paragraph to render
 	bool getSpeed(); // Returns speed value
 	void SpeedUp(bool speed); // Renders all text at once

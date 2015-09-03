@@ -206,6 +206,7 @@ void ControlHandler::KeyboardUpdate()
 		{
 		keyUse = true;
 		theModel->getPlayer()->controls.use = true;
+		std::cout << theModel->getPlayer()->getPosition() << std::endl;
 		}
 		else if(keyUse == true)
 		{
@@ -216,6 +217,7 @@ void ControlHandler::KeyboardUpdate()
 	{
 		keyUse = false;
 		theModel->getPlayer()->controls.use = false;
+		
 	}
 
 	if(theModel->currentWorld != WORLD_MAINMENU)
