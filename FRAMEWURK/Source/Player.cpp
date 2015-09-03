@@ -154,7 +154,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 {
 	m_movementTimer += dt;
 	m_immunityTimer -= dt;
-	std::cout << this->m_playerPos << std::endl;
+
 	if(m_currFear > 50)
 	{
 		m_movementDelay = 0.1;
@@ -703,7 +703,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 				{
 					Objective6 = true;
 					theModel->getTextBox()->inText = true;
-					theModel->getTextBox()->setParagraph(11);
+					theModel->getTextBox()->setParagraph(13);
 				}
 				else
 				{
@@ -715,28 +715,31 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 
 		if((m_playerPos.x == Level1FinishX1 || m_playerPos.x == Level1FinishX2) && (m_playerPos.y == Level1FinishY))
 		{
-			if(Objective6 == true)
+			if(controls.use)
 			{
-				if(Objective5 == true)
+				if(Objective6 == true)
 				{
-					//Go back to main menu
-					theModel->getTextBox()->inText = true;
-					theModel->getTextBox()->setParagraph(15);
+					if(Objective5 == true)
+					{
+						//Go back to main menu
+						theModel->getTextBox()->inText = true;
+						theModel->getTextBox()->setParagraph(15);
 
-					theModel->currentWorld = WORLD_MAINMENU;
-					theModel->getCurrLevel() = 0;
-					this->setPosition(Vector3(Level1FinishSpawnX, Level1FinishSpawnY, 0));
+						theModel->currentWorld = WORLD_MAINMENU;
+						theModel->getCurrLevel() = 0;
+						this->setPosition(Vector3(Level1FinishSpawnX, Level1FinishSpawnY, 0));
+					}
+					else
+					{
+						theModel->getTextBox()->inText = true;
+						theModel->getTextBox()->setParagraph(16);
+					}
 				}
 				else
 				{
 					theModel->getTextBox()->inText = true;
-					theModel->getTextBox()->setParagraph(16);
+					theModel->getTextBox()->setParagraph(17);
 				}
-			}
-			else
-			{
-				theModel->getTextBox()->inText = true;
-				theModel->getTextBox()->setParagraph(17);
 			}
 		}
 
