@@ -1,9 +1,9 @@
 #include "GameObject.h"
 
 GameObject::GameObject(std::string m_objectName, OBJECT_TYPE objectType, Vector3 objectPosition) : m_bStatic(false),
-	isAlive(true),
-	isVisible(true),
-	isCollidable(true),
+	isAlive(false),
+	isVisible(false),
+	isCollidable(false),
 	isLightAffected(false),
 	isFogAffected(false),
 	makesNoise(false),

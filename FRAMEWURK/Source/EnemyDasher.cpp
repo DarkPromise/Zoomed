@@ -56,12 +56,12 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 	{
 		if(!theModel->getPlayer()->getIsHiding())
 		{
-			if((abs(xCollision - playerX) <= 6) && (abs(yCollision - playerY) == 0))
+			if((abs(xCollision - playerX) <= 8) && (abs(yCollision - playerY) == 0))
 			{
 				Enemy::setState(STATE_ATTACKING);
 				canDash = true;
 			}
-			else if((abs(xCollision - playerX) == 0) && (abs(yCollision - playerY) <= 6))
+			else if((abs(xCollision - playerX) == 0) && (abs(yCollision - playerY) <= 8))
 			{
 				Enemy::setState(STATE_ATTACKING);
 				canDash = true;
@@ -73,7 +73,7 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 		}
 	}
 
-	if( (Enemy::getState() == STATE_IDLE || Enemy::getState() == STATE_PATROL) && Enemy::GetDelay() > 1.5) //New State every 1.5s  //Super Fake AI 
+	if( (Enemy::getState() == STATE_IDLE || Enemy::getState() == STATE_PATROL) && Enemy::GetDelay() > 1.2) //New State every 1.2s  //Super Fake AI 
 	{
 		Enemy::SetDelay(0.0);
 		int moveWhere = Math::RandIntMinMax(0,moveList.size());
@@ -83,7 +83,7 @@ void EnemyDasher::Move(double dt, ModelHandler * theModel, std::vector<std::vect
 		case 0:
 			{
 				//do nothing
-				Enemy::SetDelay(1.5);
+				Enemy::SetDelay(1.2);
 			}
 			break;
 		case 1:

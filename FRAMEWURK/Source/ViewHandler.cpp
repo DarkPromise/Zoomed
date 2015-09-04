@@ -553,44 +553,41 @@ void ViewHandler::RenderScene()
 	{
 		if(theModel->m_objectList[i]->getMeshSize() > 1)
 		{
-			if (theModel->m_objectList[i]->isAlive || theModel->m_objectList[i]->isVisible)
+			if(theModel->m_objectList[i]->getObjectType() == TYPE_MAP)
 			{
-				if(theModel->m_objectList[i]->getObjectType() == TYPE_MAP)
+				if (theModel->currentWorld+2 == i)
 				{
-					if (theModel->currentWorld+2 == i)
-					{
-						modelStack.PushMatrix();
-						modelStack.Translate(theModel->m_objectList[i]->getPosition().x, theModel->m_objectList[i]->getPosition().y, theModel->m_objectList[i]->getPosition().z);
-						RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
-						RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
+					modelStack.PushMatrix();
+					modelStack.Translate(theModel->m_objectList[i]->getPosition().x, theModel->m_objectList[i]->getPosition().y, theModel->m_objectList[i]->getPosition().z);
+					RenderMesh(theModel->m_objectList[i]->getMesh(0),false,false); //Background
+					RenderMesh(theModel->m_objectList[i]->getMesh(1),false,false); //Scenery
 
-						for (unsigned j = 0; j < theModel->m_objectList.size(); ++j)
-						{
-							if(theModel->m_objectList[j]->getObjectType() == TYPE_ENEMY && theModel->m_objectList[j]->isAlive)
-							{
-								modelStack.PushMatrix();
-								modelStack.Translate(theModel->m_objectList[j]->getPosition().x,theModel->m_objectList[j]->getPosition().y,theModel->m_objectList[j]->getPosition().z);
-								RenderMesh(theModel->m_objectList[j]->getMesh(),false,false);
-								modelStack.PopMatrix();
-							}
-						}
-						if(!theModel->getPlayer()->getIsHiding())
+					for (unsigned j = 0; j < theModel->m_objectList.size(); ++j)
+					{
+						if(theModel->m_objectList[j]->getObjectType() == TYPE_ENEMY && theModel->m_objectList[j]->isAlive)
 						{
 							modelStack.PushMatrix();
-							modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
-							RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
+							modelStack.Translate(theModel->m_objectList[j]->getPosition().x,theModel->m_objectList[j]->getPosition().y,theModel->m_objectList[j]->getPosition().z);
+							RenderMesh(theModel->m_objectList[j]->getMesh(),false,false);
 							modelStack.PopMatrix();
 						}
-						RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
+					}
+					if(!theModel->getPlayer()->getIsHiding())
+					{
+						modelStack.PushMatrix();
+						modelStack.Translate(theModel->getPlayer()->getPosition().x,theModel->getPlayer()->getPosition().y, theModel->getPlayer()->getPosition().z);
+						RenderMesh(theModel->m_objectList[0]->getMesh(0), false, false);
 						modelStack.PopMatrix();
 					}
+					RenderMesh(theModel->m_objectList[i]->getMesh(2),false,false); //Foreground
+					modelStack.PopMatrix();
 				}
-				else
+			}
+			else
+			{
+				for(int j = 0; j < theModel->m_objectList[i]->getMeshSize(); ++j)
 				{
-					for(int j = 0; j < theModel->m_objectList[i]->getMeshSize(); ++j)
-					{
-						RenderMesh(theModel->m_objectList[i]->getMesh(j),false,false);
-					}
+					RenderMesh(theModel->m_objectList[i]->getMesh(j),false,false);
 				}
 			}
 		}
