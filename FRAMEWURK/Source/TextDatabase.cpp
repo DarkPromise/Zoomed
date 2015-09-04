@@ -74,6 +74,10 @@ CTextDatabase::CTextDatabase()
 
 	m_Text[2][2].push_back( static_cast<string>("It's a newspaper article about us..."));
 	m_Text[2][2].push_back( static_cast<string>("I should collect these."));
+
+	m_Text[3][0].push_back( static_cast<string>("The robots..."));
+	m_Text[3][0].push_back( static_cast<string>("They never sleep, only replicate"));
+	m_Text[3][0].push_back( static_cast<string>("There is no fight, run and hide!"));
 }
 
 

@@ -600,7 +600,7 @@ void ViewHandler::RenderScene()
 			{
 				if(theModel->m_objectList[i]->isVisible)
 				{
-					if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT && theModel->m_objectList[i]->getObjectType() != TYPE_TEXTBOX && theModel->m_objectList[i]->getObjectType() != TYPE_AXES && theModel->m_objectList[i]->getObjectType() != TYPE_PLAYER)
+					if(theModel->m_objectList[i]->getObjectType() != TYPE_TEXT && theModel->m_objectList[i]->getObjectType() != TYPE_TEXTBOX && theModel->m_objectList[i]->getObjectType() != TYPE_AXES && theModel->m_objectList[i]->getObjectType() != TYPE_PLAYER && theModel->m_objectList[i]->getObjectType() != TYPE_ENEMY)
 					{
 						RenderMesh(theModel->m_objectList[i]->getMesh(),false,false);
 					}

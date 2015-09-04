@@ -339,12 +339,14 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
 	object->isAlive = false;
+	object->isVisible = true;
 	m_objectList.push_back(object);
 
 	object = new GameObject("Enemy Sister", TYPE_ENEMY, Vector3(Friend->GetPos_x(),Friend->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Enemy animation",2,6,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_sister.tga");    //Current State 
 	object->isAlive = false;
+	object->isVisible = true;
 	m_objectList.push_back(object);
 	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_ENEMYSISTER]->getMesh());
 	if(enemyAnim)
@@ -356,6 +358,7 @@ bool ModelHandler::InitObjects()
 	object = new GameObject("EnemyFather", TYPE_ENEMY, Vector3(Father->GetPos_x(),Father->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Father animation",2,6,24.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_madFather.tga");    //Current State 
+	object->isVisible = true;
 	m_objectList.push_back(object);
 	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_ENEMYFATHER]->getMesh());
 	if(enemyAnim)
@@ -402,24 +405,28 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
 	object->isAlive = false;
+	object->isVisible = true;
 	m_objectList.push_back(object);
 
 	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(m_enemyList[2]->GetPos_x(),m_enemyList[2]->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
 	object->isAlive = false;
+	object->isVisible = true;
 	m_objectList.push_back(object);
 
 	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(m_enemyList[3]->GetPos_x(),m_enemyList[3]->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
 	object->isAlive = false;
+	object->isVisible = true;
 	m_objectList.push_back(object);
 
 	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(m_enemyList[4]->GetPos_x(),m_enemyList[4]->GetPos_y(),0.f));
 	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
 	object->isAlive = false;
+	object->isVisible = true;
 	m_objectList.push_back(object);
 
 	Item * item = new Item("Consumable");
@@ -635,6 +642,14 @@ void ModelHandler::Update(const double dt)
 		m_enemyList[4]->Update(player, m_worldList[currentWorld], dt); 
 		m_objectList[OBJ_MECH4]->setPosition(Vector3(m_enemyList[4]->GetPos_x(),m_enemyList[4]->GetPos_y(),0));
 		m_objectList[OBJ_MECH4]->isAlive = true;
+	}
+	else
+	{
+		m_objectList[OBJ_ENEMY]->isAlive = false;
+		m_objectList[OBJ_MECH1]->isAlive = false;
+		m_objectList[OBJ_MECH2]->isAlive = false;
+		m_objectList[OBJ_MECH3]->isAlive = false;
+		m_objectList[OBJ_MECH4]->isAlive = false;
 	}
 }
 
