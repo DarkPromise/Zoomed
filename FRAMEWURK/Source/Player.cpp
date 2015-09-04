@@ -912,6 +912,16 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 			m_playerPos.y -= 128;
 		}
 	}
+	else if(theModel->currentWorld == WORLD_MECH)
+	{
+		if(m_playerPos.x == Level3ObjX && m_playerPos.y == Level3ObjY)
+		{
+			theModel->currentWorld = WORLD_MAINMENU;
+			theModel->getCurrLevel() = 0;
+			this->setPosition(Vector3(Level3FinishSpawnX, Level3FinishSpawnY, 0));
+		}
+	}
+
 }
 
 double Player::getImmunityTimer()

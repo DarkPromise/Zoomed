@@ -54,3 +54,9 @@
 
 #define Level3SpawnPointX 384.f
 #define Level3SpawnPointY -320.f
+
+#define Level3ObjX 2400.f
+#define Level3ObjY -928.f
+
+#define Level3FinishSpawnX  1024
+#define Level3FinishSpawnY -1280
