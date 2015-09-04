@@ -428,7 +428,8 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 							this->setPosition(Vector3(Level3SpawnPointX, Level3SpawnPointY, 0));
 
 							theModel->getTextBox()->inText = true;
-							theModel->getTextBox()->setParagraph(1);
+							theModel->getTextBox()->setEpisode(3);
+							theModel->getTextBox()->setParagraph(0);
 						}
 						else if((controls.use) && ((m_playerPos.y == MainMenuNight4PositionY) && (m_playerPos.x  == MainMenuNight4PositionX)))
 						{
