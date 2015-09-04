@@ -220,7 +220,7 @@ void ControlHandler::KeyboardUpdate()
 		
 	}
 
-	if(theModel->currentWorld != WORLD_MAINMENU)
+	if(theModel->currentWorld != WORLD_MAINMENU) //DEBUG ONLY
 	{
 		if(theView->IsKeyPressed(VK_BACK))
 		{
