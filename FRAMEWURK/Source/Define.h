@@ -24,3 +24,6 @@
 
 #define Level1SpawnPointX 480.f
 #define Level1SpawnPointY -1376.f
+
+#define Level3SpawnPointX 384.f
+#define Level3SpawnPointY -320.f

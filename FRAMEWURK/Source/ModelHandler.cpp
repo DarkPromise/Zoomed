@@ -43,7 +43,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	player->setPosition(Vector3(800,-1248, 0));
 
 	camera.Init(Vector3(-256,-256,416),Vector3(-256,-256,0),Vector3(0,1,0));
-	
+
 	m_status = STATE_MENU;
 	m_currLevel = 0;
 	currentWorld = WORLD_MAINMENU;
@@ -80,15 +80,10 @@ void ModelHandler::Init() //Anything that moves in the game
 	newWorld = new World(WORLD_MECH);
 	m_worldList.push_back(newWorld);
 
-	newRoom = new Room(ROOM_MECH, 928, 768, 29, 24, 928, 768,32,TILESET_POOL, 10, 50, 0);
-	newRoom->addExit(EXIT_LEFT);
-	newRoom->LoadMap("MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv");
-	m_worldList[2]->m_roomList.push_back(newRoom);
-
-	newRoom = new Room(ROOM_MECH, 928, 768, 29, 24, 928, 768,32,TILESET_POOL, 80, 100, 1);
-	newRoom->addExit(EXIT_RIGHT);
-	newRoom->LoadMap("MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv","MapData//MECH//Background.csv");
-	m_worldList[2]->m_roomList.push_back(newRoom);
+	newRoom = new Room(ROOM_MECH, 1696, 3200, 53, 100, 1696, 3200,32,TILESET_POOL, 10, 25, 0);
+	//newRoom->addExit(EXIT_LEFT);
+	newRoom->LoadMap("MapData//MECH//MECH_Foreground.csv","MapData//MECH//MECH_Scenery.csv","MapData//MECH//MECH_Background.csv","MapData//MECH//MECH_Background.csv");
+	m_worldList[WORLD_MECH]->m_roomList.push_back(newRoom);
 
 	newWorld = new World(WORLD_SIGHT_TUTORIAL);
 	m_worldList.push_back(newWorld);
@@ -111,7 +106,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	//newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//Sight//2//hiddenRoom_foreground.csv","MapData//Sight//2//hiddenRoom_scenery.csv","MapData//Sight//2//hiddenRoom_backgorund.csv","MapData//Sight//2//hiddenRoom_backgorund.csv");
 	m_worldList[4]->m_roomList.push_back(newRoom);
-	
+
 	newWorld = new World(WORLD_SIGHT_03);
 	m_worldList.push_back(newWorld);
 
@@ -119,7 +114,7 @@ void ModelHandler::Init() //Anything that moves in the game
 	newRoom->addExit(EXIT_RIGHT);
 	newRoom->LoadMap("MapData//Sight//3//arrowRoom_foreground.csv","MapData//Sight//3//arrowRoom_scenery.csv","MapData//Sight//3//arrowRoom_backgorund.csv","MapData//Sight//3//arrowRoom_backgorund.csv");
 	m_worldList[5]->m_roomList.push_back(newRoom);
-	
+
 	newRoom = new Room(ROOM_THREE_02_SIGHT, 800, 1024, 32, 25, 800, 1024,32,TILESET_RED, 20, 80, 1);
 	newRoom->addExit(EXIT_UP);
 	newRoom->addExit(EXIT_DOWN);
@@ -133,7 +128,7 @@ void ModelHandler::Init() //Anything that moves in the game
 
 	newWorld = new World(WORLD_FRIENDS_TUTORIAL);
 	m_worldList.push_back(newWorld);
-	
+
 	newRoom = new Room(ROOM_FRIENDS_TUTORIAL, 896, 1920, 60, 28, 896, 1920,32,TILESET_BLUE, 20, 40, 0);
 	//newRoom->addExit(EXIT_DOWN);
 	newRoom->LoadMap("MapData//Friends//Friends_Tutorial_Foreground.csv","MapData//Friends//Friends_Tutorial_Scenery.csv","MapData//Friends//Friends_Tutorial_Background.csv","MapData//Friends//Friends_Tutorial_Background.csv");
@@ -179,10 +174,28 @@ void ModelHandler::Init() //Anything that moves in the game
 	}
 
 	//Enemy Code
-	Evil = new EnemyMelee;
-	Evil->SetPos(32,-32);
-	Evil->SetData(m_worldList[currentWorld]->collisionData);
-	Evil->SetDelay(0.1);
+	for(int i = 0; i < 5; i++)
+	{
+		Evil = new EnemyMelee;
+		Evil->SetData(m_worldList[WORLD_MECH]->collisionData);
+
+		m_enemyList.push_back(Evil);
+	}
+
+	m_enemyList[0]->SetDelay(0.4);
+	m_enemyList[0]->SetPos(1184,-512);
+
+	m_enemyList[1]->SetDelay(0.4);
+	m_enemyList[1]->SetPos(1248,-1216);
+
+	m_enemyList[2]->SetDelay(0.3);
+	m_enemyList[2]->SetPos(2272,-1216);
+
+	m_enemyList[3]->SetDelay(0.3);
+	m_enemyList[3]->SetPos(3008,-576);
+
+	m_enemyList[4]->SetDelay(0.3);
+	m_enemyList[4]->SetPos(1888,-448);
 
 	Friend = new EnemyFriend();
 	Friend->SetPos(736, -1120);
@@ -240,11 +253,11 @@ bool ModelHandler::InitObjects()
 	m_objectList.push_back(object);
 
 	object = new GameObject("Test Mech World", TYPE_MAP, Vector3(0, 0, 0));
-	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[2]->backgroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[WORLD_MECH]->backgroundData,32,32));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_POOL.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[2]->sceneryData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Scenery",Color(0.f,0.f,0.f),m_worldList[WORLD_MECH]->sceneryData,32,32));
 	object->getMesh(1)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_POOL.tga");
-	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[2]->foregroundData,32,32));
+	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_MECH]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_POOL.tga");
 	m_objectList.push_back(object);
 
@@ -265,7 +278,7 @@ bool ModelHandler::InitObjects()
 	object->addMesh(MeshBuilder::GenerateTileMap("World Foreground",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_02]->foregroundData,32,32));
 	object->getMesh(2)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
 	m_objectList.push_back(object);
-	
+
 	object = new GameObject("Sight 03", TYPE_MAP, Vector3(0, 0, 0));
 	object->addMesh(MeshBuilder::GenerateTileMap("World Background",Color(0.f,0.f,0.f),m_worldList[WORLD_SIGHT_03]->backgroundData,32,48));
 	object->getMesh(0)->textureArray[0] = LoadTGA("Images//Tilesets//Tileset_RED.tga");
@@ -321,8 +334,9 @@ bool ModelHandler::InitObjects()
 	object->getMesh()->textureID = LoadTGA("Images//Fonts//basis33.tga");
 	m_objectList.push_back(object);
 
-	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0.f));
-	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),32.f));
+	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(m_enemyList[0]->GetPos_x(),m_enemyList[0]->GetPos_y(),0.f));
+	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
 	object->isAlive = false;
 	m_objectList.push_back(object);
 
@@ -381,6 +395,29 @@ bool ModelHandler::InitObjects()
 	object->getMesh()->textureID = LoadTGA("Images//UI//Textbox_Finish.tga"); 
 	m_objectList.push_back(object);
 
+	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(m_enemyList[1]->GetPos_x(),m_enemyList[1]->GetPos_y(),0.f));
+	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
+	object->isAlive = false;
+	m_objectList.push_back(object);
+
+	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(m_enemyList[2]->GetPos_x(),m_enemyList[2]->GetPos_y(),0.f));
+	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
+	object->isAlive = false;
+	m_objectList.push_back(object);
+
+	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(m_enemyList[3]->GetPos_x(),m_enemyList[3]->GetPos_y(),0.f));
+	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
+	object->isAlive = false;
+	m_objectList.push_back(object);
+
+	object = new GameObject("Enemy", TYPE_ENEMY, Vector3(m_enemyList[4]->GetPos_x(),m_enemyList[4]->GetPos_y(),0.f));
+	object->addMesh(MeshBuilder::GenerateQuad("Enemy",Color(1.f,0.f,0.f),64.f));
+	object->getMesh()->textureArray[0] = LoadTGA("Images//Robot.tga");  
+	object->isAlive = false;
+	m_objectList.push_back(object);
 
 	Item * item = new Item("Consumable");
 	item->setDescription("Consumable");
@@ -423,44 +460,44 @@ void ModelHandler::Update(const double dt)
 
 	SpriteAnimation *playerAnimation = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_PLAYER]->getMesh());
 	switch(player->m_animationState)
+	{
+	case Player::STATE_WALKING_UP:
+		playerAnimation->m_anim->Set(6,8,0,0.4f);
+		break;
+	case Player::STATE_WALKING_DOWN:
+		playerAnimation->m_anim->Set(0,2,0,0.4f);
+		break;
+	case Player::STATE_WALKING_LEFT:
+		playerAnimation->m_anim->Set(3,5,0,0.4f);
+		break;
+	case Player::STATE_WALKING_RIGHT:
+		playerAnimation->m_anim->Set(9,11,0,0.4f);
+		break;
+	case Player::STATE_IDLE_UP:
+		if (playerAnimation->m_currentFrame == 7)
 		{
-		case Player::STATE_WALKING_UP:
-			playerAnimation->m_anim->Set(6,8,0,0.4f);
-			break;
-		case Player::STATE_WALKING_DOWN:
-			playerAnimation->m_anim->Set(0,2,0,0.4f);
-			break;
-		case Player::STATE_WALKING_LEFT:
-			playerAnimation->m_anim->Set(3,5,0,0.4f);
-			break;
-		case Player::STATE_WALKING_RIGHT:
-			playerAnimation->m_anim->Set(9,11,0,0.4f);
-			break;
-		case Player::STATE_IDLE_UP:
-			if (playerAnimation->m_currentFrame == 7)
-			{
-				playerAnimation->m_anim->Set(7,7,0,0.4f);
-			}
-			break;
-		case Player::STATE_IDLE_DOWN:
-			if (playerAnimation->m_currentFrame == 1)
-			{
-				playerAnimation->m_anim->Set(1,1,0,0.4f);
-			}
-			break;
-		case Player::STATE_IDLE_LEFT:
-			if (playerAnimation->m_currentFrame == 4)
-			{
-				playerAnimation->m_anim->Set(4,4,0,0.4f);
-			}
-			break;
-		case Player::STATE_IDLE_RIGHT:
-			if (playerAnimation->m_currentFrame == 10)
-			{
-				playerAnimation->m_anim->Set(10,10,0,0.4f);
-			}
-			break;
+			playerAnimation->m_anim->Set(7,7,0,0.4f);
 		}
+		break;
+	case Player::STATE_IDLE_DOWN:
+		if (playerAnimation->m_currentFrame == 1)
+		{
+			playerAnimation->m_anim->Set(1,1,0,0.4f);
+		}
+		break;
+	case Player::STATE_IDLE_LEFT:
+		if (playerAnimation->m_currentFrame == 4)
+		{
+			playerAnimation->m_anim->Set(4,4,0,0.4f);
+		}
+		break;
+	case Player::STATE_IDLE_RIGHT:
+		if (playerAnimation->m_currentFrame == 10)
+		{
+			playerAnimation->m_anim->Set(10,10,0,0.4f);
+		}
+		break;
+	}
 
 	SpriteAnimation *enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_ENEMYSISTER]->getMesh());
 	switch(dynamic_cast<EnemyFriend*>(Friend)->state)
@@ -567,8 +604,29 @@ void ModelHandler::Update(const double dt)
 	}
 
 
-	Evil->Update(player, m_worldList[currentWorld], dt); 
-	m_objectList[OBJ_ENEMY]->setPosition(Vector3(Evil->GetPos_x(),Evil->GetPos_y(),0));
+	if (currentWorld == WORLD_MECH)
+	{
+		m_enemyList[0]->Update(player, m_worldList[currentWorld], dt); 
+		m_objectList[OBJ_ENEMY]->setPosition(Vector3(m_enemyList[0]->GetPos_x(),m_enemyList[0]->GetPos_y(),0));
+		m_objectList[OBJ_ENEMY]->isAlive = true;
+
+
+		m_enemyList[1]->Update(player, m_worldList[currentWorld], dt); 
+		m_objectList[OBJ_MECH1]->setPosition(Vector3(m_enemyList[1]->GetPos_x(),m_enemyList[1]->GetPos_y(),0));
+		m_objectList[OBJ_MECH1]->isAlive = true;
+
+		m_enemyList[2]->Update(player, m_worldList[currentWorld], dt); 
+		m_objectList[OBJ_MECH2]->setPosition(Vector3(m_enemyList[2]->GetPos_x(),m_enemyList[2]->GetPos_y(),0));
+		m_objectList[OBJ_MECH2]->isAlive = true;
+
+		m_enemyList[3]->Update(player, m_worldList[currentWorld], dt); 
+		m_objectList[OBJ_MECH3]->setPosition(Vector3(m_enemyList[3]->GetPos_x(),m_enemyList[3]->GetPos_y(),0));
+		m_objectList[OBJ_MECH3]->isAlive = true;
+
+		m_enemyList[4]->Update(player, m_worldList[currentWorld], dt); 
+		m_objectList[OBJ_MECH4]->setPosition(Vector3(m_enemyList[4]->GetPos_x(),m_enemyList[4]->GetPos_y(),0));
+		m_objectList[OBJ_MECH4]->isAlive = true;
+	}
 }
 
 Camera ModelHandler::getCamera()

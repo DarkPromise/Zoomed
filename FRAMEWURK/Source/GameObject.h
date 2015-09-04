@@ -42,7 +42,11 @@ enum OBJECT_LIST
 	OBJ_DASHER,
 	OBJ_GHOST,
 	OBJ_TEXTBOX1, // unfinished
-	OBJ_TEXTBOX2
+	OBJ_TEXTBOX2,
+	OBJ_MECH1,
+	OBJ_MECH2,
+	OBJ_MECH3,
+	OBJ_MECH4
 };
 
 class GameObject : public Object

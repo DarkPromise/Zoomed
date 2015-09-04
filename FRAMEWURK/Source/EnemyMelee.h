@@ -15,6 +15,10 @@ public:
 	void onHit(Player* player);
 
 	void Move();
+
+	bool Flush;
+
+	void Pat(Player* player);
 };
 
 
