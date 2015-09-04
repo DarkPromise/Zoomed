@@ -32,6 +32,11 @@ public:
 	double blinkDelay;
 	bool blink;
 	bool active;
+	int canUp;
+	int canDown;
+	int canLeft;
+	int canRight;
+	int nothing;
 
 	std::vector<int> moveList;
 private:
