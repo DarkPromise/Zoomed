@@ -31,6 +31,11 @@ public:
 	void Update(double dt);
 
 	static void Walking();
+
+	static void MechIn();
+	static void MechOut();
+	static void MechOnHit();
+
 private:
 	int noiseLevel;
 	float noiseDelay;

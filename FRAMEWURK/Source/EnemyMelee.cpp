@@ -1,6 +1,7 @@
 #include "EnemyMelee.h"
 #include "Player.h"
 #include "World.h"
+#include "Sound.h"
 
 EnemyMelee::EnemyMelee(void)
 {
@@ -38,6 +39,8 @@ void EnemyMelee::onHit(Player* player)
 		{
 			if(player->getCurrFear() < 100.f)
 			{
+				Sound::MechOnHit();
+
 				if(player->getCurrFear() + 10.f > 100.f)
 				{
 					player->getCurrFear() = 100.f;

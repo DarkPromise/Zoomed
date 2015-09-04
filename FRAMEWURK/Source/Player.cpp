@@ -1,12 +1,13 @@
 #include "Player.h"
 #include "ModelHandler.h"
+#include "Sound.h"
 
 Player::Player(std::string name)
 	: on_ground(true),
 	is_running(false),
 	stand_activated(false),
 	keyPressed(0),
-// Protected Info
+	// Protected Info
 	m_maxFear(100.f),
 	m_currFear(2.f),
 	m_movementDelay(0.0),
@@ -143,7 +144,7 @@ void Player::move(double dt, ModelHandler * theModel, std::vector<std::vector<in
 		}
 		else if (this->m_animationState == Player::STATE_WALKING_LEFT)
 		{
-		//	this->m_animationState = Player::STATE_IDLE_LEFT;
+			//	this->m_animationState = Player::STATE_IDLE_LEFT;
 		}
 		else if (this->m_animationState == Player::STATE_WALKING_RIGHT)
 		{
@@ -175,7 +176,7 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 		m_movementDelay = 0.07; // fer weng jew
 	}
 	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
-	
+
 	if (!hiding)
 	{
 		move(dt, theModel, currentWorld->collisionData);
@@ -236,7 +237,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 		{
 			switch(collisionMap[yColiision][xColiision])
 			{
-				case COLLISION_BLUE_TILEYELLOWBUTTON:
+			case COLLISION_BLUE_TILEYELLOWBUTTON:
 				{
 					stand_activated = true;
 					for (unsigned i = 0; i < collisionMap.size(); i++)
@@ -259,7 +260,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					}
 				}
 				break;
-				case COLLISION_BLUE_TILEGRAYBUTTON:
+			case COLLISION_BLUE_TILEGRAYBUTTON:
 				{
 					stand_activated = true;
 					for (unsigned i = 0; i < collisionMap.size(); i++)
@@ -282,7 +283,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					}
 				}
 				break;
-				case COLLISION_BLUE_TILEPURPLEBUTTON:
+			case COLLISION_BLUE_TILEPURPLEBUTTON:
 				{
 					stand_activated = true;
 					for (unsigned i = 0; i < collisionMap.size(); i++)
@@ -305,7 +306,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					}
 				}
 				break;
-				case COLLISION_BLUE_TILEREDBUTTON:
+			case COLLISION_BLUE_TILEREDBUTTON:
 				{
 					stand_activated = true;
 					for (unsigned i = 0; i < collisionMap.size(); i++)
@@ -328,7 +329,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					}
 				}
 				break;
-				case COLLISION_BLUE_FINISHTILE:
+			case COLLISION_BLUE_FINISHTILE:
 				{
 					stand_activated = true;
 					theModel->m_worldList[WORLD_FRIENDS_LEVEL1]->worldClear[0] = true;
@@ -355,13 +356,13 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					}
 				}
 				break;
-				default:
+			default:
 				{
 					stand_activated = true;
 					levelGoal = false;
 				}
 				break;
-				
+
 			}
 		}
 
@@ -440,24 +441,24 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 			}
 			else if(currentWorld->getWorldID() == WORLD_SCHOOL_LEVEL1)
 			{
-				case SCHOOL_ITEMBOX1:
+		case SCHOOL_ITEMBOX1:
+			{
+				if(controls.use)
+				{
+					for(int i = 0; i < ITEM_DEFAULT; ++i)
 					{
-						if(controls.use)
-						{
-							for(int i = 0; i < ITEM_DEFAULT; ++i)
-							{
 
-							}
-						}
 					}
-					break;
-				case SCHOOL_ITEMBOX2:
-					{
-						if(controls.use)
-						{
-						}
-					}
-					break;
+				}
+			}
+			break;
+		case SCHOOL_ITEMBOX2:
+			{
+				if(controls.use)
+				{
+				}
+			}
+			break;
 			}
 			break;
 		case 201:
@@ -467,6 +468,11 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					//hide code
 					this->setIsHiding(true);
 					this->m_playerPos.y -= 64;
+
+					if(currentWorld->getWorldID() == WORLD_MECH)
+					{
+						Sound::MechIn();
+					}
 				}
 			}
 			break;
@@ -477,6 +483,11 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					//hide code
 					this->setIsHiding(true);
 					this->m_playerPos.y -= 32;
+
+					if(currentWorld->getWorldID() == WORLD_MECH)
+					{
+						Sound::MechIn();
+					}
 				}
 			}
 			break;
@@ -525,7 +536,7 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 			{
 			case MAINMENU_PILLOWBEDTOP:
 				{
-				
+
 				}
 				break;
 			case MAINMENU_PILLOWBEDBOTTOM:
@@ -553,6 +564,11 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					//hide code
 					this->setIsHiding(true);
 					this->m_playerPos.y += 32;
+
+					if(currentWorld->getWorldID() == WORLD_MECH)
+					{
+						Sound::MechIn();
+					}
 				}
 			}
 			break;
@@ -606,6 +622,11 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					//hide code
 					this->setIsHiding(true);
 					this->m_playerPos.x += 32;
+
+					if(currentWorld->getWorldID() == WORLD_MECH)
+					{
+						Sound::MechIn();
+					}
 				}
 			}
 			break;
@@ -617,6 +638,11 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					this->setIsHiding(true);
 					this->m_playerPos.x += 32;
 					this->m_playerPos.y -= 32;
+
+					if(currentWorld->getWorldID() == WORLD_MECH)
+					{
+						Sound::MechIn();
+					}
 				}
 			}
 			break;
@@ -670,6 +696,11 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					//hide code
 					this->setIsHiding(true);
 					this->m_playerPos.x -= 32;
+
+					if(currentWorld->getWorldID() == WORLD_MECH)
+					{
+						Sound::MechIn();
+					}
 				}
 			}
 			break;
@@ -681,6 +712,11 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 					this->setIsHiding(true);
 					this->m_playerPos.x -= 32;
 					this->m_playerPos.y -= 32;
+
+					if(currentWorld->getWorldID() == WORLD_MECH)
+					{
+						Sound::MechIn();
+					}
 				}
 			}
 			break;
@@ -730,6 +766,12 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 			this->setIsHiding(false);
 			this->m_playerPos.y -= 32;
 			this->stand_activated = false;
+
+			if(currentWorld->getWorldID() == WORLD_MECH)
+			{
+				Sound::MechOut();
+			}
+
 		}
 	}
 

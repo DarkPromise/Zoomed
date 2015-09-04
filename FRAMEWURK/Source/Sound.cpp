@@ -33,3 +33,18 @@ void Sound::Walking()
 {
 	//sound->play3D("../irrKlang/media/footstep.mp3", vec3df(0,0,0), false);
 }
+
+
+void Sound::MechIn()
+{
+	sound->play2D("Sound//getIn.ogg", false);
+}
+void Sound::MechOut()
+{
+	sound->play2D("Sound//getOut.ogg", false);
+}
+
+void Sound::MechOnHit()
+{
+	sound->play2D("Sound//onHit.ogg", false);
+}

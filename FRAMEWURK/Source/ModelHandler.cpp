@@ -183,19 +183,19 @@ void ModelHandler::Init() //Anything that moves in the game
 		m_enemyList.push_back(Evil);
 	}
 
-	m_enemyList[0]->SetDelay(0.4);
+	m_enemyList[0]->SetDelay(0.3);
 	m_enemyList[0]->SetPos(1184,-512);
 
-	m_enemyList[1]->SetDelay(0.4);
+	m_enemyList[1]->SetDelay(0.3);
 	m_enemyList[1]->SetPos(1248,-1216);
 
-	m_enemyList[2]->SetDelay(0.3);
+	m_enemyList[2]->SetDelay(0.2);
 	m_enemyList[2]->SetPos(2272,-1216);
 
-	m_enemyList[3]->SetDelay(0.3);
+	m_enemyList[3]->SetDelay(0.2);
 	m_enemyList[3]->SetPos(3008,-576);
 
-	m_enemyList[4]->SetDelay(0.3);
+	m_enemyList[4]->SetDelay(0.2);
 	m_enemyList[4]->SetPos(1888,-448);
 
 	Friend = new EnemyFriend();
