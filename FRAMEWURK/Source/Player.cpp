@@ -21,7 +21,8 @@ Player::Player(std::string name)
 	levelGoal(false),
 	hiding(false),
 	character(1),
-	isDead(false)
+	isDead(false),
+	haveEvent(false)
 {
 	this->m_name = name;
 }
@@ -167,11 +168,11 @@ void Player::update(double dt, World* currentWorld, int currentRoom, ModelHandle
 	}
 	else	if(m_currFear > 50)
 	{
-		m_movementDelay = 0.1;
+		m_movementDelay = 0.09;
 	}
 	else
 	{
-		m_movementDelay = 0.08; // fer weng jew
+		m_movementDelay = 0.07; // fer weng jew
 	}
 	getPassiveEffect(this->m_playerInventory.getItem(2)); //Slot 2 = Equipment
 	
@@ -815,17 +816,21 @@ void Player::Interact(double dt, World* currentWorld, std::vector<std::vector<in
 			if(Message2 == false)
 			{
 				Message2 = true;
+				theModel->getGhost()->active = true;
 				theModel->getTextBox()->inText = true;
 				theModel->getTextBox()->setParagraph(8);
 			}
 		}
 		if(m_playerPos.x == Level1Obj4X && m_playerPos.y == Level1Obj4Y)
 		{
-			if(Objective4 == false)
+			if(Objective3 == true)
 			{
-				Objective4 = true;
-				theModel->getTextBox()->inText = true;
-				theModel->getTextBox()->setParagraph(9);
+				if(Objective4 == false)
+				{
+					Objective4 = true;
+					theModel->getTextBox()->inText = true;
+					theModel->getTextBox()->setParagraph(9);
+				}
 			}
 		}
 		if(m_playerPos.x == Level1Obj5X && m_playerPos.y == Level1Obj5Y)

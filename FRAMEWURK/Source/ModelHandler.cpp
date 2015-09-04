@@ -367,6 +367,7 @@ bool ModelHandler::InitObjects()
 	object = new GameObject("Enemy Dasher", TYPE_ENEMY, Vector3(Dash->GetPos_x(),Dash->GetPos_y(),0.f)); //ID = 16
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Dasher Animation",2,6,32.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_dasher.tga");    //Current State 
+	object->isVisible = true;
 	m_objectList.push_back(object);
 	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_DASHER]->getMesh());
 	if(enemyAnim)
@@ -378,6 +379,7 @@ bool ModelHandler::InitObjects()
 	object = new GameObject("Enemy Ghost", TYPE_ENEMY, Vector3(Ghost->GetPos_x(),Ghost->GetPos_y(),0.f)); //ID = 17
 	object->addMesh(MeshBuilder::GenerateSpriteAnimation("Ghost Animation",2,6,32.f,48.f));
 	object->getMesh()->textureArray[0] = LoadTGA("Images//Character//char_boy.tga");    //Current State 
+	object->isVisible = true;
 	m_objectList.push_back(object);
 	enemyAnim = dynamic_cast<SpriteAnimation*>(m_objectList[OBJ_GHOST]->getMesh());
 	if(enemyAnim)

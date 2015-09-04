@@ -66,6 +66,14 @@ public:
 
 	EnemyFriend* getFriend();
 	EnemyFather* getFather();
+	EnemyDasher* getDash()
+	{
+		return this->Dash;
+	}
+	EnemyGhost* getGhost()
+	{
+		return this->Ghost;
+	}
 
 	std::vector<Enemy*> m_enemyList;
 

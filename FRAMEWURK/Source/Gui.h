@@ -7,6 +7,16 @@
 #include "MeshBuilder.h"
 #include "Vector3.h"
 
+enum GUI_TYPE
+{
+	GUI_ITEMBORDER,
+	GUI_FEARBORDER,
+	GUI_FEAR,
+	GUI_SANITY,
+	GUI_WRONG,
+	GUI_EVENT
+};
+
 class Gui
 {
 public:
